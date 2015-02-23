@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:signals="org.osflash.signals.*"
+		  width="100%" height="100%" implements="org.robotlegs.utilities.modular.core.IModule">
+	<fx:Declarations>
+		<signals:Signal id="okClicked"/>
+		<signals:Signal id="registerClicked"/>
+	</fx:Declarations>
+		
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IVisualElementContainer;
+			
+			import org.robotlegs.core.IInjector;
+			import org.robotlegs.utilities.modular.core.IModuleContext;
+
+			
+			protected var context:IModuleContext;
+
+			[Inject]
+			public function set parentInjector(value:IInjector):void
+			{
+				context = new StandardAuthenticationContext(this,value);
+			}
+			
+			public function dispose():void
+			{
+				if(parent && parent.contains(this))
+					IVisualElementContainer(parent).removeElement(this);
+				context.dispose();
+				context = null;
+			}
+			
+			protected function btnOK_clickHandler(event:MouseEvent):void
+			{
+				okClicked.dispatch();
+				
+			}
+			
+			protected function btnRegister_clickHandler(event:MouseEvent):void
+			{
+				registerClicked.dispatch();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group horizontalCenter="0" verticalCenter="0">
+		<s:layout>
+			<s:FormLayout/>
+		</s:layout>
+		<s:FormItem label="User Name" textAlign="right">
+			<s:TextInput id="txtUserName" textAlign="left"/>	
+		</s:FormItem>
+		<s:FormItem label="Password" textAlign="right">
+			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" />	
+		</s:FormItem>
+		<s:FormItem  width="100%">
+			<s:Group>
+				<s:layout>
+					<s:HorizontalLayout />
+				</s:layout>
+
+			<s:Button id="btnOK" label="OK" click="btnOK_clickHandler(event)"/>
+			<s:Button id="btnRegister" label="Register"
+					  click="btnRegister_clickHandler(event)"/>
+			</s:Group>
+		</s:FormItem>
+	</s:Group>
+</s:Module>

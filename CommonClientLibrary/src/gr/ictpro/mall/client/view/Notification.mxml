@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+					  xmlns:s="library://ns.adobe.com/flex/spark"
+					  xmlns:fxg="assets.fxg.*"
+					  height="45" backgroundColor="#FFFFFF">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.events.ResizeEvent;
+			import mx.states.OverrideBase;
+			[Bindable]
+			public var message:String = "";
+			
+			protected function closeHandler(event:MouseEvent):void
+			{
+				close();
+			}
+			
+			override public function open(owner:DisplayObjectContainer, modal:Boolean=false):void
+			{
+				super.open(owner, modal);
+				this.width = owner.width;
+				owner.addEventListener(ResizeEvent.RESIZE, handleResize);
+				
+			}
+			
+			private function handleResize(event:ResizeEvent) : void
+			{
+				this.width = owner.width;
+			}
+			
+		]]>
+	</fx:Script>
+		
+	<s:Group >
+		<s:layout>
+			<s:HorizontalLayout gap="10"/>
+		</s:layout>
+		<s:Group left="0" top="0">
+			<s:layout>
+				<s:HorizontalLayout paddingBottom="9" paddingTop="9" paddingLeft="5" paddingRight="5"/>
+			</s:layout>
+			<fxg:exclamation width="27" height="27"/>
+		</s:Group>
+		<s:Label color="#FF0000" height="45" right="45" verticalAlign="middle" text="{message}"/>
+			
+	</s:Group>
+	<s:Group right="0" top="0" width="45" click="closeHandler(event)">
+		<s:layout>
+			<s:HorizontalLayout paddingBottom="9" paddingTop="9" paddingLeft="5" paddingRight="5"/>
+		</s:layout>
+		<fxg:check height="27" width="35"/>
+				   
+	</s:Group>
+</s:SkinnablePopUpContainer>

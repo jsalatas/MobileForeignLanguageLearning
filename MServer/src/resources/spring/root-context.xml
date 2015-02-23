@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<!-- Load properties files -->
+	<import resource="classpath:/resources/spring/properties-loader.xml" />
+
+	<!-- Data Access Configuration -->
+	<import resource="classpath:/resources/spring/beans.xml" />
+
+	<!-- Beans Configuration -->
+	<import resource="classpath:/resources/spring/data-access.xml" />
+
+	<!-- Security Configuration -->
+	<import resource="classpath:/resources/spring/security.xml" />
+
+	<!-- Mail Configuration -->
+	<import resource="classpath:/resources/spring/mail.xml" />
+
+	<!-- Flex Configuration -->
+	<import resource="classpath:/resources/spring/flex.xml"/>
+
+	<!-- Authentication Providers -->
+	<import resource="classpath:/resources/spring/authentication-providers.xml"/>
+	
+	<!-- Registration Providers -->
+	<import resource="classpath:/resources/spring/registration-providers.xml"/>
+			
+</beans>

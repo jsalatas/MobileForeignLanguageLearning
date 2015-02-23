@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="gr.ictpro.mall.client.model.Settings"/>
+    <classEntry path="gr.ictpro.mall.client.controller.SavePropertyCommand"/>
+    <classEntry path="gr.ictpro.mall.client.controller.InitializeCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.SavePropertySignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.InitializeSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.GetServerNameSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ShowAuthenticationSignal"/>
+    <classEntry path="gr.ictpro.mall.client.view.GetServerNameView"/>
+    <classEntry path="gr.ictpro.mall.client.view.ShellMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.ShellView"/>
+    <classEntry path="gr.ictpro.mall.client.view.GetServerNameMediator"/>
+    <classEntry path="gr.ictpro.mall.client.model.AuthenticationDetails"/>
+    <classEntry path="gr.ictpro.mall.client.service.AuthenticationProviders"/>
+    <classEntry path="gr.ictpro.mall.client.model.Channel"/>
+    <classEntry path="gr.ictpro.mall.client.service.ExternalModuleLoader"/>
+    <classEntry path="gr.ictpro.mall.client.model.AuthenticationProvider"/>
+    <classEntry path="gr.ictpro.mall.client.signal.AddViewSignal"/>
+    <classEntry path="gr.ictpro.mall.client.service.RemoteObjectService"/>
+    <classEntry path="gr.ictpro.mall.client.signal.LoginSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.LoginCommand"/>
+    <classEntry path="gr.ictpro.mall.client.model.User"/>
+    <classEntry path="gr.ictpro.mall.client.signal.LoginFailedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.LoginSuccessSignal"/>
+    <classEntry path="gr.ictpro.mall.client.ClientContext"/>
+    <classEntry path="gr.ictpro.mall.client.view.Notification"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ServerConnectErrorSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ShowRegistrationSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.ShowRegistrationCommand"/>
+    <classEntry path="gr.ictpro.mall.client.model.Modules"/>
+    <classEntry path="gr.ictpro.mall.client.model.RegistrationDetails"/>
+    <classEntry path="gr.ictpro.mall.client.signal.RegisterSuccessSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.RegisterFailedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.RegisterSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.RegisterCommand"/>
+    <classEntry path="gr.ictpro.mall.client.service.MessagingService"/>
+    <classEntry path="gr.ictpro.mall.client.model.ServerMessage"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ServerMessageReceivedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ShowMainViewSignal"/>
+    <classEntry path="gr.ictpro.mall.client.view.MainView"/>
+    <classEntry path="gr.ictpro.mall.client.view.MainViewMediator"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

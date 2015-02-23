@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services-config>
+	<services>
+		<default-channels>
+			<channel ref="my-secure-amf" /> 
+		</default-channels>
+ 	</services>
+
+	<channels>
+		<channel-definition id="my-secure-amf" class="mx.messaging.channels.SecureAMFChannel">
+			<endpoint url="https://{server.name}:{server.port}/{context.root}/messagebroker/amfsecure"
+				class="flex.messaging.endpoints.SecureAMFEndpoint" />
+			<properties>
+				<add-no-cache-headers>false</add-no-cache-headers>
+			</properties>
+		</channel-definition>
+		<channel-definition id="my-secure-polling-amf" class="mx.messaging.channels.SecureAMFChannel">
+			<endpoint url="http://{server.name}:{server.port}/{context.root}/messagebroker/amfsecurepolling"
+				class="flex.messaging.endpoints.AMFEndpoint" />
+			<properties>
+				<polling-enabled>true</polling-enabled>
+				<polling-interval-seconds>4</polling-interval-seconds>
+			</properties>
+		</channel-definition>
+	</channels>
+
+	<logging>
+		<target class="org.springframework.flex.core.CommonsLoggingTarget" level="DEBUG" />
+	</logging>
+
+	<system>
+		<redeploy>
+			<enabled>false</enabled>
+		</redeploy>
+	</system>
+<security>
+     <security-constraint  id="loggedin">
+     	<roles> 
+                <role>Admin</role> 
+                <role>Teacher</role> 
+                <role>Student</role> 
+                <role>Parent</role> 
+        </roles>
+        </security-constraint> 
+</security>	
+</services-config>

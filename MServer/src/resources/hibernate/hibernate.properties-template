@@ -1,0 +1,7 @@
+hibernate.connection.driver_class=
+hibernate.connection.url=
+hibernate.default_schema=
+hibernate.default_catalog=
+hibernate.connection.username=
+hibernate.connection.password=
+hibernate.dialect=

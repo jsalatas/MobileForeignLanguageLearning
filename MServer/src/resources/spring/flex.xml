@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:flex="http://www.springframework.org/schema/flex" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+        http://www.springframework.org/schema/flex http://www.springframework.org/schema/flex/spring-flex-1.5.xsd">
+
+	<flex:message-broker services-config-path="classpath:/resources/flex/services-config.xml">
+		<flex:remoting-service default-channels="my-secure-amf" />
+		<flex:message-service default-channels="my-secure-polling-amf" />
+ 		<flex:secured />
+	</flex:message-broker>
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" >
+		<property name="rolePrefix" value="" />
+	</bean>
+	
+	<bean id="accessDecisionManager" class ="org.springframework.security.access.vote.AffirmativeBased">
+	    <property name="decisionVoters" ref="roleVoter"></property>
+	    
+	</bean>
+	<bean id="userRemoteService" class="gr.ictpro.mall.flex.UserRemoteService">
+		<property name="userService" ref="userService"></property>
+		<property name="profileService" ref="profileService"></property>
+		<flex:remoting-destination />
+		<!-- 
+		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
+			<security:protect access="Admin" method="test" />
+		</security:intercept-methods>
+		 -->
+	</bean>
+	
+	<bean id="authenticationRemoteService" class="gr.ictpro.mall.flex.AuthenticationRemoteService">
+		<property name="userService" ref="userService"></property>
+		<property name="roleService" ref="roleService"></property>
+		<flex:remoting-destination />
+	</bean>
+
+	    <flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />
+			    
+	
+</beans>

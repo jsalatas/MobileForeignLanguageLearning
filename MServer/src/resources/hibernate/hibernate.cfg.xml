@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">${connection.driver_class}</property>
+		<property name="hibernate.connection.url">${connection.url}</property>
+		<property name="hibernate.connection.username">${connection.username}</property>
+		<property name="hibernate.connection.password">${connection.password"}</property>
+		<property name="hibernate.default_schema">${default_schema}</property>
+		<property name="hibernate.dialect">${dialect}</property>
+	</session-factory>
+</hibernate-configuration>

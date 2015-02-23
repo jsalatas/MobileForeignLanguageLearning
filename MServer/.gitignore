@@ -1,0 +1,4 @@
+src/resources/hibernate/hibernate.properties
+/build
+/target
+.settings

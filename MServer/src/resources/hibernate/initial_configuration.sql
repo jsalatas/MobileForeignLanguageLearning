@@ -1,0 +1,16 @@
+INSERT IGNORE INTO `config` VALUES (1,'server.url','https://server_url:8443');
+INSERT IGNORE INTO `config` VALUES (2,'mail.host','smtp.example.com');
+INSERT IGNORE INTO `config` VALUES (3,'mail.port','000');
+INSERT IGNORE INTO `config` VALUES (4,'mail.username','user@example.com');
+INSERT IGNORE INTO `config` VALUES (5,'mail.password','password');
+INSERT IGNORE INTO `config` VALUES (6,'mail.transport.protocol','smtp');
+INSERT IGNORE INTO `config` VALUES (7,'mail.smtp.auth','true');
+INSERT IGNORE INTO `config` VALUES (8,'mail.smtp.starttls.enable','true');
+INSERT IGNORE INTO `config` VALUES (9,'mail.debug','false');
+INSERT IGNORE INTO `config` VALUES (10,'server.admin','admin@example.com');
+INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
+INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
+INSERT IGNORE INTO `role` (`role`) VALUES ('Student');
+INSERT IGNORE INTO `role` (`role`) VALUES ('Parent');
+INSERT IGNORE INTO `user` (`username`, `email`, `password`, `enabled`) VALUES ('admin', 'admin@example.com', '$2a$10$AtT/8iMJDG/M3Tsakn38tuKRO4AxzEFi/22qDOUO9Ay3W6RhI1702', 1);
+INSERT IGNORE INTO `user_role` (`user_id`, `role_id`) SELECT `user`.`id` as `user_id`, `role`.`id` as `role_id` FROM `user`, `role` WHERE `user`.`username` = 'admin'  AND `role`.`role` = 'Admin';
