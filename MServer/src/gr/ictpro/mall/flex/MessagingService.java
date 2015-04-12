@@ -7,9 +7,6 @@ import java.util.Date;
 
 import flex.messaging.MessageBroker;
 import flex.messaging.messages.AsyncMessage;
-import flex.messaging.messages.Message;
-import flex.messaging.services.MessageService;
-import flex.messaging.services.ServiceAdapter;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>

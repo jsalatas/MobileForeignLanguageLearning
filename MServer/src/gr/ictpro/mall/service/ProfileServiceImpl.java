@@ -5,7 +5,6 @@ package gr.ictpro.mall.service;
 
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.ProfileDAOImpl;
-import gr.ictpro.mall.model.UserDAOImpl;
 
 import java.util.List;
 

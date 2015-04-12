@@ -30,7 +30,6 @@ package gr.ictpro.mall.client.model
 			return this._username;
 		}
 
-		[Bindable]
 		public function get fullname():String
 		{
 			return this._fullname;

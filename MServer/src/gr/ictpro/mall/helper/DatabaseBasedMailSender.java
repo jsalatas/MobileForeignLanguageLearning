@@ -3,10 +3,8 @@
  */
 package gr.ictpro.mall.helper;
 
-import java.util.List;
 import java.util.Properties;
 
-import gr.ictpro.mall.model.Config;
 import gr.ictpro.mall.service.ConfigService;
 
 import org.springframework.beans.factory.annotation.Autowired;
