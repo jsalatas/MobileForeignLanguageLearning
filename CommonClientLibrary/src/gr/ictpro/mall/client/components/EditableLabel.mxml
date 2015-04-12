@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 addedToStage="initializeHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.managers.IFocusManagerComponent;
+			
+			import spark.components.Label;
+			import spark.components.TextInput;
+			
+			private var textInputClicked:Boolean = false;
+			private var originalText:String ="";
+			
+			
+			[Bindable]
+			public function get text():String
+			{
+				if(currentState == "view") {
+					return label.text;
+				} else {
+					return textinput.text;
+				}
+			}
+			
+			public function set text(text:String):void
+			{
+				if(currentState == "view") {
+					label.text = text;
+					originalText = text;
+				} else {
+					textinput.text = text;
+				}
+			}
+			
+			protected function labelClickedHandler(event:MouseEvent):void
+			{
+				textInputClicked = true;
+				var txt:String = label.text;
+				originalText = txt;
+				currentState = "edit";
+				textinput.text = txt;
+				textinput.selectAll();
+				textinput.setFocus();
+				
+			}
+			
+			protected function lostFocus(event:Event):void
+			{
+				textInputClicked = false;
+				
+				var txt:String = textinput.text;
+				currentState = "view";
+				label.text = txt;
+				
+			}
+			
+			protected function initializeHandler(event:Event):void
+			{
+				stage.addEventListener(MouseEvent.CLICK, stageClickedHandler);
+			}
+			
+			private function stageClickedHandler(event:Event):void
+			{
+				var ComponentWithFocus : IFocusManagerComponent= focusManager.getFocus();
+				if(!textInputClicked && currentState == "edit") {
+					lostFocus(event); 
+				}
+				textInputClicked = false;
+			}
+			
+			protected function textInputClickedHandler(event:MouseEvent):void
+			{
+				textInputClicked = true;
+			}
+			
+			protected function textInputKeyUpHandler(event:KeyboardEvent):void
+			{
+				if(event.keyCode==Keyboard.ENTER) {
+					lostFocus(event);
+				} else if(event.keyCode==Keyboard.ESCAPE){
+					textinput.text = originalText;
+					lostFocus(event);
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<mx:State name="view"/>
+		<mx:State name="edit"/>
+	</s:states>
+	<fx:Declarations>
+	</fx:Declarations>
+	<s:Label id="label" includeIn="view" left="0" right="0" top="0" bottom="0"
+			 click="labelClickedHandler(event)" text="EditableLabel" textAlign="left"
+			 verticalAlign="middle"/>
+	<s:TextInput id="textinput" includeIn="edit" left="0" right="0" top="0" bottom="0"
+				 click="textInputClickedHandler(event)" focusOut="lostFocus(event)"
+				 keyUp="textInputKeyUpHandler(event)"/>
+	
+</s:Group>

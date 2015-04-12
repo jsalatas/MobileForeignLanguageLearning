@@ -41,6 +41,7 @@
     <classEntry path="gr.ictpro.mall.client.signal.ShowMainViewSignal"/>
     <classEntry path="gr.ictpro.mall.client.view.MainView"/>
     <classEntry path="gr.ictpro.mall.client.view.MainViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.EditableLabel"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
