@@ -2,6 +2,8 @@ package gr.ictpro.mall.model;
 
 // Generated Feb 16, 2015 11:39:42 AM by Hibernate Tools 4.0.0
 
+import gr.ictpro.mall.model.hibernate.User;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.apache.commons.codec.binary.Base64;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -22,16 +26,21 @@ public class Profile implements java.io.Serializable {
 
     private int userId;
     private User user;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String photo;
 
     public Profile() {
     }
 
-    public Profile(User user, String firstName, String lastName) {
+    public Profile(User user, String name) {
 	this.user = user;
-	this.firstName = firstName;
-	this.lastName = lastName;
+	this.name = name;
+    }
+
+    public Profile(User user, String name, byte[] photo) {
+	this.user = user;
+	this.name = name;
+	this.photo = Base64.encodeBase64String(photo);
     }
 
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "user"))
@@ -56,22 +65,21 @@ public class Profile implements java.io.Serializable {
 	this.user = user;
     }
 
-    @Column(name = "first_name", nullable = false, length = 60)
-    public String getFirstName() {
-	return this.firstName;
+    @Column(name = "name", nullable = false, length = 100)
+    public String getName() {
+	return this.name;
     }
 
-    public void setFirstName(String firstName) {
-	this.firstName = firstName;
+    public void setName(String name) {
+	this.name = name;
+    }
+    
+    @Column(name = "photo")
+    public byte[] getPhoto() {
+	return Base64.decodeBase64(this.photo);
     }
 
-    @Column(name = "last_name", nullable = false, length = 60)
-    public String getLastName() {
-	return this.lastName;
+    public void setPhoto(byte[] photo) {
+	this.photo = Base64.encodeBase64String(photo);
     }
-
-    public void setLastName(String lastName) {
-	this.lastName = lastName;
-    }
-
 }
