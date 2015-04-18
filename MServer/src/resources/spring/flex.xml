@@ -16,11 +16,8 @@
 	
 	<bean id="accessDecisionManager" class ="org.springframework.security.access.vote.AffirmativeBased">
 	    <property name="decisionVoters" ref="roleVoter"></property>
-	    
 	</bean>
 	<bean id="userRemoteService" class="gr.ictpro.mall.flex.UserRemoteService">
-		<property name="userService" ref="userService"></property>
-		<property name="profileService" ref="profileService"></property>
 		<flex:remoting-destination />
 		<!-- 
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
