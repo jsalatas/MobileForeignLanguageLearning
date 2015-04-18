@@ -2,7 +2,7 @@ package gr.ictpro.mall.model;
 
 // Generated Feb 16, 2015 11:39:42 AM by Hibernate Tools 4.0.0
 
-import gr.ictpro.mall.model.hibernate.User;
+import gr.ictpro.mall.model.User;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

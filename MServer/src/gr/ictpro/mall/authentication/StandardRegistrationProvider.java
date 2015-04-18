@@ -23,8 +23,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
     public User register(ASObject registrationDetails) {
 
 	String userName = (String) registrationDetails.get("userName");
-	String firstName = (String) registrationDetails.get("firstName");
-	String lastName = (String) registrationDetails.get("lastName");
+	String name = (String) registrationDetails.get("name");
 	String password = passwordEncoder.encode((String) registrationDetails.get("password"));
 	String email = (String) registrationDetails.get("email");
 	Integer roleId = (Integer) registrationDetails.get("role");
@@ -39,7 +38,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	User u = new User(userName, password, email, true);
 	u.setRoles(r);
 	userService.create(u);
-	Profile p = new Profile(u, firstName, lastName);
+	Profile p = new Profile(u, name);
 	profileService.create(p);
 	u.setProfile(p);
 	return u;
