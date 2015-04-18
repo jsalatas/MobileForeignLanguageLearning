@@ -28,6 +28,6 @@
 		<s:Rect width="100%" height="100%">
 			<s:fill><mx:SolidColor color="0xAAAAAA" /></s:fill>
 		</s:Rect>
-		<s:Label x="10" y="10" text="{user.fullname}" color="0xFFFFFF"/>
+		<s:Label x="10" y="10" text="{user.name}" color="0xFFFFFF"/>
 	</s:Group>
 </s:Module>

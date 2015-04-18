@@ -5,13 +5,13 @@ package gr.ictpro.mall.client.model
 		private var _id:int;
 		private var _username:String;
 		private var _email:String;
-		private var _fullname:String;
+		private var _name:String;
 		
-		public function User(id:int, username:String, email:String, fullname:String)
+		public function User(id:int, username:String, email:String, name:String)
 		{
 			this._id = id;
 			this._username = username;
-			this._fullname = fullname;
+			this._name = name;
 			this._email = email;
 		}
 		
@@ -30,9 +30,9 @@ package gr.ictpro.mall.client.model
 			return this._username;
 		}
 
-		public function get fullname():String
+		public function get name():String
 		{
-			return this._fullname;
+			return this._name;
 		}
 	}
 }

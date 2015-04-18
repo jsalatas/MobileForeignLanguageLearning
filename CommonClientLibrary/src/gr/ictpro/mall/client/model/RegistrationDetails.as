@@ -12,19 +12,17 @@ package gr.ictpro.mall.client.model
 	{
 
 		private var _userName:String;
-		private var _firstName:String;
-		private var _lastName:String;
+		private var _name:String;
 		private var _password:String;
 		private var _email:String;
 		private var _role:int;
 		private var _registrationMethod:String;
 		
-		public function RegistrationDetails(registrationMethod:String, userName:String, firstName:String, lastName:String, password:String, email:String, role:int)
+		public function RegistrationDetails(registrationMethod:String, userName:String, name:String, password:String, email:String, role:int)
 		{
 			this._registrationMethod = registrationMethod;
 			this._userName = userName;
-			this._firstName = firstName;
-			this._lastName = lastName;
+			this._name = name;
 			this._password = password;
 			this._email = email;
 			this._role = role;
@@ -34,13 +32,9 @@ package gr.ictpro.mall.client.model
 		{
 			return this._userName;
 		}
-		public function get firstName(): String
+		public function get name(): String
 		{
-			return this._firstName;
-		}
-		public function get lastName(): String
-		{
-			return this._lastName;
+			return this._name;
 		}
 		public function get password(): String
 		{

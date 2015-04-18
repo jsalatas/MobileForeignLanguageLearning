@@ -70,11 +70,10 @@ package gr.ictpro.mall.client.authentication
 				passwordMismatchPopup.open(view, true);
 			} else {
 				var userName:String = view.txtUserName.text;
-				var firstName:String = view.txtFirstName.text;
-				var lastName:String = view.txtLastName.text;
+				var name:String = view.txtName.text;
 				var email:String = view.txtEmail.text;
 				var role:int = view.role.selectedItem.id;
-				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, firstName, lastName, password, email, role));
+				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role));
 				
 				//TODO
 			}

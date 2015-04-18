@@ -58,13 +58,13 @@ package gr.ictpro.mall.client.controller
 			} else {
 				messagingService.init();
 				loginSuccess.dispatch();
-				var fullname:String;
+				var name:String;
 				if(o.profile == null) {
-					fullname = o.username;
+					name = o.username;
 				} else {
-					fullname = o.profile.firstName + " " + o.profile.lastName;
+					name = o.profile.name;
 				}
-				showMainView.dispatch(new User(o.id, o.username, o.email, fullname));
+				showMainView.dispatch(new User(o.id, o.username, o.email, name));
 			}
 		}
 		private function handleError(event:FaultEvent):void

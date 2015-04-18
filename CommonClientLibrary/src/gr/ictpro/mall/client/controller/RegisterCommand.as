@@ -38,8 +38,7 @@ package gr.ictpro.mall.client.controller
 		{
 			var arguments:Object = new Object();
 			arguments.userName=registrationDetails.userName;
-			arguments.firstName=registrationDetails.firstName;
-			arguments.lastName=registrationDetails.lastName;
+			arguments.name=registrationDetails.name;
 			arguments.password=registrationDetails.password;
 			arguments.email=registrationDetails.email;
 			arguments.role=registrationDetails.role;

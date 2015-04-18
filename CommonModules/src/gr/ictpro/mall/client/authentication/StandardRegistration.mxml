@@ -56,11 +56,8 @@
 		<s:layout>
 			<s:FormLayout/>
 		</s:layout>
-		<s:FormItem label="First Name" textAlign="right">
-			<s:TextInput id="txtFirstName" textAlign="left"/>
-		</s:FormItem>
-		<s:FormItem label="Last Name" textAlign="right">
-			<s:TextInput id="txtLastName" textAlign="left"/>
+		<s:FormItem label="Name" textAlign="right">
+			<s:TextInput id="txtName" textAlign="left"/>
 		</s:FormItem>
 		<s:FormItem label="Email" textAlign="right">
 			<s:TextInput id="txtEmail" textAlign="left"/>	
