@@ -59,12 +59,15 @@ package gr.ictpro.mall.client.controller
 				messagingService.init();
 				loginSuccess.dispatch();
 				var name:String;
+				var photo:String;
 				if(o.profile == null) {
 					name = o.username;
+					photo = null;
 				} else {
 					name = o.profile.name;
+					photo = o.photo;
 				}
-				showMainView.dispatch(new User(o.id, o.username, o.email, name));
+				showMainView.dispatch(new User(o.id, o.username, o.email, name, photo));
 			}
 		}
 		private function handleError(event:FaultEvent):void

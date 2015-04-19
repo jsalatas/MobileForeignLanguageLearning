@@ -20,11 +20,13 @@
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="3" linkType="1" path="/CommonClientLibrary/bin/CommonClientLibrary.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mobile/mobilecomponents.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/themes/Mobile/mobile.swc" useDefaultLinkType="false"/>
     </libraryPath>
-    <sourceAttachmentPath/>
+    <sourceAttachmentPath>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/as3-signals-v0.9-BETA.swc" sourcepath="C:/actionscript/as3-signals-master/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-modular-signals.swc" sourcepath="C:/actionscript/robotlegs-modular-signals-master/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-utilities-Modular-v0.5.3.swc" sourcepath="C:/actionscript/robotlegs-utilities-Modular-master/src" useDefaultLinkType="false"/>
+    </sourceAttachmentPath>
   </compiler>
-  <theme themeIsDefault="false" themeIsSDK="false" themeLocation="${EXTERNAL_THEME_DIR}/Mobile"/>
   <applications>
     <application path="CommonClient.mxml">
       <airExcludes/>

@@ -11,7 +11,11 @@ package gr.ictpro.mall.client.view
 		
 		override public function onRegister():void
 		{
-			//TODO:			
+			view.showMenuClickled.add(handleShowMenu);			
+		}
+		
+		private function handleShowMenu():void
+		{
 		}
 		
 		

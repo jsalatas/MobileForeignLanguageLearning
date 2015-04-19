@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	
+	import mx.core.mx_internal;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -50,13 +51,17 @@ package gr.ictpro.mall.client.controller
 		private function handleSuccess(event:ResultEvent):void
 		{
 			var o:Object = event.result;
-			// TODO: check if user is able to login? 
+			registerSuccess.dispatch();
 			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password));
 		}
 		
 		private function handleError(event:FaultEvent):void
 		{
-			serverConnectError.dispatch();			
+			if(event.fault.faultString.indexOf("org.hibernate.exception.ConstraintViolationException") > -1) {
+				registerFailed.dispatch();
+			} else {
+				serverConnectError.dispatch();
+			}
 		}
 	}
 }

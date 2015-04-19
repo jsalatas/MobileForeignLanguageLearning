@@ -9,7 +9,6 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.GetServerNameSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
-	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;

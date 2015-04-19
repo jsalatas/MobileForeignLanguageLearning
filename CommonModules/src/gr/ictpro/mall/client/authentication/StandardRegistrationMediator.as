@@ -3,10 +3,13 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
+	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.view.Notification;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -20,6 +23,12 @@ package gr.ictpro.mall.client.authentication
 		public var view:StandardRegistration;
 		
 		[Inject]
+		public var registrationFailed:RegisterFailedSignal;
+		
+		[Inject]
+		public var registrationSuccess:RegisterSuccessSignal;
+
+		[Inject]
 		public var channel:Channel;
 
 		[Inject]
@@ -28,6 +37,8 @@ package gr.ictpro.mall.client.authentication
 		override public function onRegister():void
 		{
 			view.okClicked.add(handleRegistration);
+			registrationFailed.add(handleRegisterFailed);
+			registrationSuccess.add(handleRegisterSuccess);
 			getRoles();
 		}		
 
@@ -41,18 +52,19 @@ package gr.ictpro.mall.client.authentication
 		{
 			//view.roles = ArrayCollection(event.result);
 			var res:ArrayCollection = ArrayCollection(event.result);
-			var studentRole:int = 0;
-			view.roles = new ArrayCollection();
+			var studentRole:Object;
+			view.roles = new ArrayList();
 			for each (var role:Object in res) { 
 				var o:Object = new Object;
 				o.id = role.id;
-				o.role = role.role;
+				o.text = role.role;
+				o.image = null; 
 				if(role.role == "Student") {
-					studentRole = role.id;
+					studentRole = o;
 				}
 				view.roles.addItem(o);
 			}
-			view.role.selectedIndex = studentRole;
+			view.role.selected = studentRole;
 		}
 		
 		private function handleError(event:FaultEvent):void
@@ -66,21 +78,36 @@ package gr.ictpro.mall.client.authentication
 			if(password != confirmPassword) {
 				var passwordMismatchPopup:Notification = new Notification();
 				passwordMismatchPopup.message = "Passwords do not match.";
-				passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, passwordMismatchPopup_close);
+				//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 				passwordMismatchPopup.open(view, true);
 			} else {
 				var userName:String = view.txtUserName.text;
 				var name:String = view.txtName.text;
 				var email:String = view.txtEmail.text;
-				var role:int = view.role.selectedItem.id;
+				var role:int = view.role.selected.id;
 				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role));
 				
 				//TODO
 			}
 		}
 		
-		private function passwordMismatchPopup_close(evt:PopUpEvent):void
+//		private function popup_close(evt:PopUpEvent):void
+//		{
+//		}
+		
+		private function handleRegisterFailed():void 
 		{
+			var registerFailedPopup:Notification = new Notification();
+			registerFailedPopup.message = "Cannot register.";
+			//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
+			registerFailedPopup.open(view, true);
+		}
+
+		private function handleRegisterSuccess():void 
+		{
+			view.dispose();
+			registrationFailed.removeAll();
+			registrationSuccess.removeAll();
 		}
 	}
 }

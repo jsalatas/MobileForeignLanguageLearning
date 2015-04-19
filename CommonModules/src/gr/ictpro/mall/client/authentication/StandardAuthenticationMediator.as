@@ -59,13 +59,17 @@ package gr.ictpro.mall.client.authentication
 
 		private function handleRegistration():void
 		{
-			view.dispose();
+			disposeView();
 			showRegistration.dispatch(new RegistrationProvider(null));
 		}
 		
 		private function disposeView():void 
 		{
 			view.dispose();
+			loginSuccess.removeAll();
+			loginFailed.removeAll();
+			serverConnectError.removeAll();
+
 		}
 
 		private function showFailedPopup():void 

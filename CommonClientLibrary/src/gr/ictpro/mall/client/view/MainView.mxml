@@ -2,10 +2,9 @@
 <s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:signals="org.osflash.signals.*"
-		  width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx">
+		  width="100%" height="100%" >
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		
+		<signals:Signal id="showMenuClickled"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
@@ -22,12 +21,19 @@
 					IVisualElementContainer(parent).removeElement(this);
 			}
 
+			protected function showMenu(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
-	<s:Group bottom="0" width="100%" height="30">
+	<s:Group top="0" width="100%" height="32">
 		<s:Rect width="100%" height="100%">
-			<s:fill><mx:SolidColor color="0xAAAAAA" /></s:fill>
+			<s:fill><s:SolidColor color="0xAAAAAA" /></s:fill>
 		</s:Rect>
-		<s:Label x="10" y="10" text="{user.name}" color="0xFFFFFF"/>
+		<s:Image x ="2" source="{user.photo}" width="21" height="28" click="showMenu(event)"/>
+		<s:Label x="27" y="10" text="{user.name}" color="0xFFFFFF" click="showMenu(event)"/>
 	</s:Group>
 </s:Module>
