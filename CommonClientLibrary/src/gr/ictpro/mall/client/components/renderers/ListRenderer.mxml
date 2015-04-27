@@ -3,7 +3,6 @@
 				xmlns:local="gr.ictpro.mall.client.components.renderers.*"
 				iconField="image"
 				labelField="text"
-				messageField=""
 				iconHeight="20"
 				iconWidth="20"
 				iconScaleMode="letterbox"

@@ -8,15 +8,15 @@ package gr.ictpro.mall.client.components.renderers
 	import flash.net.URLRequest;
 	import flash.utils.Timer;
 	
-	import mx.controls.listClasses.*;
 	import mx.core.DPIClassification;
 	import mx.core.FlexGlobals;
 	import mx.core.mx_internal;
+	import mx.events.FlexEvent;
 	import mx.graphics.BitmapFillMode;
 	import mx.graphics.BitmapScaleMode;
-	import mx.styles.CSSStyleDeclaration;
 	import mx.utils.DensityUtil;
 	
+	import spark.components.LabelItemRenderer;
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.core.ContentCache;
 	import spark.core.DisplayObjectSharingMode;
@@ -54,7 +54,7 @@ package gr.ictpro.mall.client.components.renderers
 	 *  @productversion Flex 4.5
 	 */
 	[Style(name="verticalGap", type="Number", format="Length", inherit="no")]
-
+	
 	
 	/**
 	 *  The delay value before attempting to load the 
@@ -74,18 +74,6 @@ package gr.ictpro.mall.client.components.renderers
 	[Style(name="iconDelay", type="Number", format="Time", inherit="no")]
 	
 	/**
-	 *  Name of the CSS Style declaration to use for the styles for the
-	 *  message component.
-	 * 
-	 *  @default iconItemRendererMessageStyle
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	[Style(name="messageStyleName", type="String", inherit="no")]
-	
-	/**
 	 *  The IconItemRenderer class is a performant item 
 	 *  renderer optimized for mobile devices.  
 	 *  It displays four optional parts for each item in the 
@@ -96,16 +84,13 @@ package gr.ictpro.mall.client.components.renderers
 	 *      <code>iconFunction</code> property.</li>
 	 *    <li>A single-line text label next to the icon defined by the 
 	 *      <code>labelField</code> or <code>labelFunction</code> property.</li>
-	 *    <li>A multi-line message below the text label defined by the 
-	 *      <code>messageField</code> or <code>messageFunction</code> property.</li>
 	 *    <li>A decorator icon on the right defined by the 
 	 *      <code>decorator</code> property.</li>
 	 *  </ul>
 	 *
 	 *  <p>To apply CSS styles to the single-line text label, such as font size and color, 
 	 *  set the styles on the IconItemRenderer class. 
-	 *  To set styles on the multi-line message, use the <code>messageStyleNameM</code> style property. 
-	 *  The following example sets the text styles for both the text label and message:</p>
+	 *  The following example sets the text styles for the text label:</p>
 	 *
 	 *  <pre>
 	 *     &lt;fx:Style&gt;
@@ -123,7 +108,6 @@ package gr.ictpro.mall.client.components.renderers
 	 *             &lt;fx:Component&gt;
 	 *                 &lt;s:IconItemRenderer messageStyleName="myFontStyle" fontSize="25"
 	 *                     labelField="firstName"
-	 *                     messageField="lastName" 
 	 *                     decorator="&#64;Embed(source='assets/logo_small.jpg')"/&gt;
 	 *             &lt;/fx:Component&gt;
 	 *         &lt;/s:itemRenderer&gt;
@@ -156,13 +140,10 @@ package gr.ictpro.mall.client.components.renderers
 	 *    label=""
 	 *    labelField="null"
 	 *    labelFunction="null"
-	 *    messageField="null"
-	 *    messageFunction="null"
 	 * 
 	 *   <strong>Common Styles</strong>
 	 *    horizontalGap="8"
 	 *    iconDelay="500"
-	 *    messageStyleName="iconItemRendererMessageStyle"
 	 *    verticalGap="6"
 	 *  &gt;
 	 *  </pre>
@@ -175,10 +156,9 @@ package gr.ictpro.mall.client.components.renderers
 	 *  @includeExample examples/IconItemRendererExample.mxml -noswf
 	 *  
 	 *  @langversion 3.0
-	 *  @playerversion AIR 2.5
 	 *  @productversion Flex 4.5
 	 */
-	public class IconItemRenderer extends LabelItemRenderer 
+	public class IconItemRenderer extends spark.components.LabelItemRenderer
 		implements IGraphicElementContainer, ISharedDisplayObject
 	{
 		
@@ -193,6 +173,18 @@ package gr.ictpro.mall.client.components.renderers
 		 *  Static icon image cache.  This is the default for iconContentLoader.
 		 */
 		mx_internal static var _imageCache:ContentCache;
+		
+		
+		private var _topSeparatorColor:uint = 0xFFFFFF;
+		private var _topSeparatorAlpha:Number = .3;
+		private var _bottomSeparatorColor:uint = 0x000000;
+		private var _bottomSeparatorAlpha:Number = .3;
+		protected var isGroup:Boolean = false;
+		
+		private var groupItemAdjusted:Boolean = false;
+		private var defaultFontSize:Number = 0;
+		
+		private var defaultStyleableTextField:StyleableTextField = null; 
 		
 		//--------------------------------------------------------------------------
 		//
@@ -217,7 +209,7 @@ package gr.ictpro.mall.client.components.renderers
 				_imageCache.maxCacheEntries = 100;
 			}
 			
-			// set default messageDisplay width
+			// set default labelDisplay width
 			switch (applicationDPI)
 			{
 				case DPIClassification.DPI_320:
@@ -257,20 +249,6 @@ package gr.ictpro.mall.client.components.renderers
 		
 		/**
 		 *  @private
-		 *  Stores the text of the message component.  This is calculated in 
-		 *  commitProperties() based on messageField and messageFunction.
-		 * 
-		 *  <p>We can't just use messageDisplay.text because it may contain 
-		 *  a truncated value (Technically we don't truncate message's text 
-		 *  at the moment because it's multi-line text, but in the future 
-		 *  we may not do that, and this feels more consistent with 
-		 *  how we deal with labels, so we still keep this "extra"
-		 *  variable around even though technically it's not needed).</p>
-		 */
-		mx_internal var messageText:String = "";
-		
-		/**
-		 *  @private
 		 *  Since iconDisplay is a GraphicElement, we have to call its lifecycle methods 
 		 *  directly.
 		 */
@@ -306,34 +284,11 @@ package gr.ictpro.mall.client.components.renderers
 		 *  @private
 		 *  The width of the component on the previous layout manager 
 		 *  pass.  This gets set in updateDisplayList() and used in measure() on 
-		 *  the next layout pass.  This is so our "guessed width" in measure() 
-		 *  will be as accurate as possible since messageDisplay is multiline and 
-		 *  the messageDisplay height is dependent on the width.
+		 *  the next layout pass.  This is so our "guessed width" in measure(). 
 		 * 
 		 *  In the constructor, this is actually set based on the DPI.
 		 */
 		mx_internal var oldUnscaledWidth:Number;
-		
-		/**
-		 *  @private
-		 *  Since decoratorDisplay is a GraphicElement, we have to call its lifecycle methods 
-		 *  directly.
-		 */
-		private var decoratorNeedsValidateProperties:Boolean = false;
-		
-		/**
-		 *  @private
-		 *  Since decoratorDisplay is a GraphicElement, we have to call its lifecycle methods 
-		 *  directly.
-		 */
-		private var decoratorNeedsValidateSize:Boolean = false;
-		
-		/**
-		 *  @private
-		 *  Since decoratorDisplay is a GraphicElement, we have to call help assign 
-		 *  its display object
-		 */
-		private var decoratorNeedsDisplayObjectAssignment:Boolean = false;
 		
 		//--------------------------------------------------------------------------
 		//
@@ -350,7 +305,31 @@ package gr.ictpro.mall.client.components.renderers
 			
 			iconChanged = true;
 			labelChanged = true;
-			messageChanged = true;
+			
+			if(defaultStyleableTextField == null) {
+				defaultStyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
+				defaultStyleableTextField.styleName = this;
+				defaultFontSize = defaultStyleableTextField.getStyle("fontSize");
+			}
+			
+			if(value.hasOwnProperty("isGroup") && value.isGroup) {
+				isGroup = true;
+				labelDisplay.setStyle('fontSize', defaultFontSize + 2);
+				labelDisplay.setStyle('fontWeight', 'bold');
+				labelDisplay.commitStyles();
+				if(height != 0 && !groupItemAdjusted) {
+					height += 15;
+					groupItemAdjusted = true;
+				}
+			} else {
+				isGroup = false;
+				groupItemAdjusted = true;
+				labelDisplay.setStyle('fontSize', defaultFontSize);
+				labelDisplay.setStyle('fontWeight', 'normal');
+			}
+			
+			if (hasEventListener(FlexEvent.DATA_CHANGE))
+				dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
 			
 			invalidateProperties();
 		}
@@ -427,76 +406,6 @@ package gr.ictpro.mall.client.components.renderers
 			
 			if (iconDisplay)
 				iconDisplay.contentLoader = _iconContentLoader;
-		}
-		
-		//----------------------------------
-		//  decorator
-		//----------------------------------
-		
-		/**
-		 *  @private 
-		 */ 
-		private var _decorator:Object;
-		
-		/**
-		 *  @private 
-		 */ 
-		private var decoratorChanged:Boolean;
-		
-		/**
-		 *  @private
-		 *  The class to use when instantiating the decorator for IconItemRenderer.
-		 *  This class must extend spark.primitives.BitmapImage.
-		 *  This property was added for Design View so they can set this to a special
-		 *  subclass of BitmapImage that knows how to load and resolve resources in Design View.
-		 */
-		mx_internal var decoratorDisplayClass:Class = BitmapImage;
-		
-		/**
-		 *  The display object component used to 
-		 *  display the decorator for this item renderer.
-		 *
-		 *  @default null
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */ 
-		protected var decoratorDisplay:BitmapImage;
-		
-		/**
-		 *  The decorator icon that appears on the right side 
-		 *  of this item renderer.
-		 * 
-		 *  <p>The decorator icon ignores the <code>verticalAlign</code> style
-		 *  and is always centered vertically.</p>
-		 *
-		 *  <p>The decorator icon is expected to be an embedded asset.  There can
-		 *  be performance degradation if using external assets.</p>
-		 *
-		 *  @default "" 
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5   
-		 */
-		public function get decorator():Object
-		{
-			return _decorator;
-		}
-		
-		/**
-		 *  @private
-		 */ 
-		public function set decorator(value:Object):void
-		{
-			if (value == _decorator)
-				return;
-			
-			_decorator = value;
-			
-			decoratorChanged = true;
-			invalidateProperties();
 		}
 		
 		//----------------------------------
@@ -954,119 +863,6 @@ package gr.ictpro.mall.client.components.renderers
 		}
 		
 		//----------------------------------
-		//  messageField
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 */
-		private var _messageField:String;
-		
-		/**
-		 *  The text component used to 
-		 *  display the message data of the item renderer.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */
-		protected var messageDisplay:StyleableTextField;
-		
-		/**
-		 *  @private
-		 */
-		private var messageFieldOrFunctionChanged:Boolean;
-		
-		/**
-		 *  @private
-		 */
-		private var messageChanged:Boolean;
-		
-		/**
-		 *  The name of the field in the data items to display 
-		 *  as the message. 
-		 *  The <code>messageFunction</code> property overrides this property.
-		 *
-		 *  <p>Use the <code>messageStyleName</code> style to control the 
-		 *  appearance of the text.</p>
-		 *
-		 *  @default null
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */
-		public function get messageField():String
-		{
-			return _messageField;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set messageField(value:String):void
-		{
-			if (value == _messageField)
-				return;
-			
-			_messageField = value;
-			messageFieldOrFunctionChanged = true;
-			messageChanged = true;
-			
-			invalidateProperties();
-		}
-		
-		//----------------------------------
-		//  messageFunction
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 */
-		private var _messageFunction:Function;
-		
-		/**
-		 *  A user-supplied function to run on each item to determine its message.  
-		 *  The <code>messageFunction</code> property overrides 
-		 *  the <code>messageField</code> property.
-		 *
-		 *  <p>You can supply a <code>messageFunction</code> that finds the 
-		 *  appropriate fields and returns a displayable string. The 
-		 *  <code>messageFunction</code> is also good for handling formatting and 
-		 *  localization.</p>
-		 *
-		 *  <p>The message function takes a single argument which is the item in 
-		 *  the data provider and returns a String.</p>
-		 *  <pre>
-		 *  myMessageFunction(item:Object):String</pre>
-		 *
-		 *  @default null
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */
-		public function get messageFunction():Function
-		{
-			return _messageFunction;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set messageFunction(value:Function):void
-		{
-			if (value == _messageFunction)
-				return;
-			
-			_messageFunction = value;
-			messageFieldOrFunctionChanged = true;
-			messageChanged = true;
-			
-			invalidateProperties(); 
-		}
-		
-		//----------------------------------
 		//  redrawRequested
 		//----------------------------------
 		
@@ -1126,8 +922,6 @@ package gr.ictpro.mall.client.components.renderers
 			// just invalidate display list
 			if (element == iconDisplay)
 				iconNeedsDisplayObjectAssignment = true;
-			else if (element == decoratorDisplay)
-				decoratorNeedsDisplayObjectAssignment = true;
 			invalidateProperties();
 		}
 		
@@ -1150,8 +944,6 @@ package gr.ictpro.mall.client.components.renderers
 		{
 			if (element == iconDisplay)
 				iconNeedsValidateProperties = true;
-			else if (element == decoratorDisplay)
-				decoratorNeedsValidateProperties = true;
 			invalidateProperties();
 		}
 		
@@ -1174,8 +966,6 @@ package gr.ictpro.mall.client.components.renderers
 		{
 			if (element == iconDisplay)
 				iconNeedsValidateSize = true;
-			else if (element == decoratorDisplay)
-				decoratorNeedsValidateSize = true;
 			invalidateSize();
 		}
 		
@@ -1217,7 +1007,7 @@ package gr.ictpro.mall.client.components.renderers
 			
 			// create any children you need in here
 			
-			// iconDisplay, messageDisplay, and decoratorDisplay are created in 
+			// iconDisplay and decoratorDisplay are created in 
 			// commitProperties() since they are dependent on 
 			// other properties and we don't always create them
 			// labelText just uses labelElement to display its data
@@ -1226,65 +1016,9 @@ package gr.ictpro.mall.client.components.renderers
 		/**
 		 *  @private
 		 */
-		override public function styleChanged(styleName:String):void
-		{
-			var allStyles:Boolean = !styleName || styleName == "styleName";
-			
-			super.styleChanged(styleName);
-			
-			// if message styles may have changed, let's null out the old 
-			// value and notify messageDisplay
-			if (allStyles || styleName == "messageStyleName")
-			{
-				if (messageDisplay)
-				{
-					var messageStyleName:String = getStyle("messageStyleName");
-					if (messageStyleName)
-					{
-						var styleDecl:CSSStyleDeclaration =
-							styleManager.getMergedStyleDeclaration("." + messageStyleName);
-						
-						if (styleDecl)
-						{
-							messageDisplay.styleDeclaration = styleDecl;
-							messageDisplay.styleChanged("styleName");
-						}
-					}
-				}
-			}
-		}
-		
-		/**
-		 *  @private
-		 */
 		override protected function commitProperties():void
 		{
 			super.commitProperties();
-			
-			if (decoratorChanged)
-			{
-				decoratorChanged = false;
-				
-				// let's see if we need to create or remove it
-				if (decorator && !decoratorDisplay)
-				{
-					createDecoratorDisplay();
-				}
-				else if (!decorator && decoratorDisplay)
-				{
-					destroyDecoratorDisplay();
-				}
-				
-				// if we have a decorator display and decoratorChanged was 
-				// set to true, then we should make sure we're pointing to 
-				// the right decorator source to display.
-				if (decoratorDisplay)
-					decoratorDisplay.source = decorator;
-				
-				
-				invalidateSize();
-				invalidateDisplayList();
-			}
 			
 			if (iconFieldOrFunctionChanged)
 			{
@@ -1301,24 +1035,6 @@ package gr.ictpro.mall.client.components.renderers
 				else if (!(iconField || (iconFunction != null)) && iconDisplay)
 				{
 					destroyIconDisplay();
-				}
-				
-				invalidateSize();
-				invalidateDisplayList();
-			}
-			
-			if (messageFieldOrFunctionChanged)
-			{
-				messageFieldOrFunctionChanged = false;
-				
-				// let's see if we need to create or remove it
-				if ((messageField || (messageFunction != null)) && !messageDisplay)
-				{
-					createMessageDisplay();
-				}
-				else if (!(messageField || (messageFunction != null)) && messageDisplay)
-				{
-					destroyMessageDisplay();
 				}
 				
 				invalidateSize();
@@ -1353,38 +1069,6 @@ package gr.ictpro.mall.client.components.renderers
 					catch(e:Error)
 					{
 						setIconDisplaySource(null);
-					}
-				}
-			}
-			
-			if (messageChanged)
-			{
-				messageChanged = false;
-				
-				if (messageFunction != null)
-				{
-					messageText = messageFunction(data);
-					messageDisplay.text = messageText;
-				}
-				else if (messageField)
-				{
-					try
-					{
-						if (messageField in data && data[messageField] != null)
-						{
-							messageText = data[messageField];
-							messageDisplay.text = messageText;
-						}
-						else
-						{
-							messageText = "";
-							messageDisplay.text = messageText;
-						}
-					}
-					catch(e:Error)
-					{
-						messageText = "";
-						messageDisplay.text = messageText;
 					}
 				}
 			}
@@ -1451,12 +1135,6 @@ package gr.ictpro.mall.client.components.renderers
 				iconNeedsDisplayObjectAssignment = false;
 				assignDisplayObject(iconDisplay);
 			}
-			
-			if (decoratorNeedsDisplayObjectAssignment)
-			{
-				decoratorNeedsDisplayObjectAssignment = false;
-				assignDisplayObject(decoratorDisplay);
-			}
 		}
 		
 		/**
@@ -1475,12 +1153,6 @@ package gr.ictpro.mall.client.components.renderers
 					iconDisplay.validateProperties();
 			}
 			
-			if (decoratorNeedsValidateProperties)
-			{
-				decoratorNeedsValidateProperties = false;
-				if (decoratorDisplay)
-					decoratorDisplay.validateProperties();
-			}
 		}
 		
 		/**
@@ -1516,50 +1188,6 @@ package gr.ictpro.mall.client.components.renderers
 					bitmapImage.displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
 				}
 			}        
-		}
-		
-		/**
-		 *  @private
-		 *  Creates the <code>messageDisplay</code> component.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */ 
-		protected function createMessageDisplay():void
-		{
-			messageDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-			messageDisplay.styleName = this;
-			messageDisplay.editable = false;
-			messageDisplay.selectable = false;
-			messageDisplay.multiline = true;
-			messageDisplay.wordWrap = true;
-			
-			var messageStyleName:String = getStyle("messageStyleName");
-			if (messageStyleName)
-			{
-				var styleDecl:CSSStyleDeclaration =
-					styleManager.getMergedStyleDeclaration("." + messageStyleName);
-				
-				if (styleDecl)
-					messageDisplay.styleDeclaration = styleDecl;
-			}
-			
-			addChild(messageDisplay);
-		}
-		
-		/**
-		 *  @private
-		 *  Destroys the messageDisplay component.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */ 
-		protected function destroyMessageDisplay():void
-		{
-			removeChild(messageDisplay);
-			messageDisplay = null;
 		}
 		
 		/**
@@ -1619,48 +1247,6 @@ package gr.ictpro.mall.client.components.renderers
 			
 			iconDisplay.parentChanged(null);
 			iconDisplay = null;
-		}
-		
-		/**
-		 *  @private
-		 *  Creates the decoratorDisplay component.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */ 
-		protected function createDecoratorDisplay():void
-		{
-			decoratorDisplay = new decoratorDisplayClass();
-			decoratorDisplay.parentChanged(this);
-			
-			decoratorNeedsDisplayObjectAssignment = true;
-		}
-		
-		/**
-		 *  @private
-		 *  Destroys the decoratorDisplay component.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 2.5
-		 *  @productversion Flex 4.5
-		 */ 
-		protected function destroyDecoratorDisplay():void
-		{
-			// need to remove the display object
-			var oldDisplayObject:DisplayObject = decoratorDisplay.displayObject;
-			if (oldDisplayObject)
-			{ 
-				// If the element created the display object
-				if (decoratorDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT &&
-					oldDisplayObject.parent == this)
-				{
-					removeChild(oldDisplayObject);
-				}
-			}
-			
-			decoratorDisplay.parentChanged(null);
-			decoratorDisplay = null;
 		}
 		
 		/**
@@ -1858,13 +1444,6 @@ package gr.ictpro.mall.client.components.renderers
 					iconDisplay.validateSize();
 			}
 			
-			if (decoratorNeedsValidateSize)
-			{
-				decoratorNeedsValidateSize = false;
-				if (decoratorDisplay)
-					decoratorDisplay.validateSize();
-			}
-			
 			super.validateSize(recursive);
 		}
 		
@@ -1886,17 +1465,14 @@ package gr.ictpro.mall.client.components.renderers
 			
 			// calculate padding and horizontal gap
 			// verticalGap is already handled above when there's a label
-			// and a message since that's the only place verticalGap matters.
+			// since that's the only place verticalGap matters.
 			// if we handled verticalGap here, it might add it to the icon if 
 			// the icon was the tallest item.
 			var numHorizontalSections:int = 0;
 			if (iconDisplay)
 				numHorizontalSections++;
 			
-			if (decoratorDisplay)
-				numHorizontalSections++;
-			
-			if (labelDisplay || messageDisplay)
+			if (labelDisplay)
 				numHorizontalSections++;
 			
 			var paddingAndGapWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
@@ -1904,9 +1480,7 @@ package gr.ictpro.mall.client.components.renderers
 				paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
 			
 			var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
-			var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
 			
-			var verticalGap:Number = (hasLabel && hasMessage) ? getStyle("verticalGap") : 0;
 			var paddingHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
 			
 			// Icon is on left
@@ -1927,17 +1501,6 @@ package gr.ictpro.mall.client.components.renderers
 			var decoratorWidth:Number = 0;
 			var decoratorHeight:Number = 0;
 			
-			if (decoratorDisplay)
-			{
-				decoratorWidth = getElementPreferredWidth(decoratorDisplay);
-				decoratorHeight = getElementPreferredHeight(decoratorDisplay);
-				
-				myMeasuredWidth += decoratorWidth;
-				myMeasuredMinWidth += decoratorWidth;
-				myMeasuredHeight = Math.max(myMeasuredHeight, decoratorHeight);
-				myMeasuredMinHeight = Math.max(myMeasuredHeight, decoratorHeight);
-			}
-			
 			// Text is aligned next to icon
 			var labelWidth:Number = 0;
 			var labelHeight:Number = 0;
@@ -1954,23 +1517,8 @@ package gr.ictpro.mall.client.components.renderers
 				labelHeight = getElementPreferredHeight(labelDisplay);
 			}
 			
-			if (hasMessage)
-			{
-				// now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
-				// is dependent on messageDisplay's width.  
-				// Use the old unscaledWidth width as an estimte for the new one.  
-				// If we are wrong, we'll find out in updateDisplayList()
-				
-				var messageDisplayEstimatedWidth:Number = oldUnscaledWidth - paddingAndGapWidth - myIconWidth - decoratorWidth;
-				
-				setElementSize(messageDisplay, messageDisplayEstimatedWidth, NaN);
-				
-				messageWidth = getElementPreferredWidth(messageDisplay);
-				messageHeight = getElementPreferredHeight(messageDisplay);
-			}
-			
-			myMeasuredWidth += Math.max(labelWidth, messageWidth);
-			myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight + verticalGap);
+			myMeasuredWidth += labelWidth;
+			myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight);
 			
 			myMeasuredWidth += paddingAndGapWidth;
 			myMeasuredMinWidth += paddingAndGapWidth;
@@ -1980,11 +1528,12 @@ package gr.ictpro.mall.client.components.renderers
 			myMeasuredMinHeight += paddingHeight;
 			
 			// now set the local variables to the member variables.
-			measuredWidth = myMeasuredWidth
+			measuredWidth = myMeasuredWidth;
 			measuredHeight = myMeasuredHeight;
 			
 			measuredMinWidth = myMeasuredMinWidth;
 			measuredMinHeight = myMeasuredMinHeight;
+			
 		}
 		
 		/**
@@ -2015,22 +1564,6 @@ package gr.ictpro.mall.client.components.renderers
 			{
 				ISharedDisplayObject(iconDisplay.displayObject).redrawRequested = false;
 				iconDisplay.validateDisplayList();
-				// if decoratorDisplay is also using this displayObject than validate
-				// decoratorDisplay as well
-				if (decoratorDisplay && 
-					decoratorDisplay.displayObject is ISharedDisplayObject && 
-					decoratorDisplay.displayObject == iconDisplay.displayObject)
-					decoratorDisplay.validateDisplayList();
-			}
-			
-			// check just for decoratorDisplay in case it has a different displayObject
-			// than iconDisplay
-			if (decoratorDisplay && 
-				decoratorDisplay.displayObject is ISharedDisplayObject && 
-				ISharedDisplayObject(decoratorDisplay.displayObject).redrawRequested)
-			{
-				ISharedDisplayObject(decoratorDisplay.displayObject).redrawRequested = false;
-				decoratorDisplay.validateDisplayList();
 			}
 		}
 		
@@ -2049,15 +1582,17 @@ package gr.ictpro.mall.client.components.renderers
 			var decoratorHeight:Number = 0;
 			
 			var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
-			var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
 			
 			var paddingLeft:Number   = getStyle("paddingLeft");
 			var paddingRight:Number  = getStyle("paddingRight");
 			var paddingTop:Number    = getStyle("paddingTop");
+			if(isGroup) {
+				paddingTop += 15;
+			}
+			
 			var paddingBottom:Number = getStyle("paddingBottom");
 			var horizontalGap:Number = getStyle("horizontalGap");
 			var verticalAlign:String = getStyle("verticalAlign");
-			var verticalGap:Number   = (hasLabel && hasMessage) ? getStyle("verticalGap") : 0;
 			
 			var vAlign:Number;
 			if (verticalAlign == "top")
@@ -2086,27 +1621,12 @@ package gr.ictpro.mall.client.components.renderers
 				setElementPosition(iconDisplay, paddingLeft, iconDisplayY);
 			}
 			
-			// decorator is aligned next to icon
-			if (decoratorDisplay)
-			{
-				decoratorWidth = getElementPreferredWidth(decoratorDisplay);
-				decoratorHeight = getElementPreferredHeight(decoratorDisplay);
-				
-				setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
-				
-				// decorator is always right aligned, vertically centered
-				var decoratorY:Number = Math.round(0.5 * (viewHeight - decoratorHeight)) + paddingTop;
-				setElementPosition(decoratorDisplay, unscaledWidth - paddingRight - decoratorWidth, decoratorY);
-			}
-			
 			// Figure out how much space we have for label and message as well as the 
 			// starting left position
 			var labelComponentsViewWidth:Number = viewWidth - iconWidth - decoratorWidth;
 			
 			// don't forget the extra gap padding if these elements exist
 			if (iconDisplay && iconDisplay.bitmapData)
-				labelComponentsViewWidth -= horizontalGap;
-			if (decoratorDisplay)
 				labelComponentsViewWidth -= horizontalGap;
 			
 			var labelComponentsX:Number = paddingLeft;
@@ -2126,12 +1646,6 @@ package gr.ictpro.mall.client.components.renderers
 				labelDisplay.commitStyles();
 				
 				labelTextHeight = getElementPreferredHeight(labelDisplay);
-			}
-			
-			if (hasMessage)
-			{
-				// commit styles to make sure it uses updated look
-				messageDisplay.commitStyles();
 			}
 			
 			// now size and position the elements, 3 different configurations we care about:
@@ -2157,6 +1671,9 @@ package gr.ictpro.mall.client.components.renderers
 				labelWidth = Math.max(labelComponentsViewWidth, 0);
 				labelHeight = labelTextHeight;
 				
+				if(isGroup) {
+					labelHeight += 15;
+				}
 				if (labelWidth == 0)
 					setElementSize(labelDisplay, NaN, 0);
 				else
@@ -2166,83 +1683,102 @@ package gr.ictpro.mall.client.components.renderers
 				labelDisplay.truncateToFit();
 			}
 			
-			if (hasMessage)
-			{
-				// handle message...because the text is multi-line, measuring and layout 
-				// can be somewhat tricky
-				messageWidth = Math.max(labelComponentsViewWidth, 0);
-				
-				// We get called with unscaledWidth = 0 a few times...
-				// rather than deal with this case normally, 
-				// we can just special-case it later to do something smarter
-				if (messageWidth == 0)
-				{
-					// if unscaledWidth is 0, we want to make sure messageDisplay is invisible.
-					// we could set messageDisplay's width to 0, but that would cause an extra 
-					// layout pass because of the text reflow logic.  Because of that, we 
-					// can just set its height to 0.
-					setElementSize(messageDisplay, NaN, 0);
-				}
-				else
-				{
-					// grab old textDisplay height before resizing it
-					var oldPreferredMessageHeight:Number = getElementPreferredHeight(messageDisplay);
-					
-					// keep track of oldUnscaledWidth so we have a good guess as to the width 
-					// of the messageDisplay on the next measure() pass
-					oldUnscaledWidth = unscaledWidth;
-					
-					// set the width of messageDisplay to messageWidth.
-					// set the height to oldMessageHeight.  If the height's actually wrong, 
-					// we'll invalidateSize() and go through this layout pass again anyways
-					setElementSize(messageDisplay, messageWidth, oldPreferredMessageHeight);
-					
-					// grab new messageDisplay height after the messageDisplay has taken its final width
-					var newPreferredMessageHeight:Number = getElementPreferredHeight(messageDisplay);
-					
-					// if the resize caused the messageDisplay's height to change (because of 
-					// text reflow), then we need to remeasure ourselves with our new width
-					if (oldPreferredMessageHeight != newPreferredMessageHeight)
-						invalidateSize();
-					
-					messageHeight = newPreferredMessageHeight;
-				}
-				
-				// since it's multi-line, no need to truncate
-				//if (messageDisplay.isTruncated)
-				//    messageDisplay.text = messageText;
-				//messageDisplay.truncateToFit();
-			}
-			else
-			{
-				if (messageDisplay)
-					setElementSize(messageDisplay, 0, 0);
-			}
-			
 			// Position the text components now that we know all heights so we can respect verticalAlign style
 			var totalHeight:Number = 0;
 			var labelComponentsY:Number = 0; 
 			
 			// Heights used in our alignment calculations.  We only care about the "real" ascent 
 			var labelAlignmentHeight:Number = 0; 
-			var messageAlignmentHeight:Number = 0; 
-			
 			if (hasLabel)
 				labelAlignmentHeight = getElementPreferredHeight(labelDisplay);
-			if (hasMessage)
-				messageAlignmentHeight = getElementPreferredHeight(messageDisplay);
 			
-			totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;          
-			labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
+			totalHeight = labelAlignmentHeight;          
+			labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop ;
 			
 			if (labelDisplay)
 				setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
 			
-			if (messageDisplay)
+		}
+		
+		
+		override protected function drawBorder(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			// draw separators
+			// don't draw top separator for down and selected states
+			if (!(selected || down))
 			{
-				var messageY:Number = labelComponentsY + labelAlignmentHeight + verticalGap;
-				setElementPosition(messageDisplay, labelComponentsX, messageY);
+				graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+				graphics.drawRect(0, 0, unscaledWidth, 1);
+				graphics.endFill();
 			}
+			
+			graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
+			graphics.drawRect(0, unscaledHeight - (isLastItem ? 0 : 1), unscaledWidth, 1);
+			graphics.endFill();
+			
+			
+			// add extra separators to the first and last items so that 
+			// the list looks correct during the scrolling bounce/pull effect
+			// top
+			if (itemIndex == 0)
+			{
+				graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
+				graphics.drawRect(0, -1, unscaledWidth, 1);
+				graphics.endFill(); 
+			}
+			
+			// bottom
+			if (isLastItem)
+			{
+				// we want to offset the bottom by 1 so that we don't get
+				// a double line at the bottom of the list if there's a 
+				// border
+				graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+				graphics.drawRect(0, unscaledHeight + 1, unscaledWidth, 1);
+				graphics.endFill(); 
+			}
+		}
+		
+		
+		
+		public function get topSeparatorColor():uint
+		{
+			return this._topSeparatorColor;	
+		}
+		
+		public function set topSeparatorColor(topSeparatorColor:uint): void
+		{
+			this._topSeparatorColor = topSeparatorColor;	
+		}
+		
+		public function get topSeparatorAlpha():Number
+		{
+			return this._topSeparatorAlpha;
+		}
+		
+		public function set topSeparatorAlpha(topSeparatorAlpha:Number):void
+		{
+			this._topSeparatorAlpha = topSeparatorAlpha;
+		}
+		
+		public function get bottomSeparatorColor():uint
+		{
+			return this._bottomSeparatorColor;	
+		}
+		
+		public function set bottomSeparatorColor(bottomSeparatorColor:uint): void
+		{
+			this._bottomSeparatorColor = bottomSeparatorColor;	
+		}
+		
+		public function get bottomSeparatorAlpha():Number
+		{
+			return this._bottomSeparatorAlpha;
+		}
+		
+		public function set bottomSeparatorAlpha(bottomSeparatorAlpha:Number):void
+		{
+			this._bottomSeparatorAlpha = bottomSeparatorAlpha;
 		}
 		
 	}
