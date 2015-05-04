@@ -2,7 +2,17 @@
 <s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:signals="org.osflash.signals.*"
-		  width="100%" height="100%" fontSize="20" fontWeight="normal">
+		  xmlns:components="gr.ictpro.mall.client.components.*"
+		  width="100%" height="100%" currentState="default" fontSize="20" fontWeight="normal">
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="menu"/>
+	</s:states>
+	<s:transitions>
+		<s:Transition fromState="*" toState="*">
+			<s:Move target="{mainMenu}" duration="100" />
+		</s:Transition>
+	</s:transitions>
 	<fx:Declarations>
 		<signals:Signal id="showMenuClickled"/>
 	</fx:Declarations>
@@ -23,22 +33,36 @@
 
 			protected function showMenu(event:MouseEvent):void
 			{
-				// TODO Auto-generated method stub
+				if(currentState == "default") {
+					currentState = "menu";
+				} else {
+					currentState = "default";
+				}
+				
+			}
+			
+			protected function mainMenu_changeHandler(event:Event):void
+			{
+				trace("Go to: " + mainMenu.selectedItem.text);
+				mainMenu.selectedItem = null;
+				currentState="default";
 				
 			}
 			
 		]]>
 	</fx:Script>
-	<s:Group top="0" width="100%" height="40">
+	<s:Group id="topBar" top="0" width="100%" height="40">
 		<s:Rect width="100%" height="100%">
 			<s:fill><s:SolidColor color="0xAAAAAA" /></s:fill>
 		</s:Rect>
-		<s:Group top="0" width="100%" height="40">
+		<s:Group top="0" height="40" click="showMenu(event)">
 			<s:layout>
 				<s:HorizontalLayout paddingLeft="5" paddingRight="5" verticalAlign="middle" gap="10"/>
 			</s:layout>
-			<s:Image source="{user.photo}" width="21" height="28" click="showMenu(event)"/>
-			<s:Label click="showMenu(event)" color="0xFFFFFF" fontWeight="normal" text="{user.name}"/>
+			<s:Image source="{user.photo}" width="21" height="28" />
+			<s:Label color="0xFFFFFF" fontWeight="normal" text="{user.name}"/>
 		</s:Group>
 	</s:Group>
+	<components:Menu id="mainMenu" width="200" bottom="0" top="40" x.default="{-mainMenu.width}" x.menu="0" menuList="{user.getMenu()}" change="mainMenu_changeHandler(event)"/>
+	
 </s:Module>

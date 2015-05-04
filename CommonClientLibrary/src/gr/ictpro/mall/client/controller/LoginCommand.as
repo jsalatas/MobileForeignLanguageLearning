@@ -12,6 +12,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowMainViewSignal;
 	
+	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -67,7 +68,13 @@ package gr.ictpro.mall.client.controller
 					name = o.profile.name;
 					photo = o.photo;
 				}
-				showMainView.dispatch(new User(o.id, o.username, o.email, name, photo));
+				
+				var roles:ArrayList = new ArrayList();
+				for each (var role:Object in o.roles) {
+					roles.addItem(role.role);
+				}
+				
+				showMainView.dispatch(new User(o.id, o.username, o.email, roles, name, photo));
 			}
 		}
 		private function handleError(event:FaultEvent):void
