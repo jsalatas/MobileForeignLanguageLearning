@@ -44,7 +44,6 @@
 			protected function mainMenu_changeHandler(event:Event):void
 			{
 				trace("Go to: " + mainMenu.selectedItem.text);
-				mainMenu.selectedItem = null;
 				currentState="default";
 				
 			}

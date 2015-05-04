@@ -17,28 +17,19 @@
 			
 			private var _selectedItem:Object = null;
 
-			private var _dontChange:Boolean = false;
-			
 			public function get selectedItem():Object
 			{
 				return _selectedItem;
 			}
 			
-			public function set selectedItem(selectedItem:Object):void
-			{
-				_dontChange = true;
-				_selectedItem = selectedItem;
-				list.selectedItem = _selectedItem;
-				_dontChange = false;
-			}
 			protected function list1_changeHandler(event:IndexChangeEvent):void
 			{
 				
-				if(event.newIndex !=-1 && !_dontChange) {
+				if(event.newIndex !=-1) {
 					if(menuList.getItemAt(event.newIndex).isGroup) {
-						event.currentTarget.selectedIndex = event.oldIndex;
+						callLater(function():void{list.selectedIndex = event.oldIndex});
 					} else {
-						selectedItem = menuList.getItemAt(event.newIndex);
+						_selectedItem = event.currentTarget.selectedItem;
 						dispatchEvent(new Event(Event.CHANGE));
 					}
 				}
