@@ -18,8 +18,6 @@ package gr.ictpro.mall.client.components.renderers
 	import mx.utils.DensityUtil;
 	
 	import spark.components.LabelItemRenderer;
-	import spark.components.supportClasses.InteractionState;
-	import spark.components.supportClasses.InteractionStateDetector;
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.core.ContentCache;
 	import spark.core.DisplayObjectSharingMode;
@@ -190,8 +188,6 @@ package gr.ictpro.mall.client.components.renderers
 		
 		private var defaultStyleableTextField:StyleableTextField = null; 
 		
-		//private var interactionStateDetector:InteractionStateDetector;
-		
 		//--------------------------------------------------------------------------
 		//
 		//  Constructor
@@ -236,22 +232,7 @@ package gr.ictpro.mall.client.components.renderers
 				}
 			}
 			
-			//interactionStateDetector = new InteractionStateDetector(this);
 		}
-		
-//		private function interactionStateDetector_changeHandler(event:Event):void
-//		{
-//			down = (interactionStateDetector.state == InteractionState.DOWN);
-//			hovered = (interactionStateDetector.state == InteractionState.OVER);
-//			event.stopPropagation();
-//		}
-//		
-//		private function interactionStateDetectorDisable_changeHandler(event:Event):void
-//		{
-//			down = false;
-//			hovered = false;
-//			event.stopPropagation();
-//		}
 		
 		//--------------------------------------------------------------------------
 		//
@@ -344,24 +325,11 @@ package gr.ictpro.mall.client.components.renderers
 					height += 15;
 					groupItemAdjusted = true;
 				}
-//				this.enabled = false;
-//				this.mouseEnabled = false;
-//				this.focusEnabled = false;
-//				this.mouseFocusEnabled = false;
-//				interactionStateDetector.removeEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
-//				interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetectorDisable_changeHandler);
-				
 			} else {
 				isGroup = false;
 				groupItemAdjusted = true;
 				labelDisplay.setStyle('fontSize', defaultFontSize);
 				labelDisplay.setStyle('fontWeight', defaultFontWeight);
-//				this.enabled = true;
-//				this.mouseEnabled = true;
-//				this.focusEnabled = true;
-//				this.mouseFocusEnabled = true;
-//				interactionStateDetector.removeEventListener(Event.CHANGE, interactionStateDetectorDisable_changeHandler);
-//				interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
 			}
 			
 			if (hasEventListener(FlexEvent.DATA_CHANGE))
