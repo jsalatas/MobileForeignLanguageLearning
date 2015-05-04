@@ -129,7 +129,6 @@ package gr.ictpro.mall.client.model
 				o.text = "Settings";
 				o.image = Icons.icon_settings;
 				o.image.filters = [color];
-
 				o.view = "Settings";
 				o.type = "internal";
 				_menu.addItem(o);
@@ -140,6 +139,23 @@ package gr.ictpro.mall.client.model
 				o.image.filters = [color];
 				o.view = "Profile";
 				o.type = "internal";
+				_menu.addItem(o);
+
+				o = new Object();
+				o.text = "";
+				o.image = null;
+				o.view = null;
+				o.type = null;
+				o.isGroup = true;
+				_menu.addItem(o);
+
+				o = new Object();
+				o.text = "Exit";
+				o.image = Icons.icon_logout;
+				o.image.filters = [color];
+				o.view = null;
+				o.command = "logout";
+				o.type = "command";
 				_menu.addItem(o);
 
 			}
