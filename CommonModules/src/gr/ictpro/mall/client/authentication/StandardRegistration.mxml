@@ -44,12 +44,6 @@
 			[Bindable]
 			public var roles:ArrayList;
 			
-			protected function role_changeHandler(event:Event):void
-			{
-				trace("Hello");
-				
-			}
-			
 		]]>
 	</fx:Script>
 	
@@ -65,7 +59,7 @@
 		</s:FormItem>
 		<s:FormItem label="I am" textAlign="right" depth="10000">
 			<components:PopUpList id="role" width="100%" dataList="{roles}"
-							textAlign="left" change="role_changeHandler(event)" depth="10000" />
+							textAlign="left" depth="10000" />
 		</s:FormItem>
 		<s:FormItem label="User Name" textAlign="right">
 			<s:TextInput id="txtUserName" textAlign="left"/>	

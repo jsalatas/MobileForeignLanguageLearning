@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.components.renderers
 	import flash.events.TimerEvent;
 	import flash.net.URLRequest;
 	import flash.utils.Timer;
+	import flash.utils.flash_proxy;
 	
 	import mx.core.DPIClassification;
 	import mx.core.FlexGlobals;
@@ -17,6 +18,7 @@ package gr.ictpro.mall.client.components.renderers
 	import mx.utils.DensityUtil;
 	
 	import spark.components.LabelItemRenderer;
+	import spark.components.supportClasses.InteractionState;
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.core.ContentCache;
 	import spark.core.DisplayObjectSharingMode;
@@ -183,6 +185,7 @@ package gr.ictpro.mall.client.components.renderers
 		
 		private var groupItemAdjusted:Boolean = false;
 		private var defaultFontSize:Number = 0;
+		private var defaultFontWeight:String = "normal";
 		
 		private var defaultStyleableTextField:StyleableTextField = null; 
 		
@@ -229,6 +232,7 @@ package gr.ictpro.mall.client.components.renderers
 					break;
 				}
 			}
+			
 		}
 		
 		//--------------------------------------------------------------------------
@@ -310,6 +314,7 @@ package gr.ictpro.mall.client.components.renderers
 				defaultStyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
 				defaultStyleableTextField.styleName = this;
 				defaultFontSize = defaultStyleableTextField.getStyle("fontSize");
+				defaultFontWeight = defaultStyleableTextField.getStyle("fontWeight");
 			}
 			
 			if(value.hasOwnProperty("isGroup") && value.isGroup) {
@@ -325,7 +330,7 @@ package gr.ictpro.mall.client.components.renderers
 				isGroup = false;
 				groupItemAdjusted = true;
 				labelDisplay.setStyle('fontSize', defaultFontSize);
-				labelDisplay.setStyle('fontWeight', 'normal');
+				labelDisplay.setStyle('fontWeight', defaultFontWeight);
 			}
 			
 			if (hasEventListener(FlexEvent.DATA_CHANGE))
@@ -1160,7 +1165,7 @@ package gr.ictpro.mall.client.components.renderers
 		 */
 		private function assignDisplayObject(bitmapImage:BitmapImage):void
 		{
-			if (bitmapImage && bitmapImage.bitmapData)
+			if (bitmapImage)
 			{
 				// try using this display object first
 				if (bitmapImage.setSharedDisplayObject(this))
@@ -1486,7 +1491,7 @@ package gr.ictpro.mall.client.components.renderers
 			// Icon is on left
 			var myIconWidth:Number = 0;
 			var myIconHeight:Number = 0;
-			if (iconDisplay && iconDisplay.bitmapData)
+			if (iconDisplay && iconDisplay.contentLoader)
 			{
 				myIconWidth = (isNaN(iconWidth) ? getElementPreferredWidth(iconDisplay) : iconWidth);
 				myIconHeight = (isNaN(iconHeight) ? getElementPreferredHeight(iconDisplay) : iconHeight);
@@ -1533,7 +1538,6 @@ package gr.ictpro.mall.client.components.renderers
 			
 			measuredMinWidth = myMeasuredMinWidth;
 			measuredMinHeight = myMeasuredMinHeight;
-			
 		}
 		
 		/**
@@ -1578,9 +1582,7 @@ package gr.ictpro.mall.client.components.renderers
 			// start laying out our children now
 			var iconWidth:Number = 0;
 			var iconHeight:Number = 0;
-			var decoratorWidth:Number = 0;
-			var decoratorHeight:Number = 0;
-			
+
 			var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
 			
 			var paddingLeft:Number   = getStyle("paddingLeft");
@@ -1608,7 +1610,7 @@ package gr.ictpro.mall.client.components.renderers
 			var viewHeight:Number = unscaledHeight - paddingTop  - paddingBottom;
 			
 			// icon is on the left
-			if (iconDisplay && iconDisplay.bitmapData)
+			if (iconDisplay && iconDisplay.source)
 			{
 				// set the icon's position and size
 				setElementSize(iconDisplay, this.iconWidth, this.iconHeight);
@@ -1623,14 +1625,15 @@ package gr.ictpro.mall.client.components.renderers
 			
 			// Figure out how much space we have for label and message as well as the 
 			// starting left position
-			var labelComponentsViewWidth:Number = viewWidth - iconWidth - decoratorWidth;
+			var labelComponentsViewWidth:Number = viewWidth - iconWidth;
 			
 			// don't forget the extra gap padding if these elements exist
-			if (iconDisplay && iconDisplay.bitmapData)
+			if (iconDisplay && iconDisplay.source)
 				labelComponentsViewWidth -= horizontalGap;
 			
 			var labelComponentsX:Number = paddingLeft;
-			if (iconDisplay && iconDisplay.bitmapData)
+			
+			if (iconDisplay && iconDisplay.source)
 				labelComponentsX += iconWidth + horizontalGap;
 			
 			// calculte the natural height for the label
@@ -1739,7 +1742,13 @@ package gr.ictpro.mall.client.components.renderers
 			}
 		}
 		
-		
+		override protected function drawBackground(unscaledWidth:Number, 
+										  unscaledHeight:Number):void
+		{
+			if(!data.isGroup)  {
+				super.drawBackground(unscaledWidth, unscaledHeight);
+			}
+		}
 		
 		public function get topSeparatorColor():uint
 		{
@@ -1780,6 +1789,7 @@ package gr.ictpro.mall.client.components.renderers
 		{
 			this._bottomSeparatorAlpha = bottomSeparatorAlpha;
 		}
+
 		
 	}
 }
