@@ -14,13 +14,14 @@
 		</s:Transition>
 	</s:transitions>
 	<fx:Declarations>
-		<signals:Signal id="showMenuClickled"/>
+		<signals:Signal id="menuClicked"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import flash.desktop.NativeApplication;
 			
 			import gr.ictpro.mall.client.model.User;
+			import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 			
 			import mx.core.IVisualElementContainer;
 			
@@ -45,19 +46,9 @@
 			
 			protected function mainMenu_changeHandler(event:Event):void
 			{
-				if(mainMenu.selectedItem.command && mainMenu.selectedItem.command == "logout") 
-				{
-					var exitingEvent = new Event(Event.EXITING, false, true); 
-					NativeApplication.nativeApplication.dispatchEvent(exitingEvent); 
-					if (!exitingEvent.isDefaultPrevented()) { 
-						NativeApplication.nativeApplication.exit(); 
-					} 
-				} else 
-				{
-					trace("Go to: " + mainMenu.selectedItem.text);
-					currentState="default";
-				}
-				
+				currentState="default";
+				menuClicked.dispatch(mainMenu.selectedItem);
+
 			}
 			
 		]]>

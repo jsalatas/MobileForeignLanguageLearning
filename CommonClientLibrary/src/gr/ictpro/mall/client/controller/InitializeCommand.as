@@ -42,7 +42,6 @@ package gr.ictpro.mall.client.controller
 
 		override public function execute():void
 		{
-			trace(File.applicationStorageDirectory.nativePath);
 			settings.settings = Storage.loadSettings();
 			// Get locale settings
 			settings.settings.lang = Capabilities.languages[0]; 

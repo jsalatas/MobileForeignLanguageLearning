@@ -45,6 +45,15 @@
     <classEntry path="gr.ictpro.mall.client.components.Menu"/>
     <classEntry path="gr.ictpro.mall.client.components.renderers.MenuRenderer"/>
     <classEntry path="gr.ictpro.mall.client.Icons"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItem"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemGroup"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemCommand"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MainMenu"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemModule"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemIcon"/>
+    <classEntry path="gr.ictpro.mall.client.signal.MenuSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.MenuCommand"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemSelected"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

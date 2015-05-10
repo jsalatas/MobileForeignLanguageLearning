@@ -10,6 +10,7 @@ package gr.ictpro.mall.client.model
 	import flash.utils.ByteArray;
 	
 	import gr.ictpro.mall.client.Icons;
+	import gr.ictpro.mall.client.model.menu.MainMenu;
 	
 	import mx.collections.ArrayList;
 	import mx.events.CloseEvent;
@@ -91,6 +92,11 @@ package gr.ictpro.mall.client.model
 			return this._name;
 		}
 
+		public function get roles():ArrayList
+		{
+			return this._roles;
+		}
+
 		public function set name(name:String):void
 		{
 			this._name = name;
@@ -114,63 +120,7 @@ package gr.ictpro.mall.client.model
 
 		private function initializeMenu():void
 		{
-			_menu = new ArrayList();
-			var o:Object;
-			if(_roles.getItemIndex("Admin") != -1) {
-				o = new Object();
-				o.text = "Manage";
-				o.image = null;
-				o.view = null;
-				o.type = null;
-				o.isGroup = true;
-				_menu.addItem(o);
-
-				o = new Object();
-				o.text = "Settings";
-				o.image = Icons.icon_settings;
-				o.image.filters = [color];
-				o.view = "Settings";
-				o.type = "internal";
-				_menu.addItem(o);
-
-				o = new Object();
-				o.text = "Profile";
-				o.image = Icons.icon_profile;
-				o.image.filters = [color];
-				o.view = "Profile";
-				o.type = "internal";
-				_menu.addItem(o);
-
-				o = new Object();
-				o.text = "";
-				o.image = null;
-				o.view = null;
-				o.type = null;
-				o.isGroup = true;
-				_menu.addItem(o);
-
-				o = new Object();
-				o.text = "Exit";
-				o.image = Icons.icon_logout;
-				o.image.filters = [color];
-				o.view = null;
-				o.command = "logout";
-				o.type = "command";
-				_menu.addItem(o);
-
-			}
-			
-			if(_roles.getItemIndex("Teacher") != -1) {
-				
-			}
-
-			if(_roles.getItemIndex("Student") != -1) {
-				
-			}
-			
-			if(_roles.getItemIndex("Parent") != -1) {
-				
-			}
+			this._menu = MainMenu.getMenu(this);
 		}
 	}
 }
