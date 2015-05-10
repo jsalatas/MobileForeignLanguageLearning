@@ -18,25 +18,20 @@ package gr.ictpro.mall.client.model.menu
 		public static function getMenu(user:User):ArrayList
 		{
 			var res:ArrayList = new ArrayList();
+			res.addItem(new MenuItemGroup("Manage"));
+
+			// System Settings (admin) 
 			if(user.roles.getItemIndex("Admin") != -1) {
-				res.addItem(new MenuItemGroup("Manage"));
 				res.addItem(new MenuItemModule("Settings", Icons.icon_settings, user.color, "Settings")); 
-				res.addItem(new MenuItemModule("Profile", Icons.icon_profile, user.color, "Profile")); 
-				res.addItem(new MenuItemGroup(""));
-				res.addItem(new MenuItemCommand("Exit", Icons.icon_logout, user.color, logout));
 			}
 			
-			if(user.roles.getItemIndex("Teacher") != -1) {
-				
-			}
+			//Profile editor (common to all roles)
+			res.addItem(new MenuItemModule("Profile", Icons.icon_profile, user.color, "Profile")); 
 			
-			if(user.roles.getItemIndex("Student") != -1) {
-				
-			}
+			// Exit command (common to all roles)
+			res.addItem(new MenuItemGroup(""));
+			res.addItem(new MenuItemCommand("Exit", Icons.icon_logout, user.color, logout));
 			
-			if(user.roles.getItemIndex("Parent") != -1) {
-				
-			}
 			return res;
 		}
 		
