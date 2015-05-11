@@ -33,6 +33,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowMainViewSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
+	import gr.ictpro.mall.client.modules.SettingsModule;
+	import gr.ictpro.mall.client.modules.SettingsModuleMediator;
 	import gr.ictpro.mall.client.view.GetServerNameMediator;
 	import gr.ictpro.mall.client.view.GetServerNameView;
 	import gr.ictpro.mall.client.view.MainView;
@@ -68,6 +70,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ShellView, ShellMediator);
 			mediatorMap.mapView(GetServerNameView, GetServerNameMediator);
 			mediatorMap.mapView(MainView, MainViewMediator);
+			mediatorMap.mapView(SettingsModule, SettingsModuleMediator);
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);
 			signalCommandMap.mapSignalClass(SavePropertySignal, SavePropertyCommand);

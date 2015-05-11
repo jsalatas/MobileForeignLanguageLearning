@@ -49,11 +49,13 @@
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemGroup"/>
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemCommand"/>
     <classEntry path="gr.ictpro.mall.client.model.menu.MainMenu"/>
-    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemModule"/>
+    <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemInternalModule"/>
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemIcon"/>
     <classEntry path="gr.ictpro.mall.client.signal.MenuSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.MenuCommand"/>
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemSelected"/>
+    <classEntry path="gr.ictpro.mall.client.modules.SettingsModule"/>
+    <classEntry path="gr.ictpro.mall.client.modules.SettingsModuleMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

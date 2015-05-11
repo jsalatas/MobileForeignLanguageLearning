@@ -28,6 +28,7 @@
   </applications>
   <modules>
     <module destPath="gr/ictpro/mall/client/view/MainView.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/view/MainView.mxml"/>
+    <module application="src/CommonClientLibrary.as" destPath="gr/ictpro/mall/client/view/Settings.swf" optimize="true" sourcePath="src/gr/ictpro/mall/client/view/Settings.mxml"/>
   </modules>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>

@@ -23,6 +23,7 @@ package gr.ictpro.mall.client.view
 		private function menuClicked(menuItem:MenuItem):void
 		{
 			menuSignal.dispatch(new MenuItemSelected(menuItem));
+			view.dispose();
 		}
 		
 		

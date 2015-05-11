@@ -4,10 +4,10 @@ package gr.ictpro.mall.client.model.menu
 	import spark.filters.ColorMatrixFilter;
 	import spark.primitives.Graphic;
 
-	public class MenuItemModule extends MenuItemIcon
+	public class MenuItemExternalModule extends MenuItemIcon
 	{
 		private var _moduleName:String;
-		public function MenuItemModule(text:String, icon:Object, colorTransformation:ColorMatrixFilter, moduleName:String)
+		public function MenuItemExternalModule(text:String, icon:Object, colorTransformation:ColorMatrixFilter, moduleName:String)
 		{
 			super(text, icon, colorTransformation);
 			this._moduleName = moduleName;
