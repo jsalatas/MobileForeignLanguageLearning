@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.model
 		public static const MODULES_PATH:String = "server.modulesPath";
 		
 		private var _settings:Object = null;
+		private var _user:User = null;
 		
 		public function Settings()
 		{
@@ -30,5 +31,20 @@ package gr.ictpro.mall.client.model
 			}
 			return null;
 		}
+
+		public function get user():User 
+		{
+			return _user; 
+		}
+		
+		public function set user(user:User):void 
+		{
+			this._user = user;
+		}
+		
+
+	
+	
+	
 	}
 }

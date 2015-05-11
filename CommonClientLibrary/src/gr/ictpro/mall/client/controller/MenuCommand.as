@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.controller
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	
+	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.menu.MenuItem;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.model.menu.MenuItemExternalModule;
@@ -23,6 +24,9 @@ package gr.ictpro.mall.client.controller
 		public var selectedMenu:MenuItemSelected;
 
 		[Inject]
+		public var loadedModules:Modules;
+
+		[Inject]
 		public var addView:AddViewSignal;
 		
 		override public function execute():void
@@ -32,7 +36,8 @@ package gr.ictpro.mall.client.controller
 				(selectedMenu.menuItem as MenuItemCommand).execute();
 			} else if(selectedMenu.menuItem is MenuItemInternalModule) {
 				trace("Loading internal: " + selectedMenu.menuItem.text);
-				addView.dispatch(createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
+				loadedModules.module = null;
+				addView.dispatch(MenuCommand.createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
 				
 			} else if(selectedMenu.menuItem is MenuItemExternalModule) {
 				trace("Loading external: " + selectedMenu.menuItem.text);
@@ -41,7 +46,7 @@ package gr.ictpro.mall.client.controller
 
 		}
 		
-		public function createInstance(className:String):Object
+		public static function createInstance(className:String):Object
 		{
 			var myClass:Class = getDefinitionByName(className) as Class;
 			var instance:Object = new myClass();

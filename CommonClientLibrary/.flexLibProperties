@@ -6,12 +6,11 @@
     <classEntry path="gr.ictpro.mall.client.controller.InitializeCommand"/>
     <classEntry path="gr.ictpro.mall.client.signal.SavePropertySignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.InitializeSignal"/>
-    <classEntry path="gr.ictpro.mall.client.signal.GetServerNameSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.ShowAuthenticationSignal"/>
-    <classEntry path="gr.ictpro.mall.client.view.GetServerNameView"/>
-    <classEntry path="gr.ictpro.mall.client.view.ShellMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.ServerNameView"/>
+    <classEntry path="gr.ictpro.mall.client.view.ShellViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.ShellView"/>
-    <classEntry path="gr.ictpro.mall.client.view.GetServerNameMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.ServerNameViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.model.AuthenticationDetails"/>
     <classEntry path="gr.ictpro.mall.client.service.AuthenticationProviders"/>
     <classEntry path="gr.ictpro.mall.client.model.Channel"/>
@@ -38,7 +37,6 @@
     <classEntry path="gr.ictpro.mall.client.service.MessagingService"/>
     <classEntry path="gr.ictpro.mall.client.model.ServerMessage"/>
     <classEntry path="gr.ictpro.mall.client.signal.ServerMessageReceivedSignal"/>
-    <classEntry path="gr.ictpro.mall.client.signal.ShowMainViewSignal"/>
     <classEntry path="gr.ictpro.mall.client.view.MainView"/>
     <classEntry path="gr.ictpro.mall.client.view.MainViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.EditableLabel"/>
@@ -54,8 +52,8 @@
     <classEntry path="gr.ictpro.mall.client.signal.MenuSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.MenuCommand"/>
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemSelected"/>
-    <classEntry path="gr.ictpro.mall.client.modules.SettingsModule"/>
-    <classEntry path="gr.ictpro.mall.client.modules.SettingsModuleMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
+    <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

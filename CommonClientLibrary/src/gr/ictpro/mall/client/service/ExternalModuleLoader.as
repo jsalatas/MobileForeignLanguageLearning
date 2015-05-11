@@ -16,6 +16,9 @@ package gr.ictpro.mall.client.service
 	import mx.modules.IModuleInfo;
 	import mx.modules.ModuleManager;
 	
+	import org.swiftsuspenders.Injector;
+	
+	import spark.modules.Module;
 	import spark.modules.ModuleLoader;
 	
 	public class ExternalModuleLoader
@@ -31,6 +34,8 @@ package gr.ictpro.mall.client.service
 
 		private var _url:String;
 		
+		private var _loader:ModuleLoader;
+
 		public function ExternalModuleLoader(url:String)
 		{
 			this._url = url;
@@ -46,30 +51,24 @@ package gr.ictpro.mall.client.service
 			
 		}
 		
-		
-		
 		public function handleError(event:Event):void
 		{
 			serverConnectError.dispatch();
 		}
 		
-		//private var a:ModuleLoader = new ModuleLoader();
 		public function handleDownloaded(event:Event):void
 		{
-			var a:ModuleLoader= new ModuleLoader();
-			// keep reference so that garbage collector cannot free its memory.
-			// TODO: need to find a better way to handle this
-			// look at http://gingerbinger.com/2010/07/actionscript-3-0-events-the-myth-of-useweakreference/
-			loadedModules.add(a);
+			_loader = new ModuleLoader();
 			var moduleBytes:ByteArray = ByteArray(URLLoader(event.target).data);
-			a.applicationDomain = ApplicationDomain.currentDomain;
-			a.addEventListener(ModuleEvent.READY, handleLoaded);
-			a.addEventListener(ModuleEvent.ERROR, handleError);
-			a.loadModule(_url, moduleBytes);
+			_loader.applicationDomain = ApplicationDomain.currentDomain;
+			_loader.addEventListener(ModuleEvent.READY, handleLoaded);
+			_loader.addEventListener(ModuleEvent.ERROR, handleError);
+			_loader.loadModule(_url, moduleBytes);
 		}
 
 		public function handleLoaded(event:ModuleEvent):void
 		{
+			loadedModules.module = _loader;
 			var e:IVisualElement = event.module.factory.create()as IVisualElement;
 			addView.dispatch(e);
 		}

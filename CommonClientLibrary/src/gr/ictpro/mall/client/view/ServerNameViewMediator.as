@@ -6,10 +6,10 @@ package gr.ictpro.mall.client.view
 	
 	import org.robotlegs.mvcs.Mediator;
 	
-	public class GetServerNameMediator extends Mediator
+	public class ServerNameViewMediator extends Mediator
 	{
 		[Inject]
-		public var view:GetServerNameView;
+		public var view:ServerNameView;
 		
 		[Inject]
 		public var saveProperty:SavePropertySignal;

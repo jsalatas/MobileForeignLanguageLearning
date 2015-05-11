@@ -11,8 +11,9 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.service.Storage;
-	import gr.ictpro.mall.client.signal.GetServerNameSignal;
+	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
+	import gr.ictpro.mall.client.view.ServerNameView;
 	
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -22,8 +23,6 @@ package gr.ictpro.mall.client.controller
 	
 	public class InitializeCommand extends SignalCommand
 	{
-		[Inject]
-		public var getServerName:GetServerNameSignal;
 
 		[Inject]
 		public var showAuthentication:ShowAuthenticationSignal;
@@ -38,6 +37,9 @@ package gr.ictpro.mall.client.controller
 		public var authenticationProviders:AuthenticationProviders;
 		
 		[Inject]
+		public var addView:AddViewSignal;
+
+		[Inject]
 		public var messagingService:MessagingService;
 
 		override public function execute():void
@@ -47,7 +49,7 @@ package gr.ictpro.mall.client.controller
 			settings.settings.lang = Capabilities.languages[0]; 
 			
 			if(settings.getSetting(Settings.SERVER_URL) == null) {
-				getServerName.dispatch();
+				addView.dispatch(new ServerNameView());
 			} else {
 				channel.setupChannel(settings.getSetting(Settings.SERVER_URL), settings.getSetting(Settings.APP_PATH));
 				showAuthentication.dispatch(new AuthenticationProvider(null));

@@ -4,15 +4,14 @@ package gr.ictpro.mall.client.view
 	import flash.system.Security;
 	
 	import gr.ictpro.mall.client.controller.InitializeCommand;
+	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ServerMessage;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.GetServerNameSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
-	import gr.ictpro.mall.client.signal.ShowMainViewSignal;
 	
 	import mx.core.IVisualElement;
 	import mx.core.IVisualElementContainer;
@@ -26,14 +25,11 @@ package gr.ictpro.mall.client.view
 	import spark.modules.Module;
 	import spark.modules.ModuleLoader;
 	
-	public class ShellMediator extends Mediator
+	public class ShellViewMediator extends Mediator
 	{
 		[Inject]
 		public var view:ShellView;
 		
-		[Inject]
-		public var getServerName:GetServerNameSignal;
-			
 		[Inject]
 		public var addView:AddViewSignal;
 
@@ -41,15 +37,13 @@ package gr.ictpro.mall.client.view
 		public var initialize:InitializeSignal;
 		
 		[Inject]
-		public var showMainView:ShowMainViewSignal;
+		public var serverConnectError:ServerConnectErrorSignal;
 
 		[Inject]
-		public var serverConnectError:ServerConnectErrorSignal;
+		public var loadedModules:Modules;
 
 		override public function onRegister():void
 		{
-			showMainView.add(handleShowMainView);
-			getServerName.add(handleShowGetServerName);
 			addView.add(handleAddView);
 			serverConnectError.add(handleConnectionError);
 			
@@ -58,20 +52,8 @@ package gr.ictpro.mall.client.view
 		
 		private function handleAddView(module:IVisualElement):void
 		{
+			loadedModules.unloadModule();
 			view.addElement(module);
-		}
-		
-		private function handleShowGetServerName():void
-		{
-			var getServerNameView:GetServerNameView = new GetServerNameView();
-			view.addElement(getServerNameView);
-		}
-	
-		private function handleShowMainView(user:User):void
-		{
-			var mainView:MainView = new MainView();
-			view.addElement(mainView);
-			mainView.user = user;
 		}
 		
 		private function handleConnectionError():void 
@@ -85,7 +67,7 @@ package gr.ictpro.mall.client.view
 		
 		private function connectionErrorPopup_close(evt:PopUpEvent):void
 		{
-			getServerName.dispatch();
+			addView.dispatch(new ServerNameView());
 		}
 	}
 	

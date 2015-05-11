@@ -5,8 +5,8 @@ package gr.ictpro.mall.client.model.menu
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.model.User;
-	import gr.ictpro.mall.client.modules.ProfileModule;
-	import gr.ictpro.mall.client.modules.SettingsModule;
+	import gr.ictpro.mall.client.view.ProfileView;
+	import gr.ictpro.mall.client.view.SettingsView;
 	
 	import mx.collections.ArrayList;
 
@@ -24,11 +24,11 @@ package gr.ictpro.mall.client.model.menu
 
 			// System Settings (admin) 
 			if(user.roles.getItemIndex("Admin") != -1) {
-				res.addItem(new MenuItemInternalModule("Settings", Icons.icon_settings, user.color, "gr.ictpro.mall.client.modules.SettingsModule")); 
+				res.addItem(new MenuItemInternalModule("Settings", Icons.icon_settings, user.color, "gr.ictpro.mall.client.view.SettingsView")); 
 			}
 			
 			//Profile editor (common to all roles)
-			res.addItem(new MenuItemInternalModule("Profile", Icons.icon_profile, user.color, "gr.ictpro.mall.client.modules.ProfileModule")); 
+			res.addItem(new MenuItemInternalModule("Profile", Icons.icon_profile, user.color, "gr.ictpro.mall.client.view.ProfileView")); 
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));

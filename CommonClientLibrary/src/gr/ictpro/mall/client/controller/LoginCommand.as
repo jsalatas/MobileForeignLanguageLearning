@@ -2,15 +2,18 @@ package gr.ictpro.mall.client.controller
 {
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ServerMessage;
+	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
-	import gr.ictpro.mall.client.signal.ShowMainViewSignal;
+	import gr.ictpro.mall.client.view.MainView;
 	
 	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
@@ -25,7 +28,13 @@ package gr.ictpro.mall.client.controller
 
 		[Inject]
 		public var channel:Channel;
-		
+
+		[Inject]
+		public var loadedModule:Modules;
+
+		[Inject]
+		public var addView:AddViewSignal;
+
 		[Inject]
 		public var loginSuccess:LoginSuccessSignal;
 		
@@ -33,8 +42,8 @@ package gr.ictpro.mall.client.controller
 		public var loginFailed:LoginFailedSignal;
 		
 		[Inject]
-		public var showMainView:ShowMainViewSignal;
-
+		public var settings:Settings;
+		
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
 		
@@ -74,7 +83,9 @@ package gr.ictpro.mall.client.controller
 					roles.addItem(role.role);
 				}
 				
-				showMainView.dispatch(new User(o.id, o.username, o.email, roles, name, photo));
+				settings.user = new User(o.id, o.username, o.email, roles, name, photo);
+				loadedModule.module = null;
+				addView.dispatch(new MainView());
 			}
 		}
 		private function handleError(event:FaultEvent):void
