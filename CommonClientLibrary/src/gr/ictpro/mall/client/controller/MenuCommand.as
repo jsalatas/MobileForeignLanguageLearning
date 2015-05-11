@@ -37,7 +37,7 @@ package gr.ictpro.mall.client.controller
 			} else if(selectedMenu.menuItem is MenuItemInternalModule) {
 				trace("Loading internal: " + selectedMenu.menuItem.text);
 				loadedModules.module = null;
-				addView.dispatch(MenuCommand.createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
+				addView.dispatch(createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
 				
 			} else if(selectedMenu.menuItem is MenuItemExternalModule) {
 				trace("Loading external: " + selectedMenu.menuItem.text);
@@ -46,7 +46,7 @@ package gr.ictpro.mall.client.controller
 
 		}
 		
-		public static function createInstance(className:String):Object
+		public function createInstance(className:String):Object
 		{
 			var myClass:Class = getDefinitionByName(className) as Class;
 			var instance:Object = new myClass();
