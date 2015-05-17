@@ -54,6 +54,15 @@
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemSelected"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.TopBarGroup"/>
+    <classEntry path="gr.ictpro.mall.client.components.Test"/>
+    <classEntry path="gr.ictpro.mall.client.signal.PersistSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.PersistCommand"/>
+    <classEntry path="gr.ictpro.mall.client.model.PersistentData"/>
+    <classEntry path="gr.ictpro.mall.client.model.IPersistentObject"/>
+    <classEntry path="gr.ictpro.mall.client.model.IServerPersistentObject"/>
+    <classEntry path="gr.ictpro.mall.client.model.PersistentObjectWrapper"/>
+    <classEntry path="gr.ictpro.mall.client.model.IClientPersistentObject"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
