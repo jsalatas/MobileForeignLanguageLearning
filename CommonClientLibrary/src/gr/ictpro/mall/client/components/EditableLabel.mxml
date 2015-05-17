@@ -3,7 +3,9 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 addedToStage="initializeHandler(event)"
-		 removed="removedFromStage(event)">
+		 removed="removedFromStage(event)"
+		 width="100%"
+		 >
 	
 	<fx:Script>
 		<![CDATA[
@@ -44,6 +46,8 @@
 				originalText = txt;
 				currentState = "edit";
 				textinput.text = txt;
+				textinput.width = this.width;
+				trace(this.width);
 				textinput.selectAll();
 				textinput.setFocus();
 				
@@ -103,10 +107,9 @@
 	</s:states>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Label id="label" includeIn="view" left="0" right="0" top="0" bottom="0"
-			 click="labelClickedHandler(event)" text="EditableLabel" textAlign="left"
-			 verticalAlign="middle"/>
-	<s:TextInput id="textinput" includeIn="edit" left="0" right="0" top="0" bottom="0"
+	<s:Label id="label" includeIn="view" left="0" right="0" click="labelClickedHandler(event)"
+			 text="EditableLabel" textAlign="left" verticalAlign="middle"/>
+	<s:TextInput id="textinput" includeIn="edit" left="0" right="0"
 				 click="textInputClickedHandler(event)" focusOut="lostFocus(event)"
 				 keyUp="textInputKeyUpHandler(event)"/>
 	

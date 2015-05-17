@@ -66,21 +66,21 @@
 			</s:Group>
 		</s:Group>
 
-		<s:Group left="0" right="0" width="100%">
+		<s:Group width="100%">
 			<s:layout>
-				<s:HorizontalLayout verticalAlign="middle" />
+				<s:HorizontalLayout verticalAlign="middle" variableColumnWidth="true" />
 			</s:layout>	
 			<s:Label fontWeight="bold" text="Name:"/>
-			<components:EditableLabel id="txtName" width="100%" text="{user.name}"/>
+			<components:EditableLabel id="txtName" text="{user.name}"/>
 		</s:Group>
 
-		<s:Group left="0" right="0" width="100%">
+		<s:Group width="100%">
 			<s:layout>
-				<s:HorizontalLayout verticalAlign="middle" />
+				<s:HorizontalLayout verticalAlign="middle" variableColumnWidth="true" />
 			</s:layout>	
 
 			<s:Label fontWeight="bold" text="Email:"/>
-			<components:EditableLabel id="txtEmail" width="100%" text="{user.email}"/>
+			<components:EditableLabel id="txtEmail" text="{user.email}"/>
 		</s:Group>
 
 	</s:Group>

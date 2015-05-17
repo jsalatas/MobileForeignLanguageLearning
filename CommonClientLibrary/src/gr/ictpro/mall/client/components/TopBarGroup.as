@@ -117,6 +117,8 @@ package gr.ictpro.mall.client.components
 
 			topBarGroup.addElement(ocgroup);
 			addElement(mxmlContentGroup);
+			mxmlContentGroup.percentWidth = 100;
+			mxmlContentGroup.percentHeight = 100;
 		}
 		
 		override public function set layout(value:LayoutBase):void
