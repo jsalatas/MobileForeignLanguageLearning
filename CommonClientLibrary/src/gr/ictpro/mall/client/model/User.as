@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client.model
 {
+	import assets.fxg.profile;
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
@@ -15,11 +17,12 @@ package gr.ictpro.mall.client.model
 	import mx.collections.ArrayList;
 	import mx.events.CloseEvent;
 	import mx.utils.Base64Decoder;
+	import mx.utils.Base64Encoder;
 	
 	import spark.components.Image;
 	import spark.filters.ColorMatrixFilter;
 
-	public class User extends EventDispatcher
+	public class User extends EventDispatcher implements IServerPersistentObject
 	{
 		private var _id:int;
 		private var _username:String;
@@ -28,6 +31,25 @@ package gr.ictpro.mall.client.model
 		private var _menu:ArrayList;
 		private var _name:String;
 		private var _photo:Image;
+		
+		public static function createUser(o:Object):User {
+			var name:String;
+			var photo:String;
+			if(o.profile == null) {
+				name = o.username;
+				photo = null;
+			} else {
+				name = o.profile.name;
+				photo = o.photo;
+			}
+			
+			var roles:ArrayList = new ArrayList();
+			for each (var role:Object in o.roles) {
+				roles.addItem(role.role);
+			}
+			var u:User = new User(o.id, o.username, o.email, roles, name, photo);
+			return u;
+		}
 		
 		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:String)
 		{
@@ -81,6 +103,11 @@ package gr.ictpro.mall.client.model
 			return this._email;
 		}
 
+		public function set email(email:String):void
+		{
+			this._email = email;
+		}
+
 		public function get username():String
 		{
 			return this._username;
@@ -122,5 +149,35 @@ package gr.ictpro.mall.client.model
 		{
 			this._menu = MainMenu.getMenu(this);
 		}
+		
+		public function get persistentData():PersistentData 
+		{
+			var p:PersistentData = new PersistentData();
+			p.addValue("id", _id);
+			p.addValue("username", _username);
+			p.addValue("email", _email);
+			p.addValue("roles", _roles);
+			p.addValue("name", _name);
+			if(_photo.source is profile) {
+				// This is the default image. Don't save it in database
+				p.addValue("photo", null);
+			} else {
+				var e:Base64Encoder = new Base64Encoder();
+				p.addValue("photo", e.encodeBytes((_photo.source as BitmapData).getPixels(new Rectangle(0,0, 150, 200))));
+			}
+			
+			return p;
+			
+		}
+
+		public function get destination():String 
+		{
+			return "userRemoteService";
+		}
+		
+		public function get methodName():String {
+			return "save";
+		}
+
 	}
 }

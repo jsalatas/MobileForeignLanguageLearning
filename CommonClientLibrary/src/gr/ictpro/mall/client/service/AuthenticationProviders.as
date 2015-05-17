@@ -38,7 +38,7 @@ package gr.ictpro.mall.client.service
 		
 		public	function setupAuthenticationProviders():void 
 		{
-			var r: RemoteObjectService = new RemoteObjectService(channel, "authenticationRemoteService", "getAuthenticationModules", null, handleSuccess, handleError);
+			new RemoteObjectService(channel, "authenticationRemoteService", "getAuthenticationModules", null, handleSuccess, handleError);
 		}
 		
 		public function getNextProvider(previous:String):AuthenticationProvider

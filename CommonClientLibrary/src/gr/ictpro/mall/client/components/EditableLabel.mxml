@@ -2,7 +2,8 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 addedToStage="initializeHandler(event)">
+		 addedToStage="initializeHandler(event)"
+		 removed="removedFromStage(event)">
 	
 	<fx:Script>
 		<![CDATA[
@@ -88,6 +89,11 @@
 				
 			}
 			
+			protected function removedFromStage(event:Event):void
+			{
+				stage.removeEventListener(MouseEvent.CLICK, stageClickedHandler);
+			}
+
 		]]>
 	</fx:Script>
 	

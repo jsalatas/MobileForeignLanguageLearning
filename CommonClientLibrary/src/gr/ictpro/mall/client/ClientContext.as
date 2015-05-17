@@ -6,6 +6,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.LoginCommand;
 	import gr.ictpro.mall.client.controller.MenuCommand;
+	import gr.ictpro.mall.client.controller.PersistCommand;
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SavePropertyCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
@@ -23,6 +24,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.MenuSignal;
+	import gr.ictpro.mall.client.signal.PersistSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
@@ -80,6 +82,7 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(RegisterSignal, RegisterCommand);
 			signalCommandMap.mapSignalClass(ShowRegistrationSignal, ShowRegistrationCommand);
 			signalCommandMap.mapSignalClass(MenuSignal, MenuCommand);
+			signalCommandMap.mapSignalClass(PersistSignal, PersistCommand);
 			
 		}
 	}

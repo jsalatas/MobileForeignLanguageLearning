@@ -68,22 +68,9 @@ package gr.ictpro.mall.client.controller
 			} else {
 				messagingService.init();
 				loginSuccess.dispatch();
-				var name:String;
-				var photo:String;
-				if(o.profile == null) {
-					name = o.username;
-					photo = null;
-				} else {
-					name = o.profile.name;
-					photo = o.photo;
-				}
 				
-				var roles:ArrayList = new ArrayList();
-				for each (var role:Object in o.roles) {
-					roles.addItem(role.role);
-				}
-				
-				settings.user = new User(o.id, o.username, o.email, roles, name, photo);
+				settings.user = User.createUser(o);
+				injector.injectInto(settings.user);
 				loadedModule.module = null;
 				addView.dispatch(new MainView());
 			}

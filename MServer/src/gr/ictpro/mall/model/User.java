@@ -179,5 +179,16 @@ public class User implements java.io.Serializable, UserDetails {
     public boolean isCredentialsNonExpired() {
 	return true;
     }
+    
+    @Transient
+    public boolean hasRole(String role) {
+	for(Role r: roles) {
+	    if(r.getRole().equals(role)) {
+		return true;
+	    }
+	}
+	
+	return false;
+    }
 
 }

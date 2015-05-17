@@ -1,23 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<components:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:components="gr.ictpro.mall.client.components.*"
 		  width="100%" height="100%"
+		  okClicked="topbargroup1_okClickedHandler(event)"
+		  cancelClicked="topbargroup1_cancelClickedHandler(event)"
+		  backClicked="topbargroup1_backClickedHandler(event)" xmlns:signals="org.osflash.signals.*"
 		  >
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<signals:Signal id="save"/>
+		<signals:Signal id="cancel"/>
+		<signals:Signal id="back"/>
 	</fx:Declarations>
 	
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.model.User;
+			
 			import mx.core.IVisualElementContainer;
+			import mx.core.UIComponent;
+
+			
+			[Bindable]
+			public var user:User;
+			
+			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
+			{
+				save.dispatch();
+			}
+			
+			protected function topbargroup1_cancelClickedHandler(event:MouseEvent):void
+			{
+				cancel.dispatch();
+			}
+			
+			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
+			{
+				back.dispatch();
+				
+			}
 			
 			public function dispose():void
 			{
-				if(parent && parent.contains(this))
+				if(parent && parent.contains(this)) {
 					IVisualElementContainer(parent).removeElement(this);
+				}
 			}
+			
 		]]>
 	</fx:Script>
-	<s:Label x="21" y="22" text="Configuration Settings"/>
+	<s:Group width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout gap="10" horizontalAlign="left" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" />
+		</s:layout>
 
-</s:Module>
+		<s:Group width="154" height="204">
+			<s:Rect width="100%" height="100%">
+				<s:fill><s:SolidColor color="0xAAAAAA" /></s:fill>
+			</s:Rect>
+			<s:Group width="154" height="204">
+				<s:layout>
+					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2" paddingTop="2"/>
+				</s:layout>
+				<s:Image width="150" height="200" id="imgPhoto" source="{user.photo}"/>	
+			</s:Group>
+		</s:Group>
+
+		<s:Group left="0" right="0" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle" />
+			</s:layout>	
+			<s:Label fontWeight="bold" text="Name:"/>
+			<components:EditableLabel id="txtName" width="100%" text="{user.name}"/>
+		</s:Group>
+
+		<s:Group left="0" right="0" width="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle" />
+			</s:layout>	
+
+			<s:Label fontWeight="bold" text="Email:"/>
+			<components:EditableLabel id="txtEmail" width="100%" text="{user.email}"/>
+		</s:Group>
+
+	</s:Group>
+	
+	
+</components:TopBarGroup>
