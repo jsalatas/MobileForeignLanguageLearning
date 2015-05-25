@@ -47,6 +47,8 @@ package gr.ictpro.mall.client.authentication
 			serverConnectError.add(disposeView);
 			view.okClicked.add(handleAuthentication);
 			view.registerClicked.add(handleRegistration);
+			
+			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", "admin", "admin"));
 		}
 		
 		private function handleAuthentication():void
@@ -81,7 +83,7 @@ package gr.ictpro.mall.client.authentication
 			loginFailedPopup.open(view, true);
 		}
 		
-		protected function loginFailedPopup_close(eventt:PopUpEvent):void {
+		protected function loginFailedPopup_close(event:PopUpEvent):void {
 			view.txtUserName.text="";
 			view.txtPassword.text="";
 		}

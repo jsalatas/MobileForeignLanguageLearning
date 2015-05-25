@@ -63,6 +63,9 @@
     <classEntry path="gr.ictpro.mall.client.model.IServerPersistentObject"/>
     <classEntry path="gr.ictpro.mall.client.model.PersistentObjectWrapper"/>
     <classEntry path="gr.ictpro.mall.client.model.IClientPersistentObject"/>
+    <classEntry path="gr.ictpro.mall.client.components.PopUpMenu"/>
+    <classEntry path="gr.ictpro.mall.client.model.DeviceType"/>
+    <classEntry path="gr.ictpro.mall.client.utils.image.ImageTransform"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

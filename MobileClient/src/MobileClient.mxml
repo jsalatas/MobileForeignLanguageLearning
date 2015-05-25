@@ -3,7 +3,22 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mobile="gr.ictpro.mall.client.mobile.*"
 			   xmlns:view="gr.ictpro.mall.client.view.*"
-			   applicationDPI="160">
+			   applicationDPI="160"
+			   initialize="application1_initializeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.model.DeviceType;
+			
+			import mx.events.FlexEvent;
+			
+			protected function application1_initializeHandler(event:FlexEvent):void
+			{
+				DeviceType.isAndroid = true;
+				
+			}
+			
+		]]>
+	</fx:Script>
 	<fx:Declarations>
 		<mobile:MobileClientContext contextView="{this}"/>
 	</fx:Declarations>

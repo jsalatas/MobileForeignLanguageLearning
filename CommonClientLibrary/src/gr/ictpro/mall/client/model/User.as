@@ -16,8 +16,6 @@ package gr.ictpro.mall.client.model
 	
 	import mx.collections.ArrayList;
 	import mx.events.CloseEvent;
-	import mx.utils.Base64Decoder;
-	import mx.utils.Base64Encoder;
 	
 	import spark.components.Image;
 	import spark.filters.ColorMatrixFilter;
@@ -34,13 +32,22 @@ package gr.ictpro.mall.client.model
 		
 		public static function createUser(o:Object):User {
 			var name:String;
-			var photo:String;
+			var photo:BitmapData;
 			if(o.profile == null) {
 				name = o.username;
 				photo = null;
 			} else {
 				name = o.profile.name;
-				photo = o.photo;
+				if(o.profile.photo != null) {
+				var ba:ByteArray = o.profile.photo;
+				var width:int= ba.readInt();
+				var heigth:int = ba.readInt();
+				var bmd:ByteArray = new ByteArray();
+				ba.readBytes(bmd);
+				var bd:BitmapData = new BitmapData(width, heigth);
+				bd.setPixels(new Rectangle(0,0, width, heigth), bmd);
+				photo = bd;
+				}
 			}
 			
 			var roles:ArrayList = new ArrayList();
@@ -51,7 +58,7 @@ package gr.ictpro.mall.client.model
 			return u;
 		}
 		
-		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:String)
+		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData)
 		{
 			this._id = id;
 			this._username = username;
@@ -71,11 +78,9 @@ package gr.ictpro.mall.client.model
 				var filter:ColorMatrixFilter = new ColorMatrixFilter(matrix);
 				this._photo.source.filters = [filter];
 			} else {
-				var d:Base64Decoder = new Base64Decoder();
-				d.decode(photo);
 				b = new Bitmap();
-				var r:Rectangle=new Rectangle(0,0, 150, 200);
-				b.bitmapData.setPixels(r, d.toByteArray());
+				//var r:Rectangle=new Rectangle(0,0, 150, 200);
+				b.bitmapData = photo;
 				this._photo.source = b.bitmapData;
 			}
 			
@@ -103,6 +108,7 @@ package gr.ictpro.mall.client.model
 			return this._email;
 		}
 
+		[Bindable]
 		public function set email(email:String):void
 		{
 			this._email = email;
@@ -162,8 +168,13 @@ package gr.ictpro.mall.client.model
 				// This is the default image. Don't save it in database
 				p.addValue("photo", null);
 			} else {
-				var e:Base64Encoder = new Base64Encoder();
-				p.addValue("photo", e.encodeBytes((_photo.source as BitmapData).getPixels(new Rectangle(0,0, 150, 200))));
+				var bd:BitmapData = (_photo.source as BitmapData);
+				var b:ByteArray = new ByteArray(); 
+				b.writeInt(bd.width);
+				b.writeInt(bd.height);
+				var bmd:ByteArray =bd.getPixels(new Rectangle(0, 0, bd.width, bd.height)); 
+				b.writeBytes(bmd); 
+				p.addValue("photo", b);
 			}
 			
 			return p;

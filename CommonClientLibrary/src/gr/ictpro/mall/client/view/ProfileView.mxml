@@ -11,10 +11,12 @@
 		<signals:Signal id="save"/>
 		<signals:Signal id="cancel"/>
 		<signals:Signal id="back"/>
+		<signals:Signal id="choosePhoto"/>
 	</fx:Declarations>
 	
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.components.PopUpMenu;
 			import gr.ictpro.mall.client.model.User;
 			
 			import mx.core.IVisualElementContainer;
@@ -47,6 +49,11 @@
 				}
 			}
 			
+			protected function imgPhoto_clickHandler(event:MouseEvent):void
+			{
+				choosePhoto.dispatch(event);
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Group width="100%" height="100%">
@@ -54,7 +61,7 @@
 			<s:VerticalLayout gap="10" horizontalAlign="left" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" />
 		</s:layout>
 
-		<s:Group width="154" height="204">
+		<s:Group id="imgContainer" width="154" height="204" click="imgPhoto_clickHandler(event)">
 			<s:Rect width="100%" height="100%">
 				<s:fill><s:SolidColor color="0xAAAAAA" /></s:fill>
 			</s:Rect>
@@ -62,7 +69,7 @@
 				<s:layout>
 					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2" paddingTop="2"/>
 				</s:layout>
-				<s:Image width="150" height="200" id="imgPhoto" source="{user.photo}"/>	
+				<s:Image width="150" height="200" id="imgPhoto" source="{user.photo}" />	
 			</s:Group>
 		</s:Group>
 
