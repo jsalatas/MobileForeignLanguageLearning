@@ -9,6 +9,8 @@ package gr.ictpro.mall.client.model
 		private var _settings:Object = null;
 		private var _user:User = null;
 		
+		private var _serverConfiguration:ServerConfiguration = null;
+		
 		public function Settings()
 		{
 		}
@@ -23,6 +25,17 @@ package gr.ictpro.mall.client.model
 			this._settings = settings;
 		}
 
+		public function get serverConfiguration():ServerConfiguration 
+		{
+			return _serverConfiguration; 
+		}
+		
+		public function set serverConfiguration(serverConfiguration:ServerConfiguration):void 
+		{
+			this._serverConfiguration = serverConfiguration;
+		}
+
+		
 		public function getSetting(name:String):String
 		{
 			if(_settings != null && _settings.hasOwnProperty(name))

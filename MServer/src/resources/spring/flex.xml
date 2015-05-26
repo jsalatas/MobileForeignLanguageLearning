@@ -17,11 +17,12 @@
 	<bean id="accessDecisionManager" class ="org.springframework.security.access.vote.AffirmativeBased">
 	    <property name="decisionVoters" ref="roleVoter"></property>
 	</bean>
+	
 	<bean id="userRemoteService" class="gr.ictpro.mall.flex.UserRemoteService">
 		<property name="userService" ref="userService"></property>
 		<property name="roleService" ref="roleService"></property>
 		<property name="profileService" ref="profileService"></property>
-			    		<flex:remoting-destination />
+		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="save" />
 		</security:intercept-methods>
@@ -30,10 +31,18 @@
 	<bean id="authenticationRemoteService" class="gr.ictpro.mall.flex.AuthenticationRemoteService">
 		<property name="userService" ref="userService"></property>
 		<property name="roleService" ref="roleService"></property>
-				<flex:remoting-destination />
+		<flex:remoting-destination />
 	</bean>
-
-	    <flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />
+	
+	<bean id="configRemoteService" class="gr.ictpro.mall.flex.ConfigRemoteService">
+		<property name="configService" ref="configService"></property>
+		<flex:remoting-destination />
+		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
+			<security:protect access="Admin" method="*" />
+		</security:intercept-methods>
+	</bean>
+	
+	<flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />
 			    
 	
 </beans>

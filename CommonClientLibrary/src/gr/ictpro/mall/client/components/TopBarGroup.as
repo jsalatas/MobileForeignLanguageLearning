@@ -11,6 +11,7 @@ package gr.ictpro.mall.client.components
 	import mx.graphics.SolidColor;
 	
 	import spark.components.Group;
+	import spark.components.Scroller;
 	import spark.layouts.HorizontalLayout;
 	import spark.layouts.VerticalLayout;
 	import spark.layouts.supportClasses.LayoutBase;
@@ -116,9 +117,11 @@ package gr.ictpro.mall.client.components
 			}
 
 			topBarGroup.addElement(ocgroup);
-			addElement(mxmlContentGroup);
-			mxmlContentGroup.percentWidth = 100;
-			mxmlContentGroup.percentHeight = 100;
+			var scroller:Scroller = new Scroller();
+			scroller.percentWidth = 100;
+			scroller.percentHeight = 100;
+			scroller.viewport = mxmlContentGroup;
+			addElement(scroller);
 		}
 		
 		override public function set layout(value:LayoutBase):void

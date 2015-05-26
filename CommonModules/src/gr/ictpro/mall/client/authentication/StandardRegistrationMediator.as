@@ -12,6 +12,7 @@ package gr.ictpro.mall.client.authentication
 	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
+	import mx.utils.ObjectProxy;
 	
 	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
 	
@@ -55,7 +56,7 @@ package gr.ictpro.mall.client.authentication
 			var studentRole:Object;
 			view.roles = new ArrayList();
 			for each (var role:Object in res) { 
-				var o:Object = new Object;
+				var o:ObjectProxy = new ObjectProxy;
 				o.id = role.id;
 				o.text = role.role;
 				o.image = null; 

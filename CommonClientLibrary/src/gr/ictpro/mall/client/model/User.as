@@ -58,6 +58,11 @@ package gr.ictpro.mall.client.model
 			return u;
 		}
 		
+		public function isAdmin():Boolean
+		{
+			return roles.getItemIndex("Admin")>-1;
+		}
+		
 		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData)
 		{
 			this._id = id;

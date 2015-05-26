@@ -3,14 +3,48 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:components="gr.ictpro.mall.client.components.*"
 					   width="100%" height="100%"
+					   okClicked="topbargroup1_okClickedHandler(event)"
+					   cancelClicked="topbargroup1_cancelClickedHandler(event)"
+					   backClicked="topbargroup1_backClickedHandler(event)" xmlns:signals="org.osflash.signals.*" 
 					   >
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<signals:Signal id="save"/>
+		<signals:Signal id="cancel"/>
+		<signals:Signal id="back"/>
 	</fx:Declarations>
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.core.IVisualElementContainer;
+			
+			public function dispose():void
+			{
+				if(parent && parent.contains(this)) {
+					IVisualElementContainer(parent).removeElement(this);
+				}
+			}
+
+			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
+			{
+				save.dispatch();
+			}
+			
+			protected function topbargroup1_cancelClickedHandler(event:MouseEvent):void
+			{
+				cancel.dispatch();
+			}
+			
+			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
+			{
+				back.dispatch();
+				
+			}
+
 		]]>
 	</fx:Script>
-
+	<s:Group id="settings">
+		<s:layout>
+			<s:FormLayout/>
+		</s:layout>
+		</s:Group>
 </components:TopBarGroup>

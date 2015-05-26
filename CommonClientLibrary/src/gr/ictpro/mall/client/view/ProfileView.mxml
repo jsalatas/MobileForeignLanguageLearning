@@ -17,11 +17,10 @@
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.components.PopUpMenu;
-			import gr.ictpro.mall.client.model.User;
 			
 			import mx.core.IVisualElementContainer;
-			import mx.core.UIComponent;
-
+			
+			import gr.ictpro.mall.client.model.User;
 			
 			[Bindable]
 			public var user:User;

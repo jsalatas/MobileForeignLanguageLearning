@@ -66,6 +66,8 @@
     <classEntry path="gr.ictpro.mall.client.components.PopUpMenu"/>
     <classEntry path="gr.ictpro.mall.client.model.DeviceType"/>
     <classEntry path="gr.ictpro.mall.client.utils.image.ImageTransform"/>
+    <classEntry path="gr.ictpro.mall.client.model.ServerConfiguration"/>
+    <classEntry path="gr.ictpro.mall.client.utils.string.StringCapitalize"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
