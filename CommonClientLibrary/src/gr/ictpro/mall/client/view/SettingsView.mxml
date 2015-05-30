@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<components:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:components="gr.ictpro.mall.client.components.*"
+<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="gr.ictpro.mall.client.components.*"
 					   width="100%" height="100%"
 					   okClicked="topbargroup1_okClickedHandler(event)"
 					   cancelClicked="topbargroup1_cancelClickedHandler(event)"
@@ -47,4 +46,4 @@
 			<s:FormLayout/>
 		</s:layout>
 		</s:Group>
-</components:TopBarGroup>
+</s:TopBarGroup>

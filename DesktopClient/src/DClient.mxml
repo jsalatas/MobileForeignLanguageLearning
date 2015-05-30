@@ -8,13 +8,14 @@
 					   >
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.DeviceType;
+			import gr.ictpro.mall.client.desktop.DesktopDevice;
+			import gr.ictpro.mall.client.model.Device;
 			
 			import mx.events.FlexEvent;
 			
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
-				DeviceType.isDesktop = true;
+				Device.device = new DesktopDevice();
 				
 			}
 			

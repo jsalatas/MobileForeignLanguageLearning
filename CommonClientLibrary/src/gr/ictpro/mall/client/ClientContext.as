@@ -12,6 +12,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.model.IDevice;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;

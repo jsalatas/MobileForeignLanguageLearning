@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:IconItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
-				xmlns:local="gr.ictpro.mall.client.components.renderers.*"
+<s:IconItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="gr.ictpro.mall.client.components.renderers.*"
 				iconField="icon"
 				labelField="text"
 				iconHeight="20"
@@ -11,4 +11,4 @@
 				paddingRight="2"
 				bottomSeparatorColor="#ffffff"
 				verticalAlign="middle">
-</local:IconItemRenderer>
+</s:IconItemRenderer>

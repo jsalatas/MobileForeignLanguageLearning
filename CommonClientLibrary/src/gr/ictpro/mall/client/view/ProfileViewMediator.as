@@ -23,7 +23,6 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.ImageCropper;
 	import gr.ictpro.mall.client.components.PopUpMenu;
-	import gr.ictpro.mall.client.model.DeviceType;
 	import gr.ictpro.mall.client.model.IPersistentObject;
 	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;

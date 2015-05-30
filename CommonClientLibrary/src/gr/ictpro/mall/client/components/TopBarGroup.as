@@ -8,14 +8,8 @@ package gr.ictpro.mall.client.components
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
-	import mx.graphics.SolidColor;
-	
-	import spark.components.Group;
 	import spark.components.Scroller;
-	import spark.layouts.HorizontalLayout;
-	import spark.layouts.VerticalLayout;
 	import spark.layouts.supportClasses.LayoutBase;
-	import spark.primitives.Rect;
 
 	
 	

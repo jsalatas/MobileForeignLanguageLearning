@@ -55,7 +55,6 @@
     <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.TopBarGroup"/>
-    <classEntry path="gr.ictpro.mall.client.components.Test"/>
     <classEntry path="gr.ictpro.mall.client.signal.PersistSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.PersistCommand"/>
     <classEntry path="gr.ictpro.mall.client.model.PersistentData"/>
@@ -64,10 +63,39 @@
     <classEntry path="gr.ictpro.mall.client.model.PersistentObjectWrapper"/>
     <classEntry path="gr.ictpro.mall.client.model.IClientPersistentObject"/>
     <classEntry path="gr.ictpro.mall.client.components.PopUpMenu"/>
-    <classEntry path="gr.ictpro.mall.client.model.DeviceType"/>
     <classEntry path="gr.ictpro.mall.client.utils.image.ImageTransform"/>
     <classEntry path="gr.ictpro.mall.client.model.ServerConfiguration"/>
     <classEntry path="gr.ictpro.mall.client.utils.string.StringCapitalize"/>
+    <classEntry path="gr.ictpro.mall.client.model.IDevice"/>
+    <classEntry path="gr.ictpro.mall.client.model.Device"/>
+    <classEntry path="gr.ictpro.mall.client.components.FormItem"/>
+    <classEntry path="gr.ictpro.mall.client.components.Module"/>
+    <classEntry path="gr.ictpro.mall.client.components.TextInput"/>
+    <classEntry path="gr.ictpro.mall.client.components.Button"/>
+    <classEntry path="gr.ictpro.mall.client.components.Image"/>
+    <classEntry path="gr.ictpro.mall.client.components.List"/>
+    <classEntry path="gr.ictpro.mall.client.components.SkinnablePopUpContainer"/>
+    <classEntry path="gr.ictpro.mall.client.components.Group"/>
+    <classEntry path="gr.ictpro.mall.client.components.FormLayout"/>
+    <classEntry path="gr.ictpro.mall.client.components.HorizontalLayout"/>
+    <classEntry path="gr.ictpro.mall.client.components.Label"/>
+    <classEntry path="gr.ictpro.mall.client.components.SkinnableContainer"/>
+    <classEntry path="gr.ictpro.mall.client.components.VerticalLayout"/>
+    <classEntry path="gr.ictpro.mall.client.components.Rect"/>
+    <classEntry path="gr.ictpro.mall.client.components.SolidColor"/>
+    <classEntry path="gr.ictpro.mall.client.components.Transition"/>
+    <classEntry path="gr.ictpro.mall.client.components.Move"/>
+    <classEntry path="gr.ictpro.mall.client.components.Spacer"/>
+    <classEntry path="gr.ictpro.mall.client.components.LinearGradient"/>
+    <classEntry path="gr.ictpro.mall.client.components.GradientEntry"/>
+    <classEntry path="gr.ictpro.mall.client.components.Skin"/>
+    <classEntry path="gr.ictpro.mall.client.components.SolidColorStroke"/>
+    <classEntry path="gr.ictpro.mall.client.moblie.skins.ListSkin"/>
+    <classEntry path="gr.ictpro.mall.client.moblie.skins.ImageSkin"/>
+    <classEntry path="gr.ictpro.mall.client.moblie.skins.FormItemSkin"/>
+    <classEntry path="gr.ictpro.mall.client.moblie.skins.SkinnablePopUpContainerSkin"/>
+    <classEntry path="gr.ictpro.mall.client.moblie.skins.ButtonSkin"/>
+    <classEntry path="gr.ictpro.mall.client.moblie.skins.SkinnableContainerSkin"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -4,16 +4,18 @@
 			   xmlns:mobile="gr.ictpro.mall.client.mobile.*"
 			   xmlns:view="gr.ictpro.mall.client.view.*"
 			   applicationDPI="160"
-			   initialize="application1_initializeHandler(event)">
+			   initialize="application1_initializeHandler(event)"
+			   >
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.DeviceType;
+			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.mobile.MobileDevice;
 			
 			import mx.events.FlexEvent;
 			
 			protected function application1_initializeHandler(event:FlexEvent):void
 			{
-				DeviceType.isAndroid = true;
+				Device.device = new MobileDevice();
 				
 			}
 			

@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.service
 	import flash.system.ApplicationDomain;
 	import flash.utils.ByteArray;
 	
+	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
@@ -20,6 +21,7 @@ package gr.ictpro.mall.client.service
 	
 	import spark.modules.Module;
 	import spark.modules.ModuleLoader;
+	import spark.skins.SparkSkin;
 	
 	public class ExternalModuleLoader
 	{

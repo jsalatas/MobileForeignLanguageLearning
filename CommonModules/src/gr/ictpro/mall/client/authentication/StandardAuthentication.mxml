@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
-		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:s="gr.ictpro.mall.client.components.*"
 		  xmlns:signals="org.osflash.signals.*"
-		  width="100%" height="100%" implements="org.robotlegs.utilities.modular.core.IModule">
+		  width="100%" height="100%" implements="org.robotlegs.utilities.modular.core.IModule"
+		  initialize="module1_initializeHandler(event)" xmlns:mx="library://ns.adobe.com/flex/mx"
+		  >
+	<s:states>
+		<mx:State name="normal"/>
+	</s:states>
 	<fx:Declarations>
 		<signals:Signal id="okClicked"/>
 		<signals:Signal id="registerClicked"/>
@@ -10,14 +15,17 @@
 		
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.model.IDevice;
+			
 			import mx.core.IVisualElementContainer;
+			import mx.events.FlexEvent;
 			
 			import org.robotlegs.core.IInjector;
 			import org.robotlegs.utilities.modular.core.IModuleContext;
-
 			
 			protected var context:IModuleContext;
-
+			
 			[Inject]
 			public function set parentInjector(value:IInjector):void
 			{
@@ -43,6 +51,11 @@
 				registerClicked.dispatch();
 			}
 			
+			protected function module1_initializeHandler(event:FlexEvent):void
+			{
+				trace("initialize");
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -53,7 +66,7 @@
 			<s:FormLayout/>
 		</s:layout>
 		<s:FormItem label="User Name" textAlign="right">
-			<s:TextInput id="txtUserName" textAlign="left"/>	
+			<s:TextInput id="txtUserName" textAlign="left" />	
 		</s:FormItem>
 		<s:FormItem label="Password" textAlign="right">
 			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" />	

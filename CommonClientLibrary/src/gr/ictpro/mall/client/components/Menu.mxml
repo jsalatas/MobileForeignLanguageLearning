@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:s="gr.ictpro.mall.client.components.*"
 		 width="200" height="100%">
 	<fx:Metadata>
 		[Event(name="change", type="flash.events.Event")]
@@ -59,8 +59,9 @@
 					<s:HorizontalLayout gap="0"/>
 				</s:layout>
 				<s:Spacer width="10" />
-				<s:List id="list" width="100%" borderAlpha="0" dataProvider="{menuList}"
-						itemRenderer="gr.ictpro.mall.client.components.renderers.MenuRenderer" change="list1_changeHandler(event)"/>
+				<s:List id="list" width="100%" borderAlpha="0" change="list1_changeHandler(event)"
+						contentBackgroundColor="#FFFFFF" dataProvider="{menuList}"
+						itemRenderer="gr.ictpro.mall.client.components.renderers.MenuRenderer"/>
 			</s:Group>
 		</s:Group>
 		<s:Group top="0" bottom="0" right="0" width="3" height="100%">
