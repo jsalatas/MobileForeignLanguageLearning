@@ -98,7 +98,7 @@
 			{
 				stage.addEventListener(MouseEvent.CLICK, stageClickedHandler);
 				if(this.height == 0) {
-					this.height = Device.getScaledSize(20);
+					this.height = 20;
 				}
 			}
 			
@@ -145,10 +145,10 @@
 	<fx:Declarations>
 	</fx:Declarations>
 	<s:TextInput id="txt" editable="false" selectable="false" text="{selected.text}" click="txt_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
-	<s:SkinnableContainer includeIn="expand" height="{Device.getScaledSize(100)}" width="100%" x="0" y="{controlHeight}"
+	<s:SkinnableContainer includeIn="expand" height="100" width="100%" x="0" y="{controlHeight}"
 						  skinClass="gr.ictpro.mall.client.components.skins.BorderContainer" >
 		
-		<s:List id="list" itemRenderer="gr.ictpro.mall.client.components.renderers.ListRenderer" height="{Device.getScaledSize(100)}" width="100%" includeIn="expand" dataProvider="{dataList}"  click="list1_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
+		<s:List id="list" itemRenderer="gr.ictpro.mall.client.components.renderers.ListRenderer" height="100" width="100%" includeIn="expand" dataProvider="{dataList}"  click="list1_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
 	</s:SkinnableContainer> 
 	
 </s:Group>

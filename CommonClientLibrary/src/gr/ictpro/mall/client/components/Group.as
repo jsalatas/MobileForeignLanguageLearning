@@ -11,5 +11,15 @@ package gr.ictpro.mall.client.components
 			super();
 			super.setStyle("fontSize", Device.getScaledSize(super.getStyle("fontSize")));
 		}
+		
+		override public function set height(value:Number):void
+		{
+			super.height = Device.getScaledSize(value);
+		}
+
+		override public function set width(value:Number):void
+		{
+			super.width = Device.getScaledSize(value);
+		}
 	}
 }

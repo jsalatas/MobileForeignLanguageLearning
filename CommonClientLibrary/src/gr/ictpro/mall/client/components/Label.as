@@ -11,7 +11,17 @@ package gr.ictpro.mall.client.components
 		public function Label()
 		{
 			super();
-			super.setStyle("fontSize", Device.getScaledSize(super.getStyle("fontSize")));
+			//super.setStyle("fontSize", Device.getScaledSize(super.getStyle("fontSize")));
 		}
+		
+		override public function setStyle(styleProp:String, newValue:*):void
+		{
+			if(styleProp == "fontSize") {
+				newValue = Device.getScaledSize(newValue);
+			}
+			
+			super.setStyle(styleProp, newValue);
+		}
+
 	}
 }

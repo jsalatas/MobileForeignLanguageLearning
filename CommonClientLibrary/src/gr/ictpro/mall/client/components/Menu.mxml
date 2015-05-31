@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="gr.ictpro.mall.client.components.*"
-		 width="{Device.getScaledSize(200)}" height="100%">
+		 width="200" height="100%">
 	<fx:Metadata>
 		[Event(name="change", type="flash.events.Event")]
 	</fx:Metadata>
@@ -56,13 +56,14 @@
 				<s:VerticalLayout gap="0"/>
 			</s:layout>
 			<s:Spacer height="20" />
-			<s:Group width="100%">
+			<s:Group width="100%" height="100%">
 				<s:layout>
 					<s:HorizontalLayout gap="0"/>
 				</s:layout>
 				<s:Spacer width="10" />
-				<s:List id="list" width="100%" borderAlpha="0" change="list1_changeHandler(event)"
-						contentBackgroundColor="#FFFFFF" dataProvider="{menuList}"
+				<s:List id="list" width="100%" height="100%" borderAlpha="0"
+						change="list1_changeHandler(event)" contentBackgroundColor="#FFFFFF"
+						dataProvider="{menuList}"
 						itemRenderer="gr.ictpro.mall.client.components.renderers.MenuRenderer"/>
 			</s:Group>
 		</s:Group>

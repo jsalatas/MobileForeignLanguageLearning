@@ -11,5 +11,16 @@ package gr.ictpro.mall.client.components
 			super();
 			super.setStyle("skinClass", Device.imageSkin);
 		}
+		
+		override public function set height(value:Number):void
+		{
+			super.height = Device.getScaledSize(value);
+		}
+		
+		override public function set width(value:Number):void
+		{
+			super.width = Device.getScaledSize(value);
+		}
+
 	}
 }

@@ -304,10 +304,14 @@ package gr.ictpro.mall.client.components.renderers
 		//
 		//--------------------------------------------------------------------------
 		
+		private var heightAdjusted = false;
 		
 		override public function set height(value:Number):void
 		{
-			super.height = Device.getScaledSize(value);	
+			if(!heightAdjusted) {
+				super.height = Device.getScaledSize(value);
+				heightAdjusted = true;
+			}
 		}
 		
 		/**

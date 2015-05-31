@@ -53,19 +53,19 @@
 			
 		]]>
 	</fx:Script>
-	<s:Group id="topBar" top="0" width="100%" height="{Device.getScaledSize(40)}">
+	<s:Group id="topBar" top="0" width="100%" height="40">
 		<s:Rect width="100%" height="100%">
 			<s:fill><s:SolidColor color="0xAAAAAA" /></s:fill>
 		</s:Rect>
-		<s:Group top="0" height="{Device.getScaledSize(40)}" click="showMenu(event)">
+		<s:Group top="0" height="40" click="showMenu(event)">
 			<s:layout>
 				<s:HorizontalLayout paddingLeft="5" paddingRight="5" verticalAlign="middle" gap="10"/>
 			</s:layout>
-			<s:Image source="{user.photo}" width="{Device.getScaledSize(21)}" height="{Device.getScaledSize(28)}" />
+			<s:Image source="{user.photo}" width="21" height="28" />
 			<s:Label color="0xFFFFFF" fontWeight="normal" text="{user.name}"
-					 fontSize="{Device.getScaledSize(20)}"/>
+					 fontSize="20"/>
 		</s:Group>
 	</s:Group>
-	<s:Menu id="mainMenu" width="200" bottom="0" top="{Device.getScaledSize(40)}" x.default="{-mainMenu.width}" x.menu="0" menuList="{user.getMenu()}" change="mainMenu_changeHandler(event)"/>
+	<s:Menu id="mainMenu" width="200" bottom="0" top="{topBar.height}" x.default="{-mainMenu.width}" x.menu="0" menuList="{user.getMenu()}" change="mainMenu_changeHandler(event)"/>
 	
 </s:Group>
