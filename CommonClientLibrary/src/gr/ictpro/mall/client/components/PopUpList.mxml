@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 					  xmlns:s="gr.ictpro.mall.client.components.*"
-					  skinClass="gr.ictpro.mall.client.components.skins.BorderContainer"
-					  initialize="initializeHandler(event)"
-					  addedToStage="addedToStageHandler(event)"
-					  removed="removedFromStage(event)"
-					  depth="10000" width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx" >
+					  xmlns:mx="library://ns.adobe.com/flex/mx"
+					  addedToStage="addedToStageHandler(event)" currentState="collapse"
+					  depth="10000"
+					  implements="mx.managers.IFocusManagerComponent"
+					  initialize="initializeHandler(event)" removed="removedFromStage(event)"
+					  focusIn="group1_focusInHandler(event)"
+					  >
 
 	<fx:Metadata>
 		[Event(name="change", type="flash.events.Event")]
+		[DefaultProperty("txt")]
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.model.Device;
+			
 			import mx.collections.ArrayList;
 			import mx.events.FlexEvent;
-			import mx.managers.IFocusManagerComponent;
 			
 			private var listClicked:Boolean = false;
 			
@@ -40,16 +44,24 @@
 			[Bindable]
 			private var controlHeight:int=0;
 			
-			protected function group1_clickHandler(event:MouseEvent):void
+			protected function txt_clickHandler(event:MouseEvent):void
 			{
 				listClicked = true;
-				currentState="expand";
+				if(currentState == "expand") {
+					currentState = "collapse";
+					txt.setFocus();
+				} else {
+					currentState="expand";
+					list.setFocus();
+				}
+				
 			}
 			
 			protected function list1_clickHandler(event:MouseEvent):void
 			{
 				selected = list.selectedItem;
 				currentState = "collapse";
+				txt.setFocus();
 				dispatchEvent(new Event(Event.CHANGE));
 			}
 			
@@ -64,13 +76,14 @@
 			}
 			private function stageClickedHandler(event:Event):void
 			{
-				var ComponentWithFocus : IFocusManagerComponent= focusManager.getFocus();
 				if(!listClicked && currentState == "expand") {
-					lostFocus(event); 
+					lostFocus();
+					currentState = "collapse"; 
 				}
 				listClicked = false;
 			}
-			protected function lostFocus(event:Event):void
+			
+			protected function lostFocus():void
 			{
 				listClicked = false;
 				if(selected == null) {
@@ -85,15 +98,44 @@
 			{
 				stage.addEventListener(MouseEvent.CLICK, stageClickedHandler);
 				if(this.height == 0) {
-					this.height = 20;
+					this.height = Device.getScaledSize(20);
 				}
 			}
 			
 			protected function removedFromStage(event:Event):void
 			{
-				stage.removeEventListener(MouseEvent.CLICK, stageClickedHandler);
+				if(event.target == this) {
+					stage.removeEventListener(MouseEvent.CLICK, stageClickedHandler);
+				}
 			}
 			
+			protected function group1_focusInHandler(event:FocusEvent):void
+			{
+				if(currentState == "collapse") {
+					txt.setFocus();
+				} else {
+					list.setFocus();
+					
+				}
+				
+			}
+			
+			protected function txt_keyDownHandler(event:KeyboardEvent):void
+			{
+				if(event.currentTarget == txt && currentState == "collapse" && (event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.DOWN)) {
+					currentState = "expand";
+					list.setFocus()
+				} else if (event.currentTarget == list && currentState == "expand" && event.keyCode == Keyboard.ESCAPE) {
+					currentState = "collapse";
+					txt.setFocus();
+				} else if (event.currentTarget == list && currentState == "expand" && (event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.SPACE)) {
+					selected = list.selectedItem;
+					currentState = "collapse";
+					txt.setFocus();
+					dispatchEvent(new Event(Event.CHANGE));
+				}
+
+			}
 		]]>
 	</fx:Script>
 	<s:states>
@@ -102,19 +144,11 @@
 	</s:states>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Group id="mainGroup" left="0" top="0" width="100%" height="{controlHeight}" click="group1_clickHandler(event)">
-		
-		<s:layout>
-			<s:HorizontalLayout gap="2" verticalAlign="middle" />
-		</s:layout>
-		
-		<s:Image id="img" source="{selected.image}" height="20" width="{selected.image==null?0:25}"/>
-		<s:Label id="txt" text="{selected.text}" />
-	</s:Group>
-	<s:SkinnableContainer includeIn="expand" height="100" width="100%" x="0" y="{controlHeight}"
+	<s:TextInput id="txt" editable="false" selectable="false" text="{selected.text}" click="txt_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
+	<s:SkinnableContainer includeIn="expand" height="{Device.getScaledSize(100)}" width="100%" x="0" y="{controlHeight}"
 						  skinClass="gr.ictpro.mall.client.components.skins.BorderContainer" >
 		
-		<s:List id="list" itemRenderer="gr.ictpro.mall.client.components.renderers.ListRenderer" height="100" width="100%" includeIn="expand" dataProvider="{dataList}"  click="list1_clickHandler(event)" />
+		<s:List id="list" itemRenderer="gr.ictpro.mall.client.components.renderers.ListRenderer" height="{Device.getScaledSize(100)}" width="100%" includeIn="expand" dataProvider="{dataList}"  click="list1_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
 	</s:SkinnableContainer> 
 	
-</s:SkinnableContainer>
+</s:Group>

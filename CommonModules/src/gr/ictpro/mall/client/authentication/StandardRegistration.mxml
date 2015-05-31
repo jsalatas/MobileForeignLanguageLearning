@@ -2,7 +2,8 @@
 <s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:signals="org.osflash.signals.*"
 		  xmlns:s="gr.ictpro.mall.client.components.*"
-		  width="100%" height="100%" implements="org.robotlegs.utilities.modular.core.IModule">
+		  width="100%" height="100%" implements="org.robotlegs.utilities.modular.core.IModule"
+		  >
 	<fx:Declarations>
 		<signals:Signal id="okClicked"/>
 	</fx:Declarations>
@@ -48,35 +49,34 @@
 		]]>
 	</fx:Script>
 	
-	<s:Group horizontalCenter="0" verticalCenter="0">
+	<s:Group horizontalCenter="0" verticalCenter="0" >
 		<s:layout>
-			<s:FormLayout/>
+			<s:FormLayout />
 		</s:layout>
-		<s:FormItem label="Name" textAlign="right">
-			<s:TextInput id="txtName" textAlign="left"/>
+		<s:FormItem id="formitem" label="Name" textAlign="right" >
+			<s:TextInput id="txtName" textAlign="left" tabIndex="1"/>
 		</s:FormItem>
 		<s:FormItem label="Email" textAlign="right">
-			<s:TextInput id="txtEmail" textAlign="left"/>	
+			<s:TextInput id="txtEmail" textAlign="left" tabIndex="2"/>	
 		</s:FormItem>
-		<s:FormItem label="I am" depth="10000" textAlign="right">
-			<s:PopUpList id="role" width="100%" dataList="{roles}" depth="10000"
-								  textAlign="left"/>
+		<s:FormItem label="I am" textAlign="right" depth="10000" >
+			<s:PopUpList id="role" dataList="{roles}" depth="10000" textAlign="left" tabIndex="3"/>
 		</s:FormItem>
 		<s:FormItem label="User Name" textAlign="right">
-			<s:TextInput id="txtUserName" textAlign="left"/>	
+			<s:TextInput id="txtUserName" textAlign="left" tabIndex="4"/>	
 		</s:FormItem>
 		<s:FormItem label="Password" textAlign="right">
-			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left"/>	
+			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" tabIndex="5"/>	
 		</s:FormItem>
 		<s:FormItem label="Confirm Password" textAlign="right">
-			<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left"/>	
+			<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
 		</s:FormItem>
 		<s:FormItem width="100%">
 			<s:Group>
 				<s:layout>
 					<s:HorizontalLayout/>
 				</s:layout>
-				<s:Button id="btnOK" label="OK" click="btnOK_clickHandler(event)"/>
+				<s:Button id="btnOK" label="OK" click="btnOK_clickHandler(event)" tabIndex="7"/>
 			</s:Group>
 		</s:FormItem>
 	</s:Group>

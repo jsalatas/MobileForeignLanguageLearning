@@ -8,6 +8,8 @@ package gr.ictpro.mall.client.components
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
+	import gr.ictpro.mall.client.model.Device;
+	
 	import spark.components.Scroller;
 	import spark.layouts.supportClasses.LayoutBase;
 
@@ -40,7 +42,7 @@ package gr.ictpro.mall.client.components
 			var topBarGroup:Group = new Group();
 			topBarGroup.top=0;
 			topBarGroup.percentWidth=100;
-			topBarGroup.height=40;
+			topBarGroup.height=Device.getScaledSize(40);
 			
 			var bg:Rect = new Rect();
 			bg.fill = new SolidColor(0xAAAAAA);
@@ -62,11 +64,11 @@ package gr.ictpro.mall.client.components
 			bgroup.layout = l1;
 			bgroup.left = 0;
 			bgroup.top = 0;
-			bgroup.height = 40;
+			bgroup.height = Device.getScaledSize(40);
 			
 			var fxgBack:back = new back();
-			fxgBack.width = 23;
-			fxgBack.height = 22;
+			fxgBack.width = Device.getScaledSize(23);
+			fxgBack.height = Device.getScaledSize(22);
 
 			var groupBack:Group = new Group();
 			groupBack.addElement(fxgBack);
@@ -86,12 +88,12 @@ package gr.ictpro.mall.client.components
 			ocgroup.layout = l2;
 			ocgroup.right = 0;
 			ocgroup.top = 0;
-			ocgroup.height = 40;
+			ocgroup.height = Device.getScaledSize(40);
 
 			if(okButton) {
 				var fxgOk:ok = new ok();
-				fxgOk.width = 31;
-				fxgOk.height = 22;
+				fxgOk.width = Device.getScaledSize(31);
+				fxgOk.height = Device.getScaledSize(22);
 				var groupOK:Group = new Group();
 				groupOK.addElement(fxgOk);
 				groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
@@ -102,8 +104,8 @@ package gr.ictpro.mall.client.components
 			
 			if(cancelButton) {
 				var fxgCancel:cancel = new cancel();
-				fxgCancel.width = 22;
-				fxgCancel.height = 22;
+				fxgCancel.width = Device.getScaledSize(22);
+				fxgCancel.height = Device.getScaledSize(22);
 				var groupCancel:Group = new Group();
 				groupCancel.addElement(fxgCancel);
 				groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);

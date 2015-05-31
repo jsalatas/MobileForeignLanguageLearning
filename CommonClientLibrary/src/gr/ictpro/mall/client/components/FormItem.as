@@ -10,6 +10,8 @@ package gr.ictpro.mall.client.components
 		{
 			super();
 			super.setStyle("skinClass", Device.formItemSkin);
+			super.setStyle("fontSize", Device.getScaledSize(super.getStyle("fontSize")));
+			
 		}
 	}
 }

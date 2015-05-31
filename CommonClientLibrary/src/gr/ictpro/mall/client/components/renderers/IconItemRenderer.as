@@ -9,6 +9,8 @@ package gr.ictpro.mall.client.components.renderers
 	import flash.utils.Timer;
 	import flash.utils.flash_proxy;
 	
+	import gr.ictpro.mall.client.model.Device;
+	
 	import mx.core.DPIClassification;
 	import mx.core.FlexGlobals;
 	import mx.core.mx_internal;
@@ -233,6 +235,8 @@ package gr.ictpro.mall.client.components.renderers
 				}
 			}
 			
+			super.setStyle("fontSize", Device.getScaledSize(super.getStyle("fontSize")));
+			
 		}
 		
 		//--------------------------------------------------------------------------
@@ -299,6 +303,12 @@ package gr.ictpro.mall.client.components.renderers
 		//  Public Properties: Overridden
 		//
 		//--------------------------------------------------------------------------
+		
+		
+		override public function set height(value:Number):void
+		{
+			super.height = Device.getScaledSize(value);	
+		}
 		
 		/**
 		 *  @private
@@ -728,6 +738,7 @@ package gr.ictpro.mall.client.components.renderers
 		 */ 
 		public function set iconHeight(value:Number):void
 		{
+			value = Device.getScaledSize(value);
 			if (value == _iconHeight)
 				return;
 			
@@ -855,6 +866,8 @@ package gr.ictpro.mall.client.components.renderers
 		 */ 
 		public function set iconWidth(value:Number):void
 		{
+			value = Device.getScaledSize(value);
+			
 			if (value == _iconWidth)
 				return;
 			

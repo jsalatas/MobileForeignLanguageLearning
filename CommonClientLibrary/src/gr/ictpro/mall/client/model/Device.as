@@ -2,6 +2,8 @@ package gr.ictpro.mall.client.model
 {
 	import flash.text.ReturnKeyLabel;
 	
+	import mx.core.FlexGlobals;
+	
 	import spark.skins.SparkSkin;
 	import spark.skins.spark.ButtonSkin;
 	import spark.skins.spark.FormItemSkin;
@@ -14,7 +16,10 @@ package gr.ictpro.mall.client.model
 	public class Device
 	{
 		public static var _device:IDevice;
-		
+
+		private static var _curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+		private static var _curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+
 		public static function set device(device:IDevice):void
 		{
 			_device = device;
@@ -23,6 +28,11 @@ package gr.ictpro.mall.client.model
 		public function Device()
 		{
 			throw new Error("Cannot intatiate class");
+		}
+		
+		public static function getScaledSize(defaultSize:int):int
+		{
+			return (defaultSize==0?12:defaultSize) * _curDensity/_curAppDPI;
 		}
 		
 		public static function get isAndroid():Boolean
