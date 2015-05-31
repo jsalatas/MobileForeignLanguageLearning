@@ -53,22 +53,22 @@
 		<s:layout>
 			<s:FormLayout />
 		</s:layout>
-		<s:FormItem id="formitem" label="Name" textAlign="right" >
+		<s:FormItem id="formitem" label="Name" >
 			<s:TextInput id="txtName" textAlign="left" tabIndex="1"/>
 		</s:FormItem>
-		<s:FormItem label="Email" textAlign="right">
+		<s:FormItem label="Email" >
 			<s:TextInput id="txtEmail" textAlign="left" tabIndex="2"/>	
 		</s:FormItem>
-		<s:FormItem label="I am" textAlign="right" depth="10000" >
+		<s:FormItem label="I am" depth="10000" >
 			<s:PopUpList id="role" dataList="{roles}" depth="10000" textAlign="left" tabIndex="3"/>
 		</s:FormItem>
-		<s:FormItem label="User Name" textAlign="right">
+		<s:FormItem label="User Name">
 			<s:TextInput id="txtUserName" textAlign="left" tabIndex="4"/>	
 		</s:FormItem>
-		<s:FormItem label="Password" textAlign="right">
+		<s:FormItem label="Password">
 			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" tabIndex="5"/>	
 		</s:FormItem>
-		<s:FormItem label="Confirm Password" textAlign="right">
+		<s:FormItem label="Confirm Password">
 			<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
 		</s:FormItem>
 		<s:FormItem width="100%">

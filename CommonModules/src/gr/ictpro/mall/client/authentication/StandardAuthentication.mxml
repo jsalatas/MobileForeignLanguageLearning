@@ -65,10 +65,10 @@
 		<s:layout>
 			<s:FormLayout/>
 		</s:layout>
-		<s:FormItem label="User Name" textAlign="right">
+		<s:FormItem label="User Name">
 			<s:TextInput id="txtUserName" textAlign="left" />	
 		</s:FormItem>
-		<s:FormItem label="Password" textAlign="right">
+		<s:FormItem label="Password">
 			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" />	
 		</s:FormItem>
 		<s:FormItem  width="100%">

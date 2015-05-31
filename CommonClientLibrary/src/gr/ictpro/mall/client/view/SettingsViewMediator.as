@@ -6,6 +6,7 @@ package gr.ictpro.mall.client.view
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	
+	import gr.ictpro.mall.client.components.FormItem;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
@@ -24,7 +25,6 @@ package gr.ictpro.mall.client.view
 	import org.robotlegs.mvcs.Mediator;
 	
 	import spark.collections.SortField;
-	import spark.components.FormItem;
 	import spark.components.TextInput;
 	
 	public class SettingsViewMediator extends Mediator
@@ -60,7 +60,7 @@ package gr.ictpro.mall.client.view
 			
 			for(var i:int =0; i<items.length; i++) {
 				var o:Object = items.getItemAt(i);
-				var formItem:FormItem= new FormItem();
+				var formItem:FormItem = new FormItem();
 				formItem.label = o.name;
 				var textInput:TextInput = new TextInput();
 				//textInput.name = o.name;
