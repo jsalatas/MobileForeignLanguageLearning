@@ -1,26 +1,31 @@
 package gr.ictpro.mall.client.components
 {
-	import gr.ictpro.mall.client.model.Device;
+	import mx.core.mx_internal;
 	
 	import spark.layouts.supportClasses.LayoutBase;
-	import spark.modules.Module;
+
+	use namespace mx_internal
 	
-	public class Module extends spark.modules.Module
+	public class ScrollableGroup extends Group
 	{
 		private var mxmlContentGroup:Group = new Group(); 
-		public function Module()
+		
+		public function ScrollableGroup()
 		{
 			super();
-			super.setStyle("skinClass", Device.skinnableContainerSkin);
 		}
+		
 		
 		override protected function createChildren():void
 		{
 			super.createChildren();
-			
 			var scroller:Scroller = new Scroller();
 			scroller.percentWidth = 100;
 			scroller.percentHeight = 100;
+			scroller.minViewportInset = 1;
+			scroller.hasFocusableChildren = false;
+			scroller.ensureElementIsVisibleForSoftKeyboard = false;
+			scroller.viewport = mxmlContentGroup;
 			scroller.viewport = mxmlContentGroup;
 			addElement(scroller);
 		}

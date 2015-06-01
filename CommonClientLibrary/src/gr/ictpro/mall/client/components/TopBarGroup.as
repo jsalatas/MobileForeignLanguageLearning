@@ -10,10 +10,11 @@ package gr.ictpro.mall.client.components
 	
 	import gr.ictpro.mall.client.model.Device;
 	
-	import spark.components.Scroller;
+	import mx.core.mx_internal;
+	
 	import spark.layouts.supportClasses.LayoutBase;
 
-	
+use namespace mx_internal;	
 	
 	[Event(name="backClicked", type="flash.events.MouseEvent")]
 	[Event(name="okClicked", type="flash.events.MouseEvent")]
@@ -116,6 +117,9 @@ package gr.ictpro.mall.client.components
 			var scroller:Scroller = new Scroller();
 			scroller.percentWidth = 100;
 			scroller.percentHeight = 100;
+			scroller.minViewportInset = 1;
+			scroller.hasFocusableChildren = false;
+			scroller.ensureElementIsVisibleForSoftKeyboard = false;
 			scroller.viewport = mxmlContentGroup;
 			addElement(scroller);
 		}

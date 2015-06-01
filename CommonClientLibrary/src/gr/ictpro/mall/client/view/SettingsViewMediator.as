@@ -63,7 +63,7 @@ package gr.ictpro.mall.client.view
 				var formItem:FormItem = new FormItem();
 				formItem.label = o.name;
 				var textInput:TextInput = new TextInput();
-				//textInput.name = o.name;
+				textInput.setStyle("textAlign", "left");
 				textInput.text = o.value;
 				settingsMap[o.name]=textInput;
 				formItem.addElement(textInput);

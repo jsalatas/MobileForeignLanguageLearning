@@ -96,6 +96,8 @@
     <classEntry path="gr.ictpro.mall.client.moblie.skins.SkinnablePopUpContainerSkin"/>
     <classEntry path="gr.ictpro.mall.client.moblie.skins.ButtonSkin"/>
     <classEntry path="gr.ictpro.mall.client.moblie.skins.SkinnableContainerSkin"/>
+    <classEntry path="gr.ictpro.mall.client.components.Scroller"/>
+    <classEntry path="gr.ictpro.mall.client.components.ScrollableGroup"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

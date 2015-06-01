@@ -2,6 +2,8 @@ package gr.ictpro.mall.client.components
 {
 	import gr.ictpro.mall.client.model.Device;
 	
+	import mx.core.InteractionMode;
+	
 	import spark.components.TextInput;
 	
 	public class TextInput extends spark.components.TextInput
@@ -10,6 +12,13 @@ package gr.ictpro.mall.client.components
 		{
 			super();
 			super.setStyle("skinClass", Device.textInputSkin);
+
+			if(Device.isAndroid) {
+				super.setStyle("interactionMode", InteractionMode.TOUCH);
+			} else {
+				super.setStyle("interactionMode", InteractionMode.MOUSE);
+			}
+
 		}
 	}
 }

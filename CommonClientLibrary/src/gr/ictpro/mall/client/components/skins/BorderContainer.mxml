@@ -14,7 +14,7 @@
 	
 	<s:Rect x="0" y="0" height="100%" width="100%">
 		<s:stroke>
-			<s:SolidColorStroke weight="1"/>
+			<s:SolidColorStroke weight="2"/>
 		</s:stroke>
 	</s:Rect>
 	

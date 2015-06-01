@@ -7,11 +7,14 @@ package gr.ictpro.mall.client.model
 	import spark.skins.SparkSkin;
 	import spark.skins.spark.ButtonSkin;
 	import spark.skins.spark.FormItemSkin;
+	import spark.skins.spark.HScrollBarSkin;
 	import spark.skins.spark.ImageSkin;
 	import spark.skins.spark.ListSkin;
+	import spark.skins.spark.ScrollerSkin;
 	import spark.skins.spark.SkinnableContainerSkin;
 	import spark.skins.spark.SkinnablePopUpContainerSkin;
 	import spark.skins.spark.TextInputSkin;
+	import spark.skins.spark.VScrollBarSkin;
 
 	public class Device
 	{
@@ -40,7 +43,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.isAndroid;
 			}
-			trace("get isAndroid(): null");
 			return false;
 		}
 
@@ -49,7 +51,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.formItemSkin;
 			}
-			trace("get formItemSkin(): null");
 			return FormItemSkin;
 		}
 		
@@ -58,7 +59,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.skinnableContainerSkin;
 			}
-			trace("get skinnableContainerSkin(): null");
 			return SkinnableContainerSkin;
 		}
 		
@@ -67,7 +67,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.textInputSkin;
 			}
-			trace("get textInputSkin(): null");
 			return TextInputSkin;
 		}
 		
@@ -76,7 +75,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.buttonSkin;
 			}
-			trace("get buttonSkin(): null");
 			return ButtonSkin;
 		}
 		
@@ -85,7 +83,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.imageSkin;
 			}
-			trace("get imageSkin(): null");
 			return ImageSkin;
 		}
 		
@@ -94,7 +91,6 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.listSkin;
 			}
-			trace("get listSkin(): null");
 			return ListSkin;
 		}
 		
@@ -103,8 +99,23 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.skinnablePopUpContainerSkin;
 			}
-			trace("get skinnablePopUpContainerSkin(): null");
 			return SkinnablePopUpContainerSkin;
+		}
+
+		public static function get vScrollBarSkin():Class
+		{
+			if(_device != null) {
+				return _device.vScrollBarSkin;
+			}
+			return VScrollBarSkin;
+		}
+
+		public static function get hScrollBarSkin():Class
+		{
+			if(_device != null) {
+				return _device.hScrollBarSkin;
+			}
+			return HScrollBarSkin;
 		}
 	}
 }

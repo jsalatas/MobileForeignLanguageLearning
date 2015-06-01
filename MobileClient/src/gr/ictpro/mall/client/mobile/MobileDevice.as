@@ -1,12 +1,15 @@
 package gr.ictpro.mall.client.mobile
 {
+	import gr.ictpro.mall.client.components.Scroller;
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
 	import gr.ictpro.mall.client.mobile.skins.FormItemSkin;
+	import gr.ictpro.mall.client.mobile.skins.HScrollBarSkin;
 	import gr.ictpro.mall.client.mobile.skins.ImageSkin;
 	import gr.ictpro.mall.client.mobile.skins.ListSkin;
 	import gr.ictpro.mall.client.mobile.skins.SkinnableContainerSkin;
 	import gr.ictpro.mall.client.mobile.skins.SkinnablePopUpContainerSkin;
 	import gr.ictpro.mall.client.mobile.skins.TextInputSkin;
+	import gr.ictpro.mall.client.mobile.skins.VScrollBarSkin;
 	import gr.ictpro.mall.client.model.IDevice;
 	
 	public class MobileDevice implements IDevice
@@ -14,6 +17,7 @@ package gr.ictpro.mall.client.mobile
 		public function MobileDevice()
 		{
 			trace("MobileDevice created");
+			Scroller
 		}
 		
 		public function get isAndroid():Boolean
@@ -54,6 +58,16 @@ package gr.ictpro.mall.client.mobile
 		public function get skinnablePopUpContainerSkin():Class
 		{
 			return SkinnablePopUpContainerSkin;
+		}
+
+		public function get vScrollBarSkin():Class 
+		{
+			return VScrollBarSkin;
+		}
+
+		public function get hScrollBarSkin():Class 
+		{
+			return HScrollBarSkin;
 		}
 	}
 }

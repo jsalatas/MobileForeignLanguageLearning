@@ -10,6 +10,8 @@ package gr.ictpro.mall.client.model
 		function get imageSkin():Class;
 		function get listSkin():Class;
 		function get skinnablePopUpContainerSkin():Class;
+		function get vScrollBarSkin():Class;
+		function get hScrollBarSkin():Class;
 		
 	}
 }

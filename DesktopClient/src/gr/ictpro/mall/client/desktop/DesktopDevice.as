@@ -3,14 +3,16 @@ package gr.ictpro.mall.client.desktop
 	
 	import gr.ictpro.mall.client.desktop.skins.ButtonSkin;
 	import gr.ictpro.mall.client.desktop.skins.FormItemSkin;
+	import gr.ictpro.mall.client.desktop.skins.HScrollBarSkin;
 	import gr.ictpro.mall.client.desktop.skins.ImageSkin;
 	import gr.ictpro.mall.client.desktop.skins.ListSkin;
 	import gr.ictpro.mall.client.desktop.skins.SkinnableContainerSkin;
 	import gr.ictpro.mall.client.desktop.skins.SkinnablePopUpContainerSkin;
 	import gr.ictpro.mall.client.desktop.skins.TextInputSkin;
+	import gr.ictpro.mall.client.desktop.skins.VScrollBarSkin;
+	import gr.ictpro.mall.client.model.IDevice;
 	
 	import spark.skins.SparkSkin;
-	import gr.ictpro.mall.client.model.IDevice;
 
 	public class DesktopDevice implements IDevice
 	{
@@ -57,5 +59,16 @@ package gr.ictpro.mall.client.desktop
 		{
 			return SkinnablePopUpContainerSkin;
 		}
+		
+		public function get vScrollBarSkin():Class 
+		{
+			return VScrollBarSkin;
+		}
+
+		public function get hScrollBarSkin():Class 
+		{
+			return HScrollBarSkin;
+		}
+		
 	}
 }
