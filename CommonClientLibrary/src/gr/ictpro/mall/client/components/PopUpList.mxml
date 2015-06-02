@@ -2,10 +2,11 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 					  xmlns:s="gr.ictpro.mall.client.components.*"
 					  xmlns:mx="library://ns.adobe.com/flex/mx"
-					  addedToStage="addedToStageHandler(event)" currentState="collapse"
-					  depth="10000"
+					  addedToStage="addedToStageHandler(event)" 
+					  width="100%"
+					  hasFocusableChildren="true"
 					  implements="mx.managers.IFocusManagerComponent"
-					  initialize="initializeHandler(event)" removed="removedFromStage(event)"
+					  initialize="initializeHandler(event)" 	
 					  focusIn="group1_focusInHandler(event)"
 					  >
 
@@ -18,24 +19,26 @@
 			import gr.ictpro.mall.client.model.Device;
 			
 			import mx.collections.ArrayList;
+			import mx.core.FlexGlobals;
+			import mx.core.InteractionMode;
 			import mx.events.FlexEvent;
+			import mx.utils.ObjectProxy;
+			
+			import spark.events.PopUpEvent;
 			
 			private var listClicked:Boolean = false;
 			
-			private var _selected:Object = null;
+			private var _selected:ObjectProxy = null;
 			
 			[Bindable]
-			public function get selected():Object
+			public function get selected():ObjectProxy
 			{
 				return this._selected;
 			}
 			
-			public function set selected(selected:Object):void
+			public function set selected(selected:ObjectProxy):void
 			{
 				this._selected = selected;
-				if(list != null) {
-					list.selectedItem = selected;
-				}
 			}
 			
 			[Bindable]
@@ -44,111 +47,55 @@
 			[Bindable]
 			private var controlHeight:int=0;
 			
+			private function popUpAction(selected:ObjectProxy):void
+			{
+				this.selected = selected;
+				dispatchEvent(new Event(Event.CHANGE));
+			}
 			protected function txt_clickHandler(event:MouseEvent):void
 			{
-				listClicked = true;
-				if(currentState == "expand") {
-					currentState = "collapse";
-					txt.setFocus();
-				} else {
-					currentState="expand";
-					list.setFocus();
-				}
-				
-			}
-			
-			protected function list1_clickHandler(event:MouseEvent):void
-			{
-				selected = list.selectedItem;
-				currentState = "collapse";
-				txt.setFocus();
-				dispatchEvent(new Event(Event.CHANGE));
+				var popUpMenu:PopUpMenu = new PopUpMenu();
+				popUpMenu.menuList = dataList;
+				popUpMenu.borderVisible = true;
+				var point:Point = localToGlobal(new Point(0, txt.height)); 
+				var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+				var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+
+				popUpMenu.x = point.x*curAppDPI/curDensity;
+				popUpMenu.y = point.y*curAppDPI/curDensity;
+				popUpMenu.width = txt.width;
+				popUpMenu.percentHeight=100;
+				popUpMenu.itemSelected.add(popUpAction);
+				popUpMenu.open(this, false);
+				popUpMenu.list.selectedItem = selected;
+				popUpMenu.list.setFocus();
 			}
 			
 			protected function initializeHandler(event:Event):void
 			{
 				if(selected == null) {
-					txt.text="Select Item";
-				} else {
-					list.selectedItem = selected;
+					txt.label="Select Item";
 				}
 				controlHeight=height;
 			}
-			private function stageClickedHandler(event:Event):void
-			{
-				if(!listClicked && currentState == "expand") {
-					lostFocus();
-					currentState = "collapse"; 
-				}
-				listClicked = false;
-			}
-			
-			protected function lostFocus():void
-			{
-				listClicked = false;
-				if(selected == null) {
-					txt.text="Select Item";
-				}
-				currentState="collapse";
-				dispatchEvent(new Event(Event.CHANGE));
-				
-			}
-			
+
 			protected function addedToStageHandler(event:Event):void
 			{
-				stage.addEventListener(MouseEvent.CLICK, stageClickedHandler);
 				if(this.height == 0) {
 					this.height = 20;
 				}
 			}
 			
-			protected function removedFromStage(event:Event):void
-			{
-				if(event.target == this) {
-					stage.removeEventListener(MouseEvent.CLICK, stageClickedHandler);
-				}
-			}
-			
 			protected function group1_focusInHandler(event:FocusEvent):void
 			{
-				if(currentState == "collapse") {
-					txt.setFocus();
-				} else {
-					list.setFocus();
-					
-				}
+				txt.setFocus();
 				
 			}
 			
-			protected function txt_keyDownHandler(event:KeyboardEvent):void
-			{
-				if(event.currentTarget == txt && currentState == "collapse" && (event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.DOWN)) {
-					currentState = "expand";
-					list.setFocus()
-				} else if (event.currentTarget == list && currentState == "expand" && event.keyCode == Keyboard.ESCAPE) {
-					currentState = "collapse";
-					txt.setFocus();
-				} else if (event.currentTarget == list && currentState == "expand" && (event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.SPACE)) {
-					selected = list.selectedItem;
-					currentState = "collapse";
-					txt.setFocus();
-					dispatchEvent(new Event(Event.CHANGE));
-				}
-
-			}
 		]]>
 	</fx:Script>
-	<s:states>
-		<mx:State name="collapse"/>
-		<mx:State name="expand"/>
-	</s:states>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:TextInput id="txt" editable="false" selectable="false" text="{selected.text}" click="txt_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
-	<s:SkinnableContainer includeIn="expand" height="100" width="100%" x="0" y="{controlHeight}"
-						  skinClass="gr.ictpro.mall.client.components.skins.BorderContainer" >
-		
-		<s:List id="list" itemRenderer="gr.ictpro.mall.client.components.renderers.ListRenderer" height="100" width="100%" includeIn="expand" dataProvider="{dataList}"  click="list1_clickHandler(event)" keyDown="txt_keyDownHandler(event)"/>
-	</s:SkinnableContainer> 
+	<s:Button id="txt" width="100%" label="{selected.text}" click="txt_clickHandler(event)" />
 	
 </s:Group>
