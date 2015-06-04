@@ -53,7 +53,7 @@ package gr.ictpro.mall.client.authentication
 		{
 			//view.roles = ArrayCollection(event.result);
 			var res:ArrayCollection = ArrayCollection(event.result);
-			var studentRole:Object;
+			var studentRole:ObjectProxy;
 			view.roles = new ArrayList();
 			for each (var role:Object in res) { 
 				var o:ObjectProxy = new ObjectProxy;
