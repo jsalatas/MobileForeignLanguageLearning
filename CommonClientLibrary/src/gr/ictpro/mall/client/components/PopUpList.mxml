@@ -63,7 +63,7 @@
 
 				popUpMenu.x = point.x*curAppDPI/curDensity;
 				popUpMenu.y = point.y*curAppDPI/curDensity;
-				popUpMenu.width = txt.width;
+				popUpMenu.width = txt.definedWidth;
 				popUpMenu.percentHeight=100;
 				popUpMenu.itemSelected.add(popUpAction);
 				popUpMenu.open(this, false);
