@@ -10,6 +10,7 @@ package gr.ictpro.mall.client.components.renderers
 	import flash.utils.flash_proxy;
 	
 	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.utils.string.IntoToHexString;
 	
 	import mx.core.DPIClassification;
 	import mx.core.FlexGlobals;
@@ -186,11 +187,8 @@ package gr.ictpro.mall.client.components.renderers
 		protected var isGroup:Boolean = false;
 		
 		private var groupItemAdjusted:Boolean = false;
-		private var defaultFontSize:Number = 0;
-		private var defaultFontWeight:String = "normal";
-		
-		private var defaultStyleableTextField:StyleableTextField = null; 
-		
+
+		private var _fontSize:Number = 0;
 		//--------------------------------------------------------------------------
 		//
 		//  Constructor
@@ -234,9 +232,18 @@ package gr.ictpro.mall.client.components.renderers
 					break;
 				}
 			}
+			_fontSize = Device.getDefaultScaledFontSize() * (Device.isAndroid?2:1);
+			super.setStyle("fontSize", _fontSize);
 			
-			super.setStyle("fontSize", Device.getScaledSize(super.getStyle("fontSize")));
-			
+		}
+
+		override public function setStyle(styleProp:String, newValue:*):void
+		{
+			if(styleProp == "fontSize") {
+				newValue = Device.getScaledSize(newValue) * (Device.isAndroid?2:1);
+				_fontSize = newValue;
+			}
+			super.setStyle(styleProp, newValue);
 		}
 		
 		//--------------------------------------------------------------------------
@@ -304,12 +311,12 @@ package gr.ictpro.mall.client.components.renderers
 		//
 		//--------------------------------------------------------------------------
 		
-		private var heightAdjusted = false;
+		private var heightAdjusted:Boolean = false;
 		
 		override public function set height(value:Number):void
 		{
 			if(!heightAdjusted) {
-				super.height = Device.getScaledSize(value);
+				super.height = Device.getScaledSize(value) * (Device.isAndroid?2:1);
 				heightAdjusted = true;
 			}
 		}
@@ -324,28 +331,25 @@ package gr.ictpro.mall.client.components.renderers
 			iconChanged = true;
 			labelChanged = true;
 			
-			if(defaultStyleableTextField == null) {
-				defaultStyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
-				defaultStyleableTextField.styleName = this;
-				defaultFontSize = defaultStyleableTextField.getStyle("fontSize");
-				defaultFontWeight = defaultStyleableTextField.getStyle("fontWeight");
-			}
-			
+			labelDisplay.setStyle("color", IntoToHexString.convertToHex(Device.defaultColor));
 			if(value.hasOwnProperty("isGroup") && value.isGroup) {
 				isGroup = true;
-				labelDisplay.setStyle('fontSize', defaultFontSize + 2);
-				labelDisplay.setStyle('fontWeight', 'bold');
-				labelDisplay.commitStyles();
+				labelDisplay.setStyle("fontSize", _fontSize + Device.getScaledSize(2));
+				labelDisplay.setStyle("fontWeight", 'bold');
 				if(height != 0 && !groupItemAdjusted) {
-					height += 15;
+					height += Device.getScaledSize(15) * (Device.isAndroid?2:1);
 					groupItemAdjusted = true;
 				}
 			} else {
 				isGroup = false;
-				groupItemAdjusted = true;
-				labelDisplay.setStyle('fontSize', defaultFontSize);
-				labelDisplay.setStyle('fontWeight', defaultFontWeight);
+				if(height != 0 && groupItemAdjusted) {
+					height -= Device.getScaledSize(15) * (Device.isAndroid?2:1);
+					groupItemAdjusted = false;
+				}
+				labelDisplay.setStyle("fontSize", _fontSize);
+				labelDisplay.setStyle("fontWeight", 'normal');
 			}
+			labelDisplay.commitStyles();
 			
 			if (hasEventListener(FlexEvent.DATA_CHANGE))
 				dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
@@ -742,7 +746,7 @@ package gr.ictpro.mall.client.components.renderers
 		 */ 
 		public function set iconHeight(value:Number):void
 		{
-			value = Device.getScaledSize(value);
+			value = Device.getScaledSize(value) * (Device.isAndroid?2:1);
 			if (value == _iconHeight)
 				return;
 			
@@ -870,8 +874,7 @@ package gr.ictpro.mall.client.components.renderers
 		 */ 
 		public function set iconWidth(value:Number):void
 		{
-			value = Device.getScaledSize(value);
-			
+			value = Device.getScaledSize(value) * (Device.isAndroid?2:1);
 			if (value == _iconWidth)
 				return;
 			
@@ -1227,7 +1230,7 @@ package gr.ictpro.mall.client.components.renderers
 			iconDisplay.contentLoader = iconContentLoader;
 			iconDisplay.fillMode = iconFillMode;
 			iconDisplay.scaleMode = iconScaleMode;
-			
+
 			if(iconDisplay.contentLoader == null) {
 				iconWidth = NaN;
 				iconHeight = NaN;

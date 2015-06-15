@@ -26,6 +26,7 @@ package gr.ictpro.mall.client.view
 	
 	import spark.collections.SortField;
 	import spark.components.TextInput;
+	import gr.ictpro.mall.client.components.Notification;
 	
 	public class SettingsViewMediator extends Mediator
 	{

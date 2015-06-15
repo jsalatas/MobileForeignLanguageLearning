@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client.model.menu
 {
+	import flash.geom.ColorTransform;
+	
 	import spark.core.SpriteVisualElement;
 	import spark.filters.ColorMatrixFilter;
 	import spark.modules.Module;
@@ -8,9 +10,9 @@ package gr.ictpro.mall.client.model.menu
 	public class MenuItemInternalModule extends MenuItemIcon
 	{
 		private var _moduleName:String;
-		public function MenuItemInternalModule(text:String, icon:Object, colorTransformation:ColorMatrixFilter, moduleName:String)
+		public function MenuItemInternalModule(text:String, icon:Object, colorTransform:ColorTransform, moduleName:String)
 		{
-			super(text, icon, colorTransformation);
+			super(text, icon, colorTransform);
 			this._moduleName = moduleName;
 		}
 		

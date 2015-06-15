@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="gr.ictpro.mall.client.components.*"
 		  xmlns:signals="org.osflash.signals.*"
 		  width="100%" height="100%">
@@ -27,14 +27,14 @@
 			<s:layout>
 				<s:FormLayout/>
 			</s:layout>
-			<s:FormItem label="Server Name" textAlign="right">
-				<s:TextInput id="serverName" width="170" textAlign="left" />
+			<s:FormItem label="Server Name">
+				<s:TextInput id="serverName" autoCorrect="false" textAlign="left" />
 			</s:FormItem>
-			<s:FormItem label="Application Path" textAlign="right">
-				<s:TextInput id="applicationPath" width="170" textAlign="left"/>
+			<s:FormItem label="Application Path">
+				<s:TextInput id="applicationPath" autoCorrect="false" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="Modules Path" textAlign="right">
-				<s:TextInput id="modulesPath" width="170" textAlign="left"/>
+			<s:FormItem label="Modules Path" >
+				<s:TextInput id="modulesPath" autoCorrect="false" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem label="">
 				<s:Button id="ok" label="OK"
@@ -43,4 +43,4 @@
 		</s:Group>
 	</s:Group>
 	
-</s:Module>
+</s:Group>

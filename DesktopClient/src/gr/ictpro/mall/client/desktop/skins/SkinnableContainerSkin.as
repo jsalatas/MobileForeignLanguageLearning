@@ -7,6 +7,8 @@ package gr.ictpro.mall.client.desktop.skins
 		public function SkinnableContainerSkin()
 		{
 			super();
+			super.setStyle("backgroundColor", 0xffffff);
+			super.setStyle("backgroundAlpha", 1);
 		}
 	}
 }

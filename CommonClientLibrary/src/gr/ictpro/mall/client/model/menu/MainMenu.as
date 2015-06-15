@@ -4,6 +4,7 @@ package gr.ictpro.mall.client.model.menu
 	import flash.events.Event;
 	
 	import gr.ictpro.mall.client.Icons;
+	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.view.ProfileView;
 	import gr.ictpro.mall.client.view.SettingsView;
@@ -24,15 +25,15 @@ package gr.ictpro.mall.client.model.menu
 
 			// System Settings (admin) 
 			if(user.roles.getItemIndex("Admin") != -1) {
-				res.addItem(new MenuItemInternalModule("Settings", Icons.icon_settings, user.color, "gr.ictpro.mall.client.view.SettingsView")); 
+				res.addItem(new MenuItemInternalModule("Settings", Icons.icon_settings, Device.defaultColorTransform, "gr.ictpro.mall.client.view.SettingsView")); 
 			}
 			
 			//Profile editor (common to all roles)
-			res.addItem(new MenuItemInternalModule("Profile", Icons.icon_profile, user.color, "gr.ictpro.mall.client.view.ProfileView")); 
+			res.addItem(new MenuItemInternalModule("Profile", Icons.icon_profile, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ProfileView")); 
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));
-			res.addItem(new MenuItemCommand("Exit", Icons.icon_logout, user.color, logout));
+			res.addItem(new MenuItemCommand("Exit", Icons.icon_logout, Device.defaultColorTransform, logout));
 			
 			return res;
 		}

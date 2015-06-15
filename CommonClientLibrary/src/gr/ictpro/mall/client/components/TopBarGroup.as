@@ -43,7 +43,7 @@ use namespace mx_internal;
 			var topBarGroup:Group = new Group();
 			topBarGroup.top=0;
 			topBarGroup.percentWidth=100;
-			topBarGroup.height=40;
+			topBarGroup.height=40; //Device.getScaledSize(40);
 			
 			var bg:Rect = new Rect();
 			bg.fill = new SolidColor(0xAAAAAA);
@@ -65,7 +65,7 @@ use namespace mx_internal;
 			bgroup.layout = l1;
 			bgroup.left = 0;
 			bgroup.top = 0;
-			bgroup.height = 40;
+			bgroup.height = 40; //Device.getScaledSize(40);
 			
 			var fxgBack:back = new back();
 			fxgBack.width = Device.getScaledSize(23);
@@ -89,7 +89,7 @@ use namespace mx_internal;
 			ocgroup.layout = l2;
 			ocgroup.right = 0;
 			ocgroup.top = 0;
-			ocgroup.height = 40;
+			ocgroup.height = 40; //Device.getScaledSize(40);
 
 			if(okButton) {
 				var fxgOk:ok = new ok();

@@ -22,7 +22,9 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.ImageCropper;
+	import gr.ictpro.mall.client.components.Notification;
 	import gr.ictpro.mall.client.components.PopUpMenu;
+	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.IPersistentObject;
 	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
@@ -178,17 +180,17 @@ package gr.ictpro.mall.client.view
 		{
 			var res:ArrayList = new ArrayList();
 			if(CameraRoll.supportsBrowseForImage) {
-				res.addItem(new MenuItemCommand("Choose Photo", Icons.icon_folder, settings.user.color, openGallery));
+				res.addItem(new MenuItemCommand("Choose Photo", Icons.icon_folder, Device.defaultColorTransform, openGallery));
 			}
 			
 			if(CameraUI.isSupported) {
-				res.addItem(new MenuItemCommand("Take New Photo", Icons.icon_camera, settings.user.color, capturePhoto));
+				res.addItem(new MenuItemCommand("Take New Photo", Icons.icon_camera, Device.defaultColorTransform, capturePhoto));
 			}
 		
 			if(res.length == 0) {
 				// We assume that ther application is running on the desktop. 
 				// Show the open file dialog in order to select photo from disk
-				res.addItem(new MenuItemCommand("Choose Photo", Icons.icon_folder, settings.user.color, chooseFile));
+				res.addItem(new MenuItemCommand("Choose Photo", Icons.icon_folder, Device.defaultColorTransform, chooseFile));
 			}
 			
 			return res;

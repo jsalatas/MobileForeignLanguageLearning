@@ -85,7 +85,8 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(ShowRegistrationSignal, ShowRegistrationCommand);
 			signalCommandMap.mapSignalClass(MenuSignal, MenuCommand);
 			signalCommandMap.mapSignalClass(PersistSignal, PersistCommand);
-			
+
+			Device.settings = injector.getInstance(Settings);
 		}
 	}
 }

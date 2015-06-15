@@ -16,6 +16,9 @@
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.model.Device;
+			
+			import mx.core.FlexGlobals;
+			
 			import gr.ictpro.mall.client.model.IDevice;
 			
 			import mx.core.IVisualElementContainer;
@@ -54,6 +57,8 @@
 			protected function module1_initializeHandler(event:FlexEvent):void
 			{
 				trace("initialize");
+				trace(FlexGlobals.topLevelApplication.applicationDPI);
+
 			}
 			
 		]]>

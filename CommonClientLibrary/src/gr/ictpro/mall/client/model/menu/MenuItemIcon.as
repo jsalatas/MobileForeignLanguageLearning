@@ -1,5 +1,8 @@
 package gr.ictpro.mall.client.model.menu
 {
+	import flash.display.DisplayObject;
+	import flash.geom.ColorTransform;
+	
 	import spark.core.SpriteVisualElement;
 	import spark.filters.ColorMatrixFilter;
 	import spark.primitives.Graphic;
@@ -8,11 +11,11 @@ package gr.ictpro.mall.client.model.menu
 	{
 		private var _icon:Object;
 		
-		public function MenuItemIcon(text:String, icon:Object, colorTransformation:ColorMatrixFilter)
+		public function MenuItemIcon(text:String, icon:Object, colorTransform:ColorTransform)
 		{
 			super(text);
 			this._icon = icon;
-			this._icon.filters = [colorTransformation];
+			(this._icon as DisplayObject).transform.colorTransform = colorTransform;
 		}
 		
 		public function get icon():Object

@@ -17,7 +17,6 @@ package gr.ictpro.mall.client.mobile
 		public function MobileDevice()
 		{
 			trace("MobileDevice created");
-			Scroller
 		}
 		
 		public function get isAndroid():Boolean

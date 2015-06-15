@@ -69,6 +69,5 @@ package gr.ictpro.mall.client.desktop
 		{
 			return HScrollBarSkin;
 		}
-		
 	}
 }

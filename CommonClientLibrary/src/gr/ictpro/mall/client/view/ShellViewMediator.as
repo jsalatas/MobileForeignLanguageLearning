@@ -24,6 +24,7 @@ package gr.ictpro.mall.client.view
 	import spark.events.PopUpEvent;
 	import spark.modules.Module;
 	import spark.modules.ModuleLoader;
+	import gr.ictpro.mall.client.components.Notification;
 	
 	public class ShellViewMediator extends Mediator
 	{

@@ -3,7 +3,6 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mobile="gr.ictpro.mall.client.mobile.*"
 			   xmlns:view="gr.ictpro.mall.client.view.*"
-			   applicationDPI="160"
 			   initialize="application1_initializeHandler(event)"
 			   >
 	<fx:Script>

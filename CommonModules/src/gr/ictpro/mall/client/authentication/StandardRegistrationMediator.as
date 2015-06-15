@@ -6,7 +6,7 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
-	import gr.ictpro.mall.client.view.Notification;
+	import gr.ictpro.mall.client.components.Notification;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;

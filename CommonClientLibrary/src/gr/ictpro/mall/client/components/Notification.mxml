@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 						   xmlns:s="gr.ictpro.mall.client.components.*"
-					  xmlns:fxg="assets.fxg.*"
-					  height="45" backgroundColor="#FFFFFF">
+						   xmlns:fxg="assets.fxg.*"
+						   height="45" backgroundColor="#FFFFFF"
+						   >
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.model.Device;
+			
 			import mx.core.UIComponent;
 			import mx.events.ResizeEvent;
 			import mx.states.OverrideBase;
+			
+			import spark.events.PopUpEvent;
 			[Bindable]
 			public var message:String = "";
 			
 			protected function closeHandler(event:MouseEvent):void
 			{
+				owner.removeEventListener(ResizeEvent.RESIZE, handleResize);
 				close();
 			}
 			
 			override public function open(owner:DisplayObjectContainer, modal:Boolean=false):void
 			{
 				super.open(owner, modal);
-				this.width = owner.width;
+				this.width = Device.getUnScaledSize(owner.width) / (Device.isAndroid?2:1);
 				owner.addEventListener(ResizeEvent.RESIZE, handleResize);
-				
 			}
 			
 			private function handleResize(event:ResizeEvent) : void
 			{
-				this.width = owner.width;
+				this.width = Device.getUnScaledSize(owner.width) / (Device.isAndroid?2:1);
 			}
 			
 		]]>
 	</fx:Script>
 		
-	<s:Group >
+	<s:Group left="0" width="40" height="45">
 		<s:layout>
-			<s:HorizontalLayout gap="10"/>
+			<s:HorizontalLayout paddingBottom="9" paddingLeft="5" paddingRight="5" paddingTop="9"/>
 		</s:layout>
-		<s:Group left="0" top="0">
-			<s:layout>
-				<s:HorizontalLayout paddingBottom="9" paddingTop="9" paddingLeft="5" paddingRight="5"/>
-			</s:layout>
-			<fxg:exclamation width="27" height="27"/>
-		</s:Group>
-		<s:Label color="#FF0000" height="45" right="45" verticalAlign="middle" text="{message}"/>
-			
+		<fxg:exclamation width="100%" height="100%"/>
 	</s:Group>
-	<s:Group right="0" top="0" width="45" click="closeHandler(event)">
+	<s:Label left="43" right="48" height="100%" color="#FF0000" text="{message}"
+			 verticalAlign="middle"/>
+	<s:Group right="0" width="45" height="45" click="closeHandler(event)">
 		<s:layout>
-			<s:HorizontalLayout paddingBottom="9" paddingTop="9" paddingLeft="5" paddingRight="5"/>
+			<s:HorizontalLayout paddingBottom="9" paddingLeft="5" paddingRight="5" paddingTop="9"/>
 		</s:layout>
-		<fxg:check height="27" width="35"/>
-				   
+		<fxg:check width="100%" height="100%"/>
 	</s:Group>
 </s:SkinnablePopUpContainer>

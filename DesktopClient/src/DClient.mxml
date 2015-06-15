@@ -5,6 +5,7 @@
 					   xmlns:view="gr.ictpro.mall.client.view.*"  
 					   showStatusBar="false"
 					   initialize="windowedapplication1_initializeHandler(event)"
+					   applicationDPI="160"
 					   >
 	<fx:Script>
 		<![CDATA[

@@ -40,6 +40,5 @@ package gr.ictpro.mall.client.components
 			mxmlContentGroup.mxmlContent = value;
 			invalidateDisplayList();
 		}
-
 	}
 }

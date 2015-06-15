@@ -24,7 +24,7 @@
     <classEntry path="gr.ictpro.mall.client.signal.LoginFailedSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.LoginSuccessSignal"/>
     <classEntry path="gr.ictpro.mall.client.ClientContext"/>
-    <classEntry path="gr.ictpro.mall.client.view.Notification"/>
+    <classEntry path="gr.ictpro.mall.client.components.Notification"/>
     <classEntry path="gr.ictpro.mall.client.signal.ServerConnectErrorSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.ShowRegistrationSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.ShowRegistrationCommand"/>
@@ -88,7 +88,6 @@
     <classEntry path="gr.ictpro.mall.client.components.Spacer"/>
     <classEntry path="gr.ictpro.mall.client.components.LinearGradient"/>
     <classEntry path="gr.ictpro.mall.client.components.GradientEntry"/>
-    <classEntry path="gr.ictpro.mall.client.components.Skin"/>
     <classEntry path="gr.ictpro.mall.client.components.SolidColorStroke"/>
     <classEntry path="gr.ictpro.mall.client.moblie.skins.ListSkin"/>
     <classEntry path="gr.ictpro.mall.client.moblie.skins.ImageSkin"/>
@@ -98,6 +97,7 @@
     <classEntry path="gr.ictpro.mall.client.moblie.skins.SkinnableContainerSkin"/>
     <classEntry path="gr.ictpro.mall.client.components.Scroller"/>
     <classEntry path="gr.ictpro.mall.client.components.ScrollableGroup"/>
+    <classEntry path="gr.ictpro.mall.client.utils.string.IntoToHexString"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -1,5 +1,6 @@
 package gr.ictpro.mall.client.model
 {
+	import flash.geom.ColorTransform;
 	import flash.text.ReturnKeyLabel;
 	
 	import mx.core.FlexGlobals;
@@ -19,9 +20,11 @@ package gr.ictpro.mall.client.model
 	public class Device
 	{
 		public static var _device:IDevice;
-
+		public static var _scale:Number;
 		private static var _curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
-		private static var _curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+		private static var _curAppDPI:Number = 160; 
+		
+		private static var _settings:Settings; 
 
 		public static function set device(device:IDevice):void
 		{
@@ -33,9 +36,22 @@ package gr.ictpro.mall.client.model
 			throw new Error("Cannot intatiate class");
 		}
 		
-		public static function getScaledSize(defaultSize:int):int
+		[Inline]
+		public static function getScaledSize(size:int):int
 		{
-			return (defaultSize==0?12:defaultSize) * _curDensity/_curAppDPI;
+			return size * _curDensity/_curAppDPI;
+		}
+		
+		[Inline]
+		public static function getUnScaledSize(size:int):int
+		{
+			return size * _curAppDPI / _curDensity;
+		}
+		
+		[Inline]
+		public static function getDefaultScaledFontSize():int
+		{
+			return getScaledSize(isAndroid?9:12);
 		}
 		
 		public static function get isAndroid():Boolean
@@ -45,7 +61,30 @@ package gr.ictpro.mall.client.model
 			}
 			return false;
 		}
+		
+		[Inline]
+		public static function get defaultColor():int
+		{
+			var color:int= 0x000077;
+			if (_settings != null && _settings.user != null && !isNaN(_settings.user.color)) {
+				color = _settings.user.color;
+			}
+			return color;
+		}
 
+		[Inline]
+		public static function get defaultColorTransform():ColorTransform
+		{
+			var transform:ColorTransform = new ColorTransform();
+			transform.color = defaultColor;
+			return transform;
+		}
+
+		public static function set settings(settings:Settings):void
+		{
+			_settings = settings;
+		}
+		
 		public static function get formItemSkin():Class
 		{
 			if(_device != null) {

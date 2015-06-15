@@ -45,6 +45,7 @@ package gr.ictpro.mall.client.model
 			return null;
 		}
 
+		[Bindable]
 		public function get user():User 
 		{
 			return _user; 

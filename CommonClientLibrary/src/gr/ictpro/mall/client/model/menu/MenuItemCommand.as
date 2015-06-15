@@ -1,13 +1,15 @@
 package gr.ictpro.mall.client.model.menu
 {
+	import flash.geom.ColorTransform;
+	
 	import spark.filters.ColorMatrixFilter;
 
 	public class MenuItemCommand extends MenuItemIcon
 	{
 		private var _command:Function;
-		public function MenuItemCommand(text:String, icon:Object, colorTransformation:ColorMatrixFilter, command:Function)
+		public function MenuItemCommand(text:String, icon:Object, colorTransform:ColorTransform, command:Function)
 		{
-			super(text, icon, colorTransformation);
+			super(text, icon, colorTransform);
 			this._command = command;
 		}
 		

@@ -10,7 +10,7 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
-	import gr.ictpro.mall.client.view.Notification;
+	import gr.ictpro.mall.client.components.Notification;
 	
 	import mx.core.IFlexDisplayObject;
 	import mx.events.CloseEvent;

@@ -75,16 +75,9 @@ package gr.ictpro.mall.client.model
 			if(photo == null) {
 				this._photo.source = Icons.icon_defaultProfile;
 				
-				var matrix:Array = new Array();
-				matrix = matrix.concat([1, 0, 0, 0, 0]); // red
-				matrix = matrix.concat([0, 1, 0, 0, 0]); // green
-				matrix = matrix.concat([0, 0, 1, 0, 0]); // blue
-				matrix = matrix.concat([0, 0, 0, 1, 0]); // alpha
-				var filter:ColorMatrixFilter = new ColorMatrixFilter(matrix);
-				this._photo.source.filters = [filter];
+				this._photo.transform.colorTransform = Device.defaultColorTransform;
 			} else {
 				b = new Bitmap();
-				//var r:Rectangle=new Rectangle(0,0, 150, 200);
 				b.bitmapData = photo;
 				this._photo.source = b.bitmapData;
 			}
@@ -92,15 +85,9 @@ package gr.ictpro.mall.client.model
 			initializeMenu();
 		}
 		
-		public function get color():ColorMatrixFilter 
+		public function get color():Number 
 		{
-			var matrix:Array = new Array();
-			matrix = matrix.concat([0, 0, 0, 0, 0]); // red
-			matrix = matrix.concat([0, 0, 0, 0, 0]); // green
-			matrix = matrix.concat([0, 0, 0, 0, 0]); // blue
-			matrix = matrix.concat([0, 0, 0, 1, 0]); // alpha
-			var filter:ColorMatrixFilter = new ColorMatrixFilter(matrix);
-			return filter;
+			return NaN;
 		}
 		
 		public function get id():int
