@@ -39,13 +39,13 @@ package gr.ictpro.mall.client.model
 		[Inline]
 		public static function getScaledSize(size:int):int
 		{
-			return size * _curDensity/_curAppDPI;
+			return (size * _curDensity/_curAppDPI) * (Device.isAndroid?2:1);
 		}
 		
 		[Inline]
 		public static function getUnScaledSize(size:int):int
 		{
-			return size * _curAppDPI / _curDensity;
+			return (size * _curAppDPI / _curDensity) / (Device.isAndroid?2:1);
 		}
 		
 		[Inline]

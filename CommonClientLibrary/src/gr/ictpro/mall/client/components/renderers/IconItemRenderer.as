@@ -232,7 +232,7 @@ package gr.ictpro.mall.client.components.renderers
 					break;
 				}
 			}
-			_fontSize = Device.getDefaultScaledFontSize() * (Device.isAndroid?2:1);
+			_fontSize = Device.getDefaultScaledFontSize();
 			super.setStyle("fontSize", _fontSize);
 			
 		}
@@ -240,7 +240,7 @@ package gr.ictpro.mall.client.components.renderers
 		override public function setStyle(styleProp:String, newValue:*):void
 		{
 			if(styleProp == "fontSize") {
-				newValue = Device.getScaledSize(newValue) * (Device.isAndroid?2:1);
+				newValue = Device.getScaledSize(newValue);
 				_fontSize = newValue;
 			}
 			super.setStyle(styleProp, newValue);
@@ -313,14 +313,22 @@ package gr.ictpro.mall.client.components.renderers
 		
 		private var heightAdjusted:Boolean = false;
 		
+		[Bindable(event="HeightScaled")]
 		override public function set height(value:Number):void
 		{
 			if(!heightAdjusted) {
-				super.height = Device.getScaledSize(value) * (Device.isAndroid?2:1);
+				super.height = Device.getScaledSize(value);
 				heightAdjusted = true;
 			}
 		}
 		
+		[Bindable(event="HeightScaled")]
+		public function get definedHeight():Number
+		{
+			return Device.getUnScaledSize(super.height);	
+		}
+		
+
 		/**
 		 *  @private
 		 */
@@ -337,13 +345,13 @@ package gr.ictpro.mall.client.components.renderers
 				labelDisplay.setStyle("fontSize", _fontSize + Device.getScaledSize(2));
 				labelDisplay.setStyle("fontWeight", 'bold');
 				if(height != 0 && !groupItemAdjusted) {
-					height += Device.getScaledSize(15) * (Device.isAndroid?2:1);
+					height += Device.getScaledSize(15);
 					groupItemAdjusted = true;
 				}
 			} else {
 				isGroup = false;
 				if(height != 0 && groupItemAdjusted) {
-					height -= Device.getScaledSize(15) * (Device.isAndroid?2:1);
+					height -= Device.getScaledSize(15);
 					groupItemAdjusted = false;
 				}
 				labelDisplay.setStyle("fontSize", _fontSize);
@@ -746,7 +754,7 @@ package gr.ictpro.mall.client.components.renderers
 		 */ 
 		public function set iconHeight(value:Number):void
 		{
-			value = Device.getScaledSize(value) * (Device.isAndroid?2:1);
+			value = Device.getScaledSize(value);
 			if (value == _iconHeight)
 				return;
 			
@@ -874,7 +882,7 @@ package gr.ictpro.mall.client.components.renderers
 		 */ 
 		public function set iconWidth(value:Number):void
 		{
-			value = Device.getScaledSize(value) * (Device.isAndroid?2:1);
+			value = Device.getScaledSize(value);
 			if (value == _iconWidth)
 				return;
 			

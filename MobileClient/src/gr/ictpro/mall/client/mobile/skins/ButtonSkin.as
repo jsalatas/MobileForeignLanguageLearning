@@ -8,6 +8,7 @@ package gr.ictpro.mall.client.mobile.skins
 	
 	import gr.ictpro.mall.client.model.Device;
 	
+	import mx.core.DPIClassification;
 	import mx.core.mx_internal;
 	
 	import spark.components.IconPlacement;
@@ -19,6 +20,10 @@ package gr.ictpro.mall.client.mobile.skins
 	public class ButtonSkin extends spark.skins.mobile.ButtonSkin
 	{
 		private var borderClass:Class;
+		private var iconDefaultHeight: Number;
+		private var lineWidthUp: Number;
+		private var lineWidthDown: Number;
+		private var dpiScale: Number;
 		
 		public function ButtonSkin()
 		{
@@ -27,17 +32,68 @@ package gr.ictpro.mall.client.mobile.skins
 			upBorderSkin = null;
 			downBorderSkin = null;
 			
-			layoutGap = Device.getScaledSize(5);
-			layoutCornerEllipseSize = 0;
-			layoutPaddingLeft = Device.getScaledSize(10);
-			layoutPaddingRight = Device.getScaledSize(10);
-			layoutPaddingTop = Device.getScaledSize(10);
-			layoutPaddingBottom = Device.getScaledSize(10);
-			layoutBorderSize = 1;
-			measuredDefaultWidth = Device.getScaledSize(100);
-			measuredDefaultHeight = Device.getScaledSize(22);
-			minWidth= Device.getScaledSize(100);
-			minHeight = Device.getScaledSize(22);			
+			switch (applicationDPI)
+			{
+				case DPIClassification.DPI_320:
+				{
+					layoutGap = 10; //Device.getScaledSize(5);
+					layoutCornerEllipseSize = 0;
+					layoutPaddingLeft = 20; //Device.getScaledSize(10);
+					layoutPaddingRight = 20; //Device.getScaledSize(10);
+					layoutPaddingTop = 20; //Device.getScaledSize(10);
+					layoutPaddingBottom = 20; //Device.getScaledSize(10);
+					layoutBorderSize = 1;
+					measuredDefaultWidth = 200; //Device.getScaledSize(100);
+					measuredDefaultHeight = 44; //Device.getScaledSize(22);
+					minWidth= 200; //Device.getScaledSize(100);
+					minHeight = 44; //Device.getScaledSize(22);
+					iconDefaultHeight = 30;
+					lineWidthUp = 2;
+					lineWidthDown = 4;
+					dpiScale = 2;
+					break;
+				}
+				case DPIClassification.DPI_240:
+				{
+					layoutGap = 8; //Device.getScaledSize(5);
+					layoutCornerEllipseSize = 0;
+					layoutPaddingLeft = 15; //Device.getScaledSize(10);
+					layoutPaddingRight = 15; //Device.getScaledSize(10);
+					layoutPaddingTop = 15; //Device.getScaledSize(10);
+					layoutPaddingBottom = 15; //Device.getScaledSize(10);
+					layoutBorderSize = 1;
+					measuredDefaultWidth = 150; //Device.getScaledSize(100);
+					measuredDefaultHeight = 33; //Device.getScaledSize(22);
+					minWidth= 150; //Device.getScaledSize(100);
+					minHeight = 33; //Device.getScaledSize(22);			
+					iconDefaultHeight = 30;
+					iconDefaultHeight = 23;
+					lineWidthUp = 2;
+					lineWidthDown = 3;
+					dpiScale = 1.5;
+					break;
+				}
+				default:
+				{
+					// default PPI160
+					layoutGap = 5; //Device.getScaledSize(5);
+					layoutCornerEllipseSize = 0;
+					layoutPaddingLeft = 10; //Device.getScaledSize(10);
+					layoutPaddingRight = 10; //Device.getScaledSize(10);
+					layoutPaddingTop = 10; //Device.getScaledSize(10);
+					layoutPaddingBottom = 10; //Device.getScaledSize(10);
+					layoutBorderSize = 1;
+					measuredDefaultWidth = 100; //Device.getScaledSize(100);
+					measuredDefaultHeight = 22; //Device.getScaledSize(22);
+					minWidth= 100; //Device.getScaledSize(100);
+					minHeight = 22; //Device.getScaledSize(22);			
+					iconDefaultHeight = 15;
+					lineWidthUp = 1;
+					lineWidthDown = 2;
+					dpiScale = 1.5;
+					break;
+				}
+			}
 		}
 		
 		override protected function measure():void
@@ -57,8 +113,8 @@ package gr.ictpro.mall.client.mobile.skins
 			// no icon present
 			if (labelDisplay.text != "" || !iconDisplay)
 			{
-				labelWidth = Device.getScaledSize(getElementPreferredWidth(labelDisplay));
-				labelHeight = Device.getScaledSize(getElementPreferredHeight(labelDisplay));
+				labelWidth = getElementPreferredWidth(labelDisplay) * dpiScale;
+				labelHeight = getElementPreferredHeight(labelDisplay) * dpiScale;
 				textDescent = labelDisplay.getLineMetrics(0).descent;
 			}
 			
@@ -70,11 +126,11 @@ package gr.ictpro.mall.client.mobile.skins
 			
 			if (iconDisplay)
 			{
-				iconWidth = Device.getScaledSize(getElementPreferredWidth(iconDisplay));
-				iconHeight = Device.getScaledSize(getElementPreferredHeight(iconDisplay));
+				iconWidth = getElementPreferredWidth(iconDisplay) * dpiScale;
+				iconHeight = getElementPreferredHeight(iconDisplay) * dpiScale;
 				if(iconHeight> labelHeight) {
-					iconWidth = iconWidth*(labelHeight+Device.getScaledSize(15))/iconHeight;
-					iconHeight = labelHeight + Device.getScaledSize(15);
+					iconWidth = iconWidth*(labelHeight+iconDefaultHeight)/iconHeight;
+					iconHeight = labelHeight + iconDefaultHeight;
 				}
 			}
 			
@@ -130,7 +186,7 @@ package gr.ictpro.mall.client.mobile.skins
 		
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
 		{
-			graphics.lineStyle(Device.getScaledSize(currentState=="up"?1:2), Device.defaultColor, 1, true, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
+			graphics.lineStyle(currentState=="up"?lineWidthUp:lineWidthDown, Device.defaultColor, 1, true, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
 			
 			graphics.beginFill(Device.defaultColor, currentState == "up"?0.03:0.07);
 			

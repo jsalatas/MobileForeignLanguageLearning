@@ -9,13 +9,13 @@ package gr.ictpro.mall.client.components
 		public function Skin()
 		{
 			super();
-			super.setStyle("fontSize", Device.getDefaultScaledFontSize() * (Device.isAndroid?2:1));
+			super.setStyle("fontSize", Device.getDefaultScaledFontSize());
 		}
 		
 		override public function setStyle(styleProp:String, newValue:*):void
 		{
 			if(styleProp == "fontSize") {
-				newValue = Device.getScaledSize(newValue) * (Device.isAndroid?2:1);
+				newValue = Device.getScaledSize(newValue);
 			}
 			super.setStyle(styleProp, newValue);
 		}
