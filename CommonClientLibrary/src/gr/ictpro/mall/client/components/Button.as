@@ -14,8 +14,8 @@ package gr.ictpro.mall.client.components
 			super();
 			super.setStyle("skinClass", Device.buttonSkin);
 			super.setStyle("color", Device.getDefaultColor());
+			super.setStyle("focusColor", Device.getDefaultColor(0.2));
 			super.setStyle("fontSize", Device.getDefaultScaledFontSize());
-			
 			if(Device.isAndroid) {
 				super.setStyle("interactionMode", InteractionMode.TOUCH);
 			} else {

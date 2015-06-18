@@ -46,7 +46,7 @@ use namespace mx_internal;
 			topBarGroup.height=40; //Device.getScaledSize(40);
 			
 			var bg:Rect = new Rect();
-			bg.fill = new SolidColor(0xAAAAAA);
+			bg.fill = new SolidColor(Device.getDefaultColor(0.67));
 			bg.left = 0;
 			bg.bottom = 0;
 			bg.top = 0;

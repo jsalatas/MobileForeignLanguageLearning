@@ -87,9 +87,8 @@ in accordance with the terms of the license agreement accompanying it.
 			
 			<!-- layer 8: text -->
 			<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
-			<s:Label id="labelDisplay" width="100%" height="100%" 
-					 maxDisplayedLines="1" textAlign="center" 
-					 verticalAlign="middle">
+			<s:Label id="labelDisplay" width="100%" height="100%"
+					 maxDisplayedLines="1" textAlign="center" verticalAlign="middle">
 			</s:Label>
 		</s:Group> 
 	</s:Group>

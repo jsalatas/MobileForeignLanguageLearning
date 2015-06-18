@@ -56,7 +56,7 @@
 	</fx:Script>
 	<s:Group id="topBar" top="0" width="100%" height="40">
 		<s:Rect width="100%" height="100%">
-			<s:fill><s:SolidColor color="0xAAAAAA"/></s:fill>
+			<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
 		</s:Rect>
 		<s:Group left="0" right="0" top="0" bottom="0" click="showMenu(event)">
 			<s:layout>

@@ -7,6 +7,8 @@ package gr.ictpro.mall.client.view
 	import flash.text.TextFormatAlign;
 	
 	import gr.ictpro.mall.client.components.FormItem;
+	import gr.ictpro.mall.client.components.Notification;
+	import gr.ictpro.mall.client.components.TextInput;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
@@ -25,8 +27,6 @@ package gr.ictpro.mall.client.view
 	import org.robotlegs.mvcs.Mediator;
 	
 	import spark.collections.SortField;
-	import spark.components.TextInput;
-	import gr.ictpro.mall.client.components.Notification;
 	
 	public class SettingsViewMediator extends Mediator
 	{
@@ -69,8 +69,9 @@ package gr.ictpro.mall.client.view
 				settingsMap[o.name]=textInput;
 				formItem.addElement(textInput);
 				view.settings.addElement(formItem);
+				formItem.percentWidth = 100;
+				textInput.percentWidth = 100;
 			}
-
 		}
 		
 		private function parseServerConfiguration(p:PersistentData):ArrayCollection 

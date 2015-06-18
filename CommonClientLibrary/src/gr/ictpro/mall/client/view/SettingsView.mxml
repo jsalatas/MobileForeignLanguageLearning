@@ -14,6 +14,8 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.model.Device;
+			
 			import mx.core.IVisualElementContainer;
 			
 			public function dispose():void
@@ -41,7 +43,7 @@
 
 		]]>
 	</fx:Script>
-	<s:Group id="settings">
+	<s:Group id="settings" width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0" verticalCenter="0">
 		<s:layout>
 			<s:FormLayout/>
 		</s:layout>
