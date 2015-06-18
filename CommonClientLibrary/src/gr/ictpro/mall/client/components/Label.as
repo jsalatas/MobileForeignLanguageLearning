@@ -11,7 +11,7 @@ package gr.ictpro.mall.client.components
 		public function Label()
 		{
 			super();
-			super.setStyle("color", Device.defaultColor);
+			super.setStyle("color", Device.getDefaultColor());
 			super.setStyle("fontSize", Device.getDefaultScaledFontSize());
 		}
 		

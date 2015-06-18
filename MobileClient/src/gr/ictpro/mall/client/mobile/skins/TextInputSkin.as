@@ -67,9 +67,9 @@ package gr.ictpro.mall.client.mobile.skins
 
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
 		{
-			graphics.lineStyle(lineWidth, Device.defaultColor, 1, true, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
+			graphics.lineStyle(lineWidth, Device.getDefaultColor(), 1, true, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
 			
-			graphics.beginFill(Device.defaultColor, 0.01);
+			graphics.beginFill(Device.getDefaultColor(), 0.01);
 			graphics.drawRoundRect(layoutBorderSize + x, layoutBorderSize + y, 
 				unscaledWidth - (layoutBorderSize * 2), 
 				unscaledHeight - (layoutBorderSize * 2), 

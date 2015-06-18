@@ -58,7 +58,7 @@ in accordance with the terms of the license agreement accompanying it.
 	<s:Rect left="0" right="0" top="0" bottom="0" id="border"  radiusX="5" radiusY="5">
 		<s:stroke>     
 			<!--- @private -->
-			<s:SolidColorStroke id="borderStroke" weight="2" color="{Device.defaultColor}" joints="round" pixelHinting="true" scaleMode="normal" caps="round"/>
+			<s:SolidColorStroke id="borderStroke" weight="2" color="{Device.getDefaultColor()}" joints="round" pixelHinting="true" scaleMode="normal" caps="round"/>
 		</s:stroke>
 	</s:Rect>
 	
@@ -67,7 +67,7 @@ in accordance with the terms of the license agreement accompanying it.
 	<s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="12" radiusY="12">
 		<s:fill>
 			<!--- @private Defines the background fill color. -->
-			<s:SolidColor id="bgFill" color="{Device.defaultColor}" alpha="0.01" />
+			<s:SolidColor id="bgFill" color="{Device.getDefaultColor()}" alpha="0.01" />
 		</s:fill>
 	</s:Rect>
 	<s:Group left="6" top="6" bottom="6" right="6">

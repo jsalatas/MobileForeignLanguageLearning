@@ -63,20 +63,34 @@ package gr.ictpro.mall.client.model
 		}
 		
 		[Inline]
-		public static function get defaultColor():int
+		public static function getDefaultColor(alpha:Number = 1):int
 		{
 			var color:int= 0x000077;
 			if (_settings != null && _settings.user != null && !isNaN(_settings.user.color)) {
 				color = _settings.user.color;
 			}
-			return color;
+			
+			if(alpha == 1) 
+				return color;
+
+			// extract RGB values 
+			var r:Number = ((color >> 16) & 0xFF);
+			var g:Number = ((color >> 8) & 0xFF);
+			var b:Number = (color & 0xFF);
+				
+			// blend with alpha in a white background
+			r = 255 + (r - 255) * alpha;
+			g = 255 + (g - 255) * alpha;
+			b = 255 + (b - 255) * alpha;
+			
+			return ((r << 16) | (g << 8) | b);
 		}
 
 		[Inline]
 		public static function get defaultColorTransform():ColorTransform
 		{
 			var transform:ColorTransform = new ColorTransform();
-			transform.color = defaultColor;
+			transform.color = getDefaultColor();
 			return transform;
 		}
 

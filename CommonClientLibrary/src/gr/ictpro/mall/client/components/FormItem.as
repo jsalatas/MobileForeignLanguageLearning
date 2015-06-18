@@ -12,7 +12,7 @@ package gr.ictpro.mall.client.components
 			super();
 			super.setStyle("skinClass", Device.formItemSkin);
 			super.setStyle("fontSize", Device.getDefaultScaledFontSize());
-			super.setStyle("color", Device.defaultColor);
+			super.setStyle("color", Device.getDefaultColor());
 
 			if(Device.isAndroid) {
 				super.setStyle("textAlign", "left");

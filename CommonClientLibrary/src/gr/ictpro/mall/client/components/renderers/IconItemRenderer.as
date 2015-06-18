@@ -234,6 +234,9 @@ package gr.ictpro.mall.client.components.renderers
 			}
 			_fontSize = Device.getDefaultScaledFontSize();
 			super.setStyle("fontSize", _fontSize);
+			super.setStyle("downColor", Device.getDefaultColor(0.6));
+			super.setStyle("selectionColor", Device.getDefaultColor(0.3));
+			super.setStyle("rollOverColor", Device.getDefaultColor(0.05));
 			
 		}
 
@@ -339,7 +342,7 @@ package gr.ictpro.mall.client.components.renderers
 			iconChanged = true;
 			labelChanged = true;
 			
-			labelDisplay.setStyle("color", IntoToHexString.convertToHex(Device.defaultColor));
+			labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
 			if(value.hasOwnProperty("isGroup") && value.isGroup) {
 				isGroup = true;
 				labelDisplay.setStyle("fontSize", _fontSize + Device.getScaledSize(2));
