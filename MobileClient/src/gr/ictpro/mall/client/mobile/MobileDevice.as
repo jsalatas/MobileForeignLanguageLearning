@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.mobile
 {
 	import gr.ictpro.mall.client.components.Scroller;
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
+	import gr.ictpro.mall.client.mobile.skins.DropDownSkin;
 	import gr.ictpro.mall.client.mobile.skins.FormItemSkin;
 	import gr.ictpro.mall.client.mobile.skins.HScrollBarSkin;
 	import gr.ictpro.mall.client.mobile.skins.ImageSkin;
@@ -68,5 +69,11 @@ package gr.ictpro.mall.client.mobile
 		{
 			return HScrollBarSkin;
 		}
+
+		public function get dropDownSkin():Class
+		{
+			return DropDownSkin;
+		}
+
 	}
 }

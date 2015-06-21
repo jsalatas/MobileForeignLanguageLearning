@@ -65,7 +65,7 @@ package gr.ictpro.mall.client.model
 		[Inline]
 		public static function getDefaultColor(alpha:Number = 1):int
 		{
-			var color:int= 0x000077;
+			var color:int= 0x000066;
 			if (_settings != null && _settings.user != null && !isNaN(_settings.user.color)) {
 				color = _settings.user.color;
 			}
@@ -170,5 +170,14 @@ package gr.ictpro.mall.client.model
 			}
 			return HScrollBarSkin;
 		}
+
+		public static function get dropDownSkin():Class
+		{
+			if(_device != null) {
+				return _device.dropDownSkin;
+			}
+			return ButtonSkin;
+		}
+
 	}
 }

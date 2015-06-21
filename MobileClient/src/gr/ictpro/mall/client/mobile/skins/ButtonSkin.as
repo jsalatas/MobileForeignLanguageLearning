@@ -19,11 +19,11 @@ package gr.ictpro.mall.client.mobile.skins
 	
 	public class ButtonSkin extends spark.skins.mobile.ButtonSkin
 	{
-		private var borderClass:Class;
-		private var iconDefaultHeight: Number;
-		private var lineWidthUp: Number;
-		private var lineWidthDown: Number;
-		private var dpiScale: Number;
+		protected var borderClass:Class;
+		protected var iconDefaultHeight: Number;
+		protected var lineWidthUp: Number;
+		protected var lineWidthDown: Number;
+		protected var dpiScale: Number;
 		
 		public function ButtonSkin()
 		{

@@ -12,5 +12,6 @@ package gr.ictpro.mall.client.model
 		function get skinnablePopUpContainerSkin():Class;
 		function get vScrollBarSkin():Class;
 		function get hScrollBarSkin():Class;
+		function get dropDownSkin():Class;
 	}
 }

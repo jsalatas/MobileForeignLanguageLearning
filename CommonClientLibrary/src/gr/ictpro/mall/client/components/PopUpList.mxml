@@ -96,6 +96,6 @@
 	</fx:Script>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Button id="txt" width="100%" label="{selected.text}" click="txt_clickHandler(event)" />
+	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected.text}" click="txt_clickHandler(event)" />
 	
 </s:Group>
