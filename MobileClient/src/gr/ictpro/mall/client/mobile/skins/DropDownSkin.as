@@ -99,7 +99,7 @@ package gr.ictpro.mall.client.mobile.skins
 			graphics.beginFill(Device.getDefaultColor(), 0.01);
 			
 			graphics.drawRoundRect(layoutBorderSize + x, layoutBorderSize + y, 
-				unscaledWidth - (layoutBorderSize * 2) - Device.getScaledSize(22), 
+				unscaledWidth - (layoutBorderSize * 2) - Device.getScaledSize(16), 
 				unscaledHeight - (layoutBorderSize * 2), 
 				layoutCornerEllipseSize, layoutCornerEllipseSize);
 			graphics.endFill();
@@ -112,14 +112,14 @@ package gr.ictpro.mall.client.mobile.skins
 			commands[2] = GraphicsPathCommand.LINE_TO;
 			commands[3] = GraphicsPathCommand.LINE_TO;
 			
-			var baseX:int = unscaledWidth -Device.getScaledSize(19);
-			var baseY:int = (unscaledHeight -Device.getScaledSize(8)) / 2;
+			var baseX:int = unscaledWidth -Device.getScaledSize(10);
+			var baseY:int = (unscaledHeight -Device.getScaledSize(5)) / 2;
 			var coords:Vector.<Number> = new Vector.<Number>(8, true);
 			coords[0] = baseX;
 			coords[1] = baseY;
-			coords[2] = baseX + Device.getScaledSize(8);
-			coords[3] = baseY + Device.getScaledSize(8);
-			coords[4] = baseX + Device.getScaledSize(16);
+			coords[2] = baseX + Device.getScaledSize(5);
+			coords[3] = baseY + Device.getScaledSize(5);
+			coords[4] = baseX + Device.getScaledSize(10);
 			coords[5] = baseY;
 			coords[6] = baseX;
 			coords[7] = baseY;
