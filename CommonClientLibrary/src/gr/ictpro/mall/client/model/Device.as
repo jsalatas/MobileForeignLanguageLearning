@@ -179,5 +179,14 @@ package gr.ictpro.mall.client.model
 			return ButtonSkin;
 		}
 
+		public static function get colorDropDownSkin():Class
+		{
+			if(_device != null) {
+				return _device.colorDropDownSkin;
+			}
+			return ButtonSkin;
+		}
+		
+
 	}
 }

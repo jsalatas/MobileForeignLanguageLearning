@@ -9,7 +9,9 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayList;
 			import mx.core.IVisualElementContainer;
+			
 			protected function ok_clickHandler(event:MouseEvent):void
 			{
 				okClicked.dispatch();
@@ -42,5 +44,5 @@
 			</s:FormItem>
 		</s:Group>
 	</s:Group>
-	
+		
 </s:Group>

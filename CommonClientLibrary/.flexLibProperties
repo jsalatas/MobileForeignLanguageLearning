@@ -98,6 +98,8 @@
     <classEntry path="gr.ictpro.mall.client.components.Scroller"/>
     <classEntry path="gr.ictpro.mall.client.components.ScrollableGroup"/>
     <classEntry path="gr.ictpro.mall.client.utils.string.IntoToHexString"/>
+    <classEntry path="gr.ictpro.mall.client.components.renderers.ColorItemRenderer"/>
+    <classEntry path="gr.ictpro.mall.client.components.ColoredButton"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

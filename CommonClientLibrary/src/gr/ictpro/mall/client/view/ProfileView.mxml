@@ -16,14 +16,53 @@
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.components.PopUpMenu;
-			
-			import mx.core.IVisualElementContainer;
-			
+			import gr.ictpro.mall.client.model.Device;
 			import gr.ictpro.mall.client.model.User;
+			
+			import mx.collections.ArrayList;
+			import mx.core.IVisualElementContainer;
 			
 			[Bindable]
 			public var user:User;
+
+			[Bindable]
+			private var colorList:ArrayList = new ArrayList([
+				0x000000, 
+				0x333333, 
+				0x585858, 
+				0xff0000, 
+				0xcc0000, 
+				0xb10057, 
+				0x990000, 
+				0x960049, 
+				0x830083, 
+				0x7d003c,
+				0x690069,
+				0x5800b0, 
+				0x4b0096,
+				0x000066,
+				0x000099,
+				0x003194, 
+				0x0000cc, 
+				0x0000ff,  
+				0x0042c6, 
+				0x00476b, 
+				0x005885, 
+				0x005c4d, 
+				0x00699e, 
+				0x007562, 
+				0x3e7d00, 
+				0x009078, 
+				0x4b9600, 
+				0x58b000, 
+				0x848400, 
+				0x8f7700, 
+				0x756200, 
+				0x6b6b00, 
+				0x5d5e00, 
+				0x444500]);
 			
+
 			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
 			{
 				save.dispatch();
@@ -56,12 +95,12 @@
 	</fx:Script>
 	<s:Group width="100%" height="100%">
 		<s:layout>
-			<s:VerticalLayout gap="10" horizontalAlign="left" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" />
+			<s:VerticalLayout gap="10" horizontalAlign="center" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" />
 		</s:layout>
 
-		<s:Group id="imgContainer" width="154" height="204" click="imgPhoto_clickHandler(event)">
+		<s:Group id="imgContainer" width="154" horizontalCenter="0" height="204" click="imgPhoto_clickHandler(event)">
 			<s:Rect width="100%" height="100%">
-				<s:fill><s:SolidColor color="0xAAAAAA" /></s:fill>
+				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}" /></s:fill>
 			</s:Rect>
 			<s:Group width="154" height="204">
 				<s:layout>
@@ -71,21 +110,19 @@
 			</s:Group>
 		</s:Group>
 
-		<s:Group width="100%">
+		<s:Group horizontalCenter="0" verticalCenter="0" width="100%" maxWidth="{Device.isAndroid?NaN:500}" >
 			<s:layout>
-				<s:HorizontalLayout verticalAlign="middle" variableColumnWidth="true" />
-			</s:layout>	
-			<s:Label fontWeight="bold" text="Name:"/>
-			<s:EditableLabel id="txtName" text="{user.name}"/>
-		</s:Group>
-
-		<s:Group width="100%">
-			<s:layout>
-				<s:HorizontalLayout verticalAlign="middle" variableColumnWidth="true" />
-			</s:layout>	
-
-			<s:Label fontWeight="bold" text="Email:"/>
-			<s:EditableLabel id="txtEmail" text="{user.email}"/>
+				<s:FormLayout/>
+			</s:layout>
+			<s:FormItem label="Name" width="100%">
+				<s:TextInput id="txtName" autoCapitalize="word" textAlign="left" text="{user.name}" width="100%" />
+			</s:FormItem>
+			<s:FormItem label="Email" width="100%">
+				<s:TextInput id="txtEmail" autoCorrect="false" softKeyboardType="email" text="{user.email}" textAlign="left" width="100%"/>
+			</s:FormItem>
+			<s:FormItem label="Color" width="100%">
+				<s:ColorSelectorPopUp dataList="{colorList}" selected="{Device.getDefaultColor()}" width="100%" />
+			</s:FormItem>
 		</s:Group>
 
 	</s:Group>

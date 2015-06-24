@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.desktop
 {
 	
 	import gr.ictpro.mall.client.desktop.skins.ButtonSkin;
+	import gr.ictpro.mall.client.desktop.skins.ColorDropDownSkin;
 	import gr.ictpro.mall.client.desktop.skins.DropDownSkin;
 	import gr.ictpro.mall.client.desktop.skins.FormItemSkin;
 	import gr.ictpro.mall.client.desktop.skins.HScrollBarSkin;
@@ -75,5 +76,11 @@ package gr.ictpro.mall.client.desktop
 		{
 			return DropDownSkin;
 		}
+
+		public function get colorDropDownSkin():Class
+		{
+			return ColorDropDownSkin;
+		}
+
 	}
 }

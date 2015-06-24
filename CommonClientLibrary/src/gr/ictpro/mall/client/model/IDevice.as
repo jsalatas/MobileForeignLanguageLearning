@@ -13,5 +13,6 @@ package gr.ictpro.mall.client.model
 		function get vScrollBarSkin():Class;
 		function get hScrollBarSkin():Class;
 		function get dropDownSkin():Class;
+		function get colorDropDownSkin():Class;
 	}
 }
