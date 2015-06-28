@@ -29,11 +29,11 @@ package gr.ictpro.mall.client.model
 		private var _menu:ArrayList;
 		private var _name:String;
 		private var _photo:Image;
-		private var _color:int; 
+		private var _color:uint; 
 		
 		public static function createUser(o:Object):User {
 			var name:String;
-			var color:int = 0x000066;
+			var color:uint = 0x000066;
 			
 			var photo:BitmapData;
 			if(o.profile == null) {
@@ -41,7 +41,9 @@ package gr.ictpro.mall.client.model
 				photo = null;
 			} else {
 				name = o.profile.name;
-				color = o.profile.color;			
+				if(o.profile.hasOwnProperty("color")) {
+					color = o.profile.color;
+				}
 				if(o.profile.photo != null) {
 				var ba:ByteArray = o.profile.photo;
 				var width:int= ba.readInt();
@@ -67,7 +69,7 @@ package gr.ictpro.mall.client.model
 			return roles.getItemIndex("Admin")>-1;
 		}
 		
-		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData, color:int)
+		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData, color:uint)
 		{
 			this._id = id;
 			this._username = username;
@@ -87,15 +89,15 @@ package gr.ictpro.mall.client.model
 				this._photo.source = b.bitmapData;
 			}
 			
-			initializeMenu();
+			//initializeMenu();
 		}
 		
-		public function get color():int 
+		public function get color():uint 
 		{
 			return this._color;
 		}
 		
-		public function set color(color:int):void 
+		public function set color(color:uint):void 
 		{
 			this._color = color;
 		}
@@ -154,7 +156,7 @@ package gr.ictpro.mall.client.model
 			return this._menu;
 		}
 
-		private function initializeMenu():void
+		public function initializeMenu():void
 		{
 			this._menu = MainMenu.getMenu(this);
 		}

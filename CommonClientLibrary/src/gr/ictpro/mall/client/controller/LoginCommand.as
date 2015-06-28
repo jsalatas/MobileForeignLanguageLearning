@@ -72,6 +72,7 @@ package gr.ictpro.mall.client.controller
 				
 				settings.user = User.createUser(o);
 				injector.injectInto(settings.user);
+				settings.user.initializeMenu();
 				if(settings.user.isAdmin()) {
 					settings.serverConfiguration = new ServerConfiguration(channel);
 				}
