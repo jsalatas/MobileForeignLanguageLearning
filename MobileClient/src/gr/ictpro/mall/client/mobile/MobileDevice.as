@@ -1,7 +1,10 @@
 package gr.ictpro.mall.client.mobile
 {
+	import flash.text.ReturnKeyLabel;
+	
 	import gr.ictpro.mall.client.components.Scroller;
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
+	import gr.ictpro.mall.client.mobile.skins.ColorDropDownSkin;
 	import gr.ictpro.mall.client.mobile.skins.DropDownSkin;
 	import gr.ictpro.mall.client.mobile.skins.FormItemSkin;
 	import gr.ictpro.mall.client.mobile.skins.HScrollBarSkin;
@@ -73,6 +76,11 @@ package gr.ictpro.mall.client.mobile
 		public function get dropDownSkin():Class
 		{
 			return DropDownSkin;
+		}
+
+		public function get colorDropDownSkin():Class
+		{
+			return ColorDropDownSkin;
 		}
 
 	}

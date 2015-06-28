@@ -121,7 +121,7 @@
 				<s:TextInput id="txtEmail" autoCorrect="false" softKeyboardType="email" text="{user.email}" textAlign="left" width="100%"/>
 			</s:FormItem>
 			<s:FormItem label="Color" width="100%">
-				<s:ColorSelectorPopUp dataList="{colorList}" selected="{Device.getDefaultColor()}" width="100%" />
+				<s:ColorSelectorPopUp id="popupColor" dataList="{colorList}" selected="{Device.getDefaultColor()}" width="100%" />
 			</s:FormItem>
 		</s:Group>
 

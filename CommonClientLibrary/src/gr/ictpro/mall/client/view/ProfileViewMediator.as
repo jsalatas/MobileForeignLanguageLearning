@@ -69,10 +69,6 @@ package gr.ictpro.mall.client.view
 		private var bitmap:Bitmap = null; 
 		
 		
-		override public function onRemove():void
-		{
-			trace("Removed");
-		}
 		override public function onRegister():void
 		{
 			view.user = settings.user;
@@ -87,6 +83,7 @@ package gr.ictpro.mall.client.view
 			settings.user.name = view.txtName.text;
 			settings.user.photo = view.imgPhoto.source;
 			settings.user.email = view.txtEmail.text;
+			settings.user.color = view.popupColor.selected;
 			persist.dispatch(new PersistentObjectWrapper(settings.user, persistSuccessHandler, persistErrorHandler));
 		}
 		

@@ -29,15 +29,19 @@ package gr.ictpro.mall.client.model
 		private var _menu:ArrayList;
 		private var _name:String;
 		private var _photo:Image;
+		private var _color:int; 
 		
 		public static function createUser(o:Object):User {
 			var name:String;
+			var color:int = 0x000066;
+			
 			var photo:BitmapData;
 			if(o.profile == null) {
 				name = o.username;
 				photo = null;
 			} else {
 				name = o.profile.name;
+				color = o.profile.color;			
 				if(o.profile.photo != null) {
 				var ba:ByteArray = o.profile.photo;
 				var width:int= ba.readInt();
@@ -54,7 +58,7 @@ package gr.ictpro.mall.client.model
 			for each (var role:Object in o.roles) {
 				roles.addItem(role.role);
 			}
-			var u:User = new User(o.id, o.username, o.email, roles, name, photo);
+			var u:User = new User(o.id, o.username, o.email, roles, name, photo, color);
 			return u;
 		}
 		
@@ -63,13 +67,14 @@ package gr.ictpro.mall.client.model
 			return roles.getItemIndex("Admin")>-1;
 		}
 		
-		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData)
+		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData, color:int)
 		{
 			this._id = id;
 			this._username = username;
 			this._name = name;
 			this._roles = roles;
 			this._email = email;
+			this._color = color;
 			this._photo = new Image();
 			var b:Bitmap;
 			if(photo == null) {
@@ -85,10 +90,16 @@ package gr.ictpro.mall.client.model
 			initializeMenu();
 		}
 		
-		public function get color():Number 
+		public function get color():int 
 		{
-			return NaN;
+			return this._color;
 		}
+		
+		public function set color(color:int):void 
+		{
+			this._color = color;
+		}
+		
 		
 		public function get id():int
 		{
