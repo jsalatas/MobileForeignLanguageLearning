@@ -169,6 +169,7 @@ package gr.ictpro.mall.client.model
 			p.addValue("email", _email);
 			p.addValue("roles", _roles);
 			p.addValue("name", _name);
+			p.addValue("color", _color);
 			if(_photo.source is profile) {
 				// This is the default image. Don't save it in database
 				p.addValue("photo", null);

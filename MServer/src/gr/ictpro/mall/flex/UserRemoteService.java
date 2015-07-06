@@ -55,6 +55,7 @@ public class UserRemoteService {
 	String email = (String) userObject.get("email");
 	String name = (String) userObject.get("name");
 	byte[] photo = (byte[]) userObject.get("photo");
+	int color = (int) userObject.get("color");
 
 	Set<Role> roles = new HashSet<Role>();
 	ArrayList<String> r = (ArrayList<String>) userObject.get("roles");
@@ -71,6 +72,7 @@ public class UserRemoteService {
 		userService.create(u);
 		Profile p = new Profile(u, name);
 		p.setPhoto(photo);
+		p.setColor(color);
 		profileService.create(p);
 		u.setProfile(p);
 
@@ -83,12 +85,14 @@ public class UserRemoteService {
 		    if(p == null) {
 			// This is the case of admin
 			p = new Profile(u, name);
-			p.setPhoto(photo);
-			profileService.create(p);
 			u.setProfile(p);
+			p.setPhoto(photo);
+			p.setColor(color);
+			profileService.create(p);
 		    } else { 
 			p.setName(name);
 			p.setPhoto(photo);
+			p.setColor(color);
 			profileService.update(p);
 		    }
 		    userService.update(u);

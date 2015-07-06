@@ -28,7 +28,8 @@ public class Profile implements java.io.Serializable {
     private User user;
     private String name;
     private String photo;
-
+    private Integer color;
+    
     public Profile() {
     }
 
@@ -37,10 +38,11 @@ public class Profile implements java.io.Serializable {
 	this.name = name;
     }
 
-    public Profile(User user, String name, byte[] photo) {
+    public Profile(User user, String name, byte[] photo, Integer color) {
 	this.user = user;
 	this.name = name;
 	this.photo = Base64.encodeBase64String(photo);
+	this.color = color;
     }
 
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "user"))
@@ -81,5 +83,14 @@ public class Profile implements java.io.Serializable {
 
     public void setPhoto(byte[] photo) {
 	this.photo = Base64.encodeBase64String(photo);
+    }
+
+    @Column(name = "color")
+    public Integer getColor() {
+	return this.color;
+    }
+
+    public void setColor(Integer color) {
+	this.color = color;
     }
 }

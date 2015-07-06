@@ -105,7 +105,9 @@ package gr.ictpro.mall.client.view
 		{
 			var o:Object = (event as ResultEvent).result;
 			settings.user = User.createUser(o);
+			settings.user.initializeMenu();
 			view.user = settings.user;
+			
 			backHandler();
 		}
 
