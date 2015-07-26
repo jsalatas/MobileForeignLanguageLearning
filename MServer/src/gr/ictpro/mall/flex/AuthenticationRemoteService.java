@@ -59,20 +59,26 @@ public class AuthenticationRemoteService {
     }
 
     public User login(ASObject authenticationDetails) {
+	User u = null;
 	try {
 	    ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();  
 	    AuthenticationMethod auth = (AuthenticationMethod) ctx.getBean((String) authenticationDetails.get("authenticationMethod")); 
 	    Authentication authentication = auth.getAuthenticationToken(authenticationDetails);
 	    authentication = auth.authenticate(authentication);
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
-	    User u = userService.listByProperty("username", authenticationDetails.get("username")).get(0);
-	    addToConnectedUsers(u);
-	    return u;
+	    u = userService.listByProperty("username", authenticationDetails.get("username")).get(0);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    SecurityContextHolder.getContext().setAuthentication(null);
 	    return null;
 	}
+	if(u!=null && u.isEnabled()) {
+	    addToConnectedUsers(u);
+	    return u;
+	} else {
+	    return null;
+	}
+
     }
     public void logout(String userName) {
 	 HttpFlexSession flexSession = (HttpFlexSession) FlexContext.getFlexSession();

@@ -35,7 +35,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	}                                 
 	 
 	//TODO: check enabled status
-	User u = new User(userName, password, email, true);
+	User u = new User(userName, password, email, false);
 	u.setRoles(r);
 	userService.create(u);
 	Profile p = new Profile(u, name);

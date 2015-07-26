@@ -58,6 +58,7 @@ public class UserRemoteService {
 	int color = (int) userObject.get("color");
 
 	Set<Role> roles = new HashSet<Role>();
+	@SuppressWarnings("unchecked")
 	ArrayList<String> r = (ArrayList<String>) userObject.get("roles");
 	for (String role : r) {
 	    roles.add(roleService.listByProperty("role", role).get(0));
