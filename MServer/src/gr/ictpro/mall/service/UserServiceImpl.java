@@ -4,11 +4,15 @@
 package gr.ictpro.mall.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gr.ictpro.mall.model.Role;
+import gr.ictpro.mall.model.RoleDAOImpl;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.model.UserDAOImpl;
 
@@ -23,6 +27,9 @@ public class UserServiceImpl implements UserService {
 	public void setUserDAO(UserDAOImpl userDAO) {
 		this.userDAO = userDAO;
 	}
+
+	@Autowired
+	private RoleService roleService;
 
 	@Transactional
 	@Override
@@ -60,4 +67,21 @@ public class UserServiceImpl implements UserService {
 		userDAO.delete(id);
 	}
 	
+	@Transactional
+	@Override
+	public List<User> getUserByRole(String role) {
+	    return getUserByRole(roleService.listByProperty("role", role).get(0));
+	}
+
+	@Transactional
+	@Override
+	public List<User> getUserByRole(Role role) {
+	    List<User> res = new ArrayList<User>();
+	    
+	    for(User u: role.getUsers()) {
+		res.add(u);
+	    }
+	    
+	    return res;
+	}
 }

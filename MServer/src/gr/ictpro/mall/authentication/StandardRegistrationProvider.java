@@ -5,12 +5,15 @@ package gr.ictpro.mall.authentication;
 
 import java.util.HashSet;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.ContextLoader;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
+import gr.ictpro.mall.service.MailService;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -41,6 +44,11 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	Profile p = new Profile(u, name);
 	profileService.create(p);
 	u.setProfile(p);
+	// inform admin about the registration
+	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+	MailService mail = (MailService) ctx.getBean("mailService");
+	mail.registrationMail(u);
+	
 	return u;
     }
 
