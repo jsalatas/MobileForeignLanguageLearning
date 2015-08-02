@@ -9,7 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,88 +28,99 @@ import org.springframework.security.core.GrantedAuthority;
 @Table(name = "role", uniqueConstraints = @UniqueConstraint(columnNames = "role"))
 public class Role implements java.io.Serializable, GrantedAuthority {
 
-	private Integer id;
-	private String role;
-	private Set<User> users = new HashSet<User>(0);
+    private Integer id;
+    private String role;
+    private Set<Notification> notifications = new HashSet<Notification>(0);
+    private Set<User> users = new HashSet<User>(0);
 
-	public Role() {
-	}
+    public Role() {
+    }
 
-	public Role(String role) {
-		this.role = role;
-	}
+    public Role(String role) {
+	this.role = role;
+    }
 
-	public Role(String role, Set<User> users) {
-		this.role = role;
-		this.users = users;
-	}
+    public Role(String role, Set<Notification> notifications, Set<User> users) {
+	this.role = role;
+	this.notifications = notifications;
+	this.users = users;
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Integer getId() {
+	return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+	this.id = id;
+    }
 
-	@Column(name = "role", unique = true, nullable = false, length = 45)
-	public String getRole() {
-		return this.role;
-	}
+    @Column(name = "role", unique = true, nullable = false, length = 45)
+    public String getRole() {
+	return this.role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setRole(String role) {
+	this.role = role;
+    }
 
-	@ManyToMany(mappedBy = "roles")
-	//@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public Set<User> getUsers() {
-		return this.users;
-	}
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "role_notification", joinColumns = {
+	    @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "notification_id", nullable = false, updatable = false) })
+    public Set<Notification> getNotifications() {
+	return this.notifications;
+    }
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+    public void setNotifications(Set<Notification> notifications) {
+	this.notifications = notifications;
+    }
 
-	
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    @ManyToMany(mappedBy = "roles")
+    public Set<User> getUsers() {
+	return this.users;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Role other = (Role) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+    public void setUsers(Set<User> users) {
+	this.users = users;
+    }
 
-	@Override
-	public String toString() {
-		return role;
-	}
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	return result;
+    }
 
-	@Override
-	@Transient
-	public String getAuthority() {
-		return getRole();
-	}
-	
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Role other = (Role) obj;
+	if (id == null) {
+	    if (other.id != null)
+		return false;
+	} else if (!id.equals(other.id))
+	    return false;
+	return true;
+    }
+
+    @Override
+    public String toString() {
+	return role;
+    }
+
+    @Override
+    @Transient
+    public String getAuthority() {
+	return getRole();
+    }
+
 }

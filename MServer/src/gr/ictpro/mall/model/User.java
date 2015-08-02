@@ -39,7 +39,8 @@ public class User implements java.io.Serializable, UserDetails {
     private boolean enabled;
     private Set<Role> roles = new HashSet<Role>(0);
     private Profile profile;
-    
+    private Set<Notification> notifications = new HashSet<Notification>(0);
+
     public User() {
     }
 
@@ -50,13 +51,15 @@ public class User implements java.io.Serializable, UserDetails {
 	this.enabled = enabled;
     }
 
-    public User(String username, String password, String email, boolean enabled, Set<Role> roles, Profile profile) {
-	this.username = username;
-	this.password = password;
+    public User(String email, boolean enabled, String password, String username, Set<Role> roles, Profile profile,
+	    Set<Notification> notifications) {
 	this.email = email;
 	this.enabled = enabled;
+	this.password = password;
+	this.username = username;
 	this.roles = roles;
 	this.profile = profile;
+	this.notifications = notifications;
     }
 
     @Id
@@ -107,10 +110,16 @@ public class User implements java.io.Serializable, UserDetails {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) })
+    @JoinTable(name = "user_role", joinColumns = {
+	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "role_id", nullable = false, updatable = false) })
     @OrderBy("id")
     public Set<Role> getRoles() {
 	return this.roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+	this.roles = roles;
     }
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
@@ -122,8 +131,17 @@ public class User implements java.io.Serializable, UserDetails {
 	this.profile = profile;
     }
 
-    public void setRoles(Set<Role> roles) {
-	this.roles = roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_notification", joinColumns = {
+	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "notification_id", nullable = false, updatable = false) })
+    @OrderBy("id")
+    public Set<Notification> getNotifications() {
+	return this.notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+	this.notifications = notifications;
     }
 
     @Override
@@ -179,15 +197,15 @@ public class User implements java.io.Serializable, UserDetails {
     public boolean isCredentialsNonExpired() {
 	return true;
     }
-    
+
     @Transient
     public boolean hasRole(String role) {
-	for(Role r: roles) {
-	    if(r.getRole().equals(role)) {
+	for (Role r : roles) {
+	    if (r.getRole().equals(role)) {
 		return true;
 	    }
 	}
-	
+
 	return false;
     }
 

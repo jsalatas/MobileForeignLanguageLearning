@@ -37,7 +37,7 @@ public class Email implements java.io.Serializable {
 	this.id = id;
     }
 
-    @Column(name = "subject", nullable = false, length = 65535)
+    @Column(name = "subject", nullable = false, length = 100)
     public String getSubject() {
 	return this.subject;
     }
@@ -46,7 +46,7 @@ public class Email implements java.io.Serializable {
 	this.subject = subject;
     }
 
-    @Column(name = "body", nullable = false, length = 65535)
+    @Column(name = "body", nullable = false, length = 65535, columnDefinition="Text")
     public String getBody() {
 	return this.body;
     }

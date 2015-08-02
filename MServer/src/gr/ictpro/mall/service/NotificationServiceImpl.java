@@ -3,35 +3,33 @@
  */
 package gr.ictpro.mall.service;
 
+import gr.ictpro.mall.model.Notification;
+import gr.ictpro.mall.model.NotificationDAOImpl;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import gr.ictpro.mall.model.Email;
-import gr.ictpro.mall.model.EmailDAO;
-import gr.ictpro.mall.model.EmailDAOImpl;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
  *
  */
 @Service
-public class EmailServiceImpl implements EmailService, EmailDAO {
-    private EmailDAOImpl emailDAO;
+public class NotificationServiceImpl implements NotificationService {
+    private NotificationDAOImpl notificationDAO;
 
-    public void setEmailDAO(EmailDAOImpl emailDAO) {
-	this.emailDAO = emailDAO;
+    public void setNotificationDAO(NotificationDAOImpl notificationDAO) {
+	this.notificationDAO = notificationDAO;
     }
-
 
     /* (non-Javadoc)
      * @see gr.ictpro.mall.service.GenericService#create(java.lang.Object)
      */
     @Transactional
     @Override
-    public void create(Email item) {
-	emailDAO.create(item);
+    public void create(Notification item) {
+	notificationDAO.create(item);
     }
 
     /* (non-Javadoc)
@@ -39,8 +37,8 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
      */
     @Transactional
     @Override
-    public void update(Email item) {
-	emailDAO.update(item);
+    public void update(Notification item) {
+	notificationDAO.update(item);
     }
 
     /* (non-Javadoc)
@@ -49,7 +47,7 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
     @Transactional
     @Override
     public void delete(int id) {
-	emailDAO.delete(id);
+	notificationDAO.delete(id);
     }
 
     /* (non-Javadoc)
@@ -57,8 +55,8 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
      */
     @Transactional
     @Override
-    public Email retrieveById(int id) {
-	return emailDAO.retrieveById(id);
+    public Notification retrieveById(int id) {
+	return notificationDAO.retrieveById(id);
     }
 
     /* (non-Javadoc)
@@ -66,8 +64,8 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
      */
     @Transactional
     @Override
-    public List<Email> listAll() {
-	return emailDAO.listAll();
+    public List<Notification> listAll() {
+	return notificationDAO.listAll();
     }
 
     /* (non-Javadoc)
@@ -75,8 +73,7 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
      */
     @Transactional
     @Override
-    public List<Email> listByProperty(String propertyName, Object propertyValue) {
-	return emailDAO.listByProperty(propertyName, propertyValue);
+    public List<Notification> listByProperty(String propertyName, Object propertyValue) {
+	return notificationDAO.listByProperty(propertyName, propertyValue);
     }
-
 }
