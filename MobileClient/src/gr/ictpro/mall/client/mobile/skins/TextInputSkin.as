@@ -8,7 +8,6 @@ package gr.ictpro.mall.client.mobile.skins
 	
 	import mx.core.DPIClassification;
 	
-	import spark.components.supportClasses.StyleableStageText;
 	import spark.skins.mobile.StageTextInputSkin;
 	
 	public class TextInputSkin extends spark.skins.mobile.StageTextInputSkin
@@ -55,13 +54,9 @@ package gr.ictpro.mall.client.mobile.skins
 		
 		override protected function createChildren():void
 		{
-			if (!textDisplay)
-			{
-				textDisplay = new StyleableStageText(multiline);
-				textDisplay.editable = true;
-				
-				textDisplay.styleName = this;
-				this.addChild(textDisplay);
+			super.createChildren();
+			if(border != null) {
+				this.removeChild(border);
 			}
 		}
 

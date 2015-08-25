@@ -100,6 +100,11 @@
     <classEntry path="gr.ictpro.mall.client.utils.string.IntoToHexString"/>
     <classEntry path="gr.ictpro.mall.client.components.renderers.ColorItemRenderer"/>
     <classEntry path="gr.ictpro.mall.client.components.ColoredButton"/>
+    <classEntry path="gr.ictpro.mall.client.components.SparkButtonSkin"/>
+    <classEntry path="gr.ictpro.mall.client.components.SparkSkin"/>
+    <classEntry path="gr.ictpro.mall.client.components.RichEditableText"/>
+    <classEntry path="gr.ictpro.mall.client.components.BitmapImage"/>
+    <classEntry path="gr.ictpro.mall.client.components.Path"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

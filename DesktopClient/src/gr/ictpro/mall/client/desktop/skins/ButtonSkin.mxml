@@ -21,12 +21,12 @@ in accordance with the terms of the license agreement accompanying it.
 @productversion Flex 4
 -->
 <s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
-				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:s="gr.ictpro.mall.client.components.*"
 				   xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
 				   xmlns:fxg="assets.fxg.*"
 				   xmlns:assets="assets.*"
 				   minWidth="60" minHeight="22" autoIconManagement="false"
-				   alpha.disabled="0.5">
+				   alpha.disabled="0.5" xmlns:mx="library://ns.adobe.com/flex/mx">
 	
 	<fx:Metadata>
 		<![CDATA[ 
@@ -56,10 +56,10 @@ in accordance with the terms of the license agreement accompanying it.
 	
 	<!-- states -->
 	<s:states>
-		<s:State name="up"/>
-		<s:State name="over"/>
-		<s:State name="down"/>
-		<s:State name="disabled"/>
+		<mx:State name="up"/>
+		<mx:State name="over"/>
+		<mx:State name="down"/>
+		<mx:State name="disabled"/>
 	</s:states>
 	
 	
