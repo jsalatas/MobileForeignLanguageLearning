@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.ictpro.mall.service;
+package gr.ictpro.mall.dao;
 
 import gr.ictpro.mall.model.Profile;
 
@@ -9,6 +9,6 @@ import gr.ictpro.mall.model.Profile;
  * @author John Salatas <jsalatas@gmail.com>
  *
  */
-public interface ProfileService extends GenericService<Profile, Integer> {
+public interface ProfileDAO extends GenericDAO<Profile, Integer> {
 
 }

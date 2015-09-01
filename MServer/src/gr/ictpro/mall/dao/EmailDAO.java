@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.ictpro.mall.service;
+package gr.ictpro.mall.dao;
 
 import gr.ictpro.mall.model.Email;
 
@@ -9,6 +9,6 @@ import gr.ictpro.mall.model.Email;
  * @author John Salatas <jsalatas@gmail.com>
  *
  */
-public interface EmailService extends GenericService<Email, Integer> {
+public interface EmailDAO extends GenericDAO<Email, Integer> {
 
 }

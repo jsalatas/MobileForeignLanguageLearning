@@ -7,22 +7,28 @@
 	<!-- Auto register annotated components as Spring Beans -->
 	<context:component-scan base-package="gr.ictpro.mall" />
 
-	<bean id="userDAO" class="gr.ictpro.mall.model.UserDAOImpl">
+	<bean id="userDAO" class="gr.ictpro.mall.dao.UserDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
-	<bean id="roleDAO" class="gr.ictpro.mall.model.RoleDAOImpl">
+	<bean id="roleDAO" class="gr.ictpro.mall.dao.RoleDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
-	<bean id="configDAO" class="gr.ictpro.mall.model.ConfigDAOImpl">
+	<bean id="configDAO" class="gr.ictpro.mall.dao.ConfigDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
-	<bean id="profileDAO" class="gr.ictpro.mall.model.ProfileDAOImpl">
+	<bean id="profileDAO" class="gr.ictpro.mall.dao.ProfileDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
-	<bean id="emailDAO" class="gr.ictpro.mall.model.EmailDAOImpl">
+	<bean id="emailDAO" class="gr.ictpro.mall.dao.EmailDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
-	<bean id="notificationDAO" class="gr.ictpro.mall.model.NotificationDAOImpl">
+	<bean id="notificationDAO" class="gr.ictpro.mall.dao.NotificationDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+	<bean id="userNotificationDAO" class="gr.ictpro.mall.dao.UserNotificationDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+		<bean id="roleNotificationDAO" class="gr.ictpro.mall.dao.RoleNotificationDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
@@ -39,6 +45,8 @@
 	</bean>
 	<bean id="notificationService" class="gr.ictpro.mall.service.NotificationServiceImpl">
 		<property name="notificationDAO" ref="notificationDAO"></property>
+		<property name="userNotificationDAO" ref="userNotificationDAO"></property>
+		<property name="roleNotificationDAO" ref="roleNotificationDAO"></property>
 	</bean>
 	<bean id="profileService" class="gr.ictpro.mall.service.ProfileServiceImpl">
 		<property name="profileDAO" ref="profileDAO"></property>

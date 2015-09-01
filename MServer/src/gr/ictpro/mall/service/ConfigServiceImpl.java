@@ -3,8 +3,8 @@
  */
 package gr.ictpro.mall.service;
 
+import gr.ictpro.mall.dao.ConfigDAOImpl;
 import gr.ictpro.mall.model.Config;
-import gr.ictpro.mall.model.ConfigDAOImpl;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Transactional
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	configDAO.delete(id);
     }
 
@@ -63,7 +63,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Transactional
     @Override
-    public Config retrieveById(int id) {
+    public Config retrieveById(Integer id) {
 	return configDAO.retrieveById(id);
     }
 

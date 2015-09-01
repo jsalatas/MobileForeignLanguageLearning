@@ -1,13 +1,13 @@
 /**
  * 
  */
-package gr.ictpro.mall.service;
+package gr.ictpro.mall.dao;
 
 import gr.ictpro.mall.model.Role;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
- * 
+ *
  */
-public interface RoleService extends GenericService<Role, Integer> {
+public interface RoleDAO extends GenericDAO<Role, Integer> {
 }

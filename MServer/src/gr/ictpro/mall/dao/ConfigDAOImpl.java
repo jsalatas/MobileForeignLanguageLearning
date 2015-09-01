@@ -1,7 +1,9 @@
 /**
  * 
  */
-package gr.ictpro.mall.model;
+package gr.ictpro.mall.dao;
+
+import gr.ictpro.mall.model.Config;
 
 import java.util.List;
 
@@ -12,83 +14,78 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
- * 
+ *
  */
-public class RoleDAOImpl implements RoleDAO {
+public class ConfigDAOImpl implements ConfigDAO {
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sf) {
 	this.sessionFactory = sf;
     }
 
-    /*
-     * (non-Javadoc)
+
+    /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#create(java.lang.Object)
      */
     @Override
-    public void create(Role item) {
+    public void create(Config item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.persist(item);
     }
 
-    /*
-     * (non-Javadoc)
+    /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#update(java.lang.Object)
      */
     @Override
-    public void update(Role item) {
+    public void update(Config item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.update(item);
     }
 
-    /*
-     * (non-Javadoc)
+    /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#delete(int)
      */
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Role r = (Role) session.get(Role.class, new Integer(id));
-	if (null != r) {
-	    session.delete(r);
+	Config c = (Config) session.load(Config.class, id);
+	if (null != c) {
+	    session.delete(c);
 	}
     }
 
-    /*
-     * (non-Javadoc)
+    /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#retrieveById(int)
      */
     @Override
-    public Role retrieveById(int id) {
+    public Config retrieveById(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Role r = (Role) session.get(Role.class, new Integer(id));
-	return r;
+	Config c = (Config) session.load(Config.class, id);
+	return c;
     }
 
-    /*
-     * (non-Javadoc)
+    /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#listAll()
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Role> listAll() {
+    public List<Config> listAll() {
 	Session session = this.sessionFactory.getCurrentSession();
-	List<Role> rolesList = session.createQuery("from Role order by id").list();
-	return rolesList;
+	List<Config> configsList = session.createQuery("from Config order by id").list();
+	return configsList;
     }
 
-    /*
-     * (non-Javadoc)
+    /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#listByProperty(java.lang.String, java.lang.Object)
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Role> listByProperty(String propertyName, Object propertyValue) {
+    public List<Config> listByProperty(String propertyName, Object propertyValue) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Criteria criteria = session.createCriteria(Role.class);
+	Criteria criteria = session.createCriteria(Config.class);
 	criteria.add(Restrictions.eq(propertyName, propertyValue));
-	List<Role> rolesList = criteria.list();
-	return rolesList;
+	List<Config> configsList = criteria.list();
+	return configsList;
     }
 
 }

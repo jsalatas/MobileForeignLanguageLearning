@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gr.ictpro.mall.dao.UserDAO;
 import gr.ictpro.mall.model.Role;
-import gr.ictpro.mall.model.RoleDAOImpl;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.model.UserDAOImpl;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -22,9 +21,9 @@ import gr.ictpro.mall.model.UserDAOImpl;
  */
 @Service
 public class UserServiceImpl implements UserService {
-	private UserDAOImpl userDAO;
+	private UserDAO userDAO;
 
-	public void setUserDAO(UserDAOImpl userDAO) {
+	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 
@@ -51,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional(readOnly=true)
 	@Override
-	public User retrieveById(int id) {
+	public User retrieveById(Integer id) {
 		return userDAO.retrieveById(id);
 	}
 
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public void delete(int id) {
+	public void delete(Integer id) {
 		userDAO.delete(id);
 	}
 	

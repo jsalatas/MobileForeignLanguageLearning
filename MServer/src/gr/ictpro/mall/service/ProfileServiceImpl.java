@@ -3,8 +3,8 @@
  */
 package gr.ictpro.mall.service;
 
+import gr.ictpro.mall.dao.ProfileDAO;
 import gr.ictpro.mall.model.Profile;
-import gr.ictpro.mall.model.ProfileDAOImpl;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 public class ProfileServiceImpl implements ProfileService {
-    private ProfileDAOImpl profileDAO;
+    private ProfileDAO profileDAO;
 
-    public void setProfileDAO(ProfileDAOImpl profileDAO) {
+    public void setProfileDAO(ProfileDAO profileDAO) {
 	this.profileDAO = profileDAO;
     }
 
@@ -50,7 +50,7 @@ public class ProfileServiceImpl implements ProfileService {
      */
     @Transactional
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	profileDAO.delete(id);
     }
 
@@ -61,7 +61,7 @@ public class ProfileServiceImpl implements ProfileService {
      */
     @Transactional
     @Override
-    public Profile retrieveById(int id) {
+    public Profile retrieveById(Integer id) {
 	return profileDAO.retrieveById(id);
     }
 

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package gr.ictpro.mall.model;
+package gr.ictpro.mall.dao;
+
+import gr.ictpro.mall.model.Email;
 
 import java.util.List;
 
@@ -47,9 +49,9 @@ public class EmailDAOImpl implements EmailDAO {
      * @see gr.ictpro.mall.model.GenericDAO#delete(int)
      */
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Email e = (Email) session.load(Email.class, new Integer(id));
+	Email e = (Email) session.load(Email.class, id);
 	if (null != e) {
 	    session.delete(e);
 	}
@@ -60,9 +62,9 @@ public class EmailDAOImpl implements EmailDAO {
      * @see gr.ictpro.mall.model.GenericDAO#retrieveById(int)
      */
     @Override
-    public Email retrieveById(int id) {
+    public Email retrieveById(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Email e = (Email) session.load(Email.class, new Integer(id));
+	Email e = (Email) session.load(Email.class, id);
 	return e;
     }
 

@@ -1,7 +1,10 @@
 /**
  * 
  */
-package gr.ictpro.mall.model;
+package gr.ictpro.mall.dao;
+
+import gr.ictpro.mall.model.Profile;
+import gr.ictpro.mall.model.Role;
 
 import java.util.List;
 
@@ -14,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  * @author John Salatas <jsalatas@gmail.com>
  *
  */
-public class NotificationDAOImpl implements NotificationDAO {
+public class ProfileDAOImpl implements ProfileDAO {
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sf) {
@@ -25,7 +28,7 @@ public class NotificationDAOImpl implements NotificationDAO {
      * @see gr.ictpro.mall.model.GenericDAO#create(java.lang.Object)
      */
     @Override
-    public void create(Notification item) {
+    public void create(Profile item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.persist(item);
     }
@@ -34,7 +37,7 @@ public class NotificationDAOImpl implements NotificationDAO {
      * @see gr.ictpro.mall.model.GenericDAO#update(java.lang.Object)
      */
     @Override
-    public void update(Notification item) {
+    public void update(Profile item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.update(item);
     }
@@ -43,11 +46,11 @@ public class NotificationDAOImpl implements NotificationDAO {
      * @see gr.ictpro.mall.model.GenericDAO#delete(int)
      */
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Notification n = (Notification) session.get(Notification.class, new Integer(id));
-	if (null != n) {
-	    session.delete(n);
+	Profile p = (Profile) session.load(Profile.class, id);
+	if (null != p) {
+	    session.delete(p);
 	}
     }
 
@@ -55,10 +58,10 @@ public class NotificationDAOImpl implements NotificationDAO {
      * @see gr.ictpro.mall.model.GenericDAO#retrieveById(int)
      */
     @Override
-    public Notification retrieveById(int id) {
+    public Profile retrieveById(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Notification n = (Notification) session.get(Notification.class, new Integer(id));
-	return n;
+	Profile p = (Profile) session.load(Profile.class, id);
+	return p;
     }
 
     /* (non-Javadoc)
@@ -66,11 +69,10 @@ public class NotificationDAOImpl implements NotificationDAO {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Notification> listAll() {
+    public List<Profile> listAll() {
 	Session session = this.sessionFactory.getCurrentSession();
-	List<Notification> notificationsList = session.createQuery("from Notification order by id").list();
-	// TODO: Sort by date/priority
-	return notificationsList;
+	List<Profile> profilesList = session.createQuery("from Profile order by user_id").list();
+	return profilesList;
     }
 
     /* (non-Javadoc)
@@ -78,12 +80,12 @@ public class NotificationDAOImpl implements NotificationDAO {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Notification> listByProperty(String propertyName, Object propertyValue) {
+    public List<Profile> listByProperty(String propertyName, Object propertyValue) {
 	Session session = this.sessionFactory.getCurrentSession();
-	Criteria criteria = session.createCriteria(Notification.class);
+	Criteria criteria = session.createCriteria(Role.class);
 	criteria.add(Restrictions.eq(propertyName, propertyValue));
-	List<Notification> notificationsList = criteria.list();
-	return notificationsList;
+	List<Profile> profilesList = criteria.list();
+	return profilesList;
     }
 
 }

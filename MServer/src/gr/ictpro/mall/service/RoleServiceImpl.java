@@ -9,8 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gr.ictpro.mall.dao.RoleDAO;
 import gr.ictpro.mall.model.Role;
-import gr.ictpro.mall.model.RoleDAOImpl;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -18,9 +18,9 @@ import gr.ictpro.mall.model.RoleDAOImpl;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
-	private RoleDAOImpl roleDAO;
+	private RoleDAO roleDAO;
 	
-	public void setRoleDAO(RoleDAOImpl roleDAO) {
+	public void setRoleDAO(RoleDAO roleDAO) {
 		this.roleDAO = roleDAO;
 	}
 
@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Transactional
 	@Override
-	public Role retrieveById(int id) {
+	public Role retrieveById(Integer id) {
 		return roleDAO.retrieveById(id);
 	}
 
@@ -56,7 +56,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Transactional
 	@Override
-	public void delete(int id) {
+	public void delete(Integer id) {
 		roleDAO.delete(id);
 	}
 

@@ -8,9 +8,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gr.ictpro.mall.dao.EmailDAO;
 import gr.ictpro.mall.model.Email;
-import gr.ictpro.mall.model.EmailDAO;
-import gr.ictpro.mall.model.EmailDAOImpl;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -18,9 +17,9 @@ import gr.ictpro.mall.model.EmailDAOImpl;
  */
 @Service
 public class EmailServiceImpl implements EmailService, EmailDAO {
-    private EmailDAOImpl emailDAO;
+    private EmailDAO emailDAO;
 
-    public void setEmailDAO(EmailDAOImpl emailDAO) {
+    public void setEmailDAO(EmailDAO emailDAO) {
 	this.emailDAO = emailDAO;
     }
 
@@ -48,7 +47,7 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
      */
     @Transactional
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	emailDAO.delete(id);
     }
 
@@ -57,7 +56,7 @@ public class EmailServiceImpl implements EmailService, EmailDAO {
      */
     @Transactional
     @Override
-    public Email retrieveById(int id) {
+    public Email retrieveById(Integer id) {
 	return emailDAO.retrieveById(id);
     }
 

@@ -1,6 +1,6 @@
-package gr.ictpro.mall.model;
+package gr.ictpro.mall.model.hibernate;
 
-// Generated Aug 31, 2015 8:07:08 PM by Hibernate Tools 4.0.0
+// Generated Aug 31, 2015 8:17:23 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -71,7 +71,7 @@ public class Notification implements java.io.Serializable {
 	this.date = date;
     }
 
-    @Column(name = "message", nullable = false, length = 65535, columnDefinition="Text")
+    @Column(name = "message", nullable = false, length = 65535)
     public String getMessage() {
 	return this.message;
     }

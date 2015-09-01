@@ -1,6 +1,6 @@
-package gr.ictpro.mall.model;
+package gr.ictpro.mall.model.hibernate;
 
-// Generated Sep 14, 2014 9:03:44 PM by Hibernate Tools 4.0.0
+// Generated Aug 31, 2015 8:17:23 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

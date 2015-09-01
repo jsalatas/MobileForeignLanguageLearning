@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.ictpro.mall.service;
+package gr.ictpro.mall.dao;
 
 import gr.ictpro.mall.model.Config;
 
@@ -9,6 +9,6 @@ import gr.ictpro.mall.model.Config;
  * @author John Salatas <jsalatas@gmail.com>
  *
  */
-public interface ConfigService extends GenericService<Config, Integer> {
+public interface ConfigDAO extends GenericDAO<Config, Integer> {
 
 }

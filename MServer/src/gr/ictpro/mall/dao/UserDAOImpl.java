@@ -1,7 +1,9 @@
 /**
  * 
  */
-package gr.ictpro.mall.model;
+package gr.ictpro.mall.dao;
+
+import gr.ictpro.mall.model.User;
 
 import java.util.List;
 
@@ -38,18 +40,18 @@ public class UserDAOImpl implements UserDAO, UserDetailsService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	User u = (User) session.get(User.class, new Integer(id));
+	User u = (User) session.get(User.class, id);
 	if (null != u) {
 	    session.delete(u);
 	}
     }
 
     @Override
-    public User retrieveById(int id) {
+    public User retrieveById(Integer id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	User u = (User) session.get(User.class, new Integer(id));
+	User u = (User) session.get(User.class, id);
 	return u;
     }
 

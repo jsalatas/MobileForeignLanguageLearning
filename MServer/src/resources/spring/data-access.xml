@@ -26,7 +26,9 @@
 				<value>gr.ictpro.mall.model.User</value>
 				<value>gr.ictpro.mall.model.Role</value>
 			    <value>gr.ictpro.mall.model.Notification</value>  
-				<value>gr.ictpro.mall.model.Profile</value>
+			    <value>gr.ictpro.mall.model.UserNotification</value>  
+			    <value>gr.ictpro.mall.model.RoleNotification</value>  
+			    <value>gr.ictpro.mall.model.Profile</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
