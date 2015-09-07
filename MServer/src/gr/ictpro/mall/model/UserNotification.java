@@ -2,8 +2,6 @@ package gr.ictpro.mall.model;
 
 // Generated Aug 31, 2015 8:07:08 PM by Hibernate Tools 4.0.0
 
-import gr.ictpro.mall.model.hibernate.User;
-
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
