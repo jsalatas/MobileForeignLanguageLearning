@@ -25,20 +25,20 @@ public class UserNotification implements java.io.Serializable {
     private UserNotificationId id;
     private User user;
     private Notification notification;
-    private int done;
+    private boolean done;
     private Date seen;
 
     public UserNotification() {
     }
 
-    public UserNotification(UserNotificationId id, User user, Notification notification, int done) {
+    public UserNotification(UserNotificationId id, User user, Notification notification, boolean done) {
 	this.id = id;
 	this.user = user;
 	this.notification = notification;
 	this.done = done;
     }
 
-    public UserNotification(UserNotificationId id, User user, Notification notification, int done, Date seen) {
+    public UserNotification(UserNotificationId id, User user, Notification notification, boolean done, Date seen) {
 	this.id = id;
 	this.user = user;
 	this.notification = notification;
@@ -79,11 +79,11 @@ public class UserNotification implements java.io.Serializable {
     }
 
     @Column(name = "done", nullable = false)
-    public int getDone() {
+    public boolean getDone() {
 	return this.done;
     }
 
-    public void setDone(int done) {
+    public void setDone(boolean done) {
 	this.done = done;
     }
 
