@@ -22,7 +22,7 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.ImageCropper;
-	import gr.ictpro.mall.client.components.Notification;
+	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.PopUpMenu;
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.IPersistentObject;
@@ -113,7 +113,7 @@ package gr.ictpro.mall.client.view
 
 		private function persistErrorHandler(event:FaultEvent):void
 		{
-			var saveErrorPopup:Notification = new Notification();
+			var saveErrorPopup:PopupNotification = new PopupNotification();
 			saveErrorPopup.message = "Cannot Save Profile.";
 			
 			saveErrorPopup.open(view, true);

@@ -6,7 +6,7 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
-	import gr.ictpro.mall.client.components.Notification;
+	import gr.ictpro.mall.client.components.PopupNotification;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
@@ -77,7 +77,7 @@ package gr.ictpro.mall.client.authentication
 			var password:String = view.txtPassword.text;
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
-				var passwordMismatchPopup:Notification = new Notification();
+				var passwordMismatchPopup:PopupNotification = new PopupNotification();
 				passwordMismatchPopup.message = "Passwords do not match.";
 				//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 				passwordMismatchPopup.open(view, true);
@@ -98,7 +98,7 @@ package gr.ictpro.mall.client.authentication
 		
 		private function handleRegisterFailed():void 
 		{
-			var registerFailedPopup:Notification = new Notification();
+			var registerFailedPopup:PopupNotification = new PopupNotification();
 			registerFailedPopup.message = "Cannot register.";
 			//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 			registerFailedPopup.open(view, true);

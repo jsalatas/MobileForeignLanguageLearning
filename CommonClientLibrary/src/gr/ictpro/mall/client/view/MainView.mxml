@@ -18,16 +18,16 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import flash.desktop.NativeApplication;
+			import mx.collections.ArrayList;
+			import mx.core.IVisualElementContainer;
 			
 			import gr.ictpro.mall.client.model.Device;
 			import gr.ictpro.mall.client.model.User;
-			import gr.ictpro.mall.client.model.menu.MenuItemCommand;
-			
-			import mx.core.IVisualElementContainer;
 			
 			[Bindable]
 			public var user:User;
+			
+			public var testNotifications:ArrayList = new ArrayList(["Test one", "Test two"]);
 			
 			public function dispose():void
 			{
@@ -54,16 +54,24 @@
 			
 		]]>
 	</fx:Script>
-	<s:Group id="topBar" top="0" width="100%" height="40">
-		<s:Rect width="100%" height="100%">
-			<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
-		</s:Rect>
-		<s:Group left="0" right="0" top="0" bottom="0" click="showMenu(event)">
-			<s:layout>
-				<s:HorizontalLayout gap="10" paddingLeft="5" paddingRight="5" verticalAlign="middle"/>
-			</s:layout>
-			<s:Image width="21" height="28" source="{user.photo}"/>
-			<s:Label id="username" color="0xFFFFFF" fontSize="20" fontWeight="normal" text="{user.name}"/>
+	<s:Group  width="100%">
+		<s:layout>
+			<s:VerticalLayout gap="5" />
+		</s:layout>		
+		<s:Group id="topBar" top="0" width="100%" height="40">
+			<s:Rect width="100%" height="100%">
+				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
+			</s:Rect>
+			<s:Group left="0" right="0" top="0" bottom="0" click="showMenu(event)">
+				<s:layout>
+					<s:HorizontalLayout gap="10" paddingLeft="5" paddingRight="5" verticalAlign="middle"/>
+				</s:layout>
+				<s:Image width="21" height="28" source="{user.photo}"/>
+				<s:Label id="username" color="0xFFFFFF" fontSize="20" fontWeight="normal" text="{user.name}"/>
+			</s:Group>
+		</s:Group>
+		<s:Group>
+			<s:List itemRenderer="gr.ictpro.mall.client.components.renderers.NotificationRenderer" dataProvider="{testNotifications}" borderAlpha="0" />
 		</s:Group>
 	</s:Group>
 	<s:Menu id="mainMenu" top="{topBar.definedHeight}" bottom="0" width="200"

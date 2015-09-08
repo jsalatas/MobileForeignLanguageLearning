@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="gr.ictpro.mall.client.components.*" 
+				autoDrawBackground="false"
+				>
+<fx:Script>
+	<![CDATA[
+		private static var dayNames:Array = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusrday', 'Friday', 'Saturday'];
+		private static var monthNames:Array = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	]]>
+</fx:Script>	
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5"/>
+		</s:layout>
+		<!-- Date -->
+		<s:Group>
+			<s:layout>
+				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
+			</s:layout>
+			<s:Label id="day" text="{dayNames[3]}" />
+			<s:Label id="date" text="23" fontSize="{month.getStyle('fontSize')+5}"/>
+			<s:Label id="month" text="{monthNames[8]}" />
+		</s:Group>
+		
+		<!-- Text -->
+		<s:Group>
+			<s:layout>
+				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left"/>
+			</s:layout>
+			<s:Label id="subject" text="Subject: {data}" fontWeight="bold" fontSize="{body.getStyle('fontSize')+2}"/>
+			<s:Label id="body" text="Body: {data}"/>
+		</s:Group>
+	</s:Group>
+	
+</s:ItemRenderer>

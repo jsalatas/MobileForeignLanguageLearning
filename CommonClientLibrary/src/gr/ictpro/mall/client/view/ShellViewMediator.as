@@ -24,7 +24,7 @@ package gr.ictpro.mall.client.view
 	import spark.events.PopUpEvent;
 	import spark.modules.Module;
 	import spark.modules.ModuleLoader;
-	import gr.ictpro.mall.client.components.Notification;
+	import gr.ictpro.mall.client.components.PopupNotification;
 	
 	public class ShellViewMediator extends Mediator
 	{
@@ -59,7 +59,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleConnectionError():void 
 		{
-			var connectionErrorPopup:Notification = new Notification();
+			var connectionErrorPopup:PopupNotification = new PopupNotification();
 			connectionErrorPopup.message = "Cannot connect to server.";
 			
 			connectionErrorPopup.addEventListener(PopUpEvent.CLOSE, connectionErrorPopup_close);

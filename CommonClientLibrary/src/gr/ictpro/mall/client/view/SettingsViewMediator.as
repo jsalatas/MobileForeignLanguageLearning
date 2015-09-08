@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.view
 	import flash.text.TextFormatAlign;
 	
 	import gr.ictpro.mall.client.components.FormItem;
-	import gr.ictpro.mall.client.components.Notification;
+	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.TextInput;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.PersistentData;
@@ -111,7 +111,7 @@ package gr.ictpro.mall.client.view
 		
 		private function persistErrorHandler(event:FaultEvent):void
 		{
-			var saveErrorPopup:Notification = new Notification();
+			var saveErrorPopup:PopupNotification = new PopupNotification();
 			saveErrorPopup.message = "Cannot Save Server Configuration.";
 			
 			saveErrorPopup.open(view, true);

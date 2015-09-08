@@ -24,7 +24,7 @@
     <classEntry path="gr.ictpro.mall.client.signal.LoginFailedSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.LoginSuccessSignal"/>
     <classEntry path="gr.ictpro.mall.client.ClientContext"/>
-    <classEntry path="gr.ictpro.mall.client.components.Notification"/>
+    <classEntry path="gr.ictpro.mall.client.components.PopupNotification"/>
     <classEntry path="gr.ictpro.mall.client.signal.ServerConnectErrorSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.ShowRegistrationSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.ShowRegistrationCommand"/>
@@ -105,6 +105,8 @@
     <classEntry path="gr.ictpro.mall.client.components.RichEditableText"/>
     <classEntry path="gr.ictpro.mall.client.components.BitmapImage"/>
     <classEntry path="gr.ictpro.mall.client.components.Path"/>
+    <classEntry path="gr.ictpro.mall.client.components.renderers.NotificationRenderer"/>
+    <classEntry path="gr.ictpro.mall.client.components.ItemRenderer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

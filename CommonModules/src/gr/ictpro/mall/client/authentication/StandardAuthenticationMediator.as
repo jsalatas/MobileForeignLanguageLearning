@@ -10,7 +10,7 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
-	import gr.ictpro.mall.client.components.Notification;
+	import gr.ictpro.mall.client.components.PopupNotification;
 	
 	import mx.core.IFlexDisplayObject;
 	import mx.events.CloseEvent;
@@ -77,7 +77,7 @@ package gr.ictpro.mall.client.authentication
 
 		private function showFailedPopup():void 
 		{
-			var loginFailedPopup:Notification = new Notification();
+			var loginFailedPopup:PopupNotification = new PopupNotification();
 			loginFailedPopup.message = "Wrong User name or Password.";
 			
 			loginFailedPopup.addEventListener(PopUpEvent.CLOSE, loginFailedPopup_close);

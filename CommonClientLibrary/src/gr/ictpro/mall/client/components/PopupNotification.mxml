@@ -11,11 +11,8 @@
 		<![CDATA[
 			import gr.ictpro.mall.client.model.Device;
 			
-			import mx.core.UIComponent;
 			import mx.events.ResizeEvent;
-			import mx.states.OverrideBase;
 			
-			import spark.events.PopUpEvent;
 			[Bindable]
 			public var message:String = "";
 			
