@@ -57,7 +57,7 @@ public class RoleNotification implements java.io.Serializable {
 	this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "notification_id", nullable = false, insertable = false, updatable = false)
     public Notification getNotification() {
 	return this.notification;
@@ -67,7 +67,7 @@ public class RoleNotification implements java.io.Serializable {
 	this.notification = notification;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false, insertable = false, updatable = false)
     public Role getRole() {
 	return this.role;
@@ -77,7 +77,7 @@ public class RoleNotification implements java.io.Serializable {
 	this.role = role;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "handled_by")
     public User getUser() {
 	return this.user;

@@ -24,7 +24,6 @@ public class NotificationRemoteService {
 
     public List<Notification> getNotifications() {
 	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	
 	return notificationService.retrieveByUser(currentUser);
     }
 }

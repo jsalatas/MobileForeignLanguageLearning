@@ -107,7 +107,7 @@ public class Notification implements java.io.Serializable {
 	this.subject = subject;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notification")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "notification")
     public Set<RoleNotification> getRoleNotifications() {
 	return this.roleNotifications;
     }
@@ -116,7 +116,7 @@ public class Notification implements java.io.Serializable {
 	this.roleNotifications = roleNotifications;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notification")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "notification")
     public Set<UserNotification> getUserNotifications() {
 	return this.userNotifications;
     }

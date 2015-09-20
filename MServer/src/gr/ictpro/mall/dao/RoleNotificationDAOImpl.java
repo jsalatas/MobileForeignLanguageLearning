@@ -8,7 +8,10 @@ import gr.ictpro.mall.model.RoleNotificationId;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -27,8 +30,8 @@ public class RoleNotificationDAOImpl implements RoleNotificationDAO {
      */
     @Override
     public void create(RoleNotification item) {
-	// TODO Auto-generated method stub
-
+	Session session = this.sessionFactory.getCurrentSession();
+	session.persist(item);
     }
 
     /* (non-Javadoc)
@@ -36,8 +39,8 @@ public class RoleNotificationDAOImpl implements RoleNotificationDAO {
      */
     @Override
     public void update(RoleNotification item) {
-	// TODO Auto-generated method stub
-
+	Session session = this.sessionFactory.getCurrentSession();
+	session.update(item);
     }
 
     /* (non-Javadoc)
@@ -45,8 +48,11 @@ public class RoleNotificationDAOImpl implements RoleNotificationDAO {
      */
     @Override
     public void delete(RoleNotificationId id) {
-	// TODO Auto-generated method stub
-
+	Session session = this.sessionFactory.getCurrentSession();
+	RoleNotification rn = (RoleNotification) session.load(RoleNotification.class, id);
+	if (null != rn) {
+	    session.delete(rn);
+	}
     }
 
     /* (non-Javadoc)
@@ -54,8 +60,9 @@ public class RoleNotificationDAOImpl implements RoleNotificationDAO {
      */
     @Override
     public RoleNotification retrieveById(RoleNotificationId id) {
-	// TODO Auto-generated method stub
-	return null;
+	Session session = this.sessionFactory.getCurrentSession();
+	RoleNotification rn = (RoleNotification) session.load(RoleNotification.class, id);
+	return rn;
     }
 
     /* (non-Javadoc)
@@ -63,8 +70,9 @@ public class RoleNotificationDAOImpl implements RoleNotificationDAO {
      */
     @Override
     public List<RoleNotification> listAll() {
-	// TODO Auto-generated method stub
-	return null;
+	Session session = this.sessionFactory.getCurrentSession();
+	List<RoleNotification> roleNotificationList = session.createQuery("from RoleNotification order by id").list();
+	return roleNotificationList;
     }
 
     /* (non-Javadoc)
@@ -72,8 +80,11 @@ public class RoleNotificationDAOImpl implements RoleNotificationDAO {
      */
     @Override
     public List<RoleNotification> listByProperty(String propertyName, Object propertyValue) {
-	// TODO Auto-generated method stub
-	return null;
+	Session session = this.sessionFactory.getCurrentSession();
+	Criteria criteria = session.createCriteria(RoleNotification.class);
+	criteria.add(Restrictions.eq(propertyName, propertyValue));
+	List<RoleNotification> roleNotificationList = criteria.list();
+	return roleNotificationList;
     }
 
 }

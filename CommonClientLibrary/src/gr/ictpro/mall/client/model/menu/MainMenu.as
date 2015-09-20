@@ -6,8 +6,6 @@ package gr.ictpro.mall.client.model.menu
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.User;
-	import gr.ictpro.mall.client.view.ProfileView;
-	import gr.ictpro.mall.client.view.SettingsView;
 	
 	import mx.collections.ArrayList;
 

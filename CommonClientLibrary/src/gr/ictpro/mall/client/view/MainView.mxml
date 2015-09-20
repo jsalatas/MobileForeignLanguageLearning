@@ -27,7 +27,8 @@
 			[Bindable]
 			public var user:User;
 			
-			public var testNotifications:ArrayList = new ArrayList(["Test one", "Test two"]);
+			[Bindable]
+			public var serverNotifications:ArrayList;
 			
 			public function dispose():void
 			{
@@ -71,7 +72,7 @@
 			</s:Group>
 		</s:Group>
 		<s:Group>
-			<s:List itemRenderer="gr.ictpro.mall.client.components.renderers.NotificationRenderer" dataProvider="{testNotifications}" borderAlpha="0" />
+			<s:List itemRenderer="gr.ictpro.mall.client.components.renderers.ServerNotificationRenderer" dataProvider="{user.notifications}" borderAlpha="0" />
 		</s:Group>
 	</s:Group>
 	<s:Menu id="mainMenu" top="{topBar.definedHeight}" bottom="0" width="200"

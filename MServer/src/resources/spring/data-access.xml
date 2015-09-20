@@ -41,13 +41,12 @@
 		</property>
 	</bean>
 
-	<!-- Enables the Spring MVC @Transactional programming model -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
 	<!-- Use Hiberbate's transaction manager -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
 
+	<!-- Enables the Spring MVC @Transactional programming model -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>

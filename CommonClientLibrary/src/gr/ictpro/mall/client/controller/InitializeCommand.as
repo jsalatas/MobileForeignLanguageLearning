@@ -1,7 +1,5 @@
 package gr.ictpro.mall.client.controller
 {
-	import flash.events.ErrorEvent;
-	import flash.filesystem.File;
 	import flash.system.Capabilities;
 	
 	import gr.ictpro.mall.client.model.AuthenticationProvider;
@@ -9,16 +7,11 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.MessagingService;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.service.Storage;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.view.ServerNameView;
 	
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
-	
-	import org.osflash.signals.Signal;
 	import org.robotlegs.mvcs.SignalCommand;
 	
 	public class InitializeCommand extends SignalCommand

@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client.view
 {
+	import mx.collections.ArrayList;
+	
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItem;
@@ -15,7 +17,7 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var menuSignal:MenuSignal;
-		
+
 		[Inject]
 		public var settings:Settings;
 
@@ -30,7 +32,6 @@ package gr.ictpro.mall.client.view
 			menuSignal.dispatch(new MenuItemSelected(menuItem));
 			view.dispose();
 		}
-		
 		
 		
 	}

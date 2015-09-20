@@ -14,7 +14,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
- *
+ * 
  */
 public class NotificationDAOImpl implements NotificationDAO {
     private SessionFactory sessionFactory;
@@ -23,7 +23,9 @@ public class NotificationDAOImpl implements NotificationDAO {
 	this.sessionFactory = sf;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.model.GenericDAO#create(java.lang.Object)
      */
     @Override
@@ -32,7 +34,9 @@ public class NotificationDAOImpl implements NotificationDAO {
 	session.persist(item);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.model.GenericDAO#update(java.lang.Object)
      */
     @Override
@@ -41,7 +45,9 @@ public class NotificationDAOImpl implements NotificationDAO {
 	session.update(item);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.model.GenericDAO#delete(int)
      */
     @Override
@@ -53,7 +59,9 @@ public class NotificationDAOImpl implements NotificationDAO {
 	}
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.model.GenericDAO#retrieveById(int)
      */
     @Override
@@ -63,7 +71,9 @@ public class NotificationDAOImpl implements NotificationDAO {
 	return n;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.model.GenericDAO#listAll()
      */
     @SuppressWarnings("unchecked")
@@ -75,8 +85,11 @@ public class NotificationDAOImpl implements NotificationDAO {
 	return notificationsList;
     }
 
-    /* (non-Javadoc)
-     * @see gr.ictpro.mall.model.GenericDAO#listByProperty(java.lang.String, java.lang.Object)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gr.ictpro.mall.model.GenericDAO#listByProperty(java.lang.String,
+     * java.lang.Object)
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -87,5 +100,4 @@ public class NotificationDAOImpl implements NotificationDAO {
 	List<Notification> notificationsList = criteria.list();
 	return notificationsList;
     }
-
 }

@@ -1,24 +1,19 @@
 package gr.ictpro.mall.client.model
 {
-	import assets.fxg.profile;
-	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
-	import flash.geom.ColorTransform;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.text.ReturnKeyLabel;
 	import flash.utils.ByteArray;
+	
+	import mx.collections.ArrayList;
+	
+	import spark.components.Image;
+	
+	import assets.fxg.profile;
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.model.menu.MainMenu;
-	
-	import mx.collections.ArrayList;
-	import mx.events.CloseEvent;
-	
-	import spark.components.Image;
-	import spark.filters.ColorMatrixFilter;
 
 	public class User extends EventDispatcher implements IServerPersistentObject
 	{
@@ -30,6 +25,7 @@ package gr.ictpro.mall.client.model
 		private var _name:String;
 		private var _photo:Image;
 		private var _color:uint; 
+		private var _notifications:ArrayList;
 		
 		public static function createUser(o:Object):User {
 			var name:String;
@@ -196,5 +192,16 @@ package gr.ictpro.mall.client.model
 			return "save";
 		}
 
+		[Bindable]
+		public function set notifications(notifications:ArrayList):void
+		{
+			this._notifications = notifications;
+		}
+		
+		[Bindable]
+		public function get notifications():ArrayList
+		{
+			return this._notifications;
+		}
 	}
 }

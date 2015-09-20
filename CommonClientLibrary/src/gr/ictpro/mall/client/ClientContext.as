@@ -3,6 +3,8 @@ package gr.ictpro.mall.client
 	import flash.display.DisplayObjectContainer;
 	import flash.system.ApplicationDomain;
 	
+	import spark.modules.Module;
+	
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.LoginCommand;
 	import gr.ictpro.mall.client.controller.MenuCommand;
@@ -11,15 +13,14 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.SavePropertyCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
+	import gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Device;
-	import gr.ictpro.mall.client.model.IDevice;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RegistrationProviders;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
@@ -35,6 +36,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
+	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.MainView;
 	import gr.ictpro.mall.client.view.MainViewMediator;
 	import gr.ictpro.mall.client.view.ProfileView;
@@ -46,11 +48,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.ShellView;
 	import gr.ictpro.mall.client.view.ShellViewMediator;
 	
-	import org.robotlegs.core.IInjector;
 	import org.robotlegs.utilities.modular.core.IModule;
 	import org.robotlegs.utilities.modular.mvcs.ModuleContext;
-	
-	import spark.modules.Module;
 	
 	public class ClientContext extends ModuleContext
 	{
@@ -85,6 +84,7 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(ShowRegistrationSignal, ShowRegistrationCommand);
 			signalCommandMap.mapSignalClass(MenuSignal, MenuCommand);
 			signalCommandMap.mapSignalClass(PersistSignal, PersistCommand);
+			signalCommandMap.mapSignalClass(UpdateServerNotificationsSignal, UpdateServerNotificationsCommand);
 
 			Device.settings = injector.getInstance(Settings);
 		}

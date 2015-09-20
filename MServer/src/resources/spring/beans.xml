@@ -22,14 +22,16 @@
 	<bean id="emailDAO" class="gr.ictpro.mall.dao.EmailDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
-	<bean id="notificationDAO" class="gr.ictpro.mall.dao.NotificationDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
-	</bean>
 	<bean id="userNotificationDAO" class="gr.ictpro.mall.dao.UserNotificationDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
 		<bean id="roleNotificationDAO" class="gr.ictpro.mall.dao.RoleNotificationDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+	<bean id="notificationDAO" class="gr.ictpro.mall.dao.NotificationDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+		<property name="userNotificationDAO" ref="userNotificationDAO"></property>
+		<property name="roleNotificationDAO" ref="roleNotificationDAO"></property>
 	</bean>
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="userDAO" ref="userDAO"></property>

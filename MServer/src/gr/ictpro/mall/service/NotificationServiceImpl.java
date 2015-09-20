@@ -18,12 +18,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
- *
+ * 
  */
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -42,8 +43,10 @@ public class NotificationServiceImpl implements NotificationService {
     public void setRoleNotificationDAO(RoleNotificationDAO roleNotificationDAO) {
 	this.roleNotificationDAO = roleNotificationDAO;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.service.GenericService#create(java.lang.Object)
      */
     @Transactional
@@ -52,7 +55,9 @@ public class NotificationServiceImpl implements NotificationService {
 	notificationDAO.create(item);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.service.GenericService#update(java.lang.Object)
      */
     @Transactional
@@ -61,7 +66,9 @@ public class NotificationServiceImpl implements NotificationService {
 	notificationDAO.update(item);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.service.GenericService#delete(int)
      */
     @Transactional
@@ -70,7 +77,9 @@ public class NotificationServiceImpl implements NotificationService {
 	notificationDAO.delete(id);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.service.GenericService#retrieveById(int)
      */
     @Transactional
@@ -79,7 +88,9 @@ public class NotificationServiceImpl implements NotificationService {
 	return notificationDAO.retrieveById(id);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gr.ictpro.mall.service.GenericService#listAll()
      */
     @Transactional
@@ -88,8 +99,12 @@ public class NotificationServiceImpl implements NotificationService {
 	return notificationDAO.listAll();
     }
 
-    /* (non-Javadoc)
-     * @see gr.ictpro.mall.service.GenericService#listByProperty(java.lang.String, java.lang.Object)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gr.ictpro.mall.service.GenericService#listByProperty(java.lang.String,
+     * java.lang.Object)
      */
     @Transactional
     @Override
@@ -107,14 +122,14 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void createUserNotification(Notification n, List<User> u) {
-	for(User user:u) {
+	for (User user : u) {
 	    createUserNotification(n, user);
 	}
     }
 
     @Override
     public void createUserNotification(Notification n, Role r) {
-	for(User u: r.getUsers()) {
+	for (User u : r.getUsers()) {
 	    createUserNotification(n, u);
 	}
     }
@@ -144,7 +159,6 @@ public class NotificationServiceImpl implements NotificationService {
 	un.setSeen(seen);
 	userNotificationDAO.update(un);
 
-	
     }
 
     @Override
@@ -161,25 +175,33 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void deleteUserNotification(Notification n, List<User> u) {
-	for(User user: u) {
+	for (User user : u) {
 	    deleteUserNotification(n, user);
 	}
-	
+
     }
 
+    @Transactional
     @Override
     public List<Notification> retrieveByUser(User u) {
 	List<Notification> res = new ArrayList<Notification>();
-	
-	for(UserNotification un:u.getUserNotifications()) {
-	    res.add(un.getNotification());
+
+	List<UserNotification> unList = userNotificationDAO.listByProperty("id.userId", u.getId());
+	if (unList != null) {
+	    for (UserNotification un : unList) {
+		res.add(un.getNotification());
+	    }
 	}
 
-	for(RoleNotification rn:u.getRoleNotifications()) {
-	    res.add(rn.getNotification());
+	for (Role r : u.getRoles()) {
+	    List<RoleNotification> rnList = roleNotificationDAO.listByProperty("id.roleId", r.getId());
+	    if (rnList != null) {
+		for (RoleNotification rn : rnList) {
+		    res.add(rn.getNotification());
+		}
+	    }
 	}
 
-	
 	return res;
     }
 }

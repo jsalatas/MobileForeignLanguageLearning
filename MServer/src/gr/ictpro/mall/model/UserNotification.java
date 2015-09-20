@@ -58,7 +58,7 @@ public class UserNotification implements java.io.Serializable {
 	this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
 	return this.user;
@@ -68,7 +68,7 @@ public class UserNotification implements java.io.Serializable {
 	this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "notification_id", nullable = false, insertable = false, updatable = false)
     public Notification getNotification() {
 	return this.notification;

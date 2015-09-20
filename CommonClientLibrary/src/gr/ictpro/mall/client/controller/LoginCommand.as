@@ -1,5 +1,9 @@
 package gr.ictpro.mall.client.controller
 {
+	import mx.collections.ArrayList;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Modules;
@@ -14,11 +18,8 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
+	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.MainView;
-	
-	import mx.collections.ArrayList;
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -50,7 +51,11 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var messagingService:MessagingService;
+
+		[Inject]
+		public var updateServerNotifications:UpdateServerNotificationsSignal;
 		
+
 		override public function execute():void
 		{
 			var arguments:Object = new Object();
@@ -72,11 +77,13 @@ package gr.ictpro.mall.client.controller
 				
 				settings.user = User.createUser(o);
 				injector.injectInto(settings.user);
+				
 				settings.user.initializeMenu();
 				if(settings.user.isAdmin()) {
 					settings.serverConfiguration = new ServerConfiguration(channel);
 				}
 				loadedModule.module = null;
+				updateServerNotifications.dispatch();
 				addView.dispatch(new MainView());
 			}
 		}

@@ -3,12 +3,16 @@
  */
 package gr.ictpro.mall.dao;
 
+
 import gr.ictpro.mall.model.UserNotification;
 import gr.ictpro.mall.model.UserNotificationId;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -26,8 +30,8 @@ public class UserNotificationDAOImpl implements UserNotificationDAO {
      */
     @Override
     public void create(UserNotification item) {
-	// TODO Auto-generated method stub
-
+	Session session = this.sessionFactory.getCurrentSession();
+	session.persist(item);
     }
 
     /* (non-Javadoc)
@@ -35,8 +39,8 @@ public class UserNotificationDAOImpl implements UserNotificationDAO {
      */
     @Override
     public void update(UserNotification item) {
-	// TODO Auto-generated method stub
-
+	Session session = this.sessionFactory.getCurrentSession();
+	session.update(item);
     }
 
     /* (non-Javadoc)
@@ -44,8 +48,11 @@ public class UserNotificationDAOImpl implements UserNotificationDAO {
      */
     @Override
     public void delete(UserNotificationId id) {
-	// TODO Auto-generated method stub
-
+	Session session = this.sessionFactory.getCurrentSession();
+	UserNotification un = (UserNotification) session.load(UserNotification.class, id);
+	if (null != un) {
+	    session.delete(un);
+	}
     }
 
     /* (non-Javadoc)
@@ -53,8 +60,9 @@ public class UserNotificationDAOImpl implements UserNotificationDAO {
      */
     @Override
     public UserNotification retrieveById(UserNotificationId id) {
-	// TODO Auto-generated method stub
-	return null;
+	Session session = this.sessionFactory.getCurrentSession();
+	UserNotification un = (UserNotification) session.load(UserNotification.class, id);
+	return un;
     }
 
     /* (non-Javadoc)
@@ -62,8 +70,9 @@ public class UserNotificationDAOImpl implements UserNotificationDAO {
      */
     @Override
     public List<UserNotification> listAll() {
-	// TODO Auto-generated method stub
-	return null;
+	Session session = this.sessionFactory.getCurrentSession();
+	List<UserNotification> userNotificationList = session.createQuery("from UserNotification order by id").list();
+	return userNotificationList;
     }
 
     /* (non-Javadoc)
@@ -71,8 +80,11 @@ public class UserNotificationDAOImpl implements UserNotificationDAO {
      */
     @Override
     public List<UserNotification> listByProperty(String propertyName, Object propertyValue) {
-	// TODO Auto-generated method stub
-	return null;
+	Session session = this.sessionFactory.getCurrentSession();
+	Criteria criteria = session.createCriteria(UserNotification.class);
+	criteria.add(Restrictions.eq(propertyName, propertyValue));
+	List<UserNotification> userNotificationList = criteria.list();
+	return userNotificationList;
     }
 
 }

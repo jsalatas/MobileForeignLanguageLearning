@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="gr.ictpro.mall.client.components.*" 
-				autoDrawBackground="false"
+				autoDrawBackground="false" xmlns:mx="library://ns.adobe.com/flex/mx"
 				>
+	<s:states>
+		<mx:State name="hasdate"/>
+		<mx:State name="nodate"/>
+	</s:states>
 <fx:Script>
 	<![CDATA[
 		private static var dayNames:Array = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusrday', 'Friday', 'Saturday'];
 		private static var monthNames:Array = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		
+		override public function set data(value:Object):void
+		{
+			
+		}
 	]]>
 </fx:Script>	
 	<s:Group>
@@ -14,13 +23,13 @@
 			<s:HorizontalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5"/>
 		</s:layout>
 		<!-- Date -->
-		<s:Group>
+		<s:Group visible.nodate="false" visible.hasdate="true">
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
 			</s:layout>
-			<s:Label id="day" text="{dayNames[3]}" />
-			<s:Label id="date" text="23" fontSize="{month.getStyle('fontSize')+5}"/>
-			<s:Label id="month" text="{monthNames[8]}" />
+			<s:Label id="day" text.hasdate="{dayNames[3]}" text.nodate="" />
+			<s:Label id="date" text.hasdate="23"  text.nodate="" fontSize="{month.getStyle('fontSize')+5}"/>
+			<s:Label id="month" text.hasdate="{monthNames[8]}"  text.nodate="" />
 		</s:Group>
 		
 		<!-- Text -->
