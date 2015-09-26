@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="gr.ictpro.mall.client.components.*" 
-				autoDrawBackground="false" xmlns:mx="library://ns.adobe.com/flex/mx"
+				autoDrawBackground="false" xmlns:mx="library://ns.adobe.com/flex/mx" click="clickHandler(event)"
 				>
 	<s:states>
 		<mx:State name="hasdate"/>
@@ -14,8 +14,20 @@
 		
 		override public function set data(value:Object):void
 		{
+			super.data = value;
+			if(value.date == null) {
+				currentState = "nodate";
+			} else {
+				currentState = "hasdate";
+			}
+		}
+		
+		protected function clickHandler(event:MouseEvent):void
+		{
+			// TODO Auto-generated method stub
 			
 		}
+		
 	]]>
 </fx:Script>	
 	<s:Group>
@@ -27,9 +39,9 @@
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
 			</s:layout>
-			<s:Label id="day" text.hasdate="{dayNames[3]}" text.nodate="" />
-			<s:Label id="date" text.hasdate="23"  text.nodate="" fontSize="{month.getStyle('fontSize')+5}"/>
-			<s:Label id="month" text.hasdate="{monthNames[8]}"  text.nodate="" />
+			<s:Label id="day" text.hasdate="{dayNames[data.date.getDay()]}" text.nodate="" />
+			<s:Label id="date" text.hasdate="{data.date.getDate()}"  text.nodate="" fontSize="{month.getStyle('fontSize')+5}"/>
+			<s:Label id="month" text.hasdate="{monthNames[data.date.getDate()]}"  text.nodate="" />
 		</s:Group>
 		
 		<!-- Text -->
@@ -37,8 +49,8 @@
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left"/>
 			</s:layout>
-			<s:Label id="subject" text="Subject: {data}" fontWeight="bold" fontSize="{body.getStyle('fontSize')+2}"/>
-			<s:Label id="body" text="Body: {data}"/>
+			<s:Label id="subject" text="{data.subject}" fontWeight="bold" fontSize="{body.getStyle('fontSize')+2}"/>
+			<s:Label id="body" text="{data.message}"/>
 		</s:Group>
 	</s:Group>
 	

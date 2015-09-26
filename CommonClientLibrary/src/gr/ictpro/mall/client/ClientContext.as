@@ -11,6 +11,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.PersistCommand;
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SavePropertyCommand;
+	import gr.ictpro.mall.client.controller.ServerNotificationCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand;
@@ -34,6 +35,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.SavePropertySignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
+	import gr.ictpro.mall.client.signal.ServerNotificationSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
@@ -83,6 +85,7 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(RegisterSignal, RegisterCommand);
 			signalCommandMap.mapSignalClass(ShowRegistrationSignal, ShowRegistrationCommand);
 			signalCommandMap.mapSignalClass(MenuSignal, MenuCommand);
+			signalCommandMap.mapSignalClass(ServerNotificationSignal, ServerNotificationCommand);
 			signalCommandMap.mapSignalClass(PersistSignal, PersistCommand);
 			signalCommandMap.mapSignalClass(UpdateServerNotificationsSignal, UpdateServerNotificationsCommand);
 

@@ -16,15 +16,12 @@
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
-			
 			import mx.collections.ArrayList;
 			import mx.core.FlexGlobals;
-			import mx.core.InteractionMode;
 			import mx.events.FlexEvent;
 			import mx.utils.ObjectProxy;
 			
-			import spark.events.PopUpEvent;
+			import gr.ictpro.mall.client.model.Device;
 			
 			private var listClicked:Boolean = false;
 			

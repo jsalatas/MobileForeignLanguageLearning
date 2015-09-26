@@ -5,7 +5,10 @@ package gr.ictpro.mall.flex;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.User;
@@ -24,6 +27,8 @@ public class NotificationRemoteService {
 
     public List<Notification> getNotifications() {
 	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	return notificationService.retrieveByUser(currentUser);
+	List<Notification> res =notificationService.retrieveByUser(currentUser);
+
+	return res;
     }
 }

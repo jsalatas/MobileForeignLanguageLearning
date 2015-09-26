@@ -110,6 +110,9 @@
     <classEntry path="gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand"/>
     <classEntry path="gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal"/>
     <classEntry path="gr.ictpro.mall.client.model.ServerNotification"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ServerNotificationSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationCommand"/>
+    <classEntry path="gr.ictpro.mall.client.model.ServerNotificationSelected"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

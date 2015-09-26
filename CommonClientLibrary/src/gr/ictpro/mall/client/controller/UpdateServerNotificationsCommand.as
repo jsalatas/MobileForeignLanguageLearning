@@ -1,9 +1,12 @@
 package gr.ictpro.mall.client.controller
 {
+	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
 	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.ServerNotification;
+	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	
@@ -15,6 +18,9 @@ package gr.ictpro.mall.client.controller
 		public var channel:Channel;
 		
 		[Inject]
+		public var settings:Settings;
+
+		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
 
 		override public function execute():void
@@ -25,8 +31,12 @@ package gr.ictpro.mall.client.controller
 		private function handleSuccess(event:ResultEvent):void
 		{
 			var o:Object = event.result;
-			
-
+			var notifications:ArrayList = new ArrayList();
+			for each (var notificationObj:Object in o) {
+				var notification:ServerNotification = new ServerNotification(notificationObj.id, notificationObj.date, notificationObj.subject, notificationObj.message, notificationObj.module, notificationObj.parameters);
+				notifications.addItem(notification);
+			}
+			settings.user.notifications = notifications;
 		}
 		
 		private function handleError(event:FaultEvent):void

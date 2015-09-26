@@ -2,11 +2,14 @@ package gr.ictpro.mall.client.view
 {
 	import mx.collections.ArrayList;
 	
+	import gr.ictpro.mall.client.model.ServerNotification;
+	import gr.ictpro.mall.client.model.ServerNotificationSelected;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItem;
 	import gr.ictpro.mall.client.model.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.signal.MenuSignal;
+	import gr.ictpro.mall.client.signal.ServerNotificationSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -19,11 +22,15 @@ package gr.ictpro.mall.client.view
 		public var menuSignal:MenuSignal;
 
 		[Inject]
+		public var serverNotificationSignal:ServerNotificationSignal;
+
+		[Inject]
 		public var settings:Settings;
 
 		override public function onRegister():void
 		{
 			view.menuClicked.add(menuClicked);
+			view.notificationClicked.add(notificationClicked);
 			view.user = settings.user;
 		}
 		
@@ -33,6 +40,10 @@ package gr.ictpro.mall.client.view
 			view.dispose();
 		}
 		
+		private function notificationClicked(notification:ServerNotification):void
+		{
+			serverNotificationSignal.dispatch(new ServerNotificationSelected(notification));
+		}
 		
 	}
 }

@@ -16,17 +16,13 @@
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
 			import gr.ictpro.mall.client.components.renderers.ColorItemRenderer;
 			import gr.ictpro.mall.client.model.Device;
 			
-			import mx.collections.ArrayList;
-			import mx.core.FlexGlobals;
-			import mx.core.InteractionMode;
-			import mx.events.FlexEvent;
-			import mx.utils.ObjectProxy;
-			
-			import spark.components.LabelItemRenderer;
-			import spark.events.PopUpEvent;
 			
 			private var listClicked:Boolean = false;
 			

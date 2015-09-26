@@ -7,8 +7,6 @@
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
-			
 			import mx.collections.ArrayList;
 			
 			import spark.events.IndexChangeEvent;

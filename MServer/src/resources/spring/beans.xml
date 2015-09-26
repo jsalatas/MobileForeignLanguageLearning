@@ -30,8 +30,6 @@
 	</bean>
 	<bean id="notificationDAO" class="gr.ictpro.mall.dao.NotificationDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
-		<property name="userNotificationDAO" ref="userNotificationDAO"></property>
-		<property name="roleNotificationDAO" ref="roleNotificationDAO"></property>
 	</bean>
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="userDAO" ref="userDAO"></property>

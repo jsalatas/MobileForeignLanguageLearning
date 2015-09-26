@@ -15,13 +15,17 @@
 	</s:transitions>
 	<fx:Declarations>
 		<signals:Signal id="menuClicked"/>
+		<signals:Signal id="notificationClicked"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayList;
 			import mx.core.IVisualElementContainer;
 			
+			import spark.events.IndexChangeEvent;
+			
 			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.model.ServerNotification;
 			import gr.ictpro.mall.client.model.User;
 			
 			[Bindable]
@@ -53,6 +57,15 @@
 
 			}
 			
+			protected function notificationsList_changeHandler(event:IndexChangeEvent):void
+			{
+				if(event.newIndex !=-1) {
+					var notification:ServerNotification = event.currentTarget.selectedItem;
+					notificationClicked.dispatch(notification);
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Group  width="100%">
@@ -72,7 +85,8 @@
 			</s:Group>
 		</s:Group>
 		<s:Group>
-			<s:List itemRenderer="gr.ictpro.mall.client.components.renderers.ServerNotificationRenderer" dataProvider="{user.notifications}" borderAlpha="0" />
+			<s:List itemRenderer="gr.ictpro.mall.client.components.renderers.ServerNotificationRenderer" dataProvider="{user.notifications}" borderAlpha="0"
+					change="notificationsList_changeHandler(event)"/>
 		</s:Group>
 	</s:Group>
 	<s:Menu id="mainMenu" top="{topBar.definedHeight}" bottom="0" width="200"

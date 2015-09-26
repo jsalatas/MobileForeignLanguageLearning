@@ -201,7 +201,6 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 	    }
 	}
-
 	return res;
     }
 }

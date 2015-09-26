@@ -1,23 +1,17 @@
 package gr.ictpro.mall.client.controller
 {
-	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	
 	import gr.ictpro.mall.client.model.Modules;
-	import gr.ictpro.mall.client.model.menu.MenuItem;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.model.menu.MenuItemExternalModule;
 	import gr.ictpro.mall.client.model.menu.MenuItemInternalModule;
 	import gr.ictpro.mall.client.model.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	
-	import mx.core.IVisualElement;
-	import mx.events.ModuleEvent;
-	
 	import org.robotlegs.mvcs.SignalCommand;
 	
-	import spark.modules.ModuleLoader;
-	
+
 	public class MenuCommand extends SignalCommand
 	{
 		[Inject]
