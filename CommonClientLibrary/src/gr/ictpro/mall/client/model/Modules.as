@@ -32,7 +32,6 @@ package gr.ictpro.mall.client.model
 		private function unloadModuleHandler(event:ModuleEvent):void
 		{
 			_previousModule = null;
-			trace("unloaded");
 		}
 		
 	}

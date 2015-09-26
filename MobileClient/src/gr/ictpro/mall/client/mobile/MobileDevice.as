@@ -1,8 +1,5 @@
 package gr.ictpro.mall.client.mobile
 {
-	import flash.text.ReturnKeyLabel;
-	
-	import gr.ictpro.mall.client.components.Scroller;
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
 	import gr.ictpro.mall.client.mobile.skins.ColorDropDownSkin;
 	import gr.ictpro.mall.client.mobile.skins.DropDownSkin;
@@ -20,7 +17,6 @@ package gr.ictpro.mall.client.mobile
 	{
 		public function MobileDevice()
 		{
-			trace("MobileDevice created");
 		}
 		
 		public function get isAndroid():Boolean

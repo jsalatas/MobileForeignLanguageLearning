@@ -29,12 +29,10 @@ package gr.ictpro.mall.client.controller
 			{
 				(selectedMenu.menuItem as MenuItemCommand).execute();
 			} else if(selectedMenu.menuItem is MenuItemInternalModule) {
-				trace("Loading internal: " + selectedMenu.menuItem.text);
 				loadedModules.module = null;
 				addView.dispatch(createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
 				
 			} else if(selectedMenu.menuItem is MenuItemExternalModule) {
-				trace("Loading external: " + selectedMenu.menuItem.text);
 				
 			}
 

@@ -3,7 +3,7 @@
 		  xmlns:s="gr.ictpro.mall.client.components.*"
 		  xmlns:signals="org.osflash.signals.*"
 		  width="100%" height="100%" implements="org.robotlegs.utilities.modular.core.IModule"
-		  initialize="module1_initializeHandler(event)" xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  >
 	<s:states>
 		<mx:State name="normal"/>
@@ -52,13 +52,6 @@
 			protected function btnRegister_clickHandler(event:MouseEvent):void
 			{
 				registerClicked.dispatch();
-			}
-			
-			protected function module1_initializeHandler(event:FlexEvent):void
-			{
-				trace("initialize");
-				trace(FlexGlobals.topLevelApplication.applicationDPI);
-
 			}
 			
 		]]>

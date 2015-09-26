@@ -27,7 +27,6 @@ package gr.ictpro.mall.client.components
 		
 		protected function onInteractionStart(event:TouchInteractionEvent):void
 		{
-			trace("onInteractionStart");
 			// set this to null when the scroll is starting again to avoid dispatch on item_mouseUpHandler
 		}
 

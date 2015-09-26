@@ -192,7 +192,6 @@ package gr.ictpro.mall.client.model
 			return "save";
 		}
 
-		[Bindable]
 		public function set notifications(notifications:ArrayList):void
 		{
 			this._notifications = notifications;

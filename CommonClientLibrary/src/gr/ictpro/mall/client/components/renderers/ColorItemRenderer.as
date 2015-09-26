@@ -47,7 +47,6 @@ package gr.ictpro.mall.client.components.renderers
 			
 			(rectDisplay.getElementAt(0) as Rect).fill = new SolidColor(StyleManager.getStyleManager(SystemManagerGlobals.topLevelSystemManagers[0]).getColorName(data)); 
 
-			trace(_data);
 			invalidateProperties();
 		}
 		

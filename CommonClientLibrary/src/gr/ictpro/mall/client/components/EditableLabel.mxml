@@ -46,7 +46,6 @@
 				currentState = "edit";
 				textinput.text = txt;
 				textinput.width = this.width;
-				trace(this.width);
 				textinput.selectAll();
 				textinput.setFocus();
 				

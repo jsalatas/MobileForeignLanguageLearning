@@ -44,7 +44,6 @@ package gr.ictpro.mall.client.model
 		
 		public function errorHandler(event:FaultEvent):void
 		{
-			trace(event);
 		}
 
 	}
