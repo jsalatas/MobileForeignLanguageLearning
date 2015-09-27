@@ -16,8 +16,11 @@ import gr.ictpro.mall.service.ProfileService;
 import gr.ictpro.mall.service.RoleService;
 import gr.ictpro.mall.service.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.ContextLoader;
 
 /**
@@ -28,6 +31,13 @@ public class UserRemoteService {
     private UserService userService;
     private RoleService roleService;
     private ProfileService profileService;
+    protected PasswordEncoder passwordEncoder;
+
+    @Autowired(required = true)
+    @Qualifier(value = "passwordEncoder")
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+	this.passwordEncoder = passwordEncoder;
+    }
 
     public void setUserService(UserService userService) {
 	this.userService = userService;
@@ -67,7 +77,7 @@ public class UserRemoteService {
 	try {
 	    if (id == -1) {
 		String username = (String) userObject.get("username");
-		String password = (String) userObject.get("password");
+		String password = passwordEncoder.encode((String) userObject.get("password"));
 		u = new User(username, password, email, true);
 		u.setRoles(roles);
 		userService.create(u);
@@ -95,6 +105,9 @@ public class UserRemoteService {
 			p.setPhoto(photo);
 			p.setColor(color);
 			profileService.update(p);
+		    }
+		    if(userObject.containsKey("password") && userObject.get("password") != null) {
+			u.setPassword(passwordEncoder.encode((String) userObject.get("password")));
 		    }
 		    userService.update(u);
 		}

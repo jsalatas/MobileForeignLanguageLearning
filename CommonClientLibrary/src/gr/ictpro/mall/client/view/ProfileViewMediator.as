@@ -20,36 +20,32 @@ package gr.ictpro.mall.client.view
 	import flash.system.Capabilities;
 	import flash.utils.ByteArray;
 	
+	import mx.collections.ArrayList;
+	import mx.core.FlexGlobals;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	
+	import spark.components.Group;
+	import spark.events.PopUpEvent;
+	
 	import gr.ictpro.mall.client.Icons;
-	import gr.ictpro.mall.client.components.ImageCropper;
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.PopUpMenu;
+	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.Device;
-	import gr.ictpro.mall.client.model.IPersistentObject;
-	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.PersistSignal;
+	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
 	
 	import jp.shichiseki.exif.ExifInfo;
 	import jp.shichiseki.exif.ExifLoader;
 	import jp.shichiseki.exif.IFD;
 	
-	import mx.collections.ArrayCollection;
-	import mx.collections.ArrayList;
-	import mx.core.FlexGlobals;
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
-	
 	import org.robotlegs.mvcs.Mediator;
-	
-	import spark.components.Application;
-	import spark.components.Group;
-	import spark.events.PopUpEvent;
 	
 	public class ProfileViewMediator extends Mediator
 	{
@@ -65,13 +61,21 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var persist:PersistSignal;
 		
+		[Inject]
+		public var updateServerNotifications:UpdateServerNotificationsSignal;
+		
 		private var photoUrl:String = "";
 		private var bitmap:Bitmap = null; 
 		
 		
 		override public function onRegister():void
 		{
-			view.user = settings.user;
+			view.title = "My Profile";
+			if(view.parameters == null) {
+				view.user = settings.user;
+			} else {
+				view.user = view.parameters.user;
+			}
 			view.save.add(saveHandler);
 			view.cancel.add(cancelHandler);
 			view.back.add(backHandler);
@@ -80,11 +84,21 @@ package gr.ictpro.mall.client.view
 		
 		private function saveHandler():void
 		{
-			settings.user.name = view.txtName.text;
-			settings.user.photo = view.imgPhoto.source;
-			settings.user.email = view.txtEmail.text;
-			settings.user.color = view.popupColor.selected;
-			persist.dispatch(new PersistentObjectWrapper(settings.user, persistSuccessHandler, persistErrorHandler));
+			if(view.txtPassword.text != "" || view.txtPassword2.text != "") {
+				if(view.txtPassword.text != view.txtPassword2.text) {
+					var passwordMismatchPopup:PopupNotification = new PopupNotification();
+					passwordMismatchPopup.message = "Passwords mismatch.";
+					passwordMismatchPopup.open(view, true);
+					return;
+				} else {
+					view.user.plainPassword = view.txtPassword.text; 
+				}
+			}
+			view.user.name = view.txtName.text;
+			view.user.photo = view.imgPhoto.source;
+			view.user.email = view.txtEmail.text;
+			view.user.color = view.popupColor.selected;
+			persist.dispatch(new PersistentObjectWrapper(view.user, persistSuccessHandler, persistErrorHandler));
 		}
 		
 		private function cancelHandler():void
@@ -98,16 +112,24 @@ package gr.ictpro.mall.client.view
 			view.cancel.removeAll();
 			view.back.removeAll();
 			view.dispose();
-			addView.dispatch(new MainView());
+			if(view.masterView == null) {
+				addView.dispatch(new MainView());	
+			} else {
+				addView.dispatch(view.masterView);
+			}
+			
 		}
 		
 		private function persistSuccessHandler(event:Event):void
 		{
-			var o:Object = (event as ResultEvent).result;
-			settings.user = User.createUser(o);
-			settings.user.initializeMenu();
-			view.user = settings.user;
-			
+//			view.user = settings.user;
+			if(view.parameters == null) {
+				// user edited his own profile
+				var o:Object = (event as ResultEvent).result;
+				settings.user = User.createUser(o);
+				settings.user.initializeMenu();
+				updateServerNotifications.dispatch();
+			}
 			backHandler();
 		}
 

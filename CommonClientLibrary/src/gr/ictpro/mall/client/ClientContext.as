@@ -12,6 +12,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SavePropertyCommand;
 	import gr.ictpro.mall.client.controller.ServerNotificationCommand;
+	import gr.ictpro.mall.client.controller.ServerNotificationHandledCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand;
@@ -35,6 +36,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.SavePropertySignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
+	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
@@ -88,6 +90,7 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(ServerNotificationSignal, ServerNotificationCommand);
 			signalCommandMap.mapSignalClass(PersistSignal, PersistCommand);
 			signalCommandMap.mapSignalClass(UpdateServerNotificationsSignal, UpdateServerNotificationsCommand);
+			signalCommandMap.mapSignalClass(ServerNotificationHandledSignal, ServerNotificationHandledCommand);
 
 			Device.settings = injector.getInstance(Settings);
 		}

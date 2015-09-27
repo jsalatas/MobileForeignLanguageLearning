@@ -1,30 +1,18 @@
 package gr.ictpro.mall.client.view
 {
-	import flash.display.Loader;
-	import flash.system.Security;
+	import mx.core.IVisualElement;
 	
-	import gr.ictpro.mall.client.controller.InitializeCommand;
+	import spark.events.PopUpEvent;
+	
+	import gr.ictpro.mall.client.components.PopupNotification;
+	import gr.ictpro.mall.client.model.DetailView;
 	import gr.ictpro.mall.client.model.Modules;
-	import gr.ictpro.mall.client.model.ServerMessage;
-	import gr.ictpro.mall.client.model.User;
+	import gr.ictpro.mall.client.model.ParameterizedView;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
-	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
-	
-	import mx.core.IVisualElement;
-	import mx.core.IVisualElementContainer;
-	import mx.core.UIComponent;
-	import mx.managers.PopUpManager;
-	import mx.modules.IModuleInfo;
 	
 	import org.robotlegs.mvcs.Mediator;
-	
-	import spark.events.PopUpEvent;
-	import spark.modules.Module;
-	import spark.modules.ModuleLoader;
-	import gr.ictpro.mall.client.components.PopupNotification;
 	
 	public class ShellViewMediator extends Mediator
 	{
@@ -51,9 +39,15 @@ package gr.ictpro.mall.client.view
 			initialize.dispatch();
 		}
 		
-		private function handleAddView(module:IVisualElement):void
+		private function handleAddView(module:IVisualElement, parameters:Object=null, backView:IVisualElement = null):void
 		{
 			loadedModules.unloadModule();
+			if(module is ParameterizedView) {
+				(module as ParameterizedView).parameters = parameters;
+			}
+			if(module is DetailView) {
+				(module as DetailView).masterView = backView;
+			}
 			view.addElement(module);
 		}
 		

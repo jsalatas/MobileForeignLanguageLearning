@@ -1,28 +1,19 @@
 package gr.ictpro.mall.client.view
 {
 	import flash.events.Event;
-	import flash.geom.ColorTransform;
-	import flash.text.StyleSheet;
-	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
 	
 	import gr.ictpro.mall.client.components.FormItem;
 	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.TextInput;
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
-	import gr.ictpro.mall.client.model.ServerConfiguration;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.PersistSignal;
-	import gr.ictpro.mall.client.utils.string.StringCapitalize;
 	
 	import mx.collections.ArrayCollection;
-	import mx.collections.ArrayList;
 	import mx.collections.Sort;
 	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -46,6 +37,7 @@ package gr.ictpro.mall.client.view
 		
 		override public function onRegister():void
 		{
+			view.title = "Server Settings";
 			view.save.add(saveHandler);
 			view.cancel.add(cancelHandler);
 			view.back.add(backHandler);

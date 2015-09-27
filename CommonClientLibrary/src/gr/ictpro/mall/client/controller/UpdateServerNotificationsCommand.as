@@ -33,7 +33,7 @@ package gr.ictpro.mall.client.controller
 			var o:Object = event.result;
 			var notifications:ArrayList = new ArrayList();
 			for each (var notificationObj:Object in o) {
-				var notification:ServerNotification = new ServerNotification(notificationObj.id, notificationObj.date, notificationObj.subject, notificationObj.message, notificationObj.module, notificationObj.parameters);
+				var notification:ServerNotification = new ServerNotification(notificationObj.id, notificationObj.date, notificationObj.subject, notificationObj.message, notificationObj.module, notificationObj.parameters, notificationObj.internalModule);
 				notifications.addItem(notification);
 			}
 			settings.user.notifications = notifications;

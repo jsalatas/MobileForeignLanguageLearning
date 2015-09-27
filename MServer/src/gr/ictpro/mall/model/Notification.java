@@ -29,23 +29,28 @@ public class Notification implements java.io.Serializable {
     private String module;
     private byte[] parameters;
     private String subject;
+    private boolean internalModule;
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
     private Set<UserNotification> userNotifications = new HashSet<UserNotification>(0);
 
     public Notification() {
     }
 
-    public Notification(String message) {
+    public Notification(String message, String module, String subject, boolean internalModule) {
 	this.message = message;
+	this.module = module;
+	this.subject = subject;
+	this.internalModule = internalModule;
     }
 
     public Notification(Date date, String message, String module, byte[] parameters, String subject,
-	    Set<RoleNotification> roleNotifications, Set<UserNotification> userNotifications) {
+	    boolean internalModule, Set<RoleNotification> roleNotifications, Set<UserNotification> userNotifications) {
 	this.date = date;
 	this.message = message;
 	this.module = module;
 	this.parameters = parameters;
 	this.subject = subject;
+	this.internalModule = internalModule;
 	this.roleNotifications = roleNotifications;
 	this.userNotifications = userNotifications;
     }
@@ -80,7 +85,7 @@ public class Notification implements java.io.Serializable {
 	this.message = message;
     }
 
-    @Column(name = "module", length = 50)
+    @Column(name = "module", nullable = false, length = 255)
     public String getModule() {
 	return this.module;
     }
@@ -98,13 +103,22 @@ public class Notification implements java.io.Serializable {
 	this.parameters = parameters;
     }
 
-    @Column(name = "subject", length = 100)
+    @Column(name = "subject", nullable = false, length = 100)
     public String getSubject() {
 	return this.subject;
     }
 
     public void setSubject(String subject) {
 	this.subject = subject;
+    }
+
+    @Column(name = "internalModule", nullable = false)
+    public boolean isInternalModule() {
+	return this.internalModule;
+    }
+
+    public void setInternalModule(boolean internalModule) {
+	this.internalModule = internalModule;
     }
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "notification")

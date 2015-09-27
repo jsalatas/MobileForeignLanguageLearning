@@ -1,18 +1,20 @@
 package gr.ictpro.mall.client.components
 {
-	import assets.fxg.back;
-	import assets.fxg.cancel;
-	import assets.fxg.ok;
-	
 	import flash.events.MouseEvent;
-	
-	import flashx.textLayout.formats.VerticalAlign;
-	
-	import gr.ictpro.mall.client.model.Device;
+	import flash.text.ReturnKeyLabel;
 	
 	import mx.core.mx_internal;
 	
 	import spark.layouts.supportClasses.LayoutBase;
+	
+	import assets.fxg.back;
+	import assets.fxg.cancel;
+	import assets.fxg.ok;
+	
+	import flashx.textLayout.tlf_internal;
+	import flashx.textLayout.formats.VerticalAlign;
+	
+	import gr.ictpro.mall.client.model.Device;
 
 use namespace mx_internal;	
 	
@@ -25,12 +27,28 @@ use namespace mx_internal;
 		public var okButton:Boolean = true;
 		public var cancelButton:Boolean = true;
 		private var mxmlContentGroup:Group = new Group(); 
+		protected var _title:String;
+		private var _titleLabel:Label; 
 		
 		public function TopBarGroup()
 		{
 			super();
 		}
 		
+		[Bindable]
+		public function set title(title:String):void
+		{
+			this._title = title;
+			if(this._titleLabel != null) {
+				this._titleLabel.text = _title;
+			}
+		}
+		
+		public function get title():String
+		{
+			return this._title;
+		}
+
 		
 		override protected function createChildren():void
 		{
@@ -55,7 +73,7 @@ use namespace mx_internal;
 			
 			addElement(topBarGroup);
 			
-			// Back button
+			// Back button and title
 			var bgroup:Group = new Group();
 			var l1:HorizontalLayout = new HorizontalLayout();
 			l1.paddingLeft = 10;
@@ -75,6 +93,17 @@ use namespace mx_internal;
 			groupBack.addElement(fxgBack);
 			groupBack.addEventListener(MouseEvent.CLICK, backClickedHandler);
 			bgroup.addElement(groupBack);
+			
+			_titleLabel = new Label();
+			_titleLabel.text = _title;
+			_titleLabel.left = 0;
+			_titleLabel.top = 0;
+			_titleLabel.bottom = 0;
+			_titleLabel.right = 0;
+			_titleLabel.setStyle("color", 0xffffff);
+			_titleLabel.setStyle("fontSize", 20);
+			
+			bgroup.addElement(_titleLabel);
 			
 			topBarGroup.addElement(bgroup);
 			

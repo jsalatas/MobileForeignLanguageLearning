@@ -11,14 +11,16 @@ package gr.ictpro.mall.client.model
 		private var _message:String;
 		private var _module:String;
 		private var _parameters:String;
+		private var _internalModule:Boolean;
 		
-		public function ServerNotification(id:int, date:Date, subject:String, message:String, module:String, parameters:ByteArray)
+		public function ServerNotification(id:int, date:Date, subject:String, message:String, module:String, parameters:ByteArray, internalModule:Boolean)
 		{
 			this._id = id;
 			this._date = date;
 			this._subject = subject;
 			this._message = message;
 			this._module = module;
+			this._internalModule = internalModule;
 			if(parameters != null) {
 				this._parameters = parameters.readUTF();
 			}
@@ -59,6 +61,11 @@ package gr.ictpro.mall.client.model
 		{
 			return this._parameters;
 		}
-		
+
+		public function get isInternalModule():Boolean
+		{
+			return this._internalModule;
+		}
+
 	}
 }

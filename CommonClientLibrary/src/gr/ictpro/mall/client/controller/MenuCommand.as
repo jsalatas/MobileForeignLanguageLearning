@@ -33,7 +33,7 @@ package gr.ictpro.mall.client.controller
 				addView.dispatch(createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
 				
 			} else if(selectedMenu.menuItem is MenuItemExternalModule) {
-				
+				//TODO: load external module				
 			}
 
 		}

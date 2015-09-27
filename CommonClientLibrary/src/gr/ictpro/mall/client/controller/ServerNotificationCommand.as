@@ -1,6 +1,10 @@
 package gr.ictpro.mall.client.controller
 {
+	import flash.utils.getDefinitionByName;
+	
+	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ServerNotificationSelected;
+	import gr.ictpro.mall.client.signal.AddViewSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -9,9 +13,34 @@ package gr.ictpro.mall.client.controller
 		[Inject]
 		public var selectedNotification:ServerNotificationSelected;
 
+		[Inject]
+		public var loadedModules:Modules;
+		
+		[Inject]
+		public var addView:AddViewSignal;
+		
+
 		override public function execute():void
 		{
-			trace(selectedNotification);
+			if(selectedNotification.notification.isInternalModule) {
+				loadedModules.module = null;
+				var p:Object = new Object();
+				p.parameters = selectedNotification.notification.parameters;
+				p.notification = selectedNotification.notification;
+				addView.dispatch(createInstance(selectedNotification.notification.module), p);
+			} else {
+				//TODO: load external module
+			}
 		}
+		
+		public function createInstance(className:String):Object
+		{
+			var myClass:Class = getDefinitionByName(className) as Class;
+			var instance:Object = new myClass();
+			return instance;
+		}
+
 	}
+	
+
 }

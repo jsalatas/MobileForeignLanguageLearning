@@ -26,6 +26,7 @@ package gr.ictpro.mall.client.model
 		private var _photo:Image;
 		private var _color:uint; 
 		private var _notifications:ArrayList;
+		private var _plainPassword:String;
 		
 		public static function createUser(o:Object):User {
 			var name:String;
@@ -147,6 +148,16 @@ package gr.ictpro.mall.client.model
 			this._photo.source = source;
 		}
 		
+		public function set plainPassword(password:String):void
+		{
+			this._plainPassword = password;
+		}
+		
+		public function get plainPassword():String
+		{
+			return this._plainPassword;
+		}
+		
 		public function getMenu():ArrayList
 		{
 			return this._menu;
@@ -166,6 +177,9 @@ package gr.ictpro.mall.client.model
 			p.addValue("roles", _roles);
 			p.addValue("name", _name);
 			p.addValue("color", _color);
+			if(this.plainPassword != null) {
+				p.addValue("password", _plainPassword);
+			}
 			if(_photo.source is profile) {
 				// This is the default image. Don't save it in database
 				p.addValue("photo", null);

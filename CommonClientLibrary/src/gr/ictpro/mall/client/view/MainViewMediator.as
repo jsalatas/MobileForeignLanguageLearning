@@ -1,11 +1,8 @@
 package gr.ictpro.mall.client.view
 {
-	import mx.collections.ArrayList;
-	
 	import gr.ictpro.mall.client.model.ServerNotification;
 	import gr.ictpro.mall.client.model.ServerNotificationSelected;
 	import gr.ictpro.mall.client.model.Settings;
-	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItem;
 	import gr.ictpro.mall.client.model.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.signal.MenuSignal;
