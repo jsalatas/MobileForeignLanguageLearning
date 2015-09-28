@@ -3,9 +3,11 @@
  */
 package gr.ictpro.mall.service;
 
+import flex.messaging.services.MessageService;
 import gr.ictpro.mall.dao.NotificationDAO;
 import gr.ictpro.mall.dao.RoleNotificationDAO;
 import gr.ictpro.mall.dao.UserNotificationDAO;
+import gr.ictpro.mall.flex.MessagingService;
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.RoleNotification;
@@ -119,22 +121,41 @@ public class NotificationServiceImpl implements NotificationService {
 	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
 	UserNotification un = new UserNotification(unid, u, n, false);
 	userNotificationDAO.create(un);
+	List<User> userList = new ArrayList<User>();
+	userList.add(u);
+	MessagingService.newNotifications(userList, null);
+    }
+
+    @Transactional
+    private void createUserNotificationNoMessaging(Notification n, User u) {
+	notificationDAO.create(n);
+	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
+	UserNotification un = new UserNotification(unid, u, n, false);
+	userNotificationDAO.create(un);
     }
 
     @Transactional
     @Override
     public void createUserNotification(Notification n, List<User> u) {
 	for (User user : u) {
-	    createUserNotification(n, user);
+	    createUserNotificationNoMessaging(n, user);
 	}
+	MessagingService.newNotifications(u, null);
+
     }
 
     @Transactional
     @Override
     public void createUserNotification(Notification n, Role r) {
+	
 	for (User u : r.getUsers()) {
-	    createUserNotification(n, u);
+	    createUserNotificationNoMessaging(n, u);
 	}
+	List<Role> roleList = new ArrayList<Role>();
+	roleList.add(r);
+
+	MessagingService.newNotifications(null, roleList);
+
     }
 
     @Transactional
@@ -144,18 +165,29 @@ public class NotificationServiceImpl implements NotificationService {
 	RoleNotificationId rnid = new RoleNotificationId(r.getId(), n.getId());
 	RoleNotification rn = new RoleNotification(rnid, n, r);
 	roleNotificationDAO.create(rn);
+	List<Role> roleList = new ArrayList<Role>();
+	roleList.add(r);
+
+	MessagingService.newNotifications(null, roleList);
     }
 
     @Transactional
     @Override
     public void updateRoleNotification(RoleNotification n) {
 	roleNotificationDAO.update(n);
+	List<Role> roleList = new ArrayList<Role>();
+	roleList.add(n.getRole());
+
+	MessagingService.newNotifications(null, roleList);
     }
 
     @Transactional
     @Override
     public void updateUserNotification(UserNotification n) {
 	userNotificationDAO.update(n);
+	List<User> userList = new ArrayList<User>();
+	userList.add(n.getUser());
+	MessagingService.newNotifications(userList, null);
     }
 
     @Transactional
@@ -163,11 +195,24 @@ public class NotificationServiceImpl implements NotificationService {
     public void deleteRoleNotification(Notification n, Role r) {
 	RoleNotificationId rnid = new RoleNotificationId(r.getId(), n.getId());
 	roleNotificationDAO.delete(rnid);
+	List<Role> roleList = new ArrayList<Role>();
+	roleList.add(r);
+
+	MessagingService.newNotifications(null, roleList);
     }
 
     @Transactional
     @Override
     public void deleteUserNotification(Notification n, User u) {
+	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
+	userNotificationDAO.delete(unid);
+	List<User> userList = new ArrayList<User>();
+	userList.add(u);
+	MessagingService.newNotifications(userList, null);
+    }
+
+    @Transactional
+    private void deleteUserNotificationNoMessaging(Notification n, User u) {
 	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
 	userNotificationDAO.delete(unid);
     }
@@ -176,8 +221,9 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void deleteUserNotification(Notification n, List<User> u) {
 	for (User user : u) {
-	    deleteUserNotification(n, user);
+	    deleteUserNotificationNoMessaging(n, user);
 	}
+	MessagingService.newNotifications(u, null);
     }
 
     @Transactional

@@ -22,9 +22,6 @@ package gr.ictpro.mall.client.controller
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
 
-		[Inject]
-		public var updateServerNotifications:UpdateServerNotificationsSignal;
-		
 		override public function execute():void
 		{
 			var arguments:Object = new Object();
@@ -34,7 +31,7 @@ package gr.ictpro.mall.client.controller
 		
 		private function handleSuccess(event:ResultEvent):void
 		{
-			updateServerNotifications.dispatch();
+			// do nothing
 		}
 
 		private function handleError(event:FaultEvent):void

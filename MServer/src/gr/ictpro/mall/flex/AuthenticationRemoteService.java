@@ -91,12 +91,12 @@ public class AuthenticationRemoteService {
     
     private void removeFromConnectedUsers(User u) {
 	connectedUsers.remove(u);
-	MessagingService.sendMessageToClients("user disconnected");
+	//MessagingService.sendMessageToClients("user disconnected");
     }
 
     private void addToConnectedUsers(User u) {
 	connectedUsers.add(u);
-	MessagingService.sendMessageToClients("user connected");
+	//MessagingService.sendMessageToClients("user connected");
     }
 
 
