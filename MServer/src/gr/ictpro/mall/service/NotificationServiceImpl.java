@@ -112,6 +112,7 @@ public class NotificationServiceImpl implements NotificationService {
 	return notificationDAO.listByProperty(propertyName, propertyValue);
     }
 
+    @Transactional
     @Override
     public void createUserNotification(Notification n, User u) {
 	notificationDAO.create(n);
@@ -120,6 +121,7 @@ public class NotificationServiceImpl implements NotificationService {
 	userNotificationDAO.create(un);
     }
 
+    @Transactional
     @Override
     public void createUserNotification(Notification n, List<User> u) {
 	for (User user : u) {
@@ -127,6 +129,7 @@ public class NotificationServiceImpl implements NotificationService {
 	}
     }
 
+    @Transactional
     @Override
     public void createUserNotification(Notification n, Role r) {
 	for (User u : r.getUsers()) {
@@ -134,6 +137,7 @@ public class NotificationServiceImpl implements NotificationService {
 	}
     }
 
+    @Transactional
     @Override
     public void createRoleNotification(Notification n, Role r) {
 	notificationDAO.create(n);
@@ -142,43 +146,38 @@ public class NotificationServiceImpl implements NotificationService {
 	roleNotificationDAO.create(rn);
     }
 
+    @Transactional
     @Override
-    public void updateRoleNotification(Notification n, Role r, Date dateHandled, User handledBy) {
-	RoleNotificationId rnid = new RoleNotificationId(r.getId(), n.getId());
-	RoleNotification rn = roleNotificationDAO.retrieveById(rnid);
-	rn.setDateHandled(dateHandled);
-	rn.setUser(handledBy);
-	roleNotificationDAO.update(rn);
+    public void updateRoleNotification(RoleNotification n) {
+	roleNotificationDAO.update(n);
     }
 
+    @Transactional
     @Override
-    public void updateUserNotification(Notification n, User u, Boolean done, Date seen) {
-	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
-	UserNotification un = userNotificationDAO.retrieveById(unid);
-	un.setDone(done);
-	un.setSeen(seen);
-	userNotificationDAO.update(un);
-
+    public void updateUserNotification(UserNotification n) {
+	userNotificationDAO.update(n);
     }
 
+    @Transactional
     @Override
     public void deleteRoleNotification(Notification n, Role r) {
 	RoleNotificationId rnid = new RoleNotificationId(r.getId(), n.getId());
 	roleNotificationDAO.delete(rnid);
     }
 
+    @Transactional
     @Override
     public void deleteUserNotification(Notification n, User u) {
 	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
 	userNotificationDAO.delete(unid);
     }
 
+    @Transactional
     @Override
     public void deleteUserNotification(Notification n, List<User> u) {
 	for (User user : u) {
 	    deleteUserNotification(n, user);
 	}
-
     }
 
     @Transactional
@@ -189,7 +188,9 @@ public class NotificationServiceImpl implements NotificationService {
 	List<UserNotification> unList = userNotificationDAO.listByProperty("id.userId", u.getId());
 	if (unList != null) {
 	    for (UserNotification un : unList) {
-		res.add(un.getNotification());
+		if(!un.getDone()) {
+		    res.add(un.getNotification());
+		}
 	    }
 	}
 
@@ -197,7 +198,9 @@ public class NotificationServiceImpl implements NotificationService {
 	    List<RoleNotification> rnList = roleNotificationDAO.listByProperty("id.roleId", r.getId());
 	    if (rnList != null) {
 		for (RoleNotification rn : rnList) {
-		    res.add(rn.getNotification());
+		    if(rn.getDateHandled() == null) {
+			res.add(rn.getNotification());
+		    }
 		}
 	    }
 	}

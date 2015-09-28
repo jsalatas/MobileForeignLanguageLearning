@@ -3,22 +3,18 @@ package gr.ictpro.mall.client.view
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
-	import flash.display.Stage;
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MediaEvent;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
-	import flash.geom.Point;
 	import flash.media.CameraRoll;
 	import flash.media.CameraUI;
 	import flash.media.MediaPromise;
 	import flash.media.MediaType;
 	import flash.net.FileFilter;
 	import flash.net.URLRequest;
-	import flash.system.Capabilities;
-	import flash.utils.ByteArray;
 	
 	import mx.collections.ArrayList;
 	import mx.core.FlexGlobals;
@@ -38,6 +34,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.PersistSignal;
+	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
 	
@@ -64,6 +61,9 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var updateServerNotifications:UpdateServerNotificationsSignal;
 		
+		[Inject]
+		public var serverNotificationHandle:ServerNotificationHandledSignal;
+		
 		private var photoUrl:String = "";
 		private var bitmap:Bitmap = null; 
 		
@@ -71,7 +71,7 @@ package gr.ictpro.mall.client.view
 		override public function onRegister():void
 		{
 			view.title = "My Profile";
-			if(view.parameters == null) {
+			if(view.parameters == null || !view.parameters.hasOwnProperty("parameters") || view.parameters.parameters == null) {
 				view.user = settings.user;
 			} else {
 				view.user = view.parameters.user;
@@ -122,13 +122,14 @@ package gr.ictpro.mall.client.view
 		
 		private function persistSuccessHandler(event:Event):void
 		{
-//			view.user = settings.user;
 			if(view.parameters == null) {
 				// user edited his own profile
 				var o:Object = (event as ResultEvent).result;
 				settings.user = User.createUser(o);
 				settings.user.initializeMenu();
 				updateServerNotifications.dispatch();
+			} else if(view.parameters.hasOwnProperty('notification')) {
+				serverNotificationHandle.dispatch(view.parameters.notification);
 			}
 			backHandler();
 		}

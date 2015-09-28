@@ -2,6 +2,12 @@ package gr.ictpro.mall.client.view
 {
 	import flash.events.Event;
 	
+	import mx.collections.ArrayCollection;
+	import mx.collections.Sort;
+	import mx.rpc.events.FaultEvent;
+	
+	import spark.collections.SortField;
+	
 	import gr.ictpro.mall.client.components.FormItem;
 	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.TextInput;
@@ -10,14 +16,10 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.PersistSignal;
-	
-	import mx.collections.ArrayCollection;
-	import mx.collections.Sort;
-	import mx.rpc.events.FaultEvent;
+	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
+	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
-	
-	import spark.collections.SortField;
 	
 	public class SettingsViewMediator extends Mediator
 	{
@@ -30,6 +32,9 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var addView:AddViewSignal;
 		
+		[Inject]
+		public var serverNotificationHandle:ServerNotificationHandledSignal;
+
 		[Inject]
 		public var settings:Settings; 
 		
@@ -98,6 +103,9 @@ package gr.ictpro.mall.client.view
 		
 		private function persistSuccessHandler(event:Event):void
 		{
+			if(view.parameters != null && view.parameters.hasOwnProperty('notification')) {
+				serverNotificationHandle.dispatch(view.parameters.notification);
+			}
 			backHandler();
 		}
 		

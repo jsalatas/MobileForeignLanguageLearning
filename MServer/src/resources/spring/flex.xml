@@ -47,7 +47,8 @@
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="getNotifications" />
-		</security:intercept-methods>
+			<security:protect access="Admin, Teacher, Student, Parent" method="handleNotification" />
+					</security:intercept-methods>
 	</bean>
 	
 	<flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />

@@ -40,6 +40,7 @@ package gr.ictpro.mall.client.view
 		private function notificationClicked(notification:ServerNotification):void
 		{
 			serverNotificationSignal.dispatch(new ServerNotificationSelected(notification));
+			view.dispose();
 		}
 		
 	}

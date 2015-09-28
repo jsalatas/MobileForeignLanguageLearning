@@ -9,7 +9,9 @@ import java.util.List;
 
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.Role;
+import gr.ictpro.mall.model.RoleNotification;
 import gr.ictpro.mall.model.User;
+import gr.ictpro.mall.model.UserNotification;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -20,8 +22,8 @@ public interface NotificationService extends GenericService<Notification, Intege
     public void createUserNotification(Notification n, List<User> u);
     public void createUserNotification(Notification n, Role r);
     public void createRoleNotification(Notification n, Role r);
-    public void updateRoleNotification(Notification n, Role r, Date dateHandled, User handledBy);
-    public void updateUserNotification(Notification n, User u, Boolean done, Date seen);
+    public void updateRoleNotification(RoleNotification n);
+    public void updateUserNotification(UserNotification n);
     public void deleteRoleNotification(Notification n, Role r);
     public void deleteUserNotification(Notification n, User u);
     public void deleteUserNotification(Notification n, List<User> u);
