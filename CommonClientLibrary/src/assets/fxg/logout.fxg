@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Graphic version="2.0" viewHeight="300" viewWidth="300" ai:appVersion="16.0.3.691" ATE:version="1.0.0" flm:version="1.0.0" d:using="" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:ai="http://ns.adobe.com/ai/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008">
-  <Library/>
-  <Group blendMode="normal" d:layerType="page" d:pageHeight="300" d:pageWidth="300" d:type="layer" d:userLabel="Artboard 1">
-    <Group d:type="layer" d:userLabel="Layer 2">
-      <Path ai:seqID="1" data="M224.625 153.149C224.631 160.364 224.639 167.581 224.65 174.8L97.5 174.8 98.6499 174.85 148.65 224.85 74.6499 224.85 0.149902 150.05 0 150.05 74.5 75.25 148.5 75.25 98.5 125.25 97.3501 125.275 224.5 125.3 224.625 153.149ZM300 300 74.5 300 74.5
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+      <Path data="M224.625 153.149C224.631 160.364 224.639 167.581 224.65 174.8L97.5 174.8 98.6499 174.85 148.65 224.85 74.6499 224.85 0.149902 150.05 0 150.05 74.5 75.25 148.5 75.25 98.5 125.25 97.3501 125.275 224.5 125.3 224.625 153.149ZM300 300 74.5 300 74.5
  250.05 250.1 250.05 250.1 50.0498 74.5 50.0498 74.5 0 300 0 300 300Z">
         <fill>
           <SolidColor color="#ffffff"/>
         </fill>
       </Path>
-    </Group>
   </Group>
-  <Private/>
 </Graphic>
