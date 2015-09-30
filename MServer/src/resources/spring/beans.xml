@@ -31,6 +31,10 @@
 	<bean id="notificationDAO" class="gr.ictpro.mall.dao.NotificationDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
+	<bean id="languageDAO" class="gr.ictpro.mall.dao.LanguageDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+	
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
@@ -50,5 +54,8 @@
 	</bean>
 	<bean id="profileService" class="gr.ictpro.mall.service.ProfileServiceImpl">
 		<property name="profileDAO" ref="profileDAO"></property>
+	</bean>
+	<bean id="languageService" class="gr.ictpro.mall.service.LanguageServiceImpl">
+		<property name="languageDAO" ref="languageDAO"></property>
 	</bean>
 </beans>

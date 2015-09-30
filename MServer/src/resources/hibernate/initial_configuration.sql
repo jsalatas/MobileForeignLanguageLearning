@@ -19,4 +19,10 @@ INSERT IGNORE INTO `email` (`id`, `subject`, `body`) VALUES (3, 'Account Enabled
 INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `internalModule`) VALUES (1, 'Please configure the server settings.', 'gr.ictpro.mall.client.view.SettingsView', 'Server Settings', 1);
 INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `internalModule`) VALUES (2, 'Please change default admin''s password.', 'gr.ictpro.mall.client.view.ProfileView', 'Change Password', 1);
 INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 1, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
-INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 2, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;  
+INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 2, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
+INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`, `enabled`) VALUES ('de', 'German', 'Deutsch', 0);
+INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`, `enabled`) VALUES ('el', 'Greek', 'Ελληνικά', 0);
+INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`, `enabled`) VALUES ('en', 'English', 'English', 1);
+INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`, `enabled`) VALUES ('es', 'Spanish', 'Español', 0);
+INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`, `enabled`) VALUES ('fr', 'French', 'Français', 0);
+INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`, `enabled`) VALUES ('it', 'Italian', 'Italiano', 0);

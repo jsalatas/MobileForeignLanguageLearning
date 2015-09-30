@@ -3,6 +3,7 @@
  */
 package gr.ictpro.mall.service;
 
+import gr.ictpro.mall.dao.ConfigDAO;
 import gr.ictpro.mall.dao.ConfigDAOImpl;
 import gr.ictpro.mall.model.Config;
 
@@ -17,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ConfigServiceImpl implements ConfigService {
-    private ConfigDAOImpl configDAO;
+    private ConfigDAO configDAO;
 
-    public void setConfigDAO(ConfigDAOImpl configDAO) {
+    public void setConfigDAO(ConfigDAO configDAO) {
 	this.configDAO = configDAO;
     }
 
