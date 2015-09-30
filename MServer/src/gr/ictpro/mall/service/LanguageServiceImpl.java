@@ -3,7 +3,6 @@
  */
 package gr.ictpro.mall.service;
 
-import gr.ictpro.mall.dao.ConfigDAOImpl;
 import gr.ictpro.mall.dao.LanguageDAO;
 import gr.ictpro.mall.model.Language;
 
