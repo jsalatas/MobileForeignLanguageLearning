@@ -22,20 +22,23 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationMe
     protected String ui;
     protected String beanName;
 
+    @Autowired(required = true)
     protected UserService userService;
+
+    @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
 
-    @Autowired(required = true)
-    @Qualifier(value = "userService")
-    public void setUserService(UserService userService) {
-	this.userService = userService;
-    }
-
-    @Autowired(required = true)
-    @Qualifier(value = "passwordEncoder")
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-	this.passwordEncoder = passwordEncoder;
-    }
+//    @Autowired(required = true)
+//    @Qualifier(value = "userService")
+//    public void setUserService(UserService userService) {
+//	this.userService = userService;
+//    }
+//
+//    @Autowired(required = true)
+//    @Qualifier(value = "passwordEncoder")
+//    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+//	this.passwordEncoder = passwordEncoder;
+//    }
 
     @Override
     public String getBeanName() {

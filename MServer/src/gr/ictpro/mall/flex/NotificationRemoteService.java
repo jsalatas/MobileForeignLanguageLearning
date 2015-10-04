@@ -5,6 +5,7 @@ package gr.ictpro.mall.flex;
 
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import gr.ictpro.mall.model.RoleNotification;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.model.UserNotification;
 import gr.ictpro.mall.service.NotificationService;
+import gr.ictpro.mall.utils.Serialize;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -30,7 +32,6 @@ public class NotificationRemoteService {
     public List<Notification> getNotifications() {
 	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	List<Notification> res =notificationService.retrieveByUser(currentUser);
-
 	return res;
     }
     

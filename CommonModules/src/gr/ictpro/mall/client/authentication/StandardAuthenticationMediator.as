@@ -58,7 +58,7 @@ package gr.ictpro.mall.client.authentication
 			var userName:String = view.txtUserName.text;
 			var password:String = view.txtPassword.text;
 
-			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", userName, password));
+			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", userName, password, false));
 		}
 
 		private function handleRegistration():void

@@ -65,7 +65,7 @@
 	</bean>
 	<bean id="notificationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
 		<constructor-arg>
-        	<value>gr.ictpro.mall.model.Email</value>
+        	<value>gr.ictpro.mall.model.Notification</value>
         </constructor-arg>
 		<constructor-arg>
 			<value>java.lang.Integer</value>
@@ -110,6 +110,7 @@
 	
 	
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
+		<property name="dao" ref="userDAO"></property>
 	</bean>
 	<bean id="roleService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="roleDAO"></property>
@@ -121,6 +122,7 @@
 		<property name="dao" ref="emailDAO"></property>
 	</bean>
 	<bean id="notificationService" class="gr.ictpro.mall.service.NotificationServiceImpl">
+		<property name="dao" ref="notificationDAO"></property>
 	</bean>
 	<bean id="profileService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="profileDAO"></property>
@@ -128,4 +130,15 @@
 	<bean id="languageService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="languageDAO"></property>
 	</bean>
+	<bean id="translationService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="translationDAO"></property>
+	</bean>
+		<bean id="englishTextService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="englishTextDAO"></property>
+	</bean>
+		<bean id="studyClassService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="studyClassDAO"></property>
+	</bean>
+		
+
 </beans>

@@ -52,7 +52,7 @@ package gr.ictpro.mall.client.controller
 		{
 			var o:Object = event.result;
 			registerSuccess.dispatch();
-			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password));
+			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password, true));
 		}
 		
 		private function handleError(event:FaultEvent):void

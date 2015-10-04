@@ -17,7 +17,6 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.MainView;
 	
@@ -70,7 +69,11 @@ package gr.ictpro.mall.client.controller
 			var o:Object = event.result; 
 			if(o == null) 
 			{
-				loginFailed.dispatch();
+				if(!authenticationDetails.autoLogin) {
+					loginFailed.dispatch();
+				} else {
+					
+				}
 			} else {
 				messagingService.init();
 				loginSuccess.dispatch();

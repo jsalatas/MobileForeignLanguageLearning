@@ -56,7 +56,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     @Override
     public void delete(ID id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	T item = (T) session.load(getPersistentClass(), id);
+	T item = (T) session.get(getPersistentClass(), id);
 	if (null != item) {
 	    session.delete(item);
 	}
@@ -69,7 +69,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     @Override
     public T retrieveById(ID id) {
 	Session session = this.sessionFactory.getCurrentSession();
-	T item = (T) session.load(getPersistentClass(), id);
+	T item = (T) session.get(getPersistentClass(), id);
 	return item;
     }
 

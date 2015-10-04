@@ -18,6 +18,5 @@ public interface AuthenticationMethod extends AuthenticationProvider, BeanNameAw
     public String getUi();
     public void setUi(String ui);
     public AbstractAuthenticationToken getAuthenticationToken(ASObject authenticationDetails);
-    public void setUserService(UserService userService);
     public String getBeanName();
 }

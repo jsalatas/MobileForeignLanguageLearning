@@ -21,6 +21,8 @@ public abstract class AbstractRegistrationProvider implements RegistrationMethod
     protected int priority;
     protected String ui;
     protected String beanName;
+
+    @Autowired(required = true)
     protected UserService userService;
 
     @Autowired(required = true)

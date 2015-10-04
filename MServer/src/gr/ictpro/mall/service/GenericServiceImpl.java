@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package gr.ictpro.mall.service;
 
 import gr.ictpro.mall.dao.GenericDAO;
@@ -8,8 +11,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author John Salatas <jsalatas@gmail.com>
+ *
+ */
+@Service
 public class GenericServiceImpl<T, ID extends Serializable> implements GenericService<T, ID> {
 
     private GenericDAO<T, ID> dao;
@@ -22,36 +31,60 @@ public class GenericServiceImpl<T, ID extends Serializable> implements GenericSe
 	return this.dao;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#create(java.lang.Object)
+     */
     @Transactional
     @Override
     public void create(T item) {
 	dao.create(item);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#update(java.lang.Object)
+     */
     @Transactional
     @Override
     public void update(T item) {
         dao.update(item);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#delete(java.io.Serializable)
+     */
     @Transactional
     @Override
     public void delete(ID id) {
 	dao.delete(id);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#retrieveById(java.io.Serializable)
+     */
     @Transactional
     @Override
     public T retrieveById(ID id) {
 	return dao.retrieveById(id);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#listAll()
+     */
     @Transactional
     @Override
     public List<T> listAll() {
 	return dao.listAll();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#listByProperty(java.lang.String, java.lang.Object)
+     */
     @Transactional
     @Override
     public List<T> listByProperty(String propertyName, Object propertyValue) {

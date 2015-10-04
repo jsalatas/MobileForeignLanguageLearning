@@ -10,7 +10,7 @@ package gr.ictpro.mall.client.model
 		private var _subject:String;
 		private var _message:String;
 		private var _module:String;
-		private var _parameters:String;
+		private var _parameters:Object;
 		private var _internalModule:Boolean;
 		
 		public function ServerNotification(id:int, date:Date, subject:String, message:String, module:String, parameters:ByteArray, internalModule:Boolean)
@@ -22,7 +22,7 @@ package gr.ictpro.mall.client.model
 			this._module = module;
 			this._internalModule = internalModule;
 			if(parameters != null) {
-				this._parameters = parameters.readUTF();
+				_parameters = JSON.parse(parameters.toString());
 			}
 		}
 		
@@ -57,7 +57,7 @@ package gr.ictpro.mall.client.model
 		}
 		
 		[Bindable(event="notificationParametersChanged")]
-		public function get parameters():String
+		public function get parameters():Object
 		{
 			return this._parameters;
 		}

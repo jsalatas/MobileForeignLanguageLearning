@@ -49,7 +49,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	MailService mail = (MailService) ctx.getBean("mailService");
 	mail.registrationMail(u);
 	
-	return u;
+	return null;
     }
 
 }
