@@ -14,10 +14,10 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.PersistentData;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
 	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.PersistSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
-	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -42,7 +42,7 @@ package gr.ictpro.mall.client.view
 		
 		override public function onRegister():void
 		{
-			view.title = "Server Settings";
+			view.title = Translation.getTranslation("Server Settings");
 			view.save.add(saveHandler);
 			view.cancel.add(cancelHandler);
 			view.back.add(backHandler);
@@ -112,7 +112,7 @@ package gr.ictpro.mall.client.view
 		private function persistErrorHandler(event:FaultEvent):void
 		{
 			var saveErrorPopup:PopupNotification = new PopupNotification();
-			saveErrorPopup.message = "Cannot Save Server Configuration.";
+			saveErrorPopup.message = Translation.getTranslation("Cannot Save Server Configuration.");
 			
 			saveErrorPopup.open(view, true);
 		}

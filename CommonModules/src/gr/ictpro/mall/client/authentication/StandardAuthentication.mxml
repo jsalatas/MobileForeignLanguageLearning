@@ -15,14 +15,9 @@
 		
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
-			
-			import mx.core.FlexGlobals;
-			
-			import gr.ictpro.mall.client.model.IDevice;
-			
 			import mx.core.IVisualElementContainer;
-			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.model.Translation;
 			
 			import org.robotlegs.core.IInjector;
 			import org.robotlegs.utilities.modular.core.IModuleContext;
@@ -63,10 +58,10 @@
 		<s:layout>
 			<s:FormLayout/>
 		</s:layout>
-		<s:FormItem label="User Name">
+		<s:FormItem label="{Translation.getTranslation('User Name')}">
 			<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left" />	
 		</s:FormItem>
-		<s:FormItem label="Password">
+		<s:FormItem label="{Translation.getTranslation('Password')}">
 			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" />	
 		</s:FormItem>
 		<s:FormItem  width="100%">
@@ -75,8 +70,8 @@
 					<s:HorizontalLayout />
 				</s:layout>
 
-			<s:Button id="btnOK" label="OK" click="btnOK_clickHandler(event)"/>
-			<s:Button id="btnRegister" label="Register"
+			<s:Button id="btnOK" label="{Translation.getTranslation('OK')}" click="btnOK_clickHandler(event)"/>
+			<s:Button id="btnRegister" label="{Translation.getTranslation('Register')}"
 					  click="btnRegister_clickHandler(event)"/>
 			</s:Group>
 		</s:FormItem>

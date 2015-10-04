@@ -30,6 +30,10 @@
 			    <value>gr.ictpro.mall.model.UserNotification</value>  
 			    <value>gr.ictpro.mall.model.RoleNotification</value>  
 			    <value>gr.ictpro.mall.model.Profile</value>
+			    <value>gr.ictpro.mall.model.StudyClass</value>
+			    <value>gr.ictpro.mall.model.EnglishText</value>
+			    <value>gr.ictpro.mall.model.Language</value>
+			    <value>gr.ictpro.mall.model.Translation</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

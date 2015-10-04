@@ -8,6 +8,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.DetailView;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ParameterizedView;
+	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
@@ -54,7 +55,7 @@ package gr.ictpro.mall.client.view
 		private function handleConnectionError():void 
 		{
 			var connectionErrorPopup:PopupNotification = new PopupNotification();
-			connectionErrorPopup.message = "Cannot connect to server.";
+			connectionErrorPopup.message = Translation.getTranslation("Cannot connect to server.");
 			
 			connectionErrorPopup.addEventListener(PopUpEvent.CLOSE, connectionErrorPopup_close);
 			connectionErrorPopup.open(view, true);

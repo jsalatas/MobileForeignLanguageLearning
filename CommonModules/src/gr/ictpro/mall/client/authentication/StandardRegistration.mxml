@@ -9,17 +9,13 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.core.IVisualElementContainer;
-			import mx.events.FlexEvent;
-			import mx.events.ResizeEvent;
+			
+			import gr.ictpro.mall.client.model.Translation;
 			
 			import org.robotlegs.core.IInjector;
 			import org.robotlegs.utilities.modular.core.IModuleContext;
-			
-			import spark.events.IndexChangeEvent;
-			import spark.skins.SparkSkin;
 			
 			protected var context:IModuleContext;
 			
@@ -59,22 +55,22 @@
 		<s:layout>
 			<s:FormLayout />
 		</s:layout>
-		<s:FormItem id="formitem" label="Name" >
+		<s:FormItem id="formitem" label="{Translation.getTranslation('Name')}" >
 			<s:TextInput id="txtName" autoCapitalize="word" textAlign="left" tabIndex="1"/>
 		</s:FormItem>
-		<s:FormItem label="Email" >
+		<s:FormItem label="{Translation.getTranslation('Email')}" >
 			<s:TextInput id="txtEmail" softKeyboardType="email" textAlign="left" tabIndex="2"/>	
 		</s:FormItem>
-		<s:FormItem label="I am" depth="10000" >
+		<s:FormItem label="{Translation.getTranslation('I am')}" depth="10000" >
 			<s:PopUpList id="role" dataList="{roles}" textAlign="left" tabIndex="3"/>
 		</s:FormItem>
-		<s:FormItem label="User Name">
+		<s:FormItem label="{Translation.getTranslation('User Name')}">
 			<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left" tabIndex="4"/>	
 		</s:FormItem>
-		<s:FormItem label="Password">
+		<s:FormItem label="{Translation.getTranslation('Password')}">
 			<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" tabIndex="5"/>	
 		</s:FormItem>
-		<s:FormItem label="Confirm Password">
+		<s:FormItem label="{Translation.getTranslation('Confirm Password')}">
 			<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
 		</s:FormItem>
 		<s:FormItem>
@@ -82,7 +78,7 @@
 				<s:layout>
 					<s:HorizontalLayout/>
 				</s:layout>
-				<s:Button id="btnOK" label="OK" click="btnOK_clickHandler(event)" tabIndex="7"/>
+				<s:Button id="btnOK" label="{Translation.getTranslation('OK')}" click="btnOK_clickHandler(event)" tabIndex="7"/>
 			</s:Group>
 		</s:FormItem>
 	</s:Group>

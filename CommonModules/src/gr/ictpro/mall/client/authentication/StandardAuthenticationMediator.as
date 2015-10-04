@@ -1,8 +1,16 @@
 package gr.ictpro.mall.client.authentication
 {
+	import mx.core.IFlexDisplayObject;
+	import mx.events.CloseEvent;
+	import mx.managers.PopUpManager;
+	
+	import spark.events.PopUpEvent;
+	
+	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.RegistrationProvider;
 	import gr.ictpro.mall.client.model.ServerMessage;
+	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
@@ -10,15 +18,8 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
-	import gr.ictpro.mall.client.components.PopupNotification;
-	
-	import mx.core.IFlexDisplayObject;
-	import mx.events.CloseEvent;
-	import mx.managers.PopUpManager;
 	
 	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
-	
-	import spark.events.PopUpEvent;
 	
 	public class StandardAuthenticationMediator extends ModuleMediator
 	{
@@ -78,7 +79,7 @@ package gr.ictpro.mall.client.authentication
 		private function showFailedPopup():void 
 		{
 			var loginFailedPopup:PopupNotification = new PopupNotification();
-			loginFailedPopup.message = "Wrong User name or Password.";
+			loginFailedPopup.message = Translation.getTranslation("Wrong User name or Password.");
 			
 			loginFailedPopup.addEventListener(PopUpEvent.CLOSE, loginFailedPopup_close);
 			loginFailedPopup.open(view, true);

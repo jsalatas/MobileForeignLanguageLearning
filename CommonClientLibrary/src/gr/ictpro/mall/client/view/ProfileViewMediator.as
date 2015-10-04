@@ -30,6 +30,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
 	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
@@ -70,7 +71,7 @@ package gr.ictpro.mall.client.view
 		
 		override public function onRegister():void
 		{
-			view.title = "My Profile";
+			view.title = Translation.getTranslation("My Profile");
 			if(view.parameters == null || !view.parameters.hasOwnProperty("parameters") || view.parameters.parameters == null) {
 				view.user = settings.user;
 			} else {
@@ -87,7 +88,7 @@ package gr.ictpro.mall.client.view
 			if(view.txtPassword.text != "" || view.txtPassword2.text != "") {
 				if(view.txtPassword.text != view.txtPassword2.text) {
 					var passwordMismatchPopup:PopupNotification = new PopupNotification();
-					passwordMismatchPopup.message = "Passwords mismatch.";
+					passwordMismatchPopup.message = Translation.getTranslation("Passwords mismatch.");
 					passwordMismatchPopup.open(view, true);
 					return;
 				} else {
@@ -137,7 +138,7 @@ package gr.ictpro.mall.client.view
 		private function persistErrorHandler(event:FaultEvent):void
 		{
 			var saveErrorPopup:PopupNotification = new PopupNotification();
-			saveErrorPopup.message = "Cannot Save Profile.";
+			saveErrorPopup.message = Translation.getTranslation("Cannot Save Profile.");
 			
 			saveErrorPopup.open(view, true);
 		}
@@ -202,17 +203,17 @@ package gr.ictpro.mall.client.view
 		{
 			var res:ArrayList = new ArrayList();
 			if(CameraRoll.supportsBrowseForImage) {
-				res.addItem(new MenuItemCommand("Choose Photo", Icons.icon_folder, Device.defaultColorTransform, openGallery));
+				res.addItem(new MenuItemCommand(Translation.getTranslation("Choose Photo"), Icons.icon_folder, Device.defaultColorTransform, openGallery));
 			}
 			
 			if(CameraUI.isSupported) {
-				res.addItem(new MenuItemCommand("Take New Photo", Icons.icon_camera, Device.defaultColorTransform, capturePhoto));
+				res.addItem(new MenuItemCommand(Translation.getTranslation("Take New Photo"), Icons.icon_camera, Device.defaultColorTransform, capturePhoto));
 			}
 		
 			if(res.length == 0) {
 				// We assume that ther application is running on the desktop. 
 				// Show the open file dialog in order to select photo from disk
-				res.addItem(new MenuItemCommand("Choose Photo", Icons.icon_folder, Device.defaultColorTransform, chooseFile));
+				res.addItem(new MenuItemCommand(Translation.getTranslation("Choose Photo"), Icons.icon_folder, Device.defaultColorTransform, chooseFile));
 			}
 			
 			return res;

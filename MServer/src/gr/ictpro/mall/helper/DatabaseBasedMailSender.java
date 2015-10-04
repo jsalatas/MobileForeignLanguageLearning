@@ -5,7 +5,8 @@ package gr.ictpro.mall.helper;
 
 import java.util.Properties;
 
-import gr.ictpro.mall.service.ConfigService;
+import gr.ictpro.mall.model.Config;
+import gr.ictpro.mall.service.GenericService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,10 +18,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * 
  */
 public class DatabaseBasedMailSender extends JavaMailSenderImpl {
-    private ConfigService configService;
+    private GenericService<Config, Integer> configService;
 
     @Autowired(required = true)
-    public DatabaseBasedMailSender(@Qualifier(value = "configService") ConfigService configService) {
+    public DatabaseBasedMailSender(@Qualifier(value = "configService") GenericService<Config, Integer> configService) {
 	super();
 	this.configService = configService;
 	init();

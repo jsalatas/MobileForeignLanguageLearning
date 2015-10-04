@@ -3,6 +3,7 @@
  */
 package gr.ictpro.mall.flex;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,8 +13,7 @@ import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.service.ProfileService;
-import gr.ictpro.mall.service.RoleService;
+import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +28,17 @@ import org.springframework.web.context.ContextLoader;
  * 
  */
 public class UserRemoteService {
+    @Autowired(required = true)
     private UserService userService;
-    private RoleService roleService;
-    private ProfileService profileService;
-    protected PasswordEncoder passwordEncoder;
 
     @Autowired(required = true)
-    @Qualifier(value = "passwordEncoder")
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-	this.passwordEncoder = passwordEncoder;
-    }
-
-    public void setUserService(UserService userService) {
-	this.userService = userService;
-    }
-
-    public void setRoleService(RoleService roleService) {
-	this.roleService = roleService;
-    }
-
-    public void setProfileService(ProfileService profileService) {
-	this.profileService = profileService;
-    }
+    private GenericService<Role, Integer> roleService;
+    
+    @Autowired(required = true)
+    private GenericService<Profile, Integer>  profileService;
+    
+    @Autowired(required = true)
+    protected PasswordEncoder passwordEncoder;
 
     public User register(ASObject registrationDetails) {
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();

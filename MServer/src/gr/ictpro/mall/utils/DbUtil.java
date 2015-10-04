@@ -63,7 +63,7 @@ public class DbUtil {
 	    } else {
 		in = new FileInputStream(new File(scriptFile));
 	    }
-	    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 	    String line;
 	    while ((line = reader.readLine()) != null) {
 		if (line.trim().length() > 0) {

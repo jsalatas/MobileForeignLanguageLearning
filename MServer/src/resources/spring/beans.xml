@@ -7,55 +7,125 @@
 	<!-- Auto register annotated components as Spring Beans -->
 	<context:component-scan base-package="gr.ictpro.mall" />
 
-	<bean id="userDAO" class="gr.ictpro.mall.dao.UserDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="userDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.User</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="roleDAO" class="gr.ictpro.mall.dao.RoleDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="roleDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Role</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="configDAO" class="gr.ictpro.mall.dao.ConfigDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="configDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Config</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="profileDAO" class="gr.ictpro.mall.dao.ProfileDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="profileDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Profile</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="emailDAO" class="gr.ictpro.mall.dao.EmailDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="emailDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Email</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="userNotificationDAO" class="gr.ictpro.mall.dao.UserNotificationDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="userNotificationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+	    <constructor-arg>
+        	<value>gr.ictpro.mall.model.UserNotification</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>gr.ictpro.mall.model.UserNotificationId</value>
+        </constructor-arg>
+		</bean>
+	<bean id="roleNotificationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+	    <constructor-arg>
+        	<value>gr.ictpro.mall.model.RoleNotification</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>gr.ictpro.mall.model.RoleNotificationId</value>
+        </constructor-arg>
 	</bean>
-		<bean id="roleNotificationDAO" class="gr.ictpro.mall.dao.RoleNotificationDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="notificationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Email</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="notificationDAO" class="gr.ictpro.mall.dao.NotificationDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="languageDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Language</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
-	<bean id="languageDAO" class="gr.ictpro.mall.dao.LanguageDAOImpl">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	<bean id="englishTextDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.EnglishText</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
 	</bean>
 	
+	<bean id="studyClassDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.StudyClass</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
+	
+	<bean id="translationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Translation</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>gr.ictpro.mall.model.TranslationId</value>
+        </constructor-arg>
+	</bean>
+		
+	
+	
+	
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
-		<property name="userDAO" ref="userDAO"></property>
 	</bean>
-	<bean id="roleService" class="gr.ictpro.mall.service.RoleServiceImpl">
-		<property name="roleDAO" ref="roleDAO"></property>
+	<bean id="roleService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="roleDAO"></property>
 	</bean>
-	<bean id="configService" class="gr.ictpro.mall.service.ConfigServiceImpl">
-		<property name="configDAO" ref="configDAO"></property>
+	<bean id="configService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="configDAO"></property>
 	</bean>
-	<bean id="emailService" class="gr.ictpro.mall.service.EmailServiceImpl">
-		<property name="emailDAO" ref="emailDAO"></property>
+	<bean id="emailService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="emailDAO"></property>
 	</bean>
 	<bean id="notificationService" class="gr.ictpro.mall.service.NotificationServiceImpl">
-		<property name="notificationDAO" ref="notificationDAO"></property>
-		<property name="userNotificationDAO" ref="userNotificationDAO"></property>
-		<property name="roleNotificationDAO" ref="roleNotificationDAO"></property>
 	</bean>
-	<bean id="profileService" class="gr.ictpro.mall.service.ProfileServiceImpl">
-		<property name="profileDAO" ref="profileDAO"></property>
+	<bean id="profileService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="profileDAO"></property>
 	</bean>
-	<bean id="languageService" class="gr.ictpro.mall.service.LanguageServiceImpl">
-		<property name="languageDAO" ref="languageDAO"></property>
+	<bean id="languageService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="languageDAO"></property>
 	</bean>
 </beans>

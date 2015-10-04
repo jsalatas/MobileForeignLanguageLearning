@@ -18,6 +18,5 @@ public interface RegistrationMethod extends BeanNameAware, PrioritySortable {
     public void setUi(String ui);
     public String getBeanName();
     public User register(ASObject registrationDetails);
-    public void setUserService(UserService userService);
 
 }

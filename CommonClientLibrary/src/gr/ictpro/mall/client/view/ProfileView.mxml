@@ -21,6 +21,7 @@
 			import mx.core.IVisualElementContainer;
 			
 			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.model.Translation;
 			import gr.ictpro.mall.client.model.User;
 			
 			[Bindable]
@@ -138,19 +139,19 @@
 			<s:layout>
 				<s:FormLayout/>
 			</s:layout>
-			<s:FormItem label="New Password" width="100%">
+			<s:FormItem label="{Translation.getTranslation('New Password')}" width="100%">
 				<s:TextInput id="txtPassword" autoCapitalize="word" textAlign="left" displayAsPassword="true" text="" width="100%" />
 			</s:FormItem>
-			<s:FormItem label="Reenter New Password" width="100%">
+			<s:FormItem label="{Translation.getTranslation('Reenter New Password')}" width="100%">
 				<s:TextInput id="txtPassword2" autoCapitalize="word" textAlign="left" displayAsPassword="true" text="" width="100%" />
 			</s:FormItem>
-			<s:FormItem label="Name" width="100%">
+			<s:FormItem label="{Translation.getTranslation('Name')}" width="100%">
 				<s:TextInput id="txtName" autoCapitalize="word" textAlign="left" text="{user.name}" width="100%" />
 			</s:FormItem>
-			<s:FormItem label="Email" width="100%">
+			<s:FormItem label="{Translation.getTranslation('Email')}" width="100%">
 				<s:TextInput id="txtEmail" autoCorrect="false" softKeyboardType="email" text="{user.email}" textAlign="left" width="100%"/>
 			</s:FormItem>
-			<s:FormItem label="Color" width="100%">
+			<s:FormItem label="{Translation.getTranslation('Color')}" width="100%">
 				<s:ColorSelectorPopUp id="popupColor" dataList="{colorList}" selected="{Device.getDefaultColor()}" width="100%" />
 			</s:FormItem>
 		</s:Group>

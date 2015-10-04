@@ -1,6 +1,6 @@
 package gr.ictpro.mall.model;
 
-// Generated Sep 29, 2015 7:44:53 PM by Hibernate Tools 4.0.0
+// Generated Oct 3, 2015 2:40:56 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,18 +15,18 @@ import javax.persistence.Table;
 public class Language implements java.io.Serializable {
 
     private String code;
+    private boolean enabled;
     private String englishName;
     private String localName;
-    private boolean enabled;
 
     public Language() {
     }
 
-    public Language(String code, String englishName, String localName, boolean enabled) {
+    public Language(String code, boolean enabled, String englishName, String localName) {
 	this.code = code;
+	this.enabled = enabled;
 	this.englishName = englishName;
 	this.localName = localName;
-	this.enabled = enabled;
     }
 
     @Id
@@ -37,6 +37,15 @@ public class Language implements java.io.Serializable {
 
     public void setCode(String code) {
 	this.code = code;
+    }
+
+    @Column(name = "enabled", nullable = false)
+    public boolean isEnabled() {
+	return this.enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+	this.enabled = enabled;
     }
 
     @Column(name = "english_name", nullable = false, length = 100)
@@ -55,15 +64,6 @@ public class Language implements java.io.Serializable {
 
     public void setLocalName(String localName) {
 	this.localName = localName;
-    }
-
-    @Column(name = "enabled", nullable = false)
-    public boolean isEnabled() {
-	return this.enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-	this.enabled = enabled;
     }
 
 }

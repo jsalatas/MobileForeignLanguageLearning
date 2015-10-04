@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +24,9 @@ import gr.ictpro.mall.service.NotificationService;
  * 
  */
 public class NotificationRemoteService {
+    @Autowired(required=true)
     private NotificationService notificationService;
     
-    public void setNotificationService(NotificationService notificationService) {
-	this.notificationService = notificationService;
-    }
-
     public List<Notification> getNotifications() {
 	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	List<Notification> res =notificationService.retrieveByUser(currentUser);

@@ -2,6 +2,9 @@ package gr.ictpro.mall.model;
 
 // Generated Sep 5, 2014 11:12:49 PM by Hibernate Tools 4.0.0
 
+import gr.ictpro.mall.model.StudyClass;
+import gr.ictpro.mall.model.Translation;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +42,8 @@ public class User implements java.io.Serializable, UserDetails {
     private String email;
     private boolean enabled;
     private Profile profile;
+    private Set<Translation> translations = new HashSet<Translation>(0);
+    private Set<StudyClass> studyClasses = new HashSet<StudyClass>(0);
     private Set<UserNotification> userNotifications = new HashSet<UserNotification>(0);
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
     private Set<Role> roles = new HashSet<Role>(0);
@@ -53,13 +58,15 @@ public class User implements java.io.Serializable, UserDetails {
 	this.enabled = enabled;
     }
 
-    public User(String username, String password, String email, boolean enabled, Profile profile,
-	    Set<UserNotification> userNotifications, Set<RoleNotification> roleNotifications, Set<Role> roles) {
+    public User(String username, String password, String email, boolean enabled, Profile profile, Set<Translation> translations,
+	    Set<StudyClass> studyClasses, Set<UserNotification> userNotifications, Set<RoleNotification> roleNotifications, Set<Role> roles) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
 	this.enabled = enabled;
 	this.profile = profile;
+	this.translations = translations;
+	this.studyClasses = studyClasses;
 	this.userNotifications = userNotifications;
 	this.roleNotifications = roleNotifications;
 	this.roles = roles;
@@ -120,6 +127,15 @@ public class User implements java.io.Serializable, UserDetails {
     public void setProfile(Profile profile) {
 	this.profile = profile;
     }
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<Translation> getTranslations() {
+	return this.translations;
+    }
+
+    public void setTranslations(Set<Translation> translations) {
+	this.translations = translations;
+    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     public Set<UserNotification> getUserNotifications() {
@@ -152,6 +168,17 @@ public class User implements java.io.Serializable, UserDetails {
 	this.roles = roles;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "study_class_user", joinColumns = {
+	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "class_id", nullable = false, updatable = false) })
+    public Set<StudyClass> getStudyClasses() {
+	return this.studyClasses;
+    }
+
+    public void setStudyClasses(Set<StudyClass> studyClasses) {
+	this.studyClasses = studyClasses;
+    }
 
     @Override
     public int hashCode() {

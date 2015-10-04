@@ -22,7 +22,7 @@ import gr.ictpro.mall.authentication.AuthenticationMethod;
 import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.service.RoleService;
+import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
 /**
@@ -31,7 +31,9 @@ import gr.ictpro.mall.service.UserService;
  */
 public class AuthenticationRemoteService {
     private UserService userService;
-    private RoleService roleService;
+    
+    @Autowired(required=true)
+    private GenericService<Role, Integer> roleService;
     
     private List<AuthenticationMethod> authMethods;
     private List<RegistrationMethod> registrationMethods;
@@ -40,10 +42,6 @@ public class AuthenticationRemoteService {
     
     public void setUserService(UserService userService) {
 	this.userService = userService;
-    }
-
-    public void setRoleService(RoleService roleService) {
-	this.roleService = roleService;
     }
 
     @Autowired(required = true)

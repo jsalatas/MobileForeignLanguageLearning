@@ -3,12 +3,14 @@
  */
 package gr.ictpro.mall.authentication;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import gr.ictpro.mall.service.ProfileService;
-import gr.ictpro.mall.service.RoleService;
+import gr.ictpro.mall.model.Profile;
+import gr.ictpro.mall.model.Role;
+import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
 /**
@@ -20,10 +22,15 @@ public abstract class AbstractRegistrationProvider implements RegistrationMethod
     protected String ui;
     protected String beanName;
     protected UserService userService;
-    protected RoleService roleService;
-    protected ProfileService profileService;
-    protected PasswordEncoder passwordEncoder;
 
+    @Autowired(required = true)
+    protected GenericService<Role, Integer> roleService;
+    
+    @Autowired(required = true)
+    protected GenericService<Profile, Integer> profileService;
+    
+    @Autowired(required = true)
+    protected PasswordEncoder passwordEncoder;
 
     /* (non-Javadoc)
      * @see org.springframework.beans.factory.BeanNameAware#setBeanName(java.lang.String)
@@ -33,36 +40,6 @@ public abstract class AbstractRegistrationProvider implements RegistrationMethod
 	this.beanName = name;
     }
     
-    /*
-     * (non-Javadoc)
-     * @see gr.ictpro.mall.authentication.RegistrationMethod#setUserService(gr.ictpro.mall.service.UserService)
-     */
-    @Autowired(required = true)
-    @Qualifier(value = "userService")
-    public void setUserService(UserService userService) {
-	this.userService = userService;
-    }
-
-    @Autowired(required = true)
-    @Qualifier(value = "roleService")
-    public void setRoleService(RoleService roleService) {
-	this.roleService = roleService;
-    }
-    @Autowired(required = true)
-    @Qualifier(value = "profileService")
-    public void setProfileService(ProfileService profileService) {
-	this.profileService = profileService;
-    }
-
-    /*
-     * 
-     */
-    @Autowired(required = true)
-    @Qualifier(value = "passwordEncoder")
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-	this.passwordEncoder = passwordEncoder;
-    }
-
     /* (non-Javadoc)
      * @see gr.ictpro.mall.authentication.RegistrationMethod#getUi()
      */

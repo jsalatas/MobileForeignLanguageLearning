@@ -9,15 +9,12 @@ import org.springframework.mail.MailSender;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.helper.DatabaseBasedMailSender;
 import gr.ictpro.mall.model.Config;
-import gr.ictpro.mall.service.ConfigService;
+import gr.ictpro.mall.service.GenericService;
 
 public class ConfigRemoteService {
-    private ConfigService configService;
+    @Autowired(required = true)
+    private GenericService<Config, Integer> configService;
     private MailSender mailSender;
-
-    public void setConfigService(ConfigService configService) {
-	this.configService = configService;
-    }
 
     @Autowired(required = true)
     @Qualifier(value = "mailSender")

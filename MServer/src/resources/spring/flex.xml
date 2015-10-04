@@ -19,9 +19,6 @@
 	</bean>
 	
 	<bean id="userRemoteService" class="gr.ictpro.mall.flex.UserRemoteService">
-		<property name="userService" ref="userService"></property>
-		<property name="roleService" ref="roleService"></property>
-		<property name="profileService" ref="profileService"></property>
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="save" />
@@ -29,13 +26,10 @@
 	</bean>
 	
 	<bean id="authenticationRemoteService" class="gr.ictpro.mall.flex.AuthenticationRemoteService">
-		<property name="userService" ref="userService"></property>
-		<property name="roleService" ref="roleService"></property>
 		<flex:remoting-destination />
 	</bean>
 	
 	<bean id="configRemoteService" class="gr.ictpro.mall.flex.ConfigRemoteService">
-		<property name="configService" ref="configService"></property>
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin" method="*" />
@@ -43,16 +37,13 @@
 	</bean>
 	
 	<bean id="languageRemoteService" class="gr.ictpro.mall.flex.LanguageRemoteService">
-		<property name="languageService" ref="languageService"></property>
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
-			<security:protect access="Admin" method="updateLanguages" />
 			<security:protect access="Admin, Teacher" method="getLanguages" />
 		</security:intercept-methods>
 	</bean>
 	
 	<bean id="notificationRemoteService" class="gr.ictpro.mall.flex.NotificationRemoteService">
-		<property name="notificationService" ref="notificationService"></property>
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="getNotifications" />

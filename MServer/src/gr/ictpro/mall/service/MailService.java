@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 @Service("mailService")
 public class MailService {
 
-    @Autowired
+    @Autowired(required=true)
     private MailSender mailSender;
 
-    @Autowired
-    private RoleService roleService;
+    @Autowired(required=true)
+    private GenericService<Role, Integer> roleService;
 
-    @Autowired
+    @Autowired(required=true)
     private UserService userService;
 
     private void sendMail(String from, String to, String subject, String body)

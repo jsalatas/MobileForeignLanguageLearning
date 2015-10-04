@@ -1,22 +1,23 @@
 package gr.ictpro.mall.client.authentication
 {
-	import gr.ictpro.mall.client.model.Channel;
-	import gr.ictpro.mall.client.model.RegistrationDetails;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
-	import gr.ictpro.mall.client.signal.RegisterSignal;
-	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
-	import gr.ictpro.mall.client.components.PopupNotification;
-	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.ObjectProxy;
 	
-	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
-	
 	import spark.events.PopUpEvent;
+	
+	import gr.ictpro.mall.client.components.PopupNotification;
+	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.RegistrationDetails;
+	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
+	import gr.ictpro.mall.client.signal.RegisterSignal;
+	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
+	
+	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
 	
 	public class StandardRegistrationMediator extends ModuleMediator
 	{
@@ -78,7 +79,7 @@ package gr.ictpro.mall.client.authentication
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
 				var passwordMismatchPopup:PopupNotification = new PopupNotification();
-				passwordMismatchPopup.message = "Passwords do not match.";
+				passwordMismatchPopup.message = Translation.getTranslation("Passwords do not match.");
 				//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 				passwordMismatchPopup.open(view, true);
 			} else {
@@ -99,7 +100,7 @@ package gr.ictpro.mall.client.authentication
 		private function handleRegisterFailed():void 
 		{
 			var registerFailedPopup:PopupNotification = new PopupNotification();
-			registerFailedPopup.message = "Cannot register.";
+			registerFailedPopup.message = Translation.getTranslation("Cannot register.");
 			//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 			registerFailedPopup.open(view, true);
 		}

@@ -3,10 +3,7 @@
  */
 package gr.ictpro.mall.service;
 
-import flex.messaging.services.MessageService;
-import gr.ictpro.mall.dao.NotificationDAO;
-import gr.ictpro.mall.dao.RoleNotificationDAO;
-import gr.ictpro.mall.dao.UserNotificationDAO;
+import gr.ictpro.mall.dao.GenericDAO;
 import gr.ictpro.mall.flex.MessagingService;
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.Role;
@@ -17,10 +14,9 @@ import gr.ictpro.mall.model.UserNotification;
 import gr.ictpro.mall.model.UserNotificationId;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,95 +25,17 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @Service
-public class NotificationServiceImpl implements NotificationService {
-    private NotificationDAO notificationDAO;
-    private UserNotificationDAO userNotificationDAO;
-    private RoleNotificationDAO roleNotificationDAO;
-
-    public void setNotificationDAO(NotificationDAO notificationDAO) {
-	this.notificationDAO = notificationDAO;
-    }
-
-    public void setUserNotificationDAO(UserNotificationDAO userNotificationDAO) {
-	this.userNotificationDAO = userNotificationDAO;
-    }
-
-    public void setRoleNotificationDAO(RoleNotificationDAO roleNotificationDAO) {
-	this.roleNotificationDAO = roleNotificationDAO;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gr.ictpro.mall.service.GenericService#create(java.lang.Object)
-     */
-    @Transactional
-    @Override
-    public void create(Notification item) {
-	notificationDAO.create(item);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gr.ictpro.mall.service.GenericService#update(java.lang.Object)
-     */
-    @Transactional
-    @Override
-    public void update(Notification item) {
-	notificationDAO.update(item);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gr.ictpro.mall.service.GenericService#delete(int)
-     */
-    @Transactional
-    @Override
-    public void delete(Integer id) {
-	notificationDAO.delete(id);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gr.ictpro.mall.service.GenericService#retrieveById(int)
-     */
-    @Transactional
-    @Override
-    public Notification retrieveById(Integer id) {
-	return notificationDAO.retrieveById(id);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gr.ictpro.mall.service.GenericService#listAll()
-     */
-    @Transactional
-    @Override
-    public List<Notification> listAll() {
-	return notificationDAO.listAll();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * gr.ictpro.mall.service.GenericService#listByProperty(java.lang.String,
-     * java.lang.Object)
-     */
-    @Transactional
-    @Override
-    public List<Notification> listByProperty(String propertyName, Object propertyValue) {
-	return notificationDAO.listByProperty(propertyName, propertyValue);
-    }
+public class NotificationServiceImpl  extends GenericServiceImpl<Notification, Integer> implements NotificationService {
+    @Autowired(required=true)
+    private GenericDAO<UserNotification, UserNotificationId> userNotificationDAO;
+    
+    @Autowired(required=true)
+    private GenericDAO<RoleNotification, RoleNotificationId> roleNotificationDAO;
 
     @Transactional
     @Override
     public void createUserNotification(Notification n, User u) {
-	notificationDAO.create(n);
+	getDao().create(n);
 	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
 	UserNotification un = new UserNotification(unid, u, n, false);
 	userNotificationDAO.create(un);
@@ -128,7 +46,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Transactional
     private void createUserNotificationNoMessaging(Notification n, User u) {
-	notificationDAO.create(n);
+	getDao().create(n);
 	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
 	UserNotification un = new UserNotification(unid, u, n, false);
 	userNotificationDAO.create(un);
@@ -161,7 +79,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @Override
     public void createRoleNotification(Notification n, Role r) {
-	notificationDAO.create(n);
+	getDao().create(n);
 	RoleNotificationId rnid = new RoleNotificationId(r.getId(), n.getId());
 	RoleNotification rn = new RoleNotification(rnid, n, r);
 	roleNotificationDAO.create(rn);
