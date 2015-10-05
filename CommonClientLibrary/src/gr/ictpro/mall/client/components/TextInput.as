@@ -148,7 +148,7 @@ package gr.ictpro.mall.client.components
 			super.y = Device.getScaledSize(value);
 		}
 		
-		[Bindable(event="TScaled")]
+		[Bindable(event="YScaled")]
 		public function get definedY():Number
 		{
 			return Device.getUnScaledSize(super.y);	
