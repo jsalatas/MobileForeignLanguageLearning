@@ -177,7 +177,7 @@ package gr.ictpro.mall.client.mobile.skins
 			h += layoutPaddingTop + adjustablePaddingBottom;
 			
 			// measuredMinHeight for width and height for a square measured minimum size
-			measuredMinWidth = h;
+			measuredMinWidth = w;
 			measuredMinHeight = h;
 			
 			measuredWidth = w

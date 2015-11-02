@@ -1,6 +1,7 @@
 package gr.ictpro.mall.client.mobile
 {
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
+	import gr.ictpro.mall.client.mobile.skins.CheckBoxSkin;
 	import gr.ictpro.mall.client.mobile.skins.ColorDropDownSkin;
 	import gr.ictpro.mall.client.mobile.skins.DropDownSkin;
 	import gr.ictpro.mall.client.mobile.skins.FormItemSkin;
@@ -79,5 +80,9 @@ package gr.ictpro.mall.client.mobile
 			return ColorDropDownSkin;
 		}
 
+		public function get checkBoxSkin():Class
+		{
+			return CheckBoxSkin;
+		}
 	}
 }

@@ -14,5 +14,6 @@ package gr.ictpro.mall.client.model
 		function get hScrollBarSkin():Class;
 		function get dropDownSkin():Class;
 		function get colorDropDownSkin():Class;
+		function get checkBoxSkin():Class;
 	}
 }

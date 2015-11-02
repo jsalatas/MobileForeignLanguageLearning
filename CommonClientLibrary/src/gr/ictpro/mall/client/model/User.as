@@ -27,6 +27,7 @@ package gr.ictpro.mall.client.model
 		private var _color:uint; 
 		private var _notifications:ArrayList;
 		private var _plainPassword:String;
+		private var _enabled:Boolean;
 		
 		public static function createUser(o:Object):User {
 			var name:String;
@@ -57,7 +58,7 @@ package gr.ictpro.mall.client.model
 			for each (var role:Object in o.roles) {
 				roles.addItem(role.role);
 			}
-			var u:User = new User(o.id, o.username, o.email, roles, name, photo, color);
+			var u:User = new User(o.id, o.username, o.email, roles, name, photo, color, o.enabled);
 			return u;
 		}
 		
@@ -66,7 +67,7 @@ package gr.ictpro.mall.client.model
 			return roles.getItemIndex("Admin")>-1;
 		}
 		
-		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData, color:uint)
+		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData, color:uint, enabled:Boolean)
 		{
 			this._id = id;
 			this._username = username;
@@ -75,6 +76,7 @@ package gr.ictpro.mall.client.model
 			this._email = email;
 			this._color = color;
 			this._photo = new Image();
+			this._enabled = enabled;
 			var b:Bitmap;
 			if(photo == null) {
 				this._photo.source = Icons.icon_defaultProfile;
@@ -168,6 +170,17 @@ package gr.ictpro.mall.client.model
 			this._menu = MainMenu.getMenu(this);
 		}
 		
+		public function get enabled():Boolean
+		{
+			return this._enabled;
+		}
+		
+		[Bindable]
+		public function set enabled(enabled:Boolean):void
+		{
+			this._enabled = enabled;
+		}
+
 		public function get persistentData():PersistentData 
 		{
 			var p:PersistentData = new PersistentData();
@@ -177,6 +190,7 @@ package gr.ictpro.mall.client.model
 			p.addValue("roles", _roles);
 			p.addValue("name", _name);
 			p.addValue("color", _color);
+			p.addValue("enabled", _enabled);
 			if(this.plainPassword != null) {
 				p.addValue("password", _plainPassword);
 			}

@@ -44,22 +44,6 @@ public class AuthenticationRemoteService {
     
     private List<User> connectedUsers = new ArrayList<User>(); 
     
-//    public void setUserService(UserService userService) {
-//	this.userService = userService;
-//    }
-
-//    @Autowired(required = true)
-//    public void setAuthMethods(List<AuthenticationMethod> authMethods) {
-//	this.authMethods = authMethods;
-//	Collections.sort(authMethods, new PrioritySortableComparator());
-//    }
-//
-//    @Autowired(required = true)
-//    public void setRegistrationMethods(List<RegistrationMethod> registrationMethods) {
-//	this.registrationMethods = registrationMethods;
-//	Collections.sort(registrationMethods, new PrioritySortableComparator());
-//    }
-
     public User login(ASObject authenticationDetails) {
 	User u = null;
 	try {

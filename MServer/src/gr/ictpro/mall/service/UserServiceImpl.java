@@ -30,6 +30,9 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     @Autowired(required=true)
     private NotificationService notificationService;
 
+    @Autowired(required=true)
+    private MailService mailService;
+
     @Transactional
     @Override
     public void create(User item) {
@@ -62,5 +65,15 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	}
 
 	return res;
+    }
+
+    @Override
+    public void updateNotifyUser(User item, boolean notifyEnabled) {
+	update(item);
+	if(notifyEnabled) {
+	    mailService.accountEnabledMail(item);
+	}
+
+	
     }
 }

@@ -76,4 +76,11 @@ public class MailService {
 
     }
 
+    public void accountEnabledMail(User u) {
+	User admin = userService.getUserByRole("Admin").get(0);
+	
+	Email email = emailService.retrieveById(EMAIL_TYPE.ACCOUNT_ENABLED.ordinal()+1);
+	sendMail(admin.getEmail(), admin.getEmail(), email, u);
+	
+    }
 }

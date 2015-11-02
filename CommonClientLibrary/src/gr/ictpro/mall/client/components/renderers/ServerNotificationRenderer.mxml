@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="gr.ictpro.mall.client.components.*" 
-				autoDrawBackground="false" xmlns:mx="library://ns.adobe.com/flex/mx" click="clickHandler(event)"
-				>
+				autoDrawBackground="false" xmlns:mx="library://ns.adobe.com/flex/mx" 
+				width="100%" height="100%" >
 	<s:states>
 		<mx:State name="hasdate"/>
 		<mx:State name="nodate"/>
 	</s:states>
 <fx:Script>
 	<![CDATA[
+		import mx.events.ResizeEvent;
+		
+		import gr.ictpro.mall.client.model.Device;
 		private static var dayNames:Array = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusrday', 'Friday', 'Saturday'];
 		private static var monthNames:Array = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		
 		override public function set data(value:Object):void
 		{
+			//value._date = new Date(2015, 9, 23);
 			super.data = value;
+			
 			if(value.date == null) {
 				currentState = "nodate";
 			} else {
@@ -22,17 +27,11 @@
 			}
 		}
 		
-		protected function clickHandler(event:MouseEvent):void
-		{
-			// TODO Auto-generated method stub
-			
-		}
-		
 	]]>
 </fx:Script>	
-	<s:Group>
+	<s:Group width="100%">
 		<s:layout>
-			<s:HorizontalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5"/>
+			<s:HorizontalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" verticalAlign="middle"/>
 		</s:layout>
 		<!-- Date -->
 		<s:Group visible.nodate="false" visible.hasdate="true">
@@ -40,17 +39,18 @@
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
 			</s:layout>
 			<s:Label id="day" text.hasdate="{dayNames[data.date.getDay()]}" text.nodate="" />
-			<s:Label id="date" text.hasdate="{data.date.getDate()}"  text.nodate="" fontSize="{month.getStyle('fontSize')+5}"/>
-			<s:Label id="month" text.hasdate="{monthNames[data.date.getDate()]}"  text.nodate="" />
+			<s:Label id="date" text.hasdate="{data.date.getDate()}"  text.nodate="" fontSize="{Device.getDefaultUnscaledFontSize()+5}"/>
+			<s:Label id="month" text.hasdate="{monthNames[data.date.getMonth()]}"  text.nodate="" />
 		</s:Group>
+		
 		
 		<!-- Text -->
 		<s:Group>
 			<s:layout>
-				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left"/>
+				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left" />
 			</s:layout>
-			<s:Label id="subject" text="{data.subject}" fontWeight="bold" fontSize="{body.getStyle('fontSize')+2}"/>
-			<s:Label id="body" text="{data.message}"/>
+			<s:Label id="subject" text="{data.subject}" fontWeight="bold" fontSize="{Device.getDefaultUnscaledFontSize()+2}"/>
+			<s:Label id="body" text="{data.message}" width="{Device.getUnScaledSize(width - Math.max(day.width, date.width, month.width)) - 40}" />
 		</s:Group>
 	</s:Group>
 	

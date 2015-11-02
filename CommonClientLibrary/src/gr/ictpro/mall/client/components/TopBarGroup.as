@@ -61,7 +61,7 @@ use namespace mx_internal;
 			var topBarGroup:Group = new Group();
 			topBarGroup.top=0;
 			topBarGroup.percentWidth=100;
-			topBarGroup.height=40; //Device.getScaledSize(40);
+			topBarGroup.height=30; //Device.getScaledSize(40);
 			
 			var bg:Rect = new Rect();
 			bg.fill = new SolidColor(Device.getDefaultColor(0.67));
@@ -78,16 +78,16 @@ use namespace mx_internal;
 			var l1:HorizontalLayout = new HorizontalLayout();
 			l1.paddingLeft = 10;
 			l1.paddingRight = 10;
-			l1.gap = 20;
+			l1.gap = 10;
 			l1.verticalAlign = VerticalAlign.MIDDLE;
 			bgroup.layout = l1;
 			bgroup.left = 0;
 			bgroup.top = 0;
-			bgroup.height = 40; //Device.getScaledSize(40);
+			bgroup.height = 30; //Device.getScaledSize(40);
 			
 			var fxgBack:back = new back();
-			fxgBack.width = Device.getScaledSize(23);
-			fxgBack.height = Device.getScaledSize(22);
+			fxgBack.width = Device.getScaledSize(16);
+			fxgBack.height = Device.getScaledSize(15);
 
 			var groupBack:Group = new Group();
 			groupBack.addElement(fxgBack);
@@ -101,7 +101,7 @@ use namespace mx_internal;
 			_titleLabel.bottom = 0;
 			_titleLabel.right = 0;
 			_titleLabel.setStyle("color", 0xffffff);
-			_titleLabel.setStyle("fontSize", 20);
+			_titleLabel.setStyle("fontSize", 16);
 			
 			bgroup.addElement(_titleLabel);
 			
@@ -113,17 +113,17 @@ use namespace mx_internal;
 			var l2:HorizontalLayout = new HorizontalLayout();
 			l2.paddingLeft = 10;
 			l2.paddingRight = 10;
-			l2.gap = 20;
+			l2.gap = 10;
 			l2.verticalAlign = VerticalAlign.MIDDLE;
 			ocgroup.layout = l2;
 			ocgroup.right = 0;
 			ocgroup.top = 0;
-			ocgroup.height = 40; //Device.getScaledSize(40);
+			ocgroup.height = 30; //Device.getScaledSize(40);
 
 			if(okButton) {
 				var fxgOk:ok = new ok();
-				fxgOk.width = Device.getScaledSize(31);
-				fxgOk.height = Device.getScaledSize(22);
+				fxgOk.width = Device.getScaledSize(21);
+				fxgOk.height = Device.getScaledSize(15);
 				var groupOK:Group = new Group();
 				groupOK.addElement(fxgOk);
 				groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
@@ -134,8 +134,8 @@ use namespace mx_internal;
 			
 			if(cancelButton) {
 				var fxgCancel:cancel = new cancel();
-				fxgCancel.width = Device.getScaledSize(22);
-				fxgCancel.height = Device.getScaledSize(22);
+				fxgCancel.width = Device.getScaledSize(15);
+				fxgCancel.height = Device.getScaledSize(15);
 				var groupCancel:Group = new Group();
 				groupCancel.addElement(fxgCancel);
 				groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);

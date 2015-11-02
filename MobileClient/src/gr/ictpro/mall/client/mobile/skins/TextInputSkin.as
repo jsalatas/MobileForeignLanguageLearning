@@ -8,15 +8,14 @@ package gr.ictpro.mall.client.mobile.skins
 	
 	import mx.core.DPIClassification;
 	
-	import spark.skins.mobile.StageTextInputSkin;
+	import spark.skins.mobile.TextInputSkin;
 	
-	public class TextInputSkin extends spark.skins.mobile.StageTextInputSkin
+	public class TextInputSkin extends spark.skins.mobile.TextInputSkin
 	{
 		private var lineWidth:Number;
 		public function TextInputSkin()
 		{
 			super();
-			borderClass = null;
 			switch (applicationDPI)
 			{
 				case DPIClassification.DPI_320:
@@ -55,9 +54,6 @@ package gr.ictpro.mall.client.mobile.skins
 		override protected function createChildren():void
 		{
 			super.createChildren();
-			if(border != null) {
-				this.removeChild(border);
-			}
 		}
 
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void

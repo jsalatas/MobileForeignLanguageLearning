@@ -57,7 +57,9 @@ public class UserRemoteService {
 	String name = (String) userObject.get("name");
 	byte[] photo = (byte[]) userObject.get("photo");
 	int color = (int) userObject.get("color");
-
+	boolean enabled = userObject.get("enabled") != null? (boolean)userObject.get("enabled"):false;
+	boolean sendAccountReadyNotification = false;
+	
 	Set<Role> roles = new HashSet<Role>();
 	@SuppressWarnings("unchecked")
 	ArrayList<String> r = (ArrayList<String>) userObject.get("roles");
@@ -69,7 +71,7 @@ public class UserRemoteService {
 	    if (id == -1) {
 		String username = (String) userObject.get("username");
 		String password = passwordEncoder.encode((String) userObject.get("password"));
-		u = new User(username, password, email, true);
+		u = new User(username, password, email, enabled);
 		u.setRoles(roles);
 		userService.create(u);
 		Profile p = new Profile(u, name);
@@ -83,6 +85,10 @@ public class UserRemoteService {
 		if (id == currentUser.getId() || currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
 		    u = userService.retrieveById(id);
 		    u.setEmail(email);
+		    if(!u.isEnabled() && enabled) {
+			sendAccountReadyNotification = true;
+		    }
+		    u.setEnabled(enabled);
 		    Profile p = u.getProfile();
 		    if(p == null) {
 			// This is the case of admin
@@ -100,7 +106,11 @@ public class UserRemoteService {
 		    if(userObject.containsKey("password") && userObject.get("password") != null) {
 			u.setPassword(passwordEncoder.encode((String) userObject.get("password")));
 		    }
-		    userService.update(u);
+		    if(sendAccountReadyNotification) {
+			userService.updateNotifyUser(u, sendAccountReadyNotification);
+		    } else {
+			userService.update(u);
+		    }
 		}
 	    }
 	} catch (Exception e) {
@@ -109,5 +119,19 @@ public class UserRemoteService {
 	}
 	return u;
 
+    }
+    
+    public User getUser(ASObject userObject) {
+	int id = (Integer) userObject.get("id");
+	
+	if(id == 1) {
+	    // admin
+	    return null;
+	}
+	
+	User u = userService.retrieveById(id);
+	
+	return u;
+	
     }
 }

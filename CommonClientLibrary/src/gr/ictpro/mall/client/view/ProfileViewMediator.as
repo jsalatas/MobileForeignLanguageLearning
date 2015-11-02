@@ -15,6 +15,7 @@ package gr.ictpro.mall.client.view
 	import flash.media.MediaType;
 	import flash.net.FileFilter;
 	import flash.net.URLRequest;
+	import flash.sampler.NewObjectSample;
 	
 	import mx.collections.ArrayList;
 	import mx.core.FlexGlobals;
@@ -27,12 +28,14 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.PopUpMenu;
 	import gr.ictpro.mall.client.components.PopupNotification;
+	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
+	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.PersistSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
@@ -65,6 +68,9 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var serverNotificationHandle:ServerNotificationHandledSignal;
 		
+		[Inject]
+		public var channel:Channel;
+		
 		private var photoUrl:String = "";
 		private var bitmap:Bitmap = null; 
 		
@@ -74,8 +80,12 @@ package gr.ictpro.mall.client.view
 			view.title = Translation.getTranslation("My Profile");
 			if(view.parameters == null || !view.parameters.hasOwnProperty("parameters") || view.parameters.parameters == null) {
 				view.user = settings.user;
+				view.currentState = "profile";
 			} else {
-				view.user = view.parameters.user;
+				view.currentState = "edit";
+				var args:Object = new Object();
+				args.id=view.parameters.parameters.user_id;
+				var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "getUser",args, handleGetUser, getUserError); 
 			}
 			view.save.add(saveHandler);
 			view.cancel.add(cancelHandler);
@@ -83,6 +93,24 @@ package gr.ictpro.mall.client.view
 			view.choosePhoto.add(choosePhotoHandler);
 		}
 		
+		private function handleGetUser(event:ResultEvent):void
+		{
+			var o:Object = event.result; 
+			if(o != null) {
+				view.user = User.createUser(o);
+			} else {
+				getUserError(null);
+			}
+		}
+		
+		private function getUserError(event:FaultEvent):void
+		{
+			var userErrorPopup:PopupNotification = new PopupNotification();
+			userErrorPopup.message = Translation.getTranslation("Cannot Get User.");
+			
+			userErrorPopup.open(view, true);
+		}
+
 		private function saveHandler():void
 		{
 			if(view.txtPassword.text != "" || view.txtPassword2.text != "") {
@@ -99,6 +127,9 @@ package gr.ictpro.mall.client.view
 			view.user.photo = view.imgPhoto.source;
 			view.user.email = view.txtEmail.text;
 			view.user.color = view.popupColor.selected;
+			if(view.currentState == "edit") {
+				view.user.enabled = view.chkEnabled.selected;
+			}
 			persist.dispatch(new PersistentObjectWrapper(view.user, persistSuccessHandler, persistErrorHandler));
 		}
 		

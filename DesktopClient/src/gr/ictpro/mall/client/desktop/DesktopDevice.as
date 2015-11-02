@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.desktop
 {
 	
 	import gr.ictpro.mall.client.desktop.skins.ButtonSkin;
+	import gr.ictpro.mall.client.desktop.skins.CheckBoxSkin;
 	import gr.ictpro.mall.client.desktop.skins.ColorDropDownSkin;
 	import gr.ictpro.mall.client.desktop.skins.DropDownSkin;
 	import gr.ictpro.mall.client.desktop.skins.FormItemSkin;
@@ -13,8 +14,6 @@ package gr.ictpro.mall.client.desktop
 	import gr.ictpro.mall.client.desktop.skins.TextInputSkin;
 	import gr.ictpro.mall.client.desktop.skins.VScrollBarSkin;
 	import gr.ictpro.mall.client.model.IDevice;
-	
-	import spark.skins.SparkSkin;
 
 	public class DesktopDevice implements IDevice
 	{
@@ -82,5 +81,9 @@ package gr.ictpro.mall.client.desktop
 			return ColorDropDownSkin;
 		}
 
+		public function get checkBoxSkin():Class
+		{
+			return CheckBoxSkin;
+		}
 	}
 }

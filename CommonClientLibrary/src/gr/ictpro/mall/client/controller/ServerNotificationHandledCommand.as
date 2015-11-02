@@ -7,7 +7,6 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.ServerNotification;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	

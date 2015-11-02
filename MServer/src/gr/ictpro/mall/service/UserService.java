@@ -15,4 +15,6 @@ import gr.ictpro.mall.model.User;
 public interface UserService extends GenericService<User, Integer> {
     public List<User> getUserByRole(Role role);
     public List<User> getUserByRole(String role);
+    public void updateNotifyUser(User item, boolean notifyEnabled);
+
 }

@@ -54,6 +54,12 @@ package gr.ictpro.mall.client.model
 			return getScaledSize(isAndroid?9:12);
 		}
 		
+		[Inline]
+		public static function getDefaultUnscaledFontSize():int
+		{
+			return isAndroid?9:12;
+		}
+		
 		public static function get isAndroid():Boolean
 		{
 			if(_device != null) {
@@ -187,6 +193,13 @@ package gr.ictpro.mall.client.model
 			return ButtonSkin;
 		}
 		
+		public static function get checkBoxSkin():Class
+		{
+			if(_device != null) {
+				return _device.checkBoxSkin;
+			}
+			return ButtonSkin;
+		}
 
 	}
 }

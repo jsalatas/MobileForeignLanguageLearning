@@ -22,6 +22,7 @@
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="save" />
+			<security:protect access="Admin, Teacher" method="getUser" />
 		</security:intercept-methods>
 	</bean>
 	
