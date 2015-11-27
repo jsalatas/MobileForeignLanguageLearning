@@ -5,6 +5,7 @@ package gr.ictpro.mall.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -97,4 +98,16 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	return l;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> listByProperties(Map<String, Object> properties) {
+	Session session = this.sessionFactory.getCurrentSession();
+	Criteria criteria = session.createCriteria(getPersistentClass());
+	for(String property: properties.keySet()) {
+	    criteria.add(Restrictions.eq(property, properties.get(property)));
+	}
+	List<T> l = criteria.list();
+	return l;
+	
+    }
 }

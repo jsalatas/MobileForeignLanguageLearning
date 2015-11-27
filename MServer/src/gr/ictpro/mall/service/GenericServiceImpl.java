@@ -8,6 +8,7 @@ import gr.ictpro.mall.model.User;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -91,4 +92,13 @@ public class GenericServiceImpl<T, ID extends Serializable> implements GenericSe
 	return dao.listByProperty(propertyName, propertyValue);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#listByProperties(java.util.Map)
+     */
+    @Transactional
+    @Override
+    public List<T> listByProperties(Map<String, Object> properties) {
+	return dao.listByProperties(properties);
+    }
 }
