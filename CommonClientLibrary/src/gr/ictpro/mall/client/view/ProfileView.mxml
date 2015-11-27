@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   		xmlns:s="gr.ictpro.mall.client.components.*"
-						width="100%" height="100%"
-		  okClicked="topbargroup1_okClickedHandler(event)"
-		  cancelClicked="topbargroup1_cancelClickedHandler(event)"
-		  backClicked="topbargroup1_backClickedHandler(event)" xmlns:signals="org.osflash.signals.*"
-		  implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView" xmlns:mx="library://ns.adobe.com/flex/mx"
-		  >
+<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="gr.ictpro.mall.client.components.*"
+			   xmlns:signals="org.osflash.signals.*"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="100%" height="100%" backClicked="topbargroup1_backClickedHandler(event)"
+			   cancelClicked="topbargroup1_cancelClickedHandler(event)"
+			   implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView"
+			   okClicked="topbargroup1_okClickedHandler(event)">
 	<fx:Declarations>
 		<signals:Signal id="save"/>
 		<signals:Signal id="cancel"/>
@@ -15,8 +15,8 @@
 	</fx:Declarations>
 	
 	<s:states>
-		<mx:State name="profile" />
-		<mx:State name="edit" />
+		<mx:State name="profile"/>
+		<mx:State name="edit"/>
 	</s:states>
 	
 	<fx:Script>
@@ -125,42 +125,53 @@
 	</fx:Script>
 	<s:Group width="100%" height="100%">
 		<s:layout>
-			<s:VerticalLayout gap="10" horizontalAlign="center" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" />
+			<s:VerticalLayout gap="10" horizontalAlign="center" paddingBottom="10" paddingLeft="10"
+							  paddingRight="10" paddingTop="10"/>
 		</s:layout>
 
-		<s:Group id="imgContainer" width="154" horizontalCenter="0" height="204" click="imgPhoto_clickHandler(event)">
+		<s:Group id="imgContainer" width="154" height="204" click="imgPhoto_clickHandler(event)"
+				 horizontalCenter="0">
 			<s:Rect width="100%" height="100%">
-				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}" /></s:fill>
+				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
 			</s:Rect>
 			<s:Group width="154" height="204">
 				<s:layout>
-					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2" paddingTop="2"/>
+					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2"
+									  paddingTop="2"/>
 				</s:layout>
-				<s:Image width="150" height="200" id="imgPhoto" source="{user.photo}" />	
+				<s:Image id="imgPhoto" width="150" height="200" source="{user.photo}"/>	
 			</s:Group>
 		</s:Group>
 
-		<s:Group horizontalCenter="0" verticalCenter="0" width="100%" maxWidth="{Device.isAndroid?NaN:500}" >
+		<s:Group width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0"
+				 verticalCenter="0">
 			<s:layout>
 				<s:FormLayout/>
 			</s:layout>
-			<s:FormItem label="{Translation.getTranslation('Enabled')}" width="100%" visible.profile="false" visible.edit="true">
-				<s:CheckBox id="chkEnabled" />
+			<s:FormItem width="100%" label="{Translation.getTranslation('Enabled')}"
+						visible.edit="true"
+						visible.profile="false">
+				<s:CheckBox id="chkEnabled"/>
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('New Password')}" width="100%">
-				<s:TextInput id="txtPassword" autoCapitalize="word" textAlign="left" displayAsPassword="true" text="" width="100%" />
+			<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}">
+				<s:TextInput id="txtPassword" width="100%" autoCapitalize="word"
+							 displayAsPassword="true" text="" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('Reenter New Password')}" width="100%">
-				<s:TextInput id="txtPassword2" autoCapitalize="word" textAlign="left" displayAsPassword="true" text="" width="100%" />
+			<s:FormItem width="100%" label="{Translation.getTranslation('Reenter New Password')}">
+				<s:TextInput id="txtPassword2" width="100%" autoCapitalize="word"
+							 displayAsPassword="true" text="" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('Name')}" width="100%">
-				<s:TextInput id="txtName" autoCapitalize="word" textAlign="left" text="{user.name}" width="100%" />
+			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
+				<s:TextInput id="txtName" width="100%" autoCapitalize="word" text="{user.name}"
+							 textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('Email')}" width="100%">
-				<s:TextInput id="txtEmail" autoCorrect="false" softKeyboardType="email" text="{user.email}" textAlign="left" width="100%"/>
+			<s:FormItem width="100%" label="{Translation.getTranslation('Email')}">
+				<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
+							 text="{user.email}" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('Color')}" width="100%">
-				<s:ColorSelectorPopUp id="popupColor" dataList="{colorList}" selected="{Device.getDefaultColor()}" width="100%" />
+			<s:FormItem width="100%" label="{Translation.getTranslation('Color')}">
+				<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
+									  selected="{Device.getDefaultColor()}"/>
 			</s:FormItem>
 		</s:Group>
 

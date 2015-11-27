@@ -119,6 +119,8 @@
     <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationHandledCommand"/>
     <classEntry path="gr.ictpro.mall.client.model.Translation"/>
     <classEntry path="gr.ictpro.mall.client.components.CheckBox"/>
+    <classEntry path="gr.ictpro.mall.client.view.LanguagesView"/>
+    <classEntry path="gr.ictpro.mall.client.view.LanguagesViewMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

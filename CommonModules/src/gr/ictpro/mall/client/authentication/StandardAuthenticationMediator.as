@@ -79,7 +79,7 @@ package gr.ictpro.mall.client.authentication
 		private function showFailedPopup():void 
 		{
 			var loginFailedPopup:PopupNotification = new PopupNotification();
-			loginFailedPopup.message = Translation.getTranslation("Wrong User name or Password.");
+			loginFailedPopup.message = Translation.getTranslation("Wrong User Name or Password.");
 			
 			loginFailedPopup.addEventListener(PopUpEvent.CLOSE, loginFailedPopup_close);
 			loginFailedPopup.open(view, true);

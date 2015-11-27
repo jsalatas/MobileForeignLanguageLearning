@@ -25,6 +25,7 @@ package gr.ictpro.mall.client.model.menu
 			// System Settings (admin) 
 			if(user.roles.getItemIndex("Admin") != -1) {
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Settings"), Icons.icon_settings, Device.defaultColorTransform, "gr.ictpro.mall.client.view.SettingsView")); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, Device.defaultColorTransform, "gr.ictpro.mall.client.view.LanguagesView")); 
 			}
 			
 			//Profile editor (common to all roles)

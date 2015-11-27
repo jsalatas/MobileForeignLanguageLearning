@@ -55,7 +55,7 @@ package gr.ictpro.mall.client.view
 		private function handleConnectionError():void 
 		{
 			var connectionErrorPopup:PopupNotification = new PopupNotification();
-			connectionErrorPopup.message = Translation.getTranslation("Cannot connect to server.");
+			connectionErrorPopup.message = Translation.getTranslation("Cannot Connect to Server.");
 			
 			connectionErrorPopup.addEventListener(PopUpEvent.CLOSE, connectionErrorPopup_close);
 			connectionErrorPopup.open(view, true);

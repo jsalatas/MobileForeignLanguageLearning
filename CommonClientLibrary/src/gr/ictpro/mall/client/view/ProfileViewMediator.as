@@ -15,7 +15,6 @@ package gr.ictpro.mall.client.view
 	import flash.media.MediaType;
 	import flash.net.FileFilter;
 	import flash.net.URLRequest;
-	import flash.sampler.NewObjectSample;
 	
 	import mx.collections.ArrayList;
 	import mx.core.FlexGlobals;
@@ -116,7 +115,7 @@ package gr.ictpro.mall.client.view
 			if(view.txtPassword.text != "" || view.txtPassword2.text != "") {
 				if(view.txtPassword.text != view.txtPassword2.text) {
 					var passwordMismatchPopup:PopupNotification = new PopupNotification();
-					passwordMismatchPopup.message = Translation.getTranslation("Passwords mismatch.");
+					passwordMismatchPopup.message = Translation.getTranslation("Passwords do not Match.");
 					passwordMismatchPopup.open(view, true);
 					return;
 				} else {

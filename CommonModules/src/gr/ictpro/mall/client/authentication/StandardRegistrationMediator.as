@@ -82,7 +82,7 @@ package gr.ictpro.mall.client.authentication
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
 				var passwordMismatchPopup:PopupNotification = new PopupNotification();
-				passwordMismatchPopup.message = Translation.getTranslation("Passwords do not match.");
+				passwordMismatchPopup.message = Translation.getTranslation("Passwords do not Match.");
 				//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 				passwordMismatchPopup.open(view, true);
 			} else {
@@ -103,7 +103,7 @@ package gr.ictpro.mall.client.authentication
 		private function handleRegisterFailed():void 
 		{
 			var registerFailedPopup:PopupNotification = new PopupNotification();
-			registerFailedPopup.message = Translation.getTranslation("Cannot register.");
+			registerFailedPopup.message = Translation.getTranslation("Cannot Register.");
 			//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
 			registerFailedPopup.open(view, true);
 		}
