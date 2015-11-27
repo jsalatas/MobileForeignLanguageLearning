@@ -3,4 +3,7 @@
 
 <hibernate-reverse-engineering>
   <table-filter match-name=".*"/>
+  <table name="email">
+      <column name="email_type"  type="gr.ictpro.mall.model.EmailType" /> 
+  </table>
 </hibernate-reverse-engineering>

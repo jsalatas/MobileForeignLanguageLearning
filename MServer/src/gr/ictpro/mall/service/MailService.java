@@ -3,11 +3,15 @@
  */
 package gr.ictpro.mall.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import gr.ictpro.mall.model.Email;
+import gr.ictpro.mall.model.EmailType;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
+import gr.ictpro.mall.utils.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -22,6 +26,9 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
     @Autowired(required = true)
+    private Context context;
+
+    @Autowired(required = true)
     private MailSender mailSender;
 
     @Autowired(required = true)
@@ -32,12 +39,6 @@ public class MailService {
 
     @Autowired(required = true)
     private UserService userService;
-
-    private static enum EMAIL_TYPE {
-	NEW_TEACHER,
-	DISABLED_ACCOUNT_CREATED,
-	ACCOUNT_ENABLED
-    }
 
     private void sendMail(String from, String to, Email email, User u)
     {
@@ -53,13 +54,16 @@ public class MailService {
 	String res = input.replace("%fullname%", u.getProfile().getName());
 	return res;
     }
-    
+
     public void registrationMail(User u) {
 	User admin = userService.getUserByRole("Admin").get(0);
-	
+
 	if (u.hasRole("Teacher")) {
 	    // Teacher registration. Inform admin
-	    Email email = emailService.retrieveById(EMAIL_TYPE.NEW_TEACHER.ordinal()+1);
+	    Map<String, Object> properties = new HashMap<String, Object>();
+	    properties.put("language_code", "en");
+	    properties.put("email_type", EmailType.NEW_TEACHER);
+	    Email email = emailService.listByProperties(properties).get(0);
 	    sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
 	} else if (u.hasRole("Student")) {
@@ -70,7 +74,10 @@ public class MailService {
 
 	if (!u.isEnabled()) {
 	    // inform user that his account is created but is not yet enabled
-	    Email email = emailService.retrieveById(EMAIL_TYPE.DISABLED_ACCOUNT_CREATED.ordinal()+1);
+	    Map<String, Object> properties = new HashMap<String, Object>();
+	    properties.put("language_code", context.getUserLang(u).getCode());
+	    properties.put("email_type", EmailType.DISABLED_ACCOUNT_CREATED);
+	    Email email = emailService.listByProperties(properties).get(0);
 	    sendMail(admin.getEmail(), u.getEmail(), email, u);
 	}
 
@@ -78,9 +85,12 @@ public class MailService {
 
     public void accountEnabledMail(User u) {
 	User admin = userService.getUserByRole("Admin").get(0);
-	
-	Email email = emailService.retrieveById(EMAIL_TYPE.ACCOUNT_ENABLED.ordinal()+1);
+
+	Map<String, Object> properties = new HashMap<String, Object>();
+	properties.put("language_code", context.getUserLang(u).getCode());
+	properties.put("email_type", EmailType.ACCOUNT_ENABLED);
+	Email email = emailService.listByProperties(properties).get(0);
 	sendMail(admin.getEmail(), admin.getEmail(), email, u);
-	
+
     }
 }
