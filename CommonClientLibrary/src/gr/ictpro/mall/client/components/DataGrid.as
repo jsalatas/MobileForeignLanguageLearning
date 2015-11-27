@@ -1,12 +1,12 @@
 package gr.ictpro.mall.client.components
 {
-	import spark.components.Grid;
+	import spark.components.DataGrid;
 	
 	import gr.ictpro.mall.client.model.Device;
 	
-	public class Grid extends spark.components.Grid
+	public class DataGrid extends spark.components.DataGrid
 	{
-		public function Grid()
+		public function DataGrid()
 		{
 			super();
 			super.setStyle("fontSize", Device.getDefaultScaledFontSize());
