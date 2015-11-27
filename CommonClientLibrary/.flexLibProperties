@@ -121,6 +121,7 @@
     <classEntry path="gr.ictpro.mall.client.components.CheckBox"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguagesView"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguagesViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.Grid"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
