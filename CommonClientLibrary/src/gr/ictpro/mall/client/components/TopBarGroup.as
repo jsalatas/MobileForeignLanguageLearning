@@ -1,10 +1,15 @@
 package gr.ictpro.mall.client.components
 {
+	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
-	import flash.text.ReturnKeyLabel;
+	import flash.geom.Point;
 	
+	import mx.core.IVisualElement;
 	import mx.core.mx_internal;
 	
+	import spark.core.IViewport;
 	import spark.layouts.supportClasses.LayoutBase;
 	
 	import assets.fxg.add;
@@ -32,6 +37,7 @@ use namespace mx_internal;
 		private var mxmlContentGroup:Group = new Group(); 
 		protected var _title:String;
 		private var _titleLabel:Label; 
+		private var _scroller:Scroller = new Scroller();
 		
 		public function TopBarGroup()
 		{
@@ -159,14 +165,27 @@ use namespace mx_internal;
 			}
 
 			topBarGroup.addElement(ocgroup);
-			var scroller:Scroller = new Scroller();
-			scroller.percentWidth = 100;
-			scroller.percentHeight = 100;
-			scroller.minViewportInset = 1;
-			scroller.hasFocusableChildren = true;
-			scroller.ensureElementIsVisibleForSoftKeyboard = false;
-			scroller.viewport = mxmlContentGroup;
-			addElement(scroller);
+			_scroller.percentWidth = 100;
+			_scroller.percentHeight = 100;
+			_scroller.minViewportInset = 1;
+			_scroller.hasFocusableChildren = true;
+			_scroller.ensureElementIsVisibleForSoftKeyboard = true;
+			_scroller.viewport = mxmlContentGroup;
+			mxmlContentGroup.addEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
+			mxmlContentGroup.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			addElement(_scroller);
+		}
+		
+		private function removedFromStageHandler(event:Event):void 
+		{
+			mxmlContentGroup.removeEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
+			mxmlContentGroup.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+		}
+		
+		private function globalFocusInHandler(event:FocusEvent):void 
+		{
+			trace(event.target.id);
+			_scroller.ensureElementIsVisible(IVisualElement(event.target));
 		}
 		
 		override public function set layout(value:LayoutBase):void
