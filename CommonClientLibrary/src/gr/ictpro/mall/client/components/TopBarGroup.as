@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.components
 	
 	import spark.layouts.supportClasses.LayoutBase;
 	
+	import assets.fxg.add;
 	import assets.fxg.back;
 	import assets.fxg.cancel;
 	import assets.fxg.ok;
@@ -21,9 +22,11 @@ use namespace mx_internal;
 	[Event(name="backClicked", type="flash.events.MouseEvent")]
 	[Event(name="okClicked", type="flash.events.MouseEvent")]
 	[Event(name="cancelClicked", type="flash.events.MouseEvent")]
+	[Event(name="addClicked", type="flash.events.MouseEvent")]
 	
 	public class TopBarGroup extends Group
 	{
+		public var addButton:Boolean = false;
 		public var okButton:Boolean = true;
 		public var cancelButton:Boolean = true;
 		private var mxmlContentGroup:Group = new Group(); 
@@ -120,6 +123,19 @@ use namespace mx_internal;
 			ocgroup.top = 0;
 			ocgroup.height = 30; //Device.getScaledSize(40);
 
+			if(addButton) {
+				var fxgAdd:add = new add();
+				fxgAdd.width = Device.getScaledSize(15);
+				fxgAdd.height = Device.getScaledSize(15);
+				fxgAdd.right=10;
+				var groupOK:Group = new Group();
+				groupOK.addElement(fxgAdd);
+				groupOK.addEventListener(MouseEvent.CLICK, addClickedHandler);
+				
+				ocgroup.addElement(groupOK);
+				
+			}
+
 			if(okButton) {
 				var fxgOk:ok = new ok();
 				fxgOk.width = Device.getScaledSize(21);
@@ -147,7 +163,7 @@ use namespace mx_internal;
 			scroller.percentWidth = 100;
 			scroller.percentHeight = 100;
 			scroller.minViewportInset = 1;
-			scroller.hasFocusableChildren = false;
+			scroller.hasFocusableChildren = true;
 			scroller.ensureElementIsVisibleForSoftKeyboard = false;
 			scroller.viewport = mxmlContentGroup;
 			addElement(scroller);
@@ -170,6 +186,12 @@ use namespace mx_internal;
 			dispatchEvent(e);
 		}
 
+		private function addClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("addClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+		
 		private function cancelClickedHandler(event:MouseEvent):void
 		{
 			var e:MouseEvent = new MouseEvent("cancelClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
