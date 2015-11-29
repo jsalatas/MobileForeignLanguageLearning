@@ -20,6 +20,7 @@ INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `intern
 INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 1, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
 INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 2, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
 INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`) VALUES ('en', 'English', 'English');
+INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Add');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Application Path');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Connect to Server.');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Languages.');
@@ -29,13 +30,16 @@ INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Profile.'
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Server Configuration.');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Choose Photo');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Choose Photo');
+INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Code');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Color');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Confirm Password');
+INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Delete');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Email');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Enabled');
+INSERT IGNORE INTO `english_text` (`english_text`) VALUES('English Name');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Exit');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('I am');
-INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Languages');
+INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Local Name');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Manage');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Modules Path');
 INSERT IGNORE INTO `english_text` (`english_text`) VALUES('My Profile');

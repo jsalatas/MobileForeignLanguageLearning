@@ -58,7 +58,6 @@
     <classEntry path="gr.ictpro.mall.client.signal.PersistSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.PersistCommand"/>
     <classEntry path="gr.ictpro.mall.client.model.PersistentData"/>
-    <classEntry path="gr.ictpro.mall.client.model.IPersistentObject"/>
     <classEntry path="gr.ictpro.mall.client.model.IServerPersistentObject"/>
     <classEntry path="gr.ictpro.mall.client.model.PersistentObjectWrapper"/>
     <classEntry path="gr.ictpro.mall.client.model.IClientPersistentObject"/>
@@ -121,7 +120,9 @@
     <classEntry path="gr.ictpro.mall.client.components.CheckBox"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguagesView"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguagesViewMediator"/>
-    <classEntry path="gr.ictpro.mall.client.components.Grid"/>
+    <classEntry path="gr.ictpro.mall.client.components.DataGrid"/>
+    <classEntry path="gr.ictpro.mall.client.utils.ui.UI"/>
+    <classEntry path="gr.ictpro.mall.client.model.GenericServerPersistentObject"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

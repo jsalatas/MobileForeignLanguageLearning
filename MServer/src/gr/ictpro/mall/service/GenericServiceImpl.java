@@ -101,4 +101,15 @@ public class GenericServiceImpl<T, ID extends Serializable> implements GenericSe
     public List<T> listByProperties(Map<String, Object> properties) {
 	return dao.listByProperties(properties);
     }
+
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#execSQL(java.lang.String)
+     */
+    @Transactional
+    @Override
+    public void execSQL(String sql) {
+	dao.execSQL(sql);
+	
+    }
 }

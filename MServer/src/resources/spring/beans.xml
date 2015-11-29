@@ -76,7 +76,7 @@
         	<value>gr.ictpro.mall.model.Language</value>
         </constructor-arg>
 		<constructor-arg>
-			<value>java.lang.Integer</value>
+			<value>java.lang.String</value>
         </constructor-arg>
 	</bean>
 	<bean id="englishTextDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">

@@ -184,7 +184,6 @@ use namespace mx_internal;
 		
 		private function globalFocusInHandler(event:FocusEvent):void 
 		{
-			trace(event.target.id);
 			_scroller.ensureElementIsVisible(IVisualElement(event.target));
 		}
 		

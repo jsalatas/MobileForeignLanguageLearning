@@ -1,6 +1,7 @@
 package gr.ictpro.mall.client.view
 {
 	import mx.core.IVisualElement;
+	import mx.managers.FocusManager;
 	
 	import spark.events.PopUpEvent;
 	
@@ -50,6 +51,7 @@ package gr.ictpro.mall.client.view
 				(module as DetailView).masterView = backView;
 			}
 			view.addElement(module);
+		
 		}
 		
 		private function handleConnectionError():void 

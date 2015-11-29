@@ -19,4 +19,5 @@ public interface GenericDAO<T, ID extends Serializable> {
 	public List<T> listAll();
 	public List<T> listByProperty(String propertyName, Object propertyValue);
 	public List<T> listByProperties(Map<String, Object> properties);
+	public void execSQL(String sql);
 }

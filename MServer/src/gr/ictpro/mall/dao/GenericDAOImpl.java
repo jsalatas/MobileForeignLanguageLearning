@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -98,6 +99,10 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	return l;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.dao.GenericDAO#listByProperties(java.util.Map)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<T> listByProperties(Map<String, Object> properties) {
@@ -109,5 +114,16 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	List<T> l = criteria.list();
 	return l;
 	
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.dao.GenericDAO#execSQL(java.lang.String)
+     */
+    @Override
+    public void execSQL(String sql) {
+	Session session = this.sessionFactory.getCurrentSession();
+	Query q = session.createQuery(sql);
+	q.executeUpdate();
     }
 }
