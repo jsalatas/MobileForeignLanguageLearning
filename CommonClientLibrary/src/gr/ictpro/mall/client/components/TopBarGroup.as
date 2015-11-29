@@ -1,23 +1,20 @@
 package gr.ictpro.mall.client.components
 {
-	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
-	import flash.geom.Point;
 	
 	import mx.core.IVisualElement;
 	import mx.core.mx_internal;
 	
-	import spark.core.IViewport;
 	import spark.layouts.supportClasses.LayoutBase;
 	
 	import assets.fxg.add;
 	import assets.fxg.back;
 	import assets.fxg.cancel;
 	import assets.fxg.ok;
+	import assets.fxg.trashcan;
 	
-	import flashx.textLayout.tlf_internal;
 	import flashx.textLayout.formats.VerticalAlign;
 	
 	import gr.ictpro.mall.client.model.Device;
@@ -28,16 +25,19 @@ use namespace mx_internal;
 	[Event(name="okClicked", type="flash.events.MouseEvent")]
 	[Event(name="cancelClicked", type="flash.events.MouseEvent")]
 	[Event(name="addClicked", type="flash.events.MouseEvent")]
+	[Event(name="deleteClicked", type="flash.events.MouseEvent")]
 	
 	public class TopBarGroup extends Group
 	{
 		public var addButton:Boolean = false;
+		public  var deleteButton:Boolean = false;
 		public var okButton:Boolean = true;
 		public var cancelButton:Boolean = true;
 		private var mxmlContentGroup:Group = new Group(); 
 		protected var _title:String;
 		private var _titleLabel:Label; 
 		private var _scroller:Scroller = new Scroller();
+		private var _groupDelete:Group;
 		
 		public function TopBarGroup()
 		{
@@ -61,6 +61,7 @@ use namespace mx_internal;
 		
 		override protected function createChildren():void
 		{
+			trace("TopBarGroup: createChildren");
 			super.createChildren();
 			
 			var v:VerticalLayout = new VerticalLayout();
@@ -133,19 +134,29 @@ use namespace mx_internal;
 				var fxgAdd:add = new add();
 				fxgAdd.width = Device.getScaledSize(15);
 				fxgAdd.height = Device.getScaledSize(15);
-				fxgAdd.right=10;
-				var groupOK:Group = new Group();
-				groupOK.addElement(fxgAdd);
-				groupOK.addEventListener(MouseEvent.CLICK, addClickedHandler);
+				var groupAdd:Group = new Group();
+				groupAdd.addElement(fxgAdd);
+				groupAdd.addEventListener(MouseEvent.CLICK, addClickedHandler);
 				
-				ocgroup.addElement(groupOK);
+				ocgroup.addElement(groupAdd);
+			}
+
+			if(deleteButton) {
+				var fxgDelete:trashcan = new trashcan();
+				fxgDelete.width = Device.getScaledSize(11);
+				fxgDelete.height = Device.getScaledSize(15);
+				_groupDelete = new Group();
+				_groupDelete.addElement(fxgDelete);
+				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
 				
+				ocgroup.addElement(_groupDelete);
 			}
 
 			if(okButton) {
 				var fxgOk:ok = new ok();
 				fxgOk.width = Device.getScaledSize(21);
 				fxgOk.height = Device.getScaledSize(15);
+				fxgOk.left = 10;
 				var groupOK:Group = new Group();
 				groupOK.addElement(fxgOk);
 				groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
@@ -158,6 +169,7 @@ use namespace mx_internal;
 				var fxgCancel:cancel = new cancel();
 				fxgCancel.width = Device.getScaledSize(15);
 				fxgCancel.height = Device.getScaledSize(15);
+				fxgCancel.left = okButton?0:10;
 				var groupCancel:Group = new Group();
 				groupCancel.addElement(fxgCancel);
 				groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
@@ -176,6 +188,24 @@ use namespace mx_internal;
 			addElement(_scroller);
 		}
 		
+		private var _disableDelete:Boolean = false; 
+		public function disableDelete():void {
+			_disableDelete = true;
+			if(_groupDelete != null) {
+				_groupDelete.getChildAt(0).alpha = 0.4;
+				_groupDelete.removeEventListener(MouseEvent.CLICK, deleteClickedHandler);
+			}
+		}
+		
+		public function enableDelete():void {
+			_disableDelete = false;
+			if(_groupDelete != null) {
+				_groupDelete.getChildAt(0).alpha = 1.0;
+				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
+			}
+		}
+		
+			
 		private function removedFromStageHandler(event:Event):void 
 		{
 			mxmlContentGroup.removeEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
@@ -209,7 +239,13 @@ use namespace mx_internal;
 			var e:MouseEvent = new MouseEvent("addClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
 			dispatchEvent(e);
 		}
-		
+
+		private function deleteClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("deleteClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+
 		private function cancelClickedHandler(event:MouseEvent):void
 		{
 			var e:MouseEvent = new MouseEvent("cancelClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
