@@ -342,7 +342,7 @@ package gr.ictpro.mall.client.components.renderers
 			iconChanged = true;
 			labelChanged = true;
 			
-			labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
+			//labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
 			if(value.hasOwnProperty("isGroup") && value.isGroup) {
 				isGroup = true;
 				labelDisplay.setStyle("fontSize", _fontSize + Device.getScaledSize(2));
@@ -1744,7 +1744,11 @@ package gr.ictpro.mall.client.components.renderers
 				graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
 				graphics.drawRect(0, 0, unscaledWidth, 1);
 				graphics.endFill();
+				labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
+			} else {
+				labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
 			}
+			
 			
 			graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
 			graphics.drawRect(0, unscaledHeight - (isLastItem ? 0 : 1), unscaledWidth, 1);
