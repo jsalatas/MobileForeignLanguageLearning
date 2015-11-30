@@ -110,7 +110,7 @@ use namespace mx_internal;
 			_titleLabel.bottom = 0;
 			_titleLabel.right = 0;
 			_titleLabel.setStyle("color", 0xffffff);
-			_titleLabel.setStyle("fontSize", 16);
+			_titleLabel.setStyle("fontSize", Device.isAndroid?14:16);
 			
 			bgroup.addElement(_titleLabel);
 			

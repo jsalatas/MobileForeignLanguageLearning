@@ -81,7 +81,7 @@
 					<s:HorizontalLayout gap="10" paddingLeft="5" paddingRight="5" verticalAlign="middle"/>
 				</s:layout>
 				<s:Image width="21" height="25" source="{user.photo}"/>
-				<s:Label id="username" color="0xFFFFFF" fontSize="16" fontWeight="normal" text="{user.name}"/>
+				<s:Label id="username" color="0xFFFFFF" fontSize="{Device.isAndroid?14:16}" fontWeight="normal" text="{user.name}"/>
 			</s:Group>
 		</s:Group>
 		<s:Group width="100%">
