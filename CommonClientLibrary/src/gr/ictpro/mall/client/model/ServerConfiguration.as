@@ -1,14 +1,16 @@
 package gr.ictpro.mall.client.model
 {
-	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import flash.sampler.NewObjectSample;
 	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
+	
+	import gr.ictpro.mall.client.service.RemoteObjectService;
 
-	public class ServerConfiguration implements IServerPersistentObject
+	public class ServerConfiguration 
 	{
-		private var _persistentData:PersistentData = null;
+		private var _persistentData:Object;
 		
 		
 		public function ServerConfiguration(channel:Channel)
@@ -26,7 +28,7 @@ package gr.ictpro.mall.client.model
 			return "saveConfig";
 		}
 		
-		public function get persistentData():PersistentData
+		public function get persistentData():Object
 		{
 			return this._persistentData;
 			
@@ -34,10 +36,10 @@ package gr.ictpro.mall.client.model
 		
 		public function resultHandler(event:ResultEvent):void
 		{
-			_persistentData = new PersistentData();
+			_persistentData = new Object();
 			var res:ArrayCollection = event.result as ArrayCollection;
 			for each (var config:Object in res) {
-				_persistentData.addValue(config.name, config.value);		
+				_persistentData[config.name] =  config.value;		
 			}
 			
 		}

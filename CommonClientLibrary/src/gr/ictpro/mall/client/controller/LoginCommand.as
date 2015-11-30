@@ -1,6 +1,5 @@
 package gr.ictpro.mall.client.controller
 {
-	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -8,7 +7,6 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
-	import gr.ictpro.mall.client.model.ServerMessage;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.service.MessagingService;

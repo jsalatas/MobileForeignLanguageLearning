@@ -11,12 +11,12 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.FormItem;
 	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.TextInput;
-	import gr.ictpro.mall.client.model.PersistentData;
-	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
+	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.ServerConfiguration;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.PersistSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
@@ -27,9 +27,6 @@ package gr.ictpro.mall.client.view
 		public var view:SettingsView;
 		
 		[Inject]
-		public var persist:PersistSignal;
-
-		[Inject]
 		public var addView:AddViewSignal;
 		
 		[Inject]
@@ -37,6 +34,9 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var settings:Settings; 
+		
+		[Inject]
+		public var channel:Channel;
 		
 		private var settingsMap:Object = new Object();
 		
@@ -71,11 +71,11 @@ package gr.ictpro.mall.client.view
 			}
 		}
 		
-		private function parseServerConfiguration(p:PersistentData):ArrayCollection 
+		private function parseServerConfiguration(p:Object):ArrayCollection 
 		{
 			var res:ArrayCollection = new ArrayCollection();
 
-			for(var name:Object in p) {
+			for(var name:String in p) {
 				var o:Object = new Object();
 				o.name = name as String; 
 				o.value = p[name];
@@ -93,23 +93,33 @@ package gr.ictpro.mall.client.view
 		
 		private function saveHandler():void
 		{
-			var p:PersistentData = settings.serverConfiguration.persistentData;
-			for(var name:Object in p) {
-				p[name]=(settingsMap[name] as TextInput).text;
+			var p:Object = new Object();
+			for(var setting:String in settingsMap) {
+				p[setting]=(settingsMap[setting] as TextInput).text;
 			}
-			persist.dispatch(new PersistentObjectWrapper(settings.serverConfiguration, persistSuccessHandler, persistErrorHandler));
+			
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "configRemoteService", "saveConfig", p, saveSuccessHandler, saveErrorHandler); 
 			
 		}
 		
-		private function persistSuccessHandler(event:Event):void
+		private function saveSuccessHandler(event:Event):void
 		{
+			var p:Object = new Object();
+			for(var setting:String in settingsMap) {
+				p[setting]=(settingsMap[setting] as TextInput).text;
+			}
+			
+			// Reread settings from server
+			settings.serverConfiguration = new ServerConfiguration(channel);
+
 			if(view.parameters != null && view.parameters.hasOwnProperty('notification')) {
 				serverNotificationHandle.dispatch(view.parameters.notification);
 			}
+
 			backHandler();
 		}
 		
-		private function persistErrorHandler(event:FaultEvent):void
+		private function saveErrorHandler(event:FaultEvent):void
 		{
 			var saveErrorPopup:PopupNotification = new PopupNotification();
 			saveErrorPopup.message = Translation.getTranslation("Cannot Save Server Configuration.");

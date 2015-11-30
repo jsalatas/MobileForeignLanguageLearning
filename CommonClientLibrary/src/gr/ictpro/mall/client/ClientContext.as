@@ -1,14 +1,8 @@
 package gr.ictpro.mall.client
 {
-	import flash.display.DisplayObjectContainer;
-	import flash.system.ApplicationDomain;
-	
-	import spark.modules.Module;
-	
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.LoginCommand;
 	import gr.ictpro.mall.client.controller.MenuCommand;
-	import gr.ictpro.mall.client.controller.PersistCommand;
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SavePropertyCommand;
 	import gr.ictpro.mall.client.controller.ServerNotificationCommand;
@@ -29,7 +23,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.MenuSignal;
-	import gr.ictpro.mall.client.signal.PersistSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
@@ -41,6 +34,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
+	import gr.ictpro.mall.client.view.ClassroomsViewMediator;
+	import gr.ictpro.mall.client.view.ClassroonsView;
 	import gr.ictpro.mall.client.view.LanguageView;
 	import gr.ictpro.mall.client.view.LanguageViewMediator;
 	import gr.ictpro.mall.client.view.LanguagesView;
@@ -85,6 +80,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ProfileView, ProfileViewMediator);
 			mediatorMap.mapView(LanguagesView, LanguagesViewMediator);
 			mediatorMap.mapView(LanguageView, LanguageViewMediator);
+			mediatorMap.mapView(ClassroonsView, ClassroomsViewMediator);
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);
 			signalCommandMap.mapSignalClass(SavePropertySignal, SavePropertyCommand);
@@ -94,7 +90,6 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(ShowRegistrationSignal, ShowRegistrationCommand);
 			signalCommandMap.mapSignalClass(MenuSignal, MenuCommand);
 			signalCommandMap.mapSignalClass(ServerNotificationSignal, ServerNotificationCommand);
-			signalCommandMap.mapSignalClass(PersistSignal, PersistCommand);
 			signalCommandMap.mapSignalClass(UpdateServerNotificationsSignal, UpdateServerNotificationsCommand);
 			signalCommandMap.mapSignalClass(ServerNotificationHandledSignal, ServerNotificationHandledCommand);
 

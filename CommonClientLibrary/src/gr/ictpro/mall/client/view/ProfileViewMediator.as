@@ -29,14 +29,12 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Device;
-	import gr.ictpro.mall.client.model.PersistentObjectWrapper;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.PersistSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
@@ -57,9 +55,6 @@ package gr.ictpro.mall.client.view
 		
 		[Inject]
 		public var settings:Settings;
-		
-		[Inject]
-		public var persist:PersistSignal;
 		
 		[Inject]
 		public var updateServerNotifications:UpdateServerNotificationsSignal;
@@ -130,7 +125,8 @@ package gr.ictpro.mall.client.view
 			if(view.currentState == "edit") {
 				view.user.enabled = view.chkEnabled.selected;
 			}
-			persist.dispatch(new PersistentObjectWrapper(view.user, persistSuccessHandler, persistErrorHandler));
+			
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "save", view.user.persistentData,saveSuccessHandler, saveErrorHandler); 
 		}
 		
 		private function cancelHandler():void
@@ -152,7 +148,7 @@ package gr.ictpro.mall.client.view
 			
 		}
 		
-		private function persistSuccessHandler(event:Event):void
+		private function saveSuccessHandler(event:Event):void
 		{
 			if(view.parameters == null) {
 				// user edited his own profile
@@ -166,7 +162,7 @@ package gr.ictpro.mall.client.view
 			backHandler();
 		}
 
-		private function persistErrorHandler(event:FaultEvent):void
+		private function saveErrorHandler(event:FaultEvent):void
 		{
 			var saveErrorPopup:PopupNotification = new PopupNotification();
 			saveErrorPopup.message = Translation.getTranslation("Cannot Save Profile.");

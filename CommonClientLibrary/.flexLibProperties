@@ -55,15 +55,8 @@
     <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.TopBarGroup"/>
-    <classEntry path="gr.ictpro.mall.client.signal.PersistSignal"/>
-    <classEntry path="gr.ictpro.mall.client.controller.PersistCommand"/>
-    <classEntry path="gr.ictpro.mall.client.model.PersistentData"/>
-    <classEntry path="gr.ictpro.mall.client.model.IServerPersistentObject"/>
-    <classEntry path="gr.ictpro.mall.client.model.PersistentObjectWrapper"/>
-    <classEntry path="gr.ictpro.mall.client.model.IClientPersistentObject"/>
     <classEntry path="gr.ictpro.mall.client.components.PopUpMenu"/>
     <classEntry path="gr.ictpro.mall.client.utils.image.ImageTransform"/>
-    <classEntry path="gr.ictpro.mall.client.model.ServerConfiguration"/>
     <classEntry path="gr.ictpro.mall.client.utils.string.StringCapitalize"/>
     <classEntry path="gr.ictpro.mall.client.model.IDevice"/>
     <classEntry path="gr.ictpro.mall.client.model.Device"/>
@@ -127,6 +120,7 @@
     <classEntry path="gr.ictpro.mall.client.view.ClassroonsView"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguageViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguageView"/>
+    <classEntry path="gr.ictpro.mall.client.model.ServerConfiguration"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -15,7 +15,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.model.menu.MainMenu;
 
-	public class User extends EventDispatcher implements IServerPersistentObject
+	public class User extends EventDispatcher 
 	{
 		private var _id:int;
 		private var _username:String;
@@ -181,22 +181,22 @@ package gr.ictpro.mall.client.model
 			this._enabled = enabled;
 		}
 
-		public function get persistentData():PersistentData 
+		public function get persistentData():Object 
 		{
-			var p:PersistentData = new PersistentData();
-			p.addValue("id", _id);
-			p.addValue("username", _username);
-			p.addValue("email", _email);
-			p.addValue("roles", _roles);
-			p.addValue("name", _name);
-			p.addValue("color", _color);
-			p.addValue("enabled", _enabled);
+			var p:Object = new Object();
+			p.id = _id;
+			p.username = _username;
+			p.email = _email;
+			p.roles = _roles;
+			p.name = _name;
+			p.color = _color;
+			p.enabled = _enabled;
 			if(this.plainPassword != null) {
-				p.addValue("password", _plainPassword);
+				p.password = _plainPassword;
 			}
 			if(_photo.source is profile) {
 				// This is the default image. Don't save it in database
-				p.addValue("photo", null);
+				p.photo = null;
 			} else {
 				var bd:BitmapData = (_photo.source as BitmapData);
 				var b:ByteArray = new ByteArray(); 
@@ -204,20 +204,10 @@ package gr.ictpro.mall.client.model
 				b.writeInt(bd.height);
 				var bmd:ByteArray =bd.getPixels(new Rectangle(0, 0, bd.width, bd.height)); 
 				b.writeBytes(bmd); 
-				p.addValue("photo", b);
+				p.photo = b;
 			}
 			
 			return p;
-			
-		}
-
-		public function get destination():String 
-		{
-			return "userRemoteService";
-		}
-		
-		public function get methodName():String {
-			return "save";
 		}
 
 		public function set notifications(notifications:ArrayList):void

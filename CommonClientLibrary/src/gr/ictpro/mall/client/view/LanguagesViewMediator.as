@@ -14,7 +14,6 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.PersistSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -29,9 +28,6 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var channel:Channel;
 
-		[Inject]
-		public var persist:PersistSignal;
-		
 		override public function onRegister():void
 		{
 			view.title = Translation.getTranslation("Languages");

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:s="gr.ictpro.mall.client.components.*"
+			   xmlns:signals="org.osflash.signals.*"
+			   xmlns:renderers="gr.ictpro.mall.client.components.renderers.*"
+			   width="100%" height="100%" addButton="true"
+			   addClicked="topbargroup1_addClickedHandler(event)"
+			   cancelButton="false"
+			   backClicked="topbargroup1_backClickedHandler(event)"
+			   implements="gr.ictpro.mall.client.model.DetailView" okButton="false">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.IVisualElement;
+			import mx.core.IVisualElementContainer;
+			
+			import gr.ictpro.mall.client.model.DetailView;
+			private var _classrooms:ArrayCollection;
+			private var _masterView:IVisualElement;
+			
+			public function set classrooms(classrooms:ArrayCollection):void
+			{
+				this._classrooms = classrooms;
+			}
+			
+			public function get classrooms():ArrayCollection
+			{
+				return this._classrooms;
+			}
+			
+			public function set masterView(masterView:IVisualElement):void 
+			{
+				this._masterView = masterView;
+			}
+			public function get masterView():IVisualElement
+			{
+				return this._masterView;
+			}
+
+			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
+			{
+				back.dispatch();
+				
+			}
+			
+			public function dispose():void
+			{
+				if(parent && parent.contains(this)) {
+					IVisualElementContainer(parent).removeElement(this);
+				}
+			}
+			
+			protected function topbargroup1_addClickedHandler(event:MouseEvent):void
+			{
+				add.dispatch();
+			}
+			
+			protected function list1_clickHandler(event:MouseEvent):void
+			{
+				showDetail.dispatch(list.selectedItem);
+			}
+
+			private function getLabel(item:Object):String
+			{
+				return "TODO";
+			}
+			
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<signals:Signal id="back"/>
+		<signals:Signal id="add"/>
+		<signals:Signal id="showDetail"/>
+	</fx:Declarations>
+	<s:List id="list" left="10" right="10" top="10" bottom="10" width="100%" height="100%"
+			borderAlpha="0" click="list1_clickHandler(event)" contentBackgroundColor="#FFFFFF"
+			dataProvider="{_classrooms}" labelFunction="getLabel">
+		<s:itemRenderer>
+			<fx:Component>
+				<renderers:IconItemRenderer height="25" bottomSeparatorColor="#ffffff"
+											paddingLeft="2" paddingRight="2" verticalAlign="middle"/>
+				
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+	
+</s:TopBarGroup>
