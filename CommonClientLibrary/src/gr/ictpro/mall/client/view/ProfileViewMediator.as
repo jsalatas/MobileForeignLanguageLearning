@@ -76,12 +76,13 @@ package gr.ictpro.mall.client.view
 		
 		override public function onRegister():void
 		{
-			view.title = Translation.getTranslation("My Profile");
 			if(view.parameters == null || !view.parameters.hasOwnProperty("parameters") || view.parameters.parameters == null) {
+				view.title = Translation.getTranslation("My Profile");
 				view.user = settings.user;
 				view.currentState = "profile";
 			} else {
 				view.currentState = "edit";
+				view.title = Translation.getTranslation("Edit User");
 				var args:Object = new Object();
 				args.id=view.parameters.parameters.user_id;
 				var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "getUser",args, handleGetUser, getUserError); 
