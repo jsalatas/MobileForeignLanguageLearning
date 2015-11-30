@@ -67,6 +67,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	return res;
     }
 
+    @Transactional
     @Override
     public void updateNotifyUser(User item, boolean notifyEnabled) {
 	update(item);
