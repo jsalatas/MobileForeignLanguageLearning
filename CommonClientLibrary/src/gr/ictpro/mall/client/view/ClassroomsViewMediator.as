@@ -2,11 +2,11 @@ package gr.ictpro.mall.client.view
 {
 	import mx.rpc.events.FaultEvent;
 	
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -34,10 +34,7 @@ package gr.ictpro.mall.client.view
 		
 		private function getClassroomsError(event:FaultEvent):void
 		{
-			var classroomsErrorPopup:PopupNotification = new PopupNotification();
-			classroomsErrorPopup.message = Translation.getTranslation("Cannot Get Classrooms.");
-			
-			classroomsErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation("Cannot Get Classrooms."));
 		}
 
 	}

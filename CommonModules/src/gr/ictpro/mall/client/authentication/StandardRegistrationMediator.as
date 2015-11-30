@@ -6,9 +6,6 @@ package gr.ictpro.mall.client.authentication
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.ObjectProxy;
 	
-	import spark.events.PopUpEvent;
-	
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
 	import gr.ictpro.mall.client.model.Translation;
@@ -16,6 +13,7 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
 	
@@ -81,10 +79,7 @@ package gr.ictpro.mall.client.authentication
 			var password:String = view.txtPassword.text;
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
-				var passwordMismatchPopup:PopupNotification = new PopupNotification();
-				passwordMismatchPopup.message = Translation.getTranslation("Passwords do not Match.");
-				//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
-				passwordMismatchPopup.open(view, true);
+				UI.showError(view, Translation.getTranslation("Passwords do not Match."));
 			} else {
 				var userName:String = view.txtUserName.text;
 				var name:String = view.txtName.text;
@@ -96,16 +91,9 @@ package gr.ictpro.mall.client.authentication
 			}
 		}
 		
-//		private function popup_close(evt:PopUpEvent):void
-//		{
-//		}
-		
 		private function handleRegisterFailed():void 
 		{
-			var registerFailedPopup:PopupNotification = new PopupNotification();
-			registerFailedPopup.message = Translation.getTranslation("Cannot Register.");
-			//passwordMismatchPopup.addEventListener(PopUpEvent.CLOSE, popup_close);
-			registerFailedPopup.open(view, true);
+			UI.showError(view, Translation.getTranslation("Cannot Register."));
 		}
 
 		private function handleRegisterSuccess():void 

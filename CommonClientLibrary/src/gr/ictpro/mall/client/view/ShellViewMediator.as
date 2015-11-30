@@ -1,11 +1,9 @@
 package gr.ictpro.mall.client.view
 {
 	import mx.core.IVisualElement;
-	import mx.managers.FocusManager;
 	
 	import spark.events.PopUpEvent;
 	
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.DetailView;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ParameterizedView;
@@ -13,6 +11,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -56,11 +55,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleConnectionError():void 
 		{
-			var connectionErrorPopup:PopupNotification = new PopupNotification();
-			connectionErrorPopup.message = Translation.getTranslation("Cannot Connect to Server.");
-			
-			connectionErrorPopup.addEventListener(PopUpEvent.CLOSE, connectionErrorPopup_close);
-			connectionErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation("Cannot Connect to Server."), connectionErrorPopup_close);
 		}
 		
 		private function connectionErrorPopup_close(evt:PopUpEvent):void

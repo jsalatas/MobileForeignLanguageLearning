@@ -9,7 +9,6 @@ package gr.ictpro.mall.client.view
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.FormItem;
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.components.TextInput;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
@@ -18,6 +17,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -121,10 +121,7 @@ package gr.ictpro.mall.client.view
 		
 		private function saveErrorHandler(event:FaultEvent):void
 		{
-			var saveErrorPopup:PopupNotification = new PopupNotification();
-			saveErrorPopup.message = Translation.getTranslation("Cannot Save Server Configuration.");
-			
-			saveErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation("Cannot Save Server Configuration."));
 		}
 		
 

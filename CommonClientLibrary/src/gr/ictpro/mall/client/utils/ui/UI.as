@@ -1,6 +1,11 @@
 package gr.ictpro.mall.client.utils.ui
 {
 	import mx.core.UIComponent;
+	
+	import spark.events.PopUpEvent;
+	
+	import gr.ictpro.mall.client.components.PopupNotification;
+	import gr.ictpro.mall.client.model.Translation;
 
 	public class UI
 	{
@@ -22,6 +27,17 @@ package gr.ictpro.mall.client.utils.ui
 			}
 			
 			return res; 
+		}
+		
+		public static function showError(parent:UIComponent, message:String, closeHandler:Function=null):void
+		{
+			var popup:PopupNotification = new PopupNotification();
+			popup.message = Translation.getTranslation(message);
+			if(closeHandler != null) {
+				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
+			}
+			popup.open(parent, true);
+
 		}
 
 	}

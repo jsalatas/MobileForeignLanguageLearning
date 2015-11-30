@@ -4,11 +4,11 @@ package gr.ictpro.mall.client.view
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -61,10 +61,7 @@ package gr.ictpro.mall.client.view
 		private function deleteLanguageHandler(language:Object):void 
 		{
 			if(view.parameters.language.code == null || view.parameters.language.code =='') {
-				var deleteLanguageErrorPopup:PopupNotification = new PopupNotification();
-				deleteLanguageErrorPopup.message = Translation.getTranslation('Cannot Delete Language with Empty Code.');
-				
-				deleteLanguageErrorPopup.open(view, true);
+				UI.showError(view,Translation.getTranslation('Cannot Delete Language with Empty Code.'));
 			} else {
 				var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "deleteLanguage", view.parameters.language, handleDelete, handleDeleteError);
 			}
@@ -77,10 +74,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleDeleteError(event:FaultEvent):void
 		{
-			var deleteLanguageErrorPopup:PopupNotification = new PopupNotification();
-			deleteLanguageErrorPopup.message = Translation.getTranslation('Cannot Delete Language.');
-			
-			deleteLanguageErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation('Cannot Delete Language.'));
 		}
 		
 		private function saveHandler():void
@@ -91,20 +85,14 @@ package gr.ictpro.mall.client.view
 			) {
 				if(view.currentState == 'new' && ArrayList(view.parameters.languageCodes).getItemIndex(view.parameters.language.code) != -1)
 				{
-					var saveLanguageErrorPopup:PopupNotification = new PopupNotification();
-					saveLanguageErrorPopup.message = Translation.getTranslation('A Language with Code "{0}" Already Exist.', view.parameters.language.code);
-					
-					saveLanguageErrorPopup.open(view, true);
+					UI.showError(view,Translation.getTranslation('A Language with Code "{0}" Already Exist.', view.parameters.language.code));
 					
 				} else 
 				{
 					var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "updateLanguage", view.parameters.language, handleSave, handleSaveError);
 				}
 			} else {
-				var saveLanguageErrorPopup:PopupNotification = new PopupNotification();
-				saveLanguageErrorPopup.message = Translation.getTranslation('Please Complete all Fields.');
-				
-				saveLanguageErrorPopup.open(view, true);
+				UI.showError(view,Translation.getTranslation('Please Complete all Fields.'));
 			}
 		}
 
@@ -115,10 +103,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleSaveError(event:FaultEvent):void
 		{
-			var deleteLanguageErrorPopup:PopupNotification = new PopupNotification();
-			deleteLanguageErrorPopup.message = Translation.getTranslation('Cannot Save Language.');
-			
-			deleteLanguageErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation('Cannot Save Language.'));
 		}
 		
 

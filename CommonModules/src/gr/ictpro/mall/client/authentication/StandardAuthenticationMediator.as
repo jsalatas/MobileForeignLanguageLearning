@@ -1,23 +1,16 @@
 package gr.ictpro.mall.client.authentication
 {
-	import mx.core.IFlexDisplayObject;
-	import mx.events.CloseEvent;
-	import mx.managers.PopUpManager;
-	
 	import spark.events.PopUpEvent;
 	
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.RegistrationProvider;
-	import gr.ictpro.mall.client.model.ServerMessage;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
-	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
 	
@@ -78,11 +71,7 @@ package gr.ictpro.mall.client.authentication
 
 		private function showFailedPopup():void 
 		{
-			var loginFailedPopup:PopupNotification = new PopupNotification();
-			loginFailedPopup.message = Translation.getTranslation("Wrong User Name or Password.");
-			
-			loginFailedPopup.addEventListener(PopUpEvent.CLOSE, loginFailedPopup_close);
-			loginFailedPopup.open(view, true);
+			UI.showError(view, Translation.getTranslation("Wrong User Name or Password."), loginFailedPopup_close);
 		}
 		
 		protected function loginFailedPopup_close(event:PopUpEvent):void {

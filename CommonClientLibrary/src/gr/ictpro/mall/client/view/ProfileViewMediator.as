@@ -26,7 +26,6 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.PopUpMenu;
-	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.Settings;
@@ -38,6 +37,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import jp.shichiseki.exif.ExifInfo;
 	import jp.shichiseki.exif.ExifLoader;
@@ -100,19 +100,14 @@ package gr.ictpro.mall.client.view
 		
 		private function getUserError(event:FaultEvent):void
 		{
-			var userErrorPopup:PopupNotification = new PopupNotification();
-			userErrorPopup.message = Translation.getTranslation("Cannot Get User.");
-			
-			userErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation("Cannot Get User."));
 		}
 
 		private function saveHandler():void
 		{
 			if(view.txtPassword.text != "" || view.txtPassword2.text != "") {
 				if(view.txtPassword.text != view.txtPassword2.text) {
-					var passwordMismatchPopup:PopupNotification = new PopupNotification();
-					passwordMismatchPopup.message = Translation.getTranslation("Passwords do not Match.");
-					passwordMismatchPopup.open(view, true);
+					UI.showError(view,Translation.getTranslation("Passwords do not Match."));
 					return;
 				} else {
 					view.user.plainPassword = view.txtPassword.text; 
@@ -164,10 +159,7 @@ package gr.ictpro.mall.client.view
 
 		private function saveErrorHandler(event:FaultEvent):void
 		{
-			var saveErrorPopup:PopupNotification = new PopupNotification();
-			saveErrorPopup.message = Translation.getTranslation("Cannot Save Profile.");
-			
-			saveErrorPopup.open(view, true);
+			UI.showError(view,Translation.getTranslation("Cannot Save Profile."));
 		}
 		
 		private function choosePhotoHandler(event:MouseEvent):void
