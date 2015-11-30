@@ -123,6 +123,10 @@
     <classEntry path="gr.ictpro.mall.client.components.DataGrid"/>
     <classEntry path="gr.ictpro.mall.client.utils.ui.UI"/>
     <classEntry path="gr.ictpro.mall.client.model.GenericServerPersistentObject"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroonsView"/>
+    <classEntry path="gr.ictpro.mall.client.view.LanguageViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.LanguageView"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

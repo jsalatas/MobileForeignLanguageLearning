@@ -61,7 +61,6 @@ use namespace mx_internal;
 		
 		override protected function createChildren():void
 		{
-			trace("TopBarGroup: createChildren");
 			super.createChildren();
 			
 			var v:VerticalLayout = new VerticalLayout();

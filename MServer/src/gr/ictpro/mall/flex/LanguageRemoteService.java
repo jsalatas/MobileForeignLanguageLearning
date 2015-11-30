@@ -25,32 +25,23 @@ public class LanguageRemoteService {
 	return languageService.listAll();
     }
 
-    @SuppressWarnings("unchecked")
-    public void updateLanguages(ASObject persistentData) {
-	ArrayList<ASObject> languages = (ArrayList<ASObject>) persistentData.get("languages");
-	String codes=""; 
-	for (ASObject language : languages) {
-	    String code = (String) language.get("code");
-	    if(!codes.equals("")) {
-		codes += ", ";
-	    }
-	    codes +="'"+code+"'";
-	    if (!code.equals("en")) {
-		String englishName = (String) language.get("englishName");
-		String localName = (String) language.get("localName");
-		Language l = languageService.retrieveById(code);
-		if (l == null) {
-		    l = new Language(code, englishName, localName);
-		    languageService.create(l);
-		} else {
-		    l.setEnglishName(englishName);
-		    l.setLocalName(localName);
-		    languageService.update(l);
-		}
-	    }
+    public void updateLanguage(ASObject persistentData) {
+	String code = (String) persistentData.get("code");
+	String englishName = (String) persistentData.get("englishName");
+	String localName = (String) persistentData.get("localName");
+	Language l = languageService.retrieveById(code);
+	if(l == null) {
+	    l = new Language(code, englishName, localName);
+	    languageService.create(l);
+	} else {
+	    l.setEnglishName(englishName);
+	    l.setLocalName(localName);
+	    languageService.update(l);
 	}
-	
-	languageService.execSQL("delete Language where code not in ("+codes+")");
-	
+    }
+
+    public void deleteLanguage(ASObject persistentData) {
+	String code = (String) persistentData.get("code");
+	languageService.delete(code);
     }
 }

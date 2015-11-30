@@ -106,6 +106,7 @@
 			{
 				this._masterView = masterView;
 			}
+			
 			public function get masterView():IVisualElement
 			{
 				return this._masterView;

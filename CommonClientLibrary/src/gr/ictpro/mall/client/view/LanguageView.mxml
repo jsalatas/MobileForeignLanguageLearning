@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
+						implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView" 
+						xmlns:signals="org.osflash.signals.*"
+						deleteButton="true"
+						title="{_parameters.language.englishName + ' - ' + _parameters.language.localName}"
+						okClicked="topbargroup1_okClickedHandler(event)"
+						backClicked="topbargroup1_backClickedHandler(event)"
+						cancelClicked="topbargroup1_cancelClickedHandler(event)"
+						deleteClicked="topbargroup1_deleteClickedHandler(event)" xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<signals:Signal id="cancel"/>
+		<signals:Signal id="back"/>
+		<signals:Signal id="ok"/>
+		<signals:Signal id="deleteLang"/>
+		<signals:Signal id="getAllTranslations"/>
+		<signals:Signal id="getUntranslated"/>
+		<signals:Signal id="uploadTranslations"/>
+	</fx:Declarations>
+	<s:states>
+		<mx:State name="new" />
+		<mx:State name="edit" />
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IVisualElement;
+			import mx.core.IVisualElementContainer;
+			import mx.utils.ObjectProxy;
+			
+			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.model.Translation;
+			
+			private var _masterView:IVisualElement;
+			
+			[Bindable]
+			private var _parameters:ObjectProxy;
+
+			public function dispose():void
+			{
+				if(parent && parent.contains(this)) {
+					IVisualElementContainer(parent).removeElement(this);
+				}
+			}
+			
+			public function set masterView(masterView:IVisualElement):void 
+			{
+				this._masterView = masterView;
+			}
+			
+			public function get masterView():IVisualElement
+			{
+				return this._masterView;
+			}
+			
+			public function set parameters(parameters:Object):void
+			{
+				this._parameters = ObjectProxy(parameters);
+			}
+			
+			public function get parameters():Object
+			{
+				return this._parameters;
+			}
+
+			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
+			{
+				back.dispatch();
+			}
+			
+			protected function topbargroup1_cancelClickedHandler(event:MouseEvent):void
+			{
+				cancel.dispatch();
+			}
+			
+			protected function topbargroup1_deleteClickedHandler(event:MouseEvent):void
+			{
+				deleteLang.dispatch(_parameters);
+				
+			}
+			
+			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
+			{
+				ok.dispatch();
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				getAllTranslations.dispatch();
+					
+			}
+
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				getUntranslated.dispatch();
+				
+			}
+			
+			protected function button3_clickHandler(event:MouseEvent):void
+			{
+				uploadTranslations.dispatch();
+				
+			}
+
+		]]>
+	</fx:Script>
+	<s:Group width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0">
+		<s:layout>
+			<s:VerticalLayout gap="5" horizontalAlign="center" />
+		</s:layout>	
+		<s:Group>
+			<s:layout>
+				<s:FormLayout/>
+			</s:layout>
+			<s:FormItem width="100%" label="{Translation.getTranslation('Language Code')}">
+				<s:TextInput id="txtCode" width="100%" text="@{_parameters.language.code}" enabled.new="true" enabled.edit="false" textAlign="left"/>
+			</s:FormItem>
+			<s:FormItem width="100%" label="{Translation.getTranslation('English Name')}">
+				<s:TextInput id="txtEnglishName" width="100%" text="@{_parameters.language.englishName}" textAlign="left"/>
+			</s:FormItem>
+			<s:FormItem width="100%" label="{Translation.getTranslation('Local Name')}">
+				<s:TextInput id="txtLocalName" width="100%" text="@{_parameters.language.localName}" textAlign="left"/>
+			</s:FormItem>
+		</s:Group>
+		<s:Button label="{Translation.getTranslation('Get All Messages')}" click="button1_clickHandler(event)" width="250" />
+		<s:Button label="{Translation.getTranslation('Get Untranslated Messages')}" click="button2_clickHandler(event)" width="250" />
+		<s:Button label="{Translation.getTranslation('Upload Translations')}" click="button3_clickHandler(event)" width="250" />
+			
+	</s:Group>
+</s:TopBarGroup>

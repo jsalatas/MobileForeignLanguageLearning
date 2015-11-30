@@ -41,6 +41,8 @@
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher" method="getLanguages" />
+			<security:protect access="Admin, Teacher" method="updateLanguage" />
+			<security:protect access="Admin, Teacher" method="deleteLanguage" />
 		</security:intercept-methods>
 	</bean>
 	
