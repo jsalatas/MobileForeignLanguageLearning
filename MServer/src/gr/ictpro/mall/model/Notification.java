@@ -76,7 +76,7 @@ public class Notification implements java.io.Serializable {
 	this.date = date;
     }
 
-    @Column(name = "message", nullable = false, length = 65535, columnDefinition="Text")
+    @Column(name = "message", nullable = false, length = 65535, columnDefinition = "Text")
     public String getMessage() {
 	return this.message;
     }

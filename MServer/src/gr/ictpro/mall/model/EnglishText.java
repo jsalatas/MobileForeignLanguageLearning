@@ -49,7 +49,7 @@ public class EnglishText implements java.io.Serializable {
 	this.id = id;
     }
 
-    @Column(name = "english_text", unique = true, nullable = false, length = 65535, columnDefinition="Text")
+    @Column(name = "english_text", unique = true, nullable = false, length = 65535, columnDefinition = "Text")
     public String getEnglishText() {
 	return this.englishText;
     }

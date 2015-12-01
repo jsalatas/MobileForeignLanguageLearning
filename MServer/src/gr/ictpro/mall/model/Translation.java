@@ -86,7 +86,7 @@ public class Translation implements java.io.Serializable {
 	this.studyClass = studyClass;
     }
 
-    @Column(name = "translated_text", nullable = false, length = 65535)
+    @Column(name = "translated_text", nullable = false, length = 65535, columnDefinition = "Text")
     public String getTranslatedText() {
 	return this.translatedText;
     }

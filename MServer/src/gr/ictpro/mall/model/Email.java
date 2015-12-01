@@ -66,7 +66,7 @@ public class Email implements java.io.Serializable {
 	this.emailType = emailType;
     }
 
-    @Column(name = "body", nullable = false, length = 65535)
+    @Column(name = "body", nullable = false, length = 65535, columnDefinition = "Text")
     public String getBody() {
 	return this.body;
     }
