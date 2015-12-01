@@ -1,6 +1,7 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 26, 2015 8:08:15 PM by Hibernate Tools 4.0.0
+// Generated Nov 30, 2015 9:51:50 PM by Hibernate Tools 4.0.0
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,7 +47,7 @@ public class Email implements java.io.Serializable {
 	this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_code", nullable = false)
     public Language getLanguage() {
 	return this.language;
@@ -65,7 +66,7 @@ public class Email implements java.io.Serializable {
 	this.emailType = emailType;
     }
 
-    @Column(name = "body", nullable = false, length = 65535, columnDefinition="Text")
+    @Column(name = "body", nullable = false, length = 65535)
     public String getBody() {
 	return this.body;
     }

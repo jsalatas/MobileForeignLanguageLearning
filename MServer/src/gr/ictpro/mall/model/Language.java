@@ -1,7 +1,6 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 1, 2015 6:39:42 PM by Hibernate Tools 4.0.0
-
+// Generated Nov 30, 2015 9:51:50 PM by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +22,8 @@ public class Language implements java.io.Serializable {
     private String englishName;
     private String localName;
     private Set<StudyClass> studyClasses = new HashSet<StudyClass>(0);
+    private Set<Translation> translations = new HashSet<Translation>(0);
+    private Set<Email> emails = new HashSet<Email>(0);
 
     public Language() {
     }
@@ -33,11 +34,14 @@ public class Language implements java.io.Serializable {
 	this.localName = localName;
     }
 
-    public Language(String code, String englishName, String localName, Set<StudyClass> studyClasses) {
+    public Language(String code, String englishName, String localName, Set<StudyClass> studyClasses,
+	    Set<Translation> translations, Set<Email> emails) {
 	this.code = code;
 	this.englishName = englishName;
 	this.localName = localName;
 	this.studyClasses = studyClasses;
+	this.translations = translations;
+	this.emails = emails;
     }
 
     @Id
@@ -75,6 +79,24 @@ public class Language implements java.io.Serializable {
 
     public void setStudyClasses(Set<StudyClass> studyClasses) {
 	this.studyClasses = studyClasses;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "language")
+    public Set<Translation> getTranslations() {
+	return this.translations;
+    }
+
+    public void setTranslations(Set<Translation> translations) {
+	this.translations = translations;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "language")
+    public Set<Email> getEmails() {
+	return this.emails;
+    }
+
+    public void setEmails(Set<Email> emails) {
+	this.emails = emails;
     }
 
 }
