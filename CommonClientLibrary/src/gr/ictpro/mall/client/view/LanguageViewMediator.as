@@ -1,5 +1,10 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.events.Event;
+	import flash.filesystem.File;
+	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;
+	
 	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -22,6 +27,8 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var channel:Channel;
+		
+		private var translationsXml:String;
 		
 		override public function onRegister():void
 		{
@@ -50,7 +57,7 @@ package gr.ictpro.mall.client.view
 			var arguments:Object = new Object();
 			arguments.language_code = view.parameters.language.code;
 			arguments.untranslated = false;
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslations", arguments, handleGetTranslations, handleGetTranslationsError);
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslationsXML", arguments, handleGetTranslations, handleGetTranslationsError);
 		}
 		
 		private function untranslatedHandler():void 
@@ -58,14 +65,24 @@ package gr.ictpro.mall.client.view
 			var arguments:Object = new Object();
 			arguments.language_code = view.parameters.language.code;
 			arguments.untranslated = true;
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslations", arguments, handleGetTranslations, handleGetTranslationsError);
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslationsXML", arguments, handleGetTranslations, handleGetTranslationsError);
 		}
 
 		private function handleGetTranslations(event:ResultEvent):void
 		{
-			var xml:String = String(event.result);
-			
-			trace(xml);
+			translationsXml = String(event.result);
+			var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + view.parameters.language.code +".xml");
+			xmlFile.browseForSave(Translation.getTranslation("Save Transalations"));
+			xmlFile.addEventListener(Event.SELECT, saveTranslationsXML);
+		}
+		
+		
+		private function saveTranslationsXML(event:Event):void {
+			var file:File = File(event.target);
+			var stream:FileStream = new FileStream();
+			stream.open(file, FileMode.WRITE);
+			stream.writeUTFBytes(translationsXml);
+			stream.close();
 		}
 		
 		private function handleGetTranslationsError(event:FaultEvent):void

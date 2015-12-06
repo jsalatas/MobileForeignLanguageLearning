@@ -168,7 +168,7 @@ public class TranslationsXMLUtils {
 
 		 Element translatedTextElement = doc.createElement("translatedText");
 		 translatedTextElement.appendChild(doc.createTextNode(" "));
-		 subjectElement.appendChild(originalTextElement);
+		 subjectElement.appendChild(translatedTextElement);
 		 
 		 
 		 // body tag
@@ -176,12 +176,12 @@ public class TranslationsXMLUtils {
 		 emailElement.appendChild(bodyElement);
 		 
 		 originalTextElement = doc.createElement("originalText");
-		 originalTextElement.appendChild(doc.createTextNode(e.getBody().replaceAll("(\\r|\\n)", "")));
+		 originalTextElement.appendChild(doc.createTextNode(e.getBody()));
 		 bodyElement.appendChild(originalTextElement);
 
 		 translatedTextElement = doc.createElement("translatedText");
 		 translatedTextElement.appendChild(doc.createTextNode(" "));
-		 bodyElement.appendChild(originalTextElement);
+		 bodyElement.appendChild(translatedTextElement);
 
 	     }
 	}
