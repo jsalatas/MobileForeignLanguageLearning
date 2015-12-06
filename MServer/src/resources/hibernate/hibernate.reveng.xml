@@ -2,8 +2,15 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
+  <table-filter match-name="status" exclude="true" /> 
   <table-filter match-name=".*"/>
   <table name="email">
-      <column name="email_type"  type="gr.ictpro.mall.model.EmailType" /> 
+      <column name="email_type"  type="gr.ictpro.mall.model.EmailType" />
+      <column name="body" jdbc-type="LONGVARCHAR" />
+       <foreign-key constraint-name="english">
+            <column-ref local-column="id" foreign-column="english_email_id"/>
+           <many-to-one fetch="join" property="englishEmail"/>
+   		   <set property="translations"/>
+       </foreign-key> 
   </table>
 </hibernate-reverse-engineering>

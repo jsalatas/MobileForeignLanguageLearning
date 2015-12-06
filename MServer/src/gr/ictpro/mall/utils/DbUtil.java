@@ -8,9 +8,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -39,46 +41,22 @@ public class DbUtil {
 	String[] scriptFiles = initSQL.split(",");
 	try {
 	    Connection connection = dataSource.getConnection();
-	    Statement statement = connection.createStatement();
+	    ScriptRunner runner = new ScriptRunner(connection, false, true);
+	    runner.setLogWriter(null);
+	    runner.setErrorLogWriter(null);
+	    
 	    for (String scriptFile : scriptFiles) {
-		ArrayList<String> commands = getSQLCommands(scriptFile);
-		for (String command : commands) {
-		    statement.execute(command);
+		URL url;
+		if (scriptFile.startsWith("classpath:")) {
+		    url = this.getClass().getResource(scriptFile.replace("classpath:", ""));
+		} else {
+		    url = new URL(scriptFile);
 		}
+
+		runner.runScript(new BufferedReader(new FileReader(url.getFile())));		
 	    }
-	    ;
-	    statement.close();
-	    connection.close();
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
-    }
-
-    private ArrayList<String> getSQLCommands(String scriptFile) throws FileNotFoundException, IOException {
-	InputStream in = null;
-	ArrayList<String> res = new ArrayList<String>();
-	try {
-	    if (scriptFile.startsWith("classpath:")) {
-		in = this.getClass().getResourceAsStream(scriptFile.replace("classpath:", ""));
-	    } else {
-		in = new FileInputStream(new File(scriptFile));
-	    }
-	    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-	    String line;
-	    while ((line = reader.readLine()) != null) {
-		if (line.trim().length() > 0) {
-		    res.add(line);
-		}
-	    }
-	} finally {
-	    if (in != null) {
-		try {
-		    in.close();
-		} catch (IOException e) {
-		}
-	    }
-	}
-
-	return res;
     }
 }

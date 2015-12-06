@@ -22,7 +22,7 @@ public class Translation implements java.io.Serializable {
     private TranslationId id;
     private EnglishText englishText;
     private Language language;
-    private StudyClass studyClass;
+    private Classroom classroom;
     private String translatedText;
 
     public Translation() {
@@ -35,12 +35,12 @@ public class Translation implements java.io.Serializable {
 	this.translatedText = translatedText;
     }
 
-    public Translation(TranslationId id, EnglishText englishText, Language language, StudyClass studyClass,
+    public Translation(TranslationId id, EnglishText englishText, Language language, Classroom classroom,
 	    String translatedText) {
 	this.id = id;
 	this.englishText = englishText;
 	this.language = language;
-	this.studyClass = studyClass;
+	this.classroom = classroom;
 	this.translatedText = translatedText;
     }
 
@@ -78,12 +78,12 @@ public class Translation implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id")
-    public StudyClass getStudyClass() {
-	return this.studyClass;
+    public Classroom getClassroom() {
+	return this.classroom;
     }
 
-    public void setStudyClass(StudyClass studyClass) {
-	this.studyClass = studyClass;
+    public void setClassroom(Classroom classroom) {
+	this.classroom = classroom;
     }
 
     @Column(name = "translated_text", nullable = false, length = 65535, columnDefinition = "Text")

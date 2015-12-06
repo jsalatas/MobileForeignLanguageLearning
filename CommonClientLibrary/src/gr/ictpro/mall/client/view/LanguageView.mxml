@@ -122,9 +122,9 @@
 				<s:TextInput id="txtLocalName" width="100%" text="@{_parameters.language.localName}" textAlign="left"/>
 			</s:FormItem>
 		</s:Group>
-		<s:Button label="{Translation.getTranslation('Get All Messages')}" click="button1_clickHandler(event)" width="250" />
-		<s:Button label="{Translation.getTranslation('Get Untranslated Messages')}" click="button2_clickHandler(event)" width="250" />
-		<s:Button label="{Translation.getTranslation('Upload Translations')}" click="button3_clickHandler(event)" width="250" />
+		<s:Button id="btnGetAllTranslations" label="{Translation.getTranslation('Get All Messages')}" click="button1_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
+		<s:Button id="btnGetUntranslated" label="{Translation.getTranslation('Get Untranslated Messages')}" click="button2_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
+		<s:Button id="btnUploadTranslations" label="{Translation.getTranslation('Upload Translations')}" click="button3_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
 			
 	</s:Group>
 </s:TopBarGroup>

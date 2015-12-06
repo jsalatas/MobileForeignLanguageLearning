@@ -17,7 +17,7 @@
 	</bean>
 
 		<!-- Hibernate 3 SessionFactory Bean definition -->
-	<bean id="hibernate3AnnotatedSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
@@ -30,7 +30,7 @@
 			    <value>gr.ictpro.mall.model.UserNotification</value>  
 			    <value>gr.ictpro.mall.model.RoleNotification</value>  
 			    <value>gr.ictpro.mall.model.Profile</value>
-			    <value>gr.ictpro.mall.model.StudyClass</value>
+			    <value>gr.ictpro.mall.model.Classroom</value>
 			    <value>gr.ictpro.mall.model.EnglishText</value>
 			    <value>gr.ictpro.mall.model.Translation</value>
 			</list>
@@ -47,7 +47,7 @@
 
 	<!-- Use Hiberbate's transaction manager -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<!-- Enables the Spring MVC @Transactional programming model -->

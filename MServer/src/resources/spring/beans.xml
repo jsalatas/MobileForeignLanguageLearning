@@ -88,9 +88,9 @@
         </constructor-arg>
 	</bean>
 	
-	<bean id="studyClassDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+	<bean id="classroomDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
 		<constructor-arg>
-        	<value>gr.ictpro.mall.model.StudyClass</value>
+        	<value>gr.ictpro.mall.model.Classroom</value>
         </constructor-arg>
 		<constructor-arg>
 			<value>java.lang.Integer</value>
@@ -136,8 +136,8 @@
 		<bean id="englishTextService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="englishTextDAO"></property>
 	</bean>
-		<bean id="studyClassService" class="gr.ictpro.mall.service.GenericServiceImpl">
-		<property name="dao" ref="studyClassDAO"></property>
+		<bean id="ClassroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="classroomDAO"></property>
 	</bean>
 		
 

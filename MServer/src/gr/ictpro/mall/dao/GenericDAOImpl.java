@@ -36,7 +36,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#create(java.lang.Object)
      */
-    @Override
     public void create(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.persist(item);
@@ -45,7 +44,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#update(java.lang.Object)
      */
-    @Override
     public void update(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.update(item);
@@ -55,7 +53,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
      * @see gr.ictpro.mall.model.GenericDAO#delete(int)
      */
     @SuppressWarnings("unchecked")
-    @Override
     public void delete(ID id) {
 	Session session = this.sessionFactory.getCurrentSession();
 	T item = (T) session.get(getPersistentClass(), id);
@@ -68,7 +65,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
      * @see gr.ictpro.mall.model.GenericDAO#retrieveById(int)
      */
     @SuppressWarnings("unchecked")
-    @Override
     public T retrieveById(ID id) {
 	Session session = this.sessionFactory.getCurrentSession();
 	T item = (T) session.get(getPersistentClass(), id);
@@ -79,7 +75,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
      * @see gr.ictpro.mall.model.GenericDAO#listAll()
      */
     @SuppressWarnings("unchecked")
-    @Override
     public List<T> listAll() {
 	Session session = this.sessionFactory.getCurrentSession();
 	List<T> l = session.createQuery("from " + getPersistentClass().getSimpleName()).list();
@@ -90,7 +85,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
      * @see gr.ictpro.mall.model.GenericDAO#listByProperty(java.lang.String, java.lang.Object)
      */
     @SuppressWarnings("unchecked")
-    @Override
     public List<T> listByProperty(String propertyName, Object propertyValue) {
 	Session session = this.sessionFactory.getCurrentSession();
 	Criteria criteria = session.createCriteria(getPersistentClass());
@@ -104,7 +98,6 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
      * @see gr.ictpro.mall.dao.GenericDAO#listByProperties(java.util.Map)
      */
     @SuppressWarnings("unchecked")
-    @Override
     public List<T> listByProperties(Map<String, Object> properties) {
 	Session session = this.sessionFactory.getCurrentSession();
 	Criteria criteria = session.createCriteria(getPersistentClass());
@@ -120,10 +113,21 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
      * (non-Javadoc)
      * @see gr.ictpro.mall.dao.GenericDAO#execSQL(java.lang.String)
      */
-    @Override
     public void execSQL(String sql) {
 	Session session = this.sessionFactory.getCurrentSession();
 	Query q = session.createQuery(sql);
 	q.executeUpdate();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.dao.GenericDAO#listByCustomSQL(java.lang.String)
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> listByCustomSQL(String sql) {
+	Session session = this.sessionFactory.getCurrentSession();
+	Query q = session.createQuery(sql);
+	List<T> l = q.list();
+	return l;
     }
 }

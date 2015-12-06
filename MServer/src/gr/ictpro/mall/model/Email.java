@@ -1,14 +1,19 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 30, 2015 9:51:50 PM by Hibernate Tools 4.0.0
+// Generated Dec 5, 2015 4:26:02 PM by Hibernate Tools 4.0.0
 
-
+import static javax.persistence.GenerationType.IDENTITY;
+import gr.ictpro.mall.model.EmailType;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -22,9 +27,11 @@ public class Email implements java.io.Serializable {
 
     private int id;
     private Language language;
+    private Email englishEmail;
     private EmailType emailType;
     private String body;
     private String subject;
+    private Set<Email> translations = new HashSet<Email>(0);
 
     public Email() {
     }
@@ -37,7 +44,19 @@ public class Email implements java.io.Serializable {
 	this.subject = subject;
     }
 
+    public Email(int id, Language language, Email englishEmail, EmailType emailType, String body, String subject,
+	    Set<Email> translations) {
+	this.id = id;
+	this.language = language;
+	this.englishEmail = englishEmail;
+	this.emailType = emailType;
+	this.body = body;
+	this.subject = subject;
+	this.translations = translations;
+    }
+
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
 	return this.id;
@@ -55,6 +74,16 @@ public class Email implements java.io.Serializable {
 
     public void setLanguage(Language language) {
 	this.language = language;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "english_email_id")
+    public Email getEnglishEmail() {
+	return this.englishEmail;
+    }
+
+    public void setEnglishEmail(Email englishEmail) {
+	this.englishEmail = englishEmail;
     }
 
     @Column(name = "email_type", nullable = false, length = 45)
@@ -82,6 +111,15 @@ public class Email implements java.io.Serializable {
 
     public void setSubject(String subject) {
 	this.subject = subject;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "englishEmail")
+    public Set<Email> getTranslations() {
+	return this.translations;
+    }
+
+    public void setTranslations(Set<Email> translations) {
+	this.translations = translations;
     }
 
 }

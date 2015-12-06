@@ -21,7 +21,7 @@ public class Language implements java.io.Serializable {
     private String code;
     private String englishName;
     private String localName;
-    private Set<StudyClass> studyClasses = new HashSet<StudyClass>(0);
+    private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Translation> translations = new HashSet<Translation>(0);
     private Set<Email> emails = new HashSet<Email>(0);
 
@@ -34,12 +34,12 @@ public class Language implements java.io.Serializable {
 	this.localName = localName;
     }
 
-    public Language(String code, String englishName, String localName, Set<StudyClass> studyClasses,
+    public Language(String code, String englishName, String localName, Set<Classroom> classrooms,
 	    Set<Translation> translations, Set<Email> emails) {
 	this.code = code;
 	this.englishName = englishName;
 	this.localName = localName;
-	this.studyClasses = studyClasses;
+	this.classrooms = classrooms;
 	this.translations = translations;
 	this.emails = emails;
     }
@@ -73,12 +73,12 @@ public class Language implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "language")
-    public Set<StudyClass> getStudyClasses() {
-	return this.studyClasses;
+    public Set<Classroom> getClassrooms() {
+	return this.classrooms;
     }
 
-    public void setStudyClasses(Set<StudyClass> studyClasses) {
-	this.studyClasses = studyClasses;
+    public void setClassrooms(Set<Classroom> classrooms) {
+	this.classrooms = classrooms;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "language")

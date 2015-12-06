@@ -34,6 +34,8 @@ package gr.ictpro.mall.client.view
 			view.uploadTranslations.add(uploadTranslationsHandler);
 			if(view.parameters.language.code == 'en') {
 				view.disableDelete();
+				view.btnGetUntranslated.enabled = false;
+				view.btnUploadTranslations.enabled = false;
 			}
 			if(view.parameters.language.code=="") {
 				view.currentState = "new";
@@ -45,14 +47,33 @@ package gr.ictpro.mall.client.view
 		
 		private function allTranslationsHandler():void 
 		{
-			//TODO:
+			var arguments:Object = new Object();
+			arguments.language_code = view.parameters.language.code;
+			arguments.untranslated = false;
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslations", arguments, handleGetTranslations, handleGetTranslationsError);
 		}
 		
 		private function untranslatedHandler():void 
 		{
-			//TODO:
+			var arguments:Object = new Object();
+			arguments.language_code = view.parameters.language.code;
+			arguments.untranslated = true;
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslations", arguments, handleGetTranslations, handleGetTranslationsError);
 		}
 
+		private function handleGetTranslations(event:ResultEvent):void
+		{
+			var xml:String = String(event.result);
+			
+			trace(xml);
+		}
+		
+		private function handleGetTranslationsError(event:FaultEvent):void
+		{
+			UI.showError(view,Translation.getTranslation('Cannot Get Translations.'));
+		}
+		
+		
 		private function uploadTranslationsHandler():void 
 		{
 			//TODO:

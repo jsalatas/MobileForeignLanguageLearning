@@ -10,8 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -110,6 +108,15 @@ public class GenericServiceImpl<T, ID extends Serializable> implements GenericSe
     @Override
     public void execSQL(String sql) {
 	dao.execSQL(sql);
-	
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see gr.ictpro.mall.service.GenericService#listByCustomSQL(java.lang.String)
+     */
+    @Transactional
+    @Override
+    public List<T> listByCustomSQL(String sql) {
+	return dao.listByCustomSQL(sql);
     }
 }

@@ -20,4 +20,5 @@ public interface GenericService <T, ID extends Serializable> {
 	public List<T> listByProperty(String propertyName, Object propertyValue);
 	public List<T> listByProperties(Map<String, Object> properties);
 	public void execSQL(String sql);
+	public List<T> listByCustomSQL(String sql);
 }
