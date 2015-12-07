@@ -1,6 +1,8 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 1, 2015 6:39:42 PM by Hibernate Tools 4.0.0
+// Generated Dec 6, 2015 9:15:45 PM by Hibernate Tools 4.0.0
+
+import gr.ictpro.mall.model.Language;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,8 +30,9 @@ public class Classroom implements java.io.Serializable {
     private Language language;
     private String name;
     private String notes;
-    private Set<User> users = new HashSet<User>(0);
+    private Set<EmailTranslation> emailTranslations = new HashSet<EmailTranslation>(0);
     private Set<Translation> translations = new HashSet<Translation>(0);
+    private Set<User> users = new HashSet<User>(0);
 
     public Classroom() {
     }
@@ -38,12 +41,14 @@ public class Classroom implements java.io.Serializable {
 	this.name = name;
     }
 
-    public Classroom(Language language, String name, String notes, Set<User> users, Set<Translation> translations) {
+    public Classroom(Language language, String name, String notes, Set<EmailTranslation> emailTranslations,
+	    Set<Translation> translations, Set<User> users) {
 	this.language = language;
 	this.name = name;
 	this.notes = notes;
-	this.users = users;
+	this.emailTranslations = emailTranslations;
 	this.translations = translations;
+	this.users = users;
     }
 
     @Id
@@ -76,13 +81,31 @@ public class Classroom implements java.io.Serializable {
 	this.name = name;
     }
 
-    @Column(name = "notes", length = 65535, columnDefinition = "Text")
+    @Column(name = "notes", length = 65535)
     public String getNotes() {
 	return this.notes;
     }
 
     public void setNotes(String notes) {
 	this.notes = notes;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
+    public Set<EmailTranslation> getEmailTranslations() {
+	return this.emailTranslations;
+    }
+
+    public void setEmailTranslations(Set<EmailTranslation> emailTranslations) {
+	this.emailTranslations = emailTranslations;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
+    public Set<Translation> getTranslations() {
+	return this.translations;
+    }
+
+    public void setTranslations(Set<Translation> translations) {
+	this.translations = translations;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -95,15 +118,6 @@ public class Classroom implements java.io.Serializable {
 
     public void setUsers(Set<User> users) {
 	this.users = users;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
-    public Set<Translation> getTranslations() {
-	return this.translations;
-    }
-
-    public void setTranslations(Set<Translation> translations) {
-	this.translations = translations;
     }
 
 }

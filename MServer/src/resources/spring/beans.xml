@@ -44,7 +44,7 @@
         	<value>gr.ictpro.mall.model.EmailTranslation</value>
         </constructor-arg>
 		<constructor-arg>
-			<value>java.lang.Integer</value>
+			<value>gr.ictpro.mall.model.EmailTranslationId</value>
         </constructor-arg>
 	</bean>
 	<bean id="userNotificationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
@@ -146,7 +146,7 @@
 	<bean id="englishEmailService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="englishEmailDAO"></property>
 	</bean>
-	<bean id="ClassroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
+	<bean id="classroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="classroomDAO"></property>
 	</bean>
 		

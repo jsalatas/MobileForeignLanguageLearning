@@ -1,6 +1,6 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 30, 2015 9:51:50 PM by Hibernate Tools 4.0.0
+// Generated Dec 6, 2015 11:36:41 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -13,13 +13,15 @@ public class TranslationId implements java.io.Serializable {
 
     private int englishTextId;
     private String languageCode;
+    private int classroomId;
 
     public TranslationId() {
     }
 
-    public TranslationId(int englishTextId, String languageCode) {
+    public TranslationId(int englishTextId, String languageCode, int classroomId) {
 	this.englishTextId = englishTextId;
 	this.languageCode = languageCode;
+	this.classroomId = classroomId;
     }
 
     @Column(name = "english_text_id", nullable = false)
@@ -40,6 +42,15 @@ public class TranslationId implements java.io.Serializable {
 	this.languageCode = languageCode;
     }
 
+    @Column(name = "classroom_id", nullable = false)
+    public int getClassroomId() {
+	return this.classroomId;
+    }
+
+    public void setClassroomId(int classroomId) {
+	this.classroomId = classroomId;
+    }
+
     public boolean equals(Object other) {
 	if ((this == other))
 	    return true;
@@ -52,7 +63,8 @@ public class TranslationId implements java.io.Serializable {
 	return (this.getEnglishTextId() == castOther.getEnglishTextId())
 		&& ((this.getLanguageCode() == castOther.getLanguageCode()) || (this.getLanguageCode() != null
 			&& castOther.getLanguageCode() != null && this.getLanguageCode().equals(
-			castOther.getLanguageCode())));
+			castOther.getLanguageCode())))
+		&& (this.getClassroomId() == castOther.getClassroomId());
     }
 
     public int hashCode() {
@@ -60,6 +72,7 @@ public class TranslationId implements java.io.Serializable {
 
 	result = 37 * result + this.getEnglishTextId();
 	result = 37 * result + (getLanguageCode() == null ? 0 : this.getLanguageCode().hashCode());
+	result = 37 * result + this.getClassroomId();
 	return result;
     }
 

@@ -33,6 +33,7 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (6,'mail.smtp_auth','true');
 		INSERT IGNORE INTO `config` VALUES (7,'mail.smtp_starttls_enable','true');
 		INSERT IGNORE INTO `config` VALUES (8,'mail.debug','false');
+		INSERT IGNORE INTO `classroom` (`id`, `name`, `notes`) VALUES (0, 'Global', 'Global/Master Classroom');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');

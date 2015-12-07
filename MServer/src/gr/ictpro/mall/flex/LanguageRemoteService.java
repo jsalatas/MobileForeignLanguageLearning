@@ -4,10 +4,12 @@
 package gr.ictpro.mall.flex;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,13 +17,17 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.xml.sax.SAXException;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.model.EmailTranslation;
+import gr.ictpro.mall.model.EmailTranslationId;
+import gr.ictpro.mall.model.EmailType;
 import gr.ictpro.mall.model.EnglishEmail;
 import gr.ictpro.mall.model.EnglishText;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Translation;
+import gr.ictpro.mall.model.TranslationId;
 import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.utils.TranslationsXMLUtils;
 
@@ -32,6 +38,12 @@ import gr.ictpro.mall.utils.TranslationsXMLUtils;
 public class LanguageRemoteService {
     @Autowired(required = true)
     private GenericService<Language, String> languageService;
+
+    @Autowired(required = true)
+    private GenericService<Translation, TranslationId> translationService;
+
+    @Autowired(required = true)
+    private GenericService<EmailTranslation, EmailTranslationId> emailTranslationService;
 
     @Autowired(required = true)
     private GenericService<EnglishText, Integer> englishTextService; 
@@ -87,13 +99,13 @@ public class LanguageRemoteService {
 	
 	// Get emails
 	List<EmailTranslation> emails = new ArrayList<EmailTranslation>();
-	List<Integer> emailIds = new ArrayList<Integer>();
+	List<EmailType> emailIds = new ArrayList<EmailType>();
 	Hibernate.initialize(language.getEmailTranslations());
 	for(EmailTranslation e: language.getEmailTranslations()) {
 	    if(!untranslatedOnly) {
 		emails.add(e);
 	    }
-	    emailIds.add(e.getId());
+	    emailIds.add(e.getId().getEmailType());
 	    
 	}
 	
@@ -101,7 +113,7 @@ public class LanguageRemoteService {
 	if(emailIds.size() == 0) {
 	    englishEmails = englishEmailService.listAll();
 	} else {
-	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE id NOT IN ("+StringUtils.join(translationIds, ", ")+")");
+	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE EmailType NOT IN ('"+StringUtils.join(translationIds, "', '")+"')");
 	}
 	
 	String res;
@@ -116,8 +128,40 @@ public class LanguageRemoteService {
 	return res;
     }
 
+    @SuppressWarnings("unchecked")
     public void updateTranslations(String xml) {
-	System.err.println(xml);
+	try {
+	    Map<String, Object> parsedObjects = TranslationsXMLUtils.parseXML(xml);
+	    List<Translation> translations = (List<Translation>) parsedObjects.get("translations");
+	    List<EmailTranslation> emails = (List<EmailTranslation>) parsedObjects.get("emailTranslations");
+	    if(translations != null) {
+		for(Translation t:translations) {
+		    Translation existing = translationService.retrieveById(t.getId());
+		    if(existing == null) {
+			translationService.create(t);
+		    } else {
+			existing.setTranslatedText(t.getTranslatedText());
+			translationService.update(existing);
+		    }
+		}
+	    }
+	    if(emails != null) {
+		for(EmailTranslation e:emails) {
+		    EmailTranslation existing = emailTranslationService.retrieveById(e.getId());
+		    if(existing == null) {
+			emailTranslationService.create(e);
+		    } else {
+			existing.setBody(e.getBody());
+			existing.setSubject(e.getSubject());
+			emailTranslationService.update(existing);
+		    }
+		    
+		}
+	    }
+	    
+	} catch (ParserConfigurationException | SAXException | IOException e) {
+	    e.printStackTrace();
+	}
 	
     }
 }

@@ -1,13 +1,13 @@
 package gr.ictpro.mall.model;
 
-// Generated Dec 6, 2015 2:17:59 PM by Hibernate Tools 4.0.0
+// Generated Dec 6, 2015 11:21:27 PM by Hibernate Tools 4.0.0
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -21,55 +21,51 @@ import javax.persistence.UniqueConstraint;
 	, uniqueConstraints = @UniqueConstraint(columnNames = { "language_code", "email_type" }))
 public class EmailTranslation implements java.io.Serializable {
 
-    private Integer id;
-    private Language language;
+    private EmailTranslationId id;
+    private Classroom classroom;
     private EnglishEmail englishEmail;
+    private Language language;
     private String body;
-    private EmailType emailType;
     private String subject;
 
     public EmailTranslation() {
     }
 
-    public EmailTranslation(Language language, String body, EmailType emailType, String subject) {
-	this.language = language;
-	this.body = body;
-	this.emailType = emailType;
-	this.subject = subject;
-    }
-
-    public EmailTranslation(Language language, EnglishEmail englishEmail, String body, EmailType emailType,
-	    String subject) {
-	this.language = language;
+    public EmailTranslation(EmailTranslationId id, Classroom classroom, EnglishEmail englishEmail, Language language,
+	    String body, String subject) {
+	this.id = id;
+	this.classroom = classroom;
 	this.englishEmail = englishEmail;
+	this.language = language;
 	this.body = body;
-	this.emailType = emailType;
 	this.subject = subject;
     }
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
+    @EmbeddedId
+    @AttributeOverrides({
+	    @AttributeOverride(name = "languageCode", column = @Column(name = "language_code", nullable = false, length = 5)),
+	    @AttributeOverride(name = "classroomId", column = @Column(name = "classroom_id", nullable = false)),
+	    @AttributeOverride(name = "emailType", column = @Column(name = "email_type", nullable = false)) })
+    public EmailTranslationId getId() {
 	return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(EmailTranslationId id) {
 	this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "language_code", nullable = false)
-    public Language getLanguage() {
-	return this.language;
+    @JoinColumn(name = "classroom_id", nullable = false, insertable = false, updatable = false)
+    public Classroom getClassroom() {
+	return this.classroom;
     }
 
-    public void setLanguage(Language language) {
-	this.language = language;
+    public void setClassroom(Classroom classroom) {
+	this.classroom = classroom;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "english_email_id")
+    @JoinColumn(name = "email_type", nullable = false, insertable = false, updatable = false)
     public EnglishEmail getEnglishEmail() {
 	return this.englishEmail;
     }
@@ -78,22 +74,23 @@ public class EmailTranslation implements java.io.Serializable {
 	this.englishEmail = englishEmail;
     }
 
-    @Column(name = "body", nullable = false, length = 65535, columnDefinition="Text")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_code", nullable = false, insertable = false, updatable = false)
+    public Language getLanguage() {
+	return this.language;
+    }
+
+    public void setLanguage(Language language) {
+	this.language = language;
+    }
+
+    @Column(name = "body", nullable = false, length = 65535)
     public String getBody() {
 	return this.body;
     }
 
     public void setBody(String body) {
 	this.body = body;
-    }
-
-    @Column(name = "email_type", nullable = false)
-    public EmailType getEmailType() {
-	return this.emailType;
-    }
-
-    public void setEmailType(EmailType emailType) {
-	this.emailType = emailType;
     }
 
     @Column(name = "subject", nullable = false, length = 100)

@@ -1,6 +1,6 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 30, 2015 9:51:50 PM by Hibernate Tools 4.0.0
+// Generated Dec 6, 2015 11:36:41 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -20,40 +20,44 @@ import javax.persistence.Table;
 public class Translation implements java.io.Serializable {
 
     private TranslationId id;
+    private Classroom classroom;
     private EnglishText englishText;
     private Language language;
-    private Classroom classroom;
     private String translatedText;
 
     public Translation() {
     }
 
-    public Translation(TranslationId id, EnglishText englishText, Language language, String translatedText) {
-	this.id = id;
-	this.englishText = englishText;
-	this.language = language;
-	this.translatedText = translatedText;
-    }
-
-    public Translation(TranslationId id, EnglishText englishText, Language language, Classroom classroom,
+    public Translation(TranslationId id, Classroom classroom, EnglishText englishText, Language language,
 	    String translatedText) {
 	this.id = id;
+	this.classroom = classroom;
 	this.englishText = englishText;
 	this.language = language;
-	this.classroom = classroom;
 	this.translatedText = translatedText;
     }
 
     @EmbeddedId
     @AttributeOverrides({
 	    @AttributeOverride(name = "englishTextId", column = @Column(name = "english_text_id", nullable = false)),
-	    @AttributeOverride(name = "languageCode", column = @Column(name = "language_code", nullable = false, length = 5)) })
+	    @AttributeOverride(name = "languageCode", column = @Column(name = "language_code", nullable = false, length = 5)),
+	    @AttributeOverride(name = "classroomId", column = @Column(name = "classroom_id", nullable = false)) })
     public TranslationId getId() {
 	return this.id;
     }
 
     public void setId(TranslationId id) {
 	this.id = id;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "classroom_id", nullable = false, insertable = false, updatable = false)
+    public Classroom getClassroom() {
+	return this.classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+	this.classroom = classroom;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -76,17 +80,7 @@ public class Translation implements java.io.Serializable {
 	this.language = language;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "class_id")
-    public Classroom getClassroom() {
-	return this.classroom;
-    }
-
-    public void setClassroom(Classroom classroom) {
-	this.classroom = classroom;
-    }
-
-    @Column(name = "translated_text", nullable = false, length = 65535, columnDefinition = "Text")
+    @Column(name = "translated_text", nullable = false, length = 65535)
     public String getTranslatedText() {
 	return this.translatedText;
     }

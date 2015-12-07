@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import gr.ictpro.mall.model.EmailTranslation;
+import gr.ictpro.mall.model.EmailTranslationId;
 import gr.ictpro.mall.model.EmailType;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
@@ -33,7 +34,7 @@ public class MailService {
     private MailSender mailSender;
 
     @Autowired(required = true)
-    private GenericService<EmailTranslation, Integer> emailTranslationService;
+    private GenericService<EmailTranslation, EmailTranslationId> emailTranslationService;
 
     @Autowired(required = true)
     private GenericService<Role, Integer> roleService;
