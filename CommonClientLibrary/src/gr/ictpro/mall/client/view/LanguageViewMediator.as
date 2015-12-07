@@ -4,6 +4,9 @@ package gr.ictpro.mall.client.view
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import flash.net.FileFilter;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	
 	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
@@ -93,7 +96,31 @@ package gr.ictpro.mall.client.view
 		
 		private function uploadTranslationsHandler():void 
 		{
-			//TODO:
+			var xmlFile:File = new File();
+			xmlFile.browseForOpen(Translation.getTranslation("Select Transalations"), [new FileFilter(Translation.getTranslation("Translation XML Files"), "*.xml")]);
+			xmlFile.addEventListener(Event.SELECT, openTranslationsXML);
+		}
+
+		private function openTranslationsXML(event:Event):void {
+			var file:File = File(event.target);
+			var textLoader:URLLoader = new URLLoader();
+			textLoader.addEventListener(Event.COMPLETE, loadedTranslationsXML);
+			textLoader.load(new URLRequest(file.nativePath));
+		}
+		
+		private function loadedTranslationsXML(event:Event):void {
+			var xml:String = event.target.data;
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "updateTranslations", xml, handleUpdateTranslations, handleUpdateTranslationsError);
+		}
+		
+		private function handleUpdateTranslations(event:ResultEvent):void
+		{
+			backHandler();
+		}
+
+		private function handleUpdateTranslationsError(event:ResultEvent):void
+		{
+			UI.showError(view,Translation.getTranslation('Cannot Update Translations.'));
 		}
 		
 		private function deleteLanguageHandler(language:Object):void 
@@ -107,7 +134,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleDelete(event:ResultEvent):void
 		{
-			backHandler();	
+			backHandler();
 		}
 		
 		private function handleDeleteError(event:FaultEvent):void

@@ -44,7 +44,8 @@
 			<security:protect access="Admin, Teacher" method="updateLanguage" />
 			<security:protect access="Admin, Teacher" method="deleteLanguage" />
 			<security:protect access="Admin, Teacher" method="getTranslationsXML" />
-		</security:intercept-methods>
+			<security:protect access="Admin, Teacher" method="updateTranslations" />
+					</security:intercept-methods>
 	</bean>
 	
 	<bean id="notificationRemoteService" class="gr.ictpro.mall.flex.NotificationRemoteService">

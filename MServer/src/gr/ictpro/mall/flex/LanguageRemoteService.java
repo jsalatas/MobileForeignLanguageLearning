@@ -37,9 +37,6 @@ public class LanguageRemoteService {
     private GenericService<EnglishText, Integer> englishTextService; 
 
     @Autowired(required = true)
-    private GenericService<EmailTranslation, Integer> emailTranslationService; 
-
-    @Autowired(required = true)
     private GenericService<EnglishEmail, Integer> englishEmailService;
     
     public List<Language> getLanguages() {
@@ -118,5 +115,9 @@ public class LanguageRemoteService {
 
 	return res;
     }
-    
+
+    public void updateTranslations(String xml) {
+	System.err.println(xml);
+	
+    }
 }
