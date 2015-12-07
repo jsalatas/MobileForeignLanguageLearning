@@ -3,11 +3,12 @@
  */
 package gr.ictpro.mall.service;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import gr.ictpro.mall.model.Email;
+import gr.ictpro.mall.model.EmailTranslation;
 import gr.ictpro.mall.model.EmailType;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
@@ -32,7 +33,7 @@ public class MailService {
     private MailSender mailSender;
 
     @Autowired(required = true)
-    private GenericService<Email, Integer> emailService;
+    private GenericService<EmailTranslation, Integer> emailTranslationService;
 
     @Autowired(required = true)
     private GenericService<Role, Integer> roleService;
@@ -40,7 +41,7 @@ public class MailService {
     @Autowired(required = true)
     private UserService userService;
 
-    private void sendMail(String from, String to, Email email, User u)
+    private void sendMail(String from, String to, EmailTranslation email, User u)
     {
 	SimpleMailMessage message = new SimpleMailMessage();
 	message.setFrom(from);
@@ -63,7 +64,7 @@ public class MailService {
 	    Map<String, Object> properties = new HashMap<String, Object>();
 	    properties.put("language_code", "en");
 	    properties.put("email_type", EmailType.NEW_TEACHER);
-	    Email email = emailService.listByProperties(properties).get(0);
+	    EmailTranslation email = emailTranslationService.listByProperties(properties).get(0);
 	    sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
 	} else if (u.hasRole("Student")) {
@@ -77,7 +78,7 @@ public class MailService {
 	    Map<String, Object> properties = new HashMap<String, Object>();
 	    properties.put("language_code", context.getUserLang(u).getCode());
 	    properties.put("email_type", EmailType.DISABLED_ACCOUNT_CREATED);
-	    Email email = emailService.listByProperties(properties).get(0);
+	    EmailTranslation email = emailTranslationService.listByProperties(properties).get(0);
 	    sendMail(admin.getEmail(), u.getEmail(), email, u);
 	}
 
@@ -89,7 +90,7 @@ public class MailService {
 	Map<String, Object> properties = new HashMap<String, Object>();
 	properties.put("language_code", context.getUserLang(u).getCode());
 	properties.put("email_type", EmailType.ACCOUNT_ENABLED);
-	Email email = emailService.listByProperties(properties).get(0);
+	EmailTranslation email = emailTranslationService.listByProperties(properties).get(0);
 	sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
     }

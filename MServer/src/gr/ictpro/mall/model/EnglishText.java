@@ -1,14 +1,19 @@
 package gr.ictpro.mall.model;
 
-// Generated Nov 27, 2015 1:29:22 PM by Hibernate Tools 4.0.0
+// Generated Dec 6, 2015 2:46:01 PM by Hibernate Tools 4.0.0
+
+
+import gr.ictpro.mall.utils.hibernate.DatabaseGeneratedValues;
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,22 +24,24 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "english_text"
-	, uniqueConstraints = @UniqueConstraint(columnNames = "english_text"))
-public class EnglishText implements java.io.Serializable {
-
+	, uniqueConstraints = @UniqueConstraint(columnNames = "md5"))
+public class EnglishText implements java.io.Serializable, DatabaseGeneratedValues {
     private Integer id;
     private String englishText;
+    private String md5 = " "; // setting as empty string in order to pass the nullable=false validation
     private Set<Translation> translations = new HashSet<Translation>(0);
 
     public EnglishText() {
     }
 
-    public EnglishText(String englishText) {
+    public EnglishText(String englishText, String md5) {
 	this.englishText = englishText;
+	this.md5 = md5;
     }
 
-    public EnglishText(String englishText, Set<Translation> translations) {
+    public EnglishText(String englishText, String md5, Set<Translation> translations) {
 	this.englishText = englishText;
+	this.md5 = md5;
 	this.translations = translations;
     }
 
@@ -49,7 +56,7 @@ public class EnglishText implements java.io.Serializable {
 	this.id = id;
     }
 
-    @Column(name = "english_text", /*unique = true,*/ nullable = false, length = 65535, columnDefinition = "Text")
+    @Column(name = "english_text", nullable = false, length = 65535, columnDefinition="Text")
     public String getEnglishText() {
 	return this.englishText;
     }
@@ -58,6 +65,15 @@ public class EnglishText implements java.io.Serializable {
 	this.englishText = englishText;
     }
 
+    @Column(name = "md5", unique = true, nullable = false, length = 32)
+    public String getMd5() {
+	return this.md5;
+    }
+
+    public void setMd5(String md5) {
+	this.md5 = md5;
+    }
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "englishText")
     public Set<Translation> getTranslations() {
 	return this.translations;
@@ -66,5 +82,4 @@ public class EnglishText implements java.io.Serializable {
     public void setTranslations(Set<Translation> translations) {
 	this.translations = translations;
     }
-
 }

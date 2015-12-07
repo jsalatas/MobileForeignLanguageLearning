@@ -39,9 +39,9 @@
 			<value>java.lang.Integer</value>
         </constructor-arg>
 	</bean>
-	<bean id="emailDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+	<bean id="emailTranslationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
 		<constructor-arg>
-        	<value>gr.ictpro.mall.model.Email</value>
+        	<value>gr.ictpro.mall.model.EmailTranslation</value>
         </constructor-arg>
 		<constructor-arg>
 			<value>java.lang.Integer</value>
@@ -87,7 +87,14 @@
 			<value>java.lang.Integer</value>
         </constructor-arg>
 	</bean>
-	
+	<bean id="englishEmailDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.EnglishEmail</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
 	<bean id="classroomDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
 		<constructor-arg>
         	<value>gr.ictpro.mall.model.Classroom</value>
@@ -118,8 +125,8 @@
 	<bean id="configService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="configDAO"></property>
 	</bean>
-	<bean id="emailService" class="gr.ictpro.mall.service.GenericServiceImpl">
-		<property name="dao" ref="emailDAO"></property>
+	<bean id="emailTranslationService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="emailTranslationDAO"></property>
 	</bean>
 	<bean id="notificationService" class="gr.ictpro.mall.service.NotificationServiceImpl">
 		<property name="dao" ref="notificationDAO"></property>
@@ -133,10 +140,13 @@
 	<bean id="translationService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="translationDAO"></property>
 	</bean>
-		<bean id="englishTextService" class="gr.ictpro.mall.service.GenericServiceImpl">
+	<bean id="englishTextService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="englishTextDAO"></property>
 	</bean>
-		<bean id="ClassroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
+	<bean id="englishEmailService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="englishEmailDAO"></property>
+	</bean>
+	<bean id="ClassroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="classroomDAO"></property>
 	</bean>
 		

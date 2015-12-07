@@ -3,6 +3,8 @@
  */
 package gr.ictpro.mall.dao;
 
+import gr.ictpro.mall.utils.hibernate.DatabaseGeneratedValues;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,10 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     public void create(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.persist(item);
+	if(item instanceof DatabaseGeneratedValues) {
+	    session.flush(); // make sure session is flushed before reloading
+	    session.refresh(item);
+	}
     }
 
     /* (non-Javadoc)
@@ -47,6 +53,10 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     public void update(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.update(item);
+	if(item instanceof DatabaseGeneratedValues) {
+	    session.flush(); // make sure session is flushed before reloading
+	    session.refresh(item);
+	}
     }
 
     /* (non-Javadoc)

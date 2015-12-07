@@ -4,13 +4,10 @@
 <hibernate-reverse-engineering>
   <table-filter match-name="status" exclude="true" /> 
   <table-filter match-name=".*"/>
-  <table name="email">
+  <table name="email_translation">
       <column name="email_type"  type="gr.ictpro.mall.model.EmailType" />
-      <column name="body" jdbc-type="LONGVARCHAR" />
-       <foreign-key constraint-name="english">
-            <column-ref local-column="id" foreign-column="english_email_id"/>
-           <many-to-one fetch="join" property="englishEmail"/>
-   		   <set property="translations"/>
-       </foreign-key> 
+  </table>
+  <table name="english_email">
+      <column name="email_type"  type="gr.ictpro.mall.model.EmailType" />
   </table>
 </hibernate-reverse-engineering>

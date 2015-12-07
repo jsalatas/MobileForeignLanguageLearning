@@ -21,18 +21,19 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>gr.ictpro.mall.model.Email</value>
-			    <value>gr.ictpro.mall.model.Language</value>
+				<value>gr.ictpro.mall.model.EmailTranslation</value>
+				<value>gr.ictpro.mall.model.EnglishEmail</value>
+				<value>gr.ictpro.mall.model.Language</value>
 				<value>gr.ictpro.mall.model.Config</value>
 				<value>gr.ictpro.mall.model.User</value>
 				<value>gr.ictpro.mall.model.Role</value>
-			    <value>gr.ictpro.mall.model.Notification</value>  
-			    <value>gr.ictpro.mall.model.UserNotification</value>  
-			    <value>gr.ictpro.mall.model.RoleNotification</value>  
-			    <value>gr.ictpro.mall.model.Profile</value>
-			    <value>gr.ictpro.mall.model.Classroom</value>
-			    <value>gr.ictpro.mall.model.EnglishText</value>
-			    <value>gr.ictpro.mall.model.Translation</value>
+				<value>gr.ictpro.mall.model.Notification</value>
+				<value>gr.ictpro.mall.model.UserNotification</value>
+				<value>gr.ictpro.mall.model.RoleNotification</value>
+				<value>gr.ictpro.mall.model.Profile</value>
+				<value>gr.ictpro.mall.model.Classroom</value>
+				<value>gr.ictpro.mall.model.EnglishText</value>
+				<value>gr.ictpro.mall.model.Translation</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -12,11 +12,13 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import flex.messaging.io.amf.ASObject;
-import gr.ictpro.mall.model.Email;
+import gr.ictpro.mall.model.EmailTranslation;
+import gr.ictpro.mall.model.EnglishEmail;
 import gr.ictpro.mall.model.EnglishText;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Translation;
@@ -35,8 +37,11 @@ public class LanguageRemoteService {
     private GenericService<EnglishText, Integer> englishTextService; 
 
     @Autowired(required = true)
-    private GenericService<Email, Integer> emailService; 
+    private GenericService<EmailTranslation, Integer> emailTranslationService; 
 
+    @Autowired(required = true)
+    private GenericService<EnglishEmail, Integer> englishEmailService;
+    
     public List<Language> getLanguages() {
 	return languageService.listAll();
     }
@@ -64,7 +69,7 @@ public class LanguageRemoteService {
     public String getTranslationsXML(ASObject translObj) throws TransformerException {
 	String languageCode = (String) translObj.get("language_code");
 	Boolean untranslatedOnly = (Boolean) translObj.get("untranslated");
-
+	
 	// Get translations
 	List<Translation> translations = new ArrayList<Translation>();
 	List<Integer> translationIds = new ArrayList<Integer>();
@@ -84,10 +89,10 @@ public class LanguageRemoteService {
 	}
 	
 	// Get emails
-	List<Email> emails = new ArrayList<Email>();
+	List<EmailTranslation> emails = new ArrayList<EmailTranslation>();
 	List<Integer> emailIds = new ArrayList<Integer>();
-	Hibernate.initialize(language.getEmails());
-	for(Email e: language.getEmails()) {
+	Hibernate.initialize(language.getEmailTranslations());
+	for(EmailTranslation e: language.getEmailTranslations()) {
 	    if(!untranslatedOnly) {
 		emails.add(e);
 	    }
@@ -95,11 +100,11 @@ public class LanguageRemoteService {
 	    
 	}
 	
-	List<Email> englishEmails;
+	List<EnglishEmail> englishEmails;
 	if(emailIds.size() == 0) {
-	    englishEmails = emailService.listByProperty("language.code", "en");
+	    englishEmails = englishEmailService.listAll();
 	} else {
-	    englishEmails = emailService.listByCustomSQL("FROM Email WHERE language.code = 'en' AND id NOT IN ("+StringUtils.join(translationIds, ", ")+")");
+	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE id NOT IN ("+StringUtils.join(translationIds, ", ")+")");
 	}
 	
 	String res;
@@ -110,7 +115,7 @@ public class LanguageRemoteService {
 	    res = TranslationsXMLUtils.getXML(language, null, translations, emails, englishTexts, englishEmails);
 	}
 	
-	System.err.println(res);
+
 	return res;
     }
     

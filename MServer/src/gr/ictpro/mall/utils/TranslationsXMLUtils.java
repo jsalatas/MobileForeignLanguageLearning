@@ -1,7 +1,9 @@
 package gr.ictpro.mall.utils;
 
+
 import gr.ictpro.mall.model.Classroom;
-import gr.ictpro.mall.model.Email;
+import gr.ictpro.mall.model.EmailTranslation;
+import gr.ictpro.mall.model.EnglishEmail;
 import gr.ictpro.mall.model.EnglishText;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Translation;
@@ -24,11 +26,11 @@ import org.w3c.dom.Element;
 
 public class TranslationsXMLUtils {
 
-    public static String getXML(Language language, Classroom classroom, List<EnglishText> englishTexts, List<Email> englishEmails) throws TransformerException {
+    public static String getXML(Language language, Classroom classroom, List<EnglishText> englishTexts, List<EnglishEmail> englishEmails) throws TransformerException {
 	return getXML(language, classroom, null, null, englishTexts, englishEmails);
     }
 
-    public static String getXML(Language language, Classroom classroom, List<Translation> translations, List<Email> emails, List<EnglishText> englishTexts, List<Email> englishEmails) throws TransformerException {
+    public static String getXML(Language language, Classroom classroom, List<Translation> translations, List<EmailTranslation> emails, List<EnglishText> englishTexts, List<EnglishEmail> englishEmails) throws TransformerException {
 	Document doc = createXMLDocument();
 
 	Element rootElement = doc.createElement("root");
@@ -113,9 +115,9 @@ public class TranslationsXMLUtils {
 	     }
 	}
     }
-    private static void addEmailTranslations(Document doc, Element emailsElement, List<Email> emails, List<Email> englishEmails) {
+    private static void addEmailTranslations(Document doc, Element emailsElement, List<EmailTranslation> emails, List<EnglishEmail> englishEmails) {
 	if(emails != null) {
-	     for(Email e: emails) {
+	     for(EmailTranslation e: emails) {
 		 Element emailElement = doc.createElement("email");
 		 emailsElement.appendChild(emailElement);
 		 
@@ -150,7 +152,7 @@ public class TranslationsXMLUtils {
 	     }
 	}
 	if(englishEmails != null) {
-	     for(Email e: englishEmails) {
+	     for(EnglishEmail e: englishEmails) {
 		 Element emailElement = doc.createElement("email");
 		 emailsElement.appendChild(emailElement);
 		 
