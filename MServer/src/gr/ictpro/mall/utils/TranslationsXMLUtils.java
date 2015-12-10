@@ -271,20 +271,20 @@ public class TranslationsXMLUtils {
 
 		 Element translatedTextElement = doc.createElement("translatedText");
 		 translatedTextElement.appendChild(doc.createTextNode(e.getSubject()));
-		 subjectElement.appendChild(originalTextElement);
+		 subjectElement.appendChild(translatedTextElement);
 		 
 		 
 		 // body tag
 		 Element bodyElement = doc.createElement("body");
-		 emailElement.appendChild(subjectElement);
+		 emailElement.appendChild(bodyElement);
 		 
 		 originalTextElement = doc.createElement("originalText");
 		 originalTextElement.appendChild(doc.createTextNode(e.getEnglishEmail().getBody()));
-		 subjectElement.appendChild(originalTextElement);
+		 bodyElement.appendChild(originalTextElement);
 
 		 translatedTextElement = doc.createElement("translatedText");
 		 translatedTextElement.appendChild(doc.createTextNode(e.getBody()));
-		 subjectElement.appendChild(originalTextElement);
+		 bodyElement.appendChild(translatedTextElement);
 	     }
 	}
 	if(englishEmails != null) {

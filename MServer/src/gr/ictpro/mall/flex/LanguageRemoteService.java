@@ -99,13 +99,13 @@ public class LanguageRemoteService {
 	
 	// Get emails
 	List<EmailTranslation> emails = new ArrayList<EmailTranslation>();
-	List<EmailType> emailIds = new ArrayList<EmailType>();
+	List<Integer> emailIds = new ArrayList<Integer>();
 	Hibernate.initialize(language.getEmailTranslations());
 	for(EmailTranslation e: language.getEmailTranslations()) {
 	    if(!untranslatedOnly) {
 		emails.add(e);
 	    }
-	    emailIds.add(e.getId().getEmailType());
+	    emailIds.add(e.getId().getEmailType().ordinal());
 	    
 	}
 	
@@ -113,7 +113,7 @@ public class LanguageRemoteService {
 	if(emailIds.size() == 0) {
 	    englishEmails = englishEmailService.listAll();
 	} else {
-	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE EmailType NOT IN ('"+StringUtils.join(translationIds, "', '")+"')");
+	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE id.emailType NOT IN ("+StringUtils.join(emailIds, ", ")+")");
 	}
 	
 	String res;
