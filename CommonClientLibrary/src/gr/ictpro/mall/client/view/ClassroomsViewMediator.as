@@ -13,7 +13,7 @@ package gr.ictpro.mall.client.view
 	public class ClassroomsViewMediator extends Mediator
 	{
 		[Inject]
-		public var view:ClassroonsView;
+		public var view:ClassroomsView;
 
 		[Inject]
 		public var channel:Channel;
