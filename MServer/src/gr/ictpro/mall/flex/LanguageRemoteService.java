@@ -14,15 +14,12 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.model.EmailTranslation;
 import gr.ictpro.mall.model.EmailTranslationId;
-import gr.ictpro.mall.model.EmailType;
 import gr.ictpro.mall.model.EnglishEmail;
 import gr.ictpro.mall.model.EnglishText;
 import gr.ictpro.mall.model.Language;
@@ -113,7 +110,7 @@ public class LanguageRemoteService {
 	if(emailIds.size() == 0) {
 	    englishEmails = englishEmailService.listAll();
 	} else {
-	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE id.emailType NOT IN ("+StringUtils.join(emailIds, ", ")+")");
+	    englishEmails = englishEmailService.listByCustomSQL("FROM EnglishEmail WHERE emailType NOT IN ("+StringUtils.join(emailIds, ", ")+")");
 	}
 	
 	String res;

@@ -62,10 +62,8 @@ public class MailService {
 
 	if (u.hasRole("Teacher")) {
 	    // Teacher registration. Inform admin
-	    Map<String, Object> properties = new HashMap<String, Object>();
-	    properties.put("language_code", "en");
-	    properties.put("email_type", EmailType.NEW_TEACHER);
-	    EmailTranslation email = emailTranslationService.listByProperties(properties).get(0);
+	    EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_TEACHER);
+	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	    sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
 	} else if (u.hasRole("Student")) {
@@ -76,10 +74,8 @@ public class MailService {
 
 	if (!u.isEnabled()) {
 	    // inform user that his account is created but is not yet enabled
-	    Map<String, Object> properties = new HashMap<String, Object>();
-	    properties.put("language_code", context.getUserLang(u).getCode());
-	    properties.put("email_type", EmailType.DISABLED_ACCOUNT_CREATED);
-	    EmailTranslation email = emailTranslationService.listByProperties(properties).get(0);
+	    EmailTranslationId emailId = new EmailTranslationId(context.getUserLang(u).getCode(), 0, EmailType.DISABLED_ACCOUNT_CREATED);
+	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	    sendMail(admin.getEmail(), u.getEmail(), email, u);
 	}
 
@@ -88,10 +84,8 @@ public class MailService {
     public void accountEnabledMail(User u) {
 	User admin = userService.getUserByRole("Admin").get(0);
 
-	Map<String, Object> properties = new HashMap<String, Object>();
-	properties.put("language_code", context.getUserLang(u).getCode());
-	properties.put("email_type", EmailType.ACCOUNT_ENABLED);
-	EmailTranslation email = emailTranslationService.listByProperties(properties).get(0);
+	EmailTranslationId emailId = new EmailTranslationId(context.getUserLang(u).getCode(), 0, EmailType.ACCOUNT_ENABLED);
+	EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
     }
