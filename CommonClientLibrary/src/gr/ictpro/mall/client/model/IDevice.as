@@ -15,5 +15,6 @@ package gr.ictpro.mall.client.model
 		function get dropDownSkin():Class;
 		function get colorDropDownSkin():Class;
 		function get checkBoxSkin():Class;
+		function get textAreaSkin():Class;
 	}
 }

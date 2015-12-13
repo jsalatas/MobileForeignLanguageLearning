@@ -1,18 +1,27 @@
 package gr.ictpro.mall.client.components
 {
-	import spark.components.RichEditableText;
+	import mx.core.InteractionMode;
+	
+	import spark.components.TextArea;
 	
 	import gr.ictpro.mall.client.model.Device;
 	
-	public class RichEditableText extends spark.components.RichEditableText
+	public class TextArea extends spark.components.TextArea
 	{
-		public function RichEditableText()
+		public function TextArea()
 		{
 			super();
-			super.setStyle("color", Device.getDefaultColor());
+			super.setStyle("skinClass", Device.textAreaSkin);
 			super.setStyle("fontSize", Device.getDefaultScaledFontSize());
-		}
+			super.setStyle("focusColor", Device.getDefaultColor(0.2));
+			
+			if(Device.isAndroid) {
+				super.setStyle("interactionMode", InteractionMode.TOUCH);
+			} else {
+				super.setStyle("interactionMode", InteractionMode.MOUSE);
+			}
 
+		}
 		override public function setStyle(styleProp:String, newValue:*):void
 		{
 			if(styleProp == "fontSize") {
@@ -20,6 +29,7 @@ package gr.ictpro.mall.client.components
 			}
 			super.setStyle(styleProp, newValue);
 		}
+		
 		[Bindable(event="HeightScaled")]
 		override public function set height(value:Number):void
 		{

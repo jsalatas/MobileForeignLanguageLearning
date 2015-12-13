@@ -11,6 +11,7 @@ package gr.ictpro.mall.client.desktop
 	import gr.ictpro.mall.client.desktop.skins.ListSkin;
 	import gr.ictpro.mall.client.desktop.skins.SkinnableContainerSkin;
 	import gr.ictpro.mall.client.desktop.skins.SkinnablePopUpContainerSkin;
+	import gr.ictpro.mall.client.desktop.skins.TextAreaSkin;
 	import gr.ictpro.mall.client.desktop.skins.TextInputSkin;
 	import gr.ictpro.mall.client.desktop.skins.VScrollBarSkin;
 	import gr.ictpro.mall.client.model.IDevice;
@@ -84,6 +85,11 @@ package gr.ictpro.mall.client.desktop
 		public function get checkBoxSkin():Class
 		{
 			return CheckBoxSkin;
+		}
+
+		public function get textAreaSkin():Class
+		{
+			return TextAreaSkin;
 		}
 	}
 }

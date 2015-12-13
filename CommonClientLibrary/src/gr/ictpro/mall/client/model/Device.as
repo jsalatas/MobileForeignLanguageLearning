@@ -5,15 +5,16 @@ package gr.ictpro.mall.client.model
 	
 	import mx.core.FlexGlobals;
 	
-	import spark.skins.SparkSkin;
 	import spark.skins.spark.ButtonSkin;
+	import spark.skins.spark.CheckBoxSkin;
+	import spark.skins.spark.DropDownListSkin;
 	import spark.skins.spark.FormItemSkin;
 	import spark.skins.spark.HScrollBarSkin;
 	import spark.skins.spark.ImageSkin;
 	import spark.skins.spark.ListSkin;
-	import spark.skins.spark.ScrollerSkin;
 	import spark.skins.spark.SkinnableContainerSkin;
 	import spark.skins.spark.SkinnablePopUpContainerSkin;
+	import spark.skins.spark.TextAreaSkin;
 	import spark.skins.spark.TextInputSkin;
 	import spark.skins.spark.VScrollBarSkin;
 
@@ -182,7 +183,7 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.dropDownSkin;
 			}
-			return ButtonSkin;
+			return DropDownListSkin;
 		}
 
 		public static function get colorDropDownSkin():Class
@@ -190,7 +191,7 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.colorDropDownSkin;
 			}
-			return ButtonSkin;
+			return DropDownListSkin;
 		}
 		
 		public static function get checkBoxSkin():Class
@@ -198,7 +199,15 @@ package gr.ictpro.mall.client.model
 			if(_device != null) {
 				return _device.checkBoxSkin;
 			}
-			return ButtonSkin;
+			return CheckBoxSkin;
+		}
+
+		public static function get textAreaSkin():Class
+		{
+			if(_device != null) {
+				return _device.textAreaSkin;
+			}
+			return TextAreaSkin;
 		}
 
 	}
