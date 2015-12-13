@@ -8,6 +8,7 @@
 					  implements="mx.managers.IFocusManagerComponent"
 					  initialize="initializeHandler(event)" 	
 					  focusIn="group1_focusInHandler(event)"
+					  click="txt_clickHandler(event)"
 					  >
 
 	<fx:Metadata>
@@ -36,20 +37,48 @@
 			
 			public function set selected(selected:ObjectProxy):void
 			{
-				this._selected = selected;
+				this._selected = new ObjectProxy(selected);
 			}
 			
 			[Bindable]
-			public var dataList:ArrayList;
+			private var _dataList:ArrayList;
 			
+			private var _maxWidth:int;
+			
+//			[Bindable]
+//			private var controlHeight:int=0;
+//			
 			[Bindable]
-			private var controlHeight:int=0;
+			public function set dataList(dataList:ArrayList):void {
+				this._dataList = dataList;
+				
+				var format:TextFormat = new TextFormat();
+				var popUpMenu:PopUpMenu = new PopUpMenu();
+				format.font = popUpMenu.getStyle("font-family"); // since we're working with a css file for the styling
+				format.size = popUpMenu.getStyle("font-size");
+				var textField:TextField = new TextField();
+				textField.defaultTextFormat = format;
+				
+				_maxWidth = 0;
+				for each(var o:Object in dataList) {
+					textField.text = o.text;
+					if(_maxWidth < textField.textWidth) {
+						_maxWidth = textField.textWidth;
+					}
+				}
+				
+			}
+			
+			public function get dataList():ArrayList {
+				return this._dataList;
+			}
 			
 			private function popUpAction(selected:ObjectProxy):void
 			{
 				this.selected = selected;
 				dispatchEvent(new Event(Event.CHANGE));
 			}
+			
 			protected function txt_clickHandler(event:MouseEvent):void
 			{
 				var popUpMenu:PopUpMenu = new PopUpMenu();
@@ -61,7 +90,7 @@
 
 				popUpMenu.x = point.x*curAppDPI/curDensity;
 				popUpMenu.y = point.y*curAppDPI/curDensity;
-				popUpMenu.width = txt.definedWidth;
+				popUpMenu.width = _maxWidth < txt.definedWidth || _maxWidth > txt.definedWidth * 1.5 ? txt.definedWidth : _maxWidth;
 				popUpMenu.percentHeight=100;
 				popUpMenu.itemSelected.add(popUpAction);
 				popUpMenu.open(this, false);
@@ -74,7 +103,7 @@
 				if(selected == null) {
 					txt.label=Translation.getTranslation("Select Item");
 				}
-				controlHeight=height;
+//				controlHeight=height;
 			}
 
 			protected function addedToStageHandler(event:Event):void
@@ -94,6 +123,6 @@
 	</fx:Script>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected.text}" click="txt_clickHandler(event)" />
+	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected.text}"  />
 	
 </s:Group>
