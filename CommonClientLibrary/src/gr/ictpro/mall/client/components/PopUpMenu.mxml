@@ -10,16 +10,17 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.components.renderers.ListRenderer;
-			
 			import mx.collections.ArrayList;
 			import mx.core.mx_internal;
 			import mx.events.FlexEvent;
 			import mx.events.FlexMouseEvent;
 			import mx.events.ResizeEvent;
 			import mx.managers.IFocusManagerComponent;
+			import mx.utils.ObjectProxy;
 			
 			import spark.events.IndexChangeEvent;
+			
+			import gr.ictpro.mall.client.components.renderers.ListRenderer;
 			
 			
 			[Bindable]
@@ -42,7 +43,7 @@
 			
 			protected function list_changeHandler(event:IndexChangeEvent):void
 			{
-				itemSelected.dispatch(menuList.getItemAt(event.newIndex));
+				itemSelected.dispatch(new ObjectProxy(menuList.getItemAt(event.newIndex)));
 				this.close();
 			}
 			

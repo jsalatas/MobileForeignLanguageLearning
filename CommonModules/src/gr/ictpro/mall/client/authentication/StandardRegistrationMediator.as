@@ -42,7 +42,7 @@ package gr.ictpro.mall.client.authentication
 			getRoles();
 			
 			//debug
-			register.dispatch(new RegistrationDetails("standardRegistrationProvider","teacher1", "One Teacher", "12345", "jsalatas+teacher1@gmail.com", 2));
+			//register.dispatch(new RegistrationDetails("standardRegistrationProvider","teacher1", "One Teacher", "12345", "jsalatas+teacher1@gmail.com", 2));
 		}		
 
 		private function getRoles():void

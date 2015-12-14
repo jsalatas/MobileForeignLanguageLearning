@@ -1,6 +1,7 @@
 package gr.ictpro.mall.client.view
 {
 	import mx.core.IVisualElement;
+	import mx.utils.ObjectProxy;
 	
 	import spark.events.PopUpEvent;
 	
@@ -40,7 +41,7 @@ package gr.ictpro.mall.client.view
 			initialize.dispatch();
 		}
 		
-		private function handleAddView(module:IVisualElement, parameters:Object=null, backView:IVisualElement = null):void
+		private function handleAddView(module:IVisualElement, parameters:ObjectProxy=null, backView:IVisualElement = null):void
 		{
 			loadedModules.unloadModule();
 			if(module is ParameterizedView) {

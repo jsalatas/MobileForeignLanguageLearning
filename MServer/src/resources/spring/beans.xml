@@ -103,7 +103,14 @@
 			<value>java.lang.Integer</value>
         </constructor-arg>
 	</bean>
-	
+	<bean id="classroomgroupDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Classroomgroup</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
 	<bean id="translationDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
 		<constructor-arg>
         	<value>gr.ictpro.mall.model.Translation</value>
@@ -112,10 +119,6 @@
 			<value>gr.ictpro.mall.model.TranslationId</value>
         </constructor-arg>
 	</bean>
-		
-	
-	
-	
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="dao" ref="userDAO"></property>
 	</bean>
@@ -146,9 +149,10 @@
 	<bean id="englishEmailService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="englishEmailDAO"></property>
 	</bean>
-	<bean id="classroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
+	<bean id="classroomService" class="gr.ictpro.mall.service.ClassroomServiceImpl">
 		<property name="dao" ref="classroomDAO"></property>
 	</bean>
-		
-
+	<bean id="classroomgroupService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="classroomgroupDAO"></property>
+	</bean>
 </beans>

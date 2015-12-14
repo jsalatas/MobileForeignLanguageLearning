@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import flex.messaging.io.amf.ASObject;
+import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.RoleNotification;
 import gr.ictpro.mall.model.User;
@@ -29,14 +30,17 @@ public class NotificationRemoteService {
     @Autowired(required=true)
     private NotificationService notificationService;
     
+    @Autowired(required = true)
+    private UserContext userContext;
+
     public List<Notification> getNotifications() {
-	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	User currentUser = userContext.getCurrentUser();
 	List<Notification> res =notificationService.retrieveByUser(currentUser);
 	return res;
     }
     
     public void handleNotification(ASObject obj) {
-	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	User currentUser = userContext.getCurrentUser();
 	int id = (int) obj.get("id");
 	Notification n = notificationService.retrieveById(id);
 	for(UserNotification un: n.getUserNotifications()) {

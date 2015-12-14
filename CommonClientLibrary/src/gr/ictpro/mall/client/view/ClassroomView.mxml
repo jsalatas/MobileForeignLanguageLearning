@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
+			   implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView" 
+			   xmlns:signals="org.osflash.signals.*"
+			   deleteButton="true"
+			   title="{_parameters.language.englishName + ' - ' + _parameters.language.localName}"
+			   okClicked="topbargroup1_okClickedHandler(event)"
+			   backClicked="topbargroup1_backClickedHandler(event)"
+			   cancelClicked="topbargroup1_cancelClickedHandler(event)"
+			   deleteClicked="topbargroup1_deleteClickedHandler(event)" xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+			<signals:Signal id="cancel"/>
+			<signals:Signal id="back"/>
+			<signals:Signal id="ok"/>
+			<signals:Signal id="deleteClassroom"/>
+	</fx:Declarations>
+	<s:states>
+		<mx:State name="new" />
+		<mx:State name="edit" />
+	</s:states>
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.core.IVisualElement;
+			import mx.core.IVisualElementContainer;
+			import mx.events.FlexEvent;
+			import mx.utils.ObjectProxy;
+			
+			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.model.Translation;
+			
+			private var _masterView:IVisualElement;
+			
+			[Bindable]
+			private var _parameters:ObjectProxy;
+
+			[Bindable]
+			private var _teachers:ArrayList;
+			
+			[Bindable]
+			public var _languages:ArrayList;
+			
+			
+			public function set teachers(teachers:ArrayList):void
+			{
+				this._teachers = teachers;
+				selectTeacher();
+			}
+			
+			public function set languages(languages:ArrayList):void
+			{
+				this._languages = languages;
+				selectLanguage();
+			}
+			
+			public function dispose():void
+			{
+				if(parent && parent.contains(this)) {
+					IVisualElementContainer(parent).removeElement(this);
+				}
+			}
+			
+			public function set masterView(masterView:IVisualElement):void 
+			{
+				this._masterView = masterView;
+			}
+			
+			public function get masterView():IVisualElement
+			{
+				return this._masterView;
+			}
+			
+			public function set parameters(parameters:ObjectProxy):void
+			{
+				this._parameters = parameters;
+				selectTeacher();
+				selectLanguage();
+			}
+			
+			public function get parameters():ObjectProxy
+			{
+				return this._parameters;
+			}
+			
+			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
+			{
+				back.dispatch();
+			}
+			
+			protected function topbargroup1_cancelClickedHandler(event:MouseEvent):void
+			{
+				cancel.dispatch();
+			}
+			
+			protected function topbargroup1_deleteClickedHandler(event:MouseEvent):void
+			{
+				deleteClassroom.dispatch(_parameters);
+				
+			}
+			
+			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
+			{
+				ok.dispatch();
+			}
+			
+			protected function languagePopup_initializeHandler(event:FlexEvent):void
+			{
+				selectLanguage();
+				
+			}
+			
+			protected function teacherPopup_initializeHandler(event:FlexEvent):void
+			{
+				selectTeacher();
+			}
+			
+			// set initial selected language
+			private function selectLanguage():void {
+				if(_languages != null && _parameters != null && _parameters.classroom != null && _parameters.classroom.hasOwnProperty("language") && languagePopup != null) {
+					for (var i:int=0;i<_languages.length; i++) {
+						var language:ObjectProxy = ObjectProxy(_languages.getItemAt(i));
+						if(language.code == _parameters.classroom.language.code) {
+							languagePopup.selected = language;
+							break;
+						}
+					}
+				}
+			}
+			
+			// set initial selected teacher
+			private function selectTeacher():void {
+				if(currentState == 'edit' && _teachers != null && _parameters != null && _parameters.classroom != null && _parameters.classroom.hasOwnProperty("users") && teacherPopup != null) {
+					var found:Boolean = false;
+					for (var i:int=0;i<_teachers.length; i++) {
+						var teacher:ObjectProxy = ObjectProxy(_teachers.getItemAt(i));
+						for(var j:int=0;j<_parameters.classroom.users.length; j++) {
+							if(teacher.id == _parameters.classroom.users.getItemAt(j).id) {
+								teacherPopup.selected = teacher;
+								found = true;
+								break;
+							}
+						}
+						if(found) {
+							break;
+						}
+					}
+				}
+				
+			}
+		]]>
+	</fx:Script>
+	<s:Group width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0">
+		<s:layout>
+			<s:VerticalLayout gap="5" horizontalAlign="center" />
+		</s:layout>	
+		<s:Group>
+			<s:layout>
+				<s:FormLayout/>
+			</s:layout>
+			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
+				<s:TextInput id="txtName" width="100%" text="@{_parameters.classroom.name}" textAlign="left"/>
+			</s:FormItem>
+			<s:FormItem width="100%" label="{Translation.getTranslation('Notes')}">
+				<s:TextArea id="txtNotes" width="100%" text="@{_parameters.classroom.notes}" textAlign="left" height="100" maxHeight="100"/>
+			</s:FormItem>
+			<s:FormItem width="100%" label="{Translation.getTranslation('Language')}">
+				<s:PopUpList id="languagePopup" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />
+			</s:FormItem>
+			<s:FormItem id="teacher" width="100%" label="{Translation.getTranslation('Teacher')}">
+				<s:PopUpList id="teacherPopup" dataList="{_teachers}" textAlign="left" initialize="teacherPopup_initializeHandler(event)" />
+			</s:FormItem>
+		</s:Group>
+	</s:Group>
+</s:TopBarGroup>

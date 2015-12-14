@@ -24,6 +24,7 @@
 			import mx.collections.ArrayList;
 			import mx.core.IVisualElement;
 			import mx.core.IVisualElementContainer;
+			import mx.utils.ObjectProxy;
 			
 			import gr.ictpro.mall.client.model.Device;
 			import gr.ictpro.mall.client.model.Translation;
@@ -34,7 +35,7 @@
 			
 			private var _masterView:IVisualElement;
 			
-			private var _parameters:Object;
+			private var _parameters:ObjectProxy;
 
 			[Bindable]
 			private var colorList:ArrayList = new ArrayList([
@@ -112,11 +113,11 @@
 				return this._masterView;
 			}
  
-			public function set parameters(parametrs:Object):void
+			public function set parameters(parameters:ObjectProxy):void
 			{
-				this._parameters = parametrs;
+				this._parameters = parameters;
 			}
-			public function get parameters():Object
+			public function get parameters():ObjectProxy
 			{
 				return this._parameters;
 			}
@@ -152,7 +153,7 @@
 			<s:FormItem width="100%" label="{Translation.getTranslation('Enabled')}"
 						visible.edit="true"
 						visible.profile="false">
-				<s:CheckBox id="chkEnabled"/>
+				<s:CheckBox id="chkEnabled" selected="{user.enabled}"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}">
 				<s:TextInput id="txtPassword" width="100%" autoCapitalize="word"

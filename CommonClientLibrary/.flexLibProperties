@@ -121,6 +121,9 @@
     <classEntry path="gr.ictpro.mall.client.view.LanguageViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguageView"/>
     <classEntry path="gr.ictpro.mall.client.model.ServerConfiguration"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomView"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.TextArea"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

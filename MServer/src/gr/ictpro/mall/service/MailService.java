@@ -4,16 +4,13 @@
 package gr.ictpro.mall.service;
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
+import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.EmailTranslation;
 import gr.ictpro.mall.model.EmailTranslationId;
 import gr.ictpro.mall.model.EmailType;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.utils.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -28,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
     @Autowired(required = true)
-    private Context context;
+    private UserContext userContext;
 
     @Autowired(required = true)
     private MailSender mailSender;
@@ -74,7 +71,7 @@ public class MailService {
 
 	if (!u.isEnabled()) {
 	    // inform user that his account is created but is not yet enabled
-	    EmailTranslationId emailId = new EmailTranslationId(context.getUserLang(u).getCode(), 0, EmailType.DISABLED_ACCOUNT_CREATED);
+	    EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0, EmailType.DISABLED_ACCOUNT_CREATED);
 	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	    sendMail(admin.getEmail(), u.getEmail(), email, u);
 	}
@@ -84,7 +81,7 @@ public class MailService {
     public void accountEnabledMail(User u) {
 	User admin = userService.getUserByRole("Admin").get(0);
 
-	EmailTranslationId emailId = new EmailTranslationId(context.getUserLang(u).getCode(), 0, EmailType.ACCOUNT_ENABLED);
+	EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0, EmailType.ACCOUNT_ENABLED);
 	EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	sendMail(admin.getEmail(), admin.getEmail(), email, u);
 

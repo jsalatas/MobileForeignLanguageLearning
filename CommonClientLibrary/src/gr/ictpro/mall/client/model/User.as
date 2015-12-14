@@ -62,11 +62,6 @@ package gr.ictpro.mall.client.model
 			return u;
 		}
 		
-		public function isAdmin():Boolean
-		{
-			return roles.getItemIndex("Admin")>-1;
-		}
-		
 		public function User(id:int, username:String, email:String, roles:ArrayList, name:String, photo:BitmapData, color:uint, enabled:Boolean)
 		{
 			this._id = id;
@@ -220,5 +215,26 @@ package gr.ictpro.mall.client.model
 		{
 			return this._notifications;
 		}
+		
+		public function get isAdmin():Boolean
+		{
+			return this._roles.getItemIndex("Admin") != -1;
+		}
+
+		public function get isTeacher():Boolean
+		{
+			return this._roles.getItemIndex("Teacher") != -1;
+		}
+		
+		public function get isStudent():Boolean
+		{
+			return this._roles.getItemIndex("Student") != -1;
+		}
+		
+		public function get isParent():Boolean
+		{
+			return this._roles.getItemIndex("Parent") != -1;
+		}
+
 	}
 }

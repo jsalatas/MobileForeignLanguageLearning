@@ -6,23 +6,22 @@ package gr.ictpro.mall.flex;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.RegistrationMethod;
+import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
 /**
@@ -41,6 +40,9 @@ public class UserRemoteService {
     
     @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
+    
+    @Autowired(required = true)
+    private UserContext userContext;
 
     public User register(ASObject registrationDetails) {
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
@@ -50,7 +52,7 @@ public class UserRemoteService {
     }
 
     public User save(ASObject userObject) {
-	User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	User currentUser = userContext.getCurrentUser();
 
 	int id = (Integer) userObject.get("id");
 	String email = (String) userObject.get("email");
@@ -132,6 +134,25 @@ public class UserRemoteService {
 	User u = userService.retrieveById(id);
 	
 	return u;
+    }
+    
+    public List<User> getUsers(ASObject parameters) {
+	List<User> res = null;
+	if(parameters.containsKey("role")) {
+	    List<Role> roles = roleService.listByProperty("role", parameters.get("role"));
+	    if(roles.size() == 1) {
+		// Should have only one result
+		Role r = roles.get(0);
+		Hibernate.initialize(r.getUsers());
+		res = new ArrayList<User>(r.getUsers());
+	    }
+	    
+	}
 	
+	if(res == null) {
+	    res = new ArrayList<User>();
+	}
+	
+	return res;
     }
 }

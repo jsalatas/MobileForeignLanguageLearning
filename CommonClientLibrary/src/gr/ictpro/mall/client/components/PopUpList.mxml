@@ -52,21 +52,21 @@
 			public function set dataList(dataList:ArrayList):void {
 				this._dataList = dataList;
 				
-				var format:TextFormat = new TextFormat();
-				var popUpMenu:PopUpMenu = new PopUpMenu();
-				format.font = popUpMenu.getStyle("font-family"); // since we're working with a css file for the styling
-				format.size = popUpMenu.getStyle("font-size");
-				var textField:TextField = new TextField();
-				textField.defaultTextFormat = format;
-				
-				_maxWidth = 0;
-				for each(var o:Object in dataList) {
-					textField.text = o.text;
-					if(_maxWidth < textField.textWidth) {
-						_maxWidth = textField.textWidth;
-					}
-				}
-				
+//				var format:TextFormat = new TextFormat();
+//				var popUpMenu:PopUpMenu = new PopUpMenu();
+//				format.font = popUpMenu.getStyle("font-family"); // since we're working with a css file for the styling
+//				format.size = popUpMenu.getStyle("font-size");
+//				var textField:TextField = new TextField();
+//				textField.defaultTextFormat = format;
+//				
+//				_maxWidth = 0;
+//				for each(var o:Object in dataList) {
+//					textField.text = o.text;
+//					if(_maxWidth < textField.textWidth) {
+//						_maxWidth = textField.textWidth;
+//					}
+//				}
+//				
 			}
 			
 			public function get dataList():ArrayList {
@@ -90,7 +90,8 @@
 
 				popUpMenu.x = point.x*curAppDPI/curDensity;
 				popUpMenu.y = point.y*curAppDPI/curDensity;
-				popUpMenu.width = _maxWidth < txt.definedWidth || _maxWidth > txt.definedWidth * 1.5 ? txt.definedWidth : _maxWidth;
+				popUpMenu.minWidth = txt.width;
+//				popUpMenu.width = _maxWidth < txt.definedWidth || _maxWidth > txt.definedWidth * 1.5 ? txt.definedWidth : _maxWidth;
 				popUpMenu.percentHeight=100;
 				popUpMenu.itemSelected.add(popUpAction);
 				popUpMenu.open(this, false);

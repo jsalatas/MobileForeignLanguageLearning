@@ -157,7 +157,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.roles = roles;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "classroom_user", joinColumns = {
 	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "class_id", nullable = false, updatable = false) })

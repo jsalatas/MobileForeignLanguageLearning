@@ -17,12 +17,13 @@
 		<![CDATA[
 			import mx.core.IVisualElement;
 			import mx.core.IVisualElementContainer;
+			import mx.utils.ObjectProxy;
 			
 			import gr.ictpro.mall.client.model.Device;
 			
 			private var _masterView:IVisualElement;
 			
-			private var _parameters:Object;
+			private var _parameters:ObjectProxy;
 			
 			public function dispose():void
 			{
@@ -55,12 +56,12 @@
 				return this._masterView;
 			}
 			
-			public function set parameters(parametrs:Object):void
+			public function set parameters(parameters:ObjectProxy):void
 			{
-				this._parameters = parametrs;
+				this._parameters = parameters;
 			}
 
-			public function get parameters():Object
+			public function get parameters():ObjectProxy
 			{
 				return this._parameters;
 			}

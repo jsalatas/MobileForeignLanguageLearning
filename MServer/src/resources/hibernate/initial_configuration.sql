@@ -33,7 +33,6 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (6,'mail.smtp_auth','true');
 		INSERT IGNORE INTO `config` VALUES (7,'mail.smtp_starttls_enable','true');
 		INSERT IGNORE INTO `config` VALUES (8,'mail.debug','false');
-		INSERT IGNORE INTO `classroom` (`id`, `name`, `notes`) VALUES (0, 'Global', 'Global/Master Classroom');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');
@@ -41,6 +40,7 @@ BEGIN
 		INSERT IGNORE INTO `user` (`username`, `email`, `password`, `enabled`) VALUES ('admin', 'admin@example.com', '$2a$10$AtT/8iMJDG/M3Tsakn38tuKRO4AxzEFi/22qDOUO9Ay3W6RhI1702', 1);
 		INSERT IGNORE INTO `user_role` (`user_id`, `role_id`) SELECT `user`.`id` as `user_id`, `role`.`id` as `role_id` FROM `user`, `role` WHERE `user`.`username` = 'admin'  AND `role`.`role` = 'Admin';
 		INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`) VALUES ('en', 'English', 'English');
+		INSERT IGNORE INTO `classroom` (`id`, `name`, `notes`, `language_code`) VALUES (0, 'Global', 'Global/Master Classroom', 'en');
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (0, 'New Teacher Registration', '%fullname% was registered as teacher.\n\nPlease review and enable access after logging into the application');
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (1, 'Welcome', 'Dear %fullname%,\n\nyour account is created, but you will not be able to use it until it is enabled by an administrator or teacher.\n\nYou will be notified when it is done.');
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (2, 'Account Enabled', 'Dear %fullname%,\n\nyour account is enabled.\n\nYou can now login to the system.');
@@ -87,7 +87,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Take New Photo');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('User Name');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Wrong User Name or Password.');
-		INSERT IGNORE INTO `translation` (`english_text_id`, `language_code`, `translated_text`, `classroom_id`) SELECT `id` AS `english_text_id`, 'en' AS `language_code`, `english_text` AS `translated_text`, 0 AS `classroom_id` from english_text
+		INSERT IGNORE INTO `translation` (`english_text_id`, `language_code`, `translated_text`, `classroom_id`) SELECT `id` AS `english_text_id`, 'en' AS `language_code`, `english_text` AS `translated_text`, 0 AS `classroom_id` FROM english_text;
 		INSERT INTO `status` (`name`, `value`) VALUES('initialized', '1');
 	END IF;
 END$$

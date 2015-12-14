@@ -45,7 +45,7 @@
 			<security:protect access="Admin, Teacher" method="deleteLanguage" />
 			<security:protect access="Admin, Teacher" method="getTranslationsXML" />
 			<security:protect access="Admin, Teacher" method="updateTranslations" />
-					</security:intercept-methods>
+		</security:intercept-methods>
 	</bean>
 	
 	<bean id="notificationRemoteService" class="gr.ictpro.mall.flex.NotificationRemoteService">
@@ -55,7 +55,17 @@
 			<security:protect access="Admin, Teacher, Student, Parent" method="handleNotification" />
 		</security:intercept-methods>
 	</bean>
-	
+
+	<bean id="classroomRemoteService" class="gr.ictpro.mall.flex.ClassroomRemoteService">
+		<flex:remoting-destination />
+		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
+			<security:protect access="Admin, Teacher" method="getClassrooms" />
+			<security:protect access="Admin, Teacher" method="updateClassroom" />
+			<security:protect access="Admin, Teacher" method="deleteClassroom" />
+		</security:intercept-methods>
+	</bean>
+		
+		
 	<flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />
 			    
 	

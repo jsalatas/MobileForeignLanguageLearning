@@ -4,12 +4,14 @@ package gr.ictpro.mall.client.service
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
-	import gr.ictpro.mall.client.model.Channel;
-	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	
+	import mx.rpc.AsyncResponder;
+	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.remoting.RemoteObject;
+	
+	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 
 	public class RemoteObjectService
 	{
@@ -35,10 +37,11 @@ package gr.ictpro.mall.client.service
 		private function execute():void
 		{
 			var ro:RemoteObject = new RemoteObject();
+			ro.showBusyCursor= true;
 			ro.channelSet = _channel.getChannelSet();
 			ro.destination = _destination;
-			ro.addEventListener(ResultEvent.RESULT, handleGenericResult);
-			ro.addEventListener(FaultEvent.FAULT, handleGenericError);
+			ro[_methodName].addEventListener(ResultEvent.RESULT, handleGenericResult);
+			ro[_methodName].addEventListener(FaultEvent.FAULT, handleGenericError);
 			if(_arguments == null) {
 				ro[_methodName].send();
 			} else {

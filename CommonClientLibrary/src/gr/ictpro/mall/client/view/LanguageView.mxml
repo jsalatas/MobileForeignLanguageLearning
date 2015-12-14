@@ -53,12 +53,12 @@
 				return this._masterView;
 			}
 			
-			public function set parameters(parameters:Object):void
+			public function set parameters(parameters:ObjectProxy):void
 			{
-				this._parameters = ObjectProxy(parameters);
+				this._parameters = parameters;
 			}
 			
-			public function get parameters():Object
+			public function get parameters():ObjectProxy
 			{
 				return this._parameters;
 			}

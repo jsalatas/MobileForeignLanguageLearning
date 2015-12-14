@@ -32,6 +32,7 @@
 				<value>gr.ictpro.mall.model.RoleNotification</value>
 				<value>gr.ictpro.mall.model.Profile</value>
 				<value>gr.ictpro.mall.model.Classroom</value>
+				<value>gr.ictpro.mall.model.Classroomgroup</value>
 				<value>gr.ictpro.mall.model.EnglishText</value>
 				<value>gr.ictpro.mall.model.Translation</value>
 			</list>

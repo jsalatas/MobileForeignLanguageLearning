@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.ServerNotification;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
+	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -17,6 +18,9 @@ package gr.ictpro.mall.client.controller
 
 		[Inject]
 		public var channel:Channel;
+		
+		[Inject]
+		public var updateServerNotifications:UpdateServerNotificationsSignal;
 		
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
@@ -30,7 +34,7 @@ package gr.ictpro.mall.client.controller
 		
 		private function handleSuccess(event:ResultEvent):void
 		{
-			// do nothing
+			updateServerNotifications.dispatch();
 		}
 
 		private function handleError(event:FaultEvent):void

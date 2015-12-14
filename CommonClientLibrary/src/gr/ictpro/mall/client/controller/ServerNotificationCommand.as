@@ -2,6 +2,8 @@ package gr.ictpro.mall.client.controller
 {
 	import flash.utils.getDefinitionByName;
 	
+	import mx.utils.ObjectProxy;
+	
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ServerNotificationSelected;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
@@ -24,7 +26,7 @@ package gr.ictpro.mall.client.controller
 		{
 			if(selectedNotification.notification.isInternalModule) {
 				loadedModules.module = null;
-				var p:Object = new Object();
+				var p:ObjectProxy = new ObjectProxy();
 				p.parameters = selectedNotification.notification.parameters;
 				p.notification = selectedNotification.notification;
 				addView.dispatch(createInstance(selectedNotification.notification.module), p);

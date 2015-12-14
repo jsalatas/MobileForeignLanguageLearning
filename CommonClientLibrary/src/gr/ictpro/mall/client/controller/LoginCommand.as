@@ -70,7 +70,7 @@ package gr.ictpro.mall.client.controller
 				if(!authenticationDetails.autoLogin) {
 					loginFailed.dispatch();
 				} else {
-					
+					//TODO:
 				}
 			} else {
 				messagingService.init();
@@ -80,7 +80,7 @@ package gr.ictpro.mall.client.controller
 				injector.injectInto(settings.user);
 				
 				settings.user.initializeMenu();
-				if(settings.user.isAdmin()) {
+				if(settings.user.isAdmin) {
 					settings.serverConfiguration = new ServerConfiguration(channel);
 				}
 				loadedModule.module = null;

@@ -23,9 +23,13 @@ package gr.ictpro.mall.client.model.menu
 			res.addItem(new MenuItemGroup(Translation.getTranslation("Manage")));
 
 			// System Settings (admin) 
-			if(user.roles.getItemIndex("Admin") != -1) {
+			if(user.isAdmin) {
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Settings"), Icons.icon_settings, Device.defaultColorTransform, "gr.ictpro.mall.client.view.SettingsView")); 
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, Device.defaultColorTransform, "gr.ictpro.mall.client.view.LanguagesView")); 
+			}
+			
+			if(user.isAdmin || user.isTeacher) {
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ClassroomsView")); 
 			}
 			
 			//Profile editor (common to all roles)
