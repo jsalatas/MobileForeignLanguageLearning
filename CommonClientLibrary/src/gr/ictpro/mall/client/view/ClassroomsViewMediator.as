@@ -69,7 +69,7 @@ package gr.ictpro.mall.client.view
 			view.add.removeAll();
 			view.dispose();
 			if(view.masterView == null) {
-				addView.dispatch(new MainView());	
+				addView.dispatch(new MainView());
 			} else {
 				addView.dispatch(view.masterView);
 			}
