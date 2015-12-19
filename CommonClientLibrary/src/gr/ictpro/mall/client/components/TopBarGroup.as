@@ -5,7 +5,9 @@ package gr.ictpro.mall.client.components
 	import flash.events.MouseEvent;
 	
 	import mx.core.IVisualElement;
+	import mx.core.IVisualElementContainer;
 	import mx.core.mx_internal;
+	import mx.utils.ObjectProxy;
 	
 	import spark.layouts.supportClasses.LayoutBase;
 	
@@ -17,7 +19,9 @@ package gr.ictpro.mall.client.components
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
+	import gr.ictpro.mall.client.model.DetailView;
 	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.model.ParameterizedView;
 
 use namespace mx_internal;	
 	
@@ -27,7 +31,7 @@ use namespace mx_internal;
 	[Event(name="addClicked", type="flash.events.MouseEvent")]
 	[Event(name="deleteClicked", type="flash.events.MouseEvent")]
 	
-	public class TopBarGroup extends Group
+	public class TopBarGroup extends Group implements gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView
 	{
 		public var addButton:Boolean = false;
 		public  var deleteButton:Boolean = false;
@@ -38,6 +42,8 @@ use namespace mx_internal;
 		private var _titleLabel:Label; 
 		private var _scroller:Scroller = new Scroller();
 		private var _groupDelete:Group;
+		private var _masterView:IVisualElement;
+		private var _parameters:ObjectProxy;
 		
 		public function TopBarGroup()
 		{
@@ -58,7 +64,35 @@ use namespace mx_internal;
 			return this._title;
 		}
 
+		public function dispose():void
+		{
+			if(parent && parent.contains(this)) {
+				IVisualElementContainer(parent).removeElement(this);
+			}
+		}
 		
+		public function set masterView(masterView:IVisualElement):void 
+		{
+			this._masterView = masterView;
+		}
+		
+		public function get masterView():IVisualElement
+		{
+			return this._masterView;
+		}
+
+		[Bindable]
+		public function set parameters(parameters:ObjectProxy):void
+		{
+			this._parameters = parameters;
+		}
+
+		public function get parameters():ObjectProxy
+		{
+			return this._parameters;
+		}
+		
+
 		override protected function createChildren():void
 		{
 			super.createChildren();

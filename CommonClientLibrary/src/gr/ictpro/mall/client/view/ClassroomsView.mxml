@@ -8,7 +8,7 @@
 			   addClicked="topbargroup1_addClickedHandler(event)"
 			   cancelButton="false"
 			   backClicked="topbargroup1_backClickedHandler(event)"
-			   implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView" okButton="false">
+			   okButton="false">
 	<fx:Declarations>
 		<signals:Signal id="back"/>
 		<signals:Signal id="add"/>
@@ -17,30 +17,10 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import mx.core.IVisualElement;
-			import mx.core.IVisualElementContainer;
-			import mx.utils.ObjectProxy;
-			
-			import gr.ictpro.mall.client.model.DetailView;
 			
 			[Bindable]
 			private var _classrooms:ArrayCollection;
 			
-			private var _masterView:IVisualElement;
-			
-			[Bindable]
-			private var _parameters:ObjectProxy;
-
-			public function set parameters(parameters:ObjectProxy):void
-			{
-				this._parameters = parameters;
-			}
-			
-			public function get parameters():ObjectProxy
-			{
-				return this._parameters;
-			}
-
 			public function set classrooms(classrooms:ArrayCollection):void
 			{
 				this._classrooms = classrooms;
@@ -51,26 +31,10 @@
 				return this._classrooms;
 			}
 			
-			public function set masterView(masterView:IVisualElement):void 
-			{
-				this._masterView = masterView;
-			}
-			public function get masterView():IVisualElement
-			{
-				return this._masterView;
-			}
-
 			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
 			{
 				back.dispatch();
 				
-			}
-			
-			public function dispose():void
-			{
-				if(parent && parent.contains(this)) {
-					IVisualElementContainer(parent).removeElement(this);
-				}
 			}
 			
 			protected function topbargroup1_addClickedHandler(event:MouseEvent):void

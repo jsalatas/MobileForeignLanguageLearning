@@ -5,7 +5,6 @@
 					   okClicked="topbargroup1_okClickedHandler(event)"
 					   cancelClicked="topbargroup1_cancelClickedHandler(event)"
 					   backClicked="topbargroup1_backClickedHandler(event)" xmlns:signals="org.osflash.signals.*"
-					   implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView"
 					   >
 	<fx:Declarations>
 		<signals:Signal id="save"/>
@@ -15,23 +14,8 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.core.IVisualElement;
-			import mx.core.IVisualElementContainer;
-			import mx.utils.ObjectProxy;
-			
 			import gr.ictpro.mall.client.model.Device;
 			
-			private var _masterView:IVisualElement;
-			
-			private var _parameters:ObjectProxy;
-			
-			public function dispose():void
-			{
-				if(parent && parent.contains(this)) {
-					IVisualElementContainer(parent).removeElement(this);
-				}
-			}
-
 			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
 			{
 				save.dispatch();
@@ -47,24 +31,6 @@
 				back.dispatch();
 			}
 			
-			public function set masterView(masterView:IVisualElement):void 
-			{
-				this._masterView = masterView;
-			}
-			public function get masterView():IVisualElement
-			{
-				return this._masterView;
-			}
-			
-			public function set parameters(parameters:ObjectProxy):void
-			{
-				this._parameters = parameters;
-			}
-
-			public function get parameters():ObjectProxy
-			{
-				return this._parameters;
-			}
 		]]>
 	</fx:Script>
 	<s:Group id="settings" width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0">

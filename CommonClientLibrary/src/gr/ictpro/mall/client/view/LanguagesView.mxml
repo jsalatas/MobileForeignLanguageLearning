@@ -8,7 +8,7 @@
 			   addClicked="topbargroup1_addClickedHandler(event)"
 			   cancelButton="false"
 			   backClicked="topbargroup1_backClickedHandler(event)"
-			   implements="gr.ictpro.mall.client.model.DetailView" okButton="false">
+			   okButton="false">
 	<fx:Declarations>
 		<signals:Signal id="back"/>
 		<signals:Signal id="add"/>
@@ -18,9 +18,6 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.core.IVisualElement;
-			import mx.core.IVisualElementContainer;
-			
-			import gr.ictpro.mall.client.model.DetailView;
 			
 			[Bindable]
 			private var _languages:ArrayCollection;
@@ -37,28 +34,12 @@
 
 			private var _masterView:IVisualElement;
 
-			public function set masterView(masterView:IVisualElement):void 
-			{
-				this._masterView = masterView;
-			}
-			public function get masterView():IVisualElement
-			{
-				return this._masterView;
-			}
-
 			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
 			{
 				back.dispatch();
 				
 			}
 
-			public function dispose():void
-			{
-				if(parent && parent.contains(this)) {
-					IVisualElementContainer(parent).removeElement(this);
-				}
-			}
-			
 			protected function topbargroup1_addClickedHandler(event:MouseEvent):void
 			{
 				add.dispatch();

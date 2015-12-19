@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 						xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
-						implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView" 
 						xmlns:signals="org.osflash.signals.*"
 						deleteButton="true"
-						title="{_parameters.language.englishName + ' - ' + _parameters.language.localName}"
+						title="{parameters.language.englishName + ' - ' + parameters.language.localName}"
 						okClicked="topbargroup1_okClickedHandler(event)"
 						backClicked="topbargroup1_backClickedHandler(event)"
 						cancelClicked="topbargroup1_cancelClickedHandler(event)"
@@ -24,45 +23,9 @@
 	</s:states>
 	<fx:Script>
 		<![CDATA[
-			import mx.core.IVisualElement;
-			import mx.core.IVisualElementContainer;
-			import mx.utils.ObjectProxy;
-			
 			import gr.ictpro.mall.client.model.Device;
 			import gr.ictpro.mall.client.model.Translation;
 			
-			private var _masterView:IVisualElement;
-			
-			[Bindable]
-			private var _parameters:ObjectProxy;
-
-			public function dispose():void
-			{
-				if(parent && parent.contains(this)) {
-					IVisualElementContainer(parent).removeElement(this);
-				}
-			}
-			
-			public function set masterView(masterView:IVisualElement):void 
-			{
-				this._masterView = masterView;
-			}
-			
-			public function get masterView():IVisualElement
-			{
-				return this._masterView;
-			}
-			
-			public function set parameters(parameters:ObjectProxy):void
-			{
-				this._parameters = parameters;
-			}
-			
-			public function get parameters():ObjectProxy
-			{
-				return this._parameters;
-			}
-
 			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
 			{
 				back.dispatch();
@@ -75,7 +38,7 @@
 			
 			protected function topbargroup1_deleteClickedHandler(event:MouseEvent):void
 			{
-				deleteLang.dispatch(_parameters);
+				deleteLang.dispatch(parameters);
 				
 			}
 			
@@ -113,13 +76,13 @@
 				<s:FormLayout/>
 			</s:layout>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Language Code')}">
-				<s:TextInput id="txtCode" width="100%" text="@{_parameters.language.code}" enabled.new="true" enabled.edit="false" textAlign="left"/>
+				<s:TextInput id="txtCode" width="100%" text="@{parameters.language.code}" enabled.new="true" enabled.edit="false" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('English Name')}">
-				<s:TextInput id="txtEnglishName" width="100%" text="@{_parameters.language.englishName}" textAlign="left"/>
+				<s:TextInput id="txtEnglishName" width="100%" text="@{parameters.language.englishName}" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Local Name')}">
-				<s:TextInput id="txtLocalName" width="100%" text="@{_parameters.language.localName}" textAlign="left"/>
+				<s:TextInput id="txtLocalName" width="100%" text="@{parameters.language.localName}" textAlign="left"/>
 			</s:FormItem>
 		</s:Group>
 		<s:Button id="btnGetAllTranslations" label="{Translation.getTranslation('Get All Messages')}" click="button1_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />

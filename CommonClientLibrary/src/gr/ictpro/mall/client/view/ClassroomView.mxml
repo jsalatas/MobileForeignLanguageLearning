@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
-			   implements="gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView" 
 			   xmlns:signals="org.osflash.signals.*"
 			   deleteButton="true"
-			   title="{_parameters.language.englishName + ' - ' + _parameters.language.localName}"
+			   title="{parameters.language.englishName + ' - ' + parameters.language.localName}"
 			   okClicked="topbargroup1_okClickedHandler(event)"
 			   backClicked="topbargroup1_backClickedHandler(event)"
 			   cancelClicked="topbargroup1_cancelClickedHandler(event)"
@@ -22,21 +21,13 @@
 
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
-			import mx.core.IVisualElement;
-			import mx.core.IVisualElementContainer;
 			import mx.events.FlexEvent;
 			import mx.utils.ObjectProxy;
 			
 			import gr.ictpro.mall.client.model.Device;
 			import gr.ictpro.mall.client.model.Translation;
 			
-			private var _masterView:IVisualElement;
-			
-			[Bindable]
-			private var _parameters:ObjectProxy;
-
 			[Bindable]
 			private var _teachers:ArrayList;
 			
@@ -56,33 +47,12 @@
 				selectLanguage();
 			}
 			
-			public function dispose():void
+			[Bindable]
+			override public function set parameters(parameters:ObjectProxy):void
 			{
-				if(parent && parent.contains(this)) {
-					IVisualElementContainer(parent).removeElement(this);
-				}
-			}
-			
-			public function set masterView(masterView:IVisualElement):void 
-			{
-				this._masterView = masterView;
-			}
-			
-			public function get masterView():IVisualElement
-			{
-				return this._masterView;
-			}
-			
-			public function set parameters(parameters:ObjectProxy):void
-			{
-				this._parameters = parameters;
+				super.parameters = parameters;
 				selectTeacher();
 				selectLanguage();
-			}
-			
-			public function get parameters():ObjectProxy
-			{
-				return this._parameters;
 			}
 			
 			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
@@ -97,7 +67,7 @@
 			
 			protected function topbargroup1_deleteClickedHandler(event:MouseEvent):void
 			{
-				deleteClassroom.dispatch(_parameters);
+				deleteClassroom.dispatch(parameters);
 				
 			}
 			
@@ -119,10 +89,10 @@
 			
 			// set initial selected language
 			private function selectLanguage():void {
-				if(_languages != null && _parameters != null && _parameters.classroom != null && _parameters.classroom.hasOwnProperty("language") && languagePopup != null) {
+				if(_languages != null && parameters != null && parameters.classroom != null && parameters.classroom.hasOwnProperty("language") && languagePopup != null) {
 					for (var i:int=0;i<_languages.length; i++) {
 						var language:ObjectProxy = ObjectProxy(_languages.getItemAt(i));
-						if(language.code == _parameters.classroom.language.code) {
+						if(language.code == parameters.classroom.language.code) {
 							languagePopup.selected = language;
 							break;
 						}
@@ -132,12 +102,12 @@
 			
 			// set initial selected teacher
 			private function selectTeacher():void {
-				if(currentState == 'edit' && _teachers != null && _parameters != null && _parameters.classroom != null && _parameters.classroom.hasOwnProperty("users") && teacherPopup != null) {
+				if(currentState == 'edit' && _teachers != null && parameters != null && parameters.classroom != null && parameters.classroom.hasOwnProperty("users") && teacherPopup != null) {
 					var found:Boolean = false;
 					for (var i:int=0;i<_teachers.length; i++) {
 						var teacher:ObjectProxy = ObjectProxy(_teachers.getItemAt(i));
-						for(var j:int=0;j<_parameters.classroom.users.length; j++) {
-							if(teacher.id == _parameters.classroom.users.getItemAt(j).id) {
+						for(var j:int=0;j<parameters.classroom.users.length; j++) {
+							if(teacher.id == parameters.classroom.users.getItemAt(j).id) {
 								teacherPopup.selected = teacher;
 								found = true;
 								break;
@@ -161,10 +131,10 @@
 				<s:FormLayout/>
 			</s:layout>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" text="@{_parameters.classroom.name}" textAlign="left"/>
+				<s:TextInput id="txtName" width="100%" text="@{parameters.classroom.name}" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Notes')}">
-				<s:TextArea id="txtNotes" width="100%" text="@{_parameters.classroom.notes}" textAlign="left" height="100" maxHeight="100"/>
+				<s:TextArea id="txtNotes" width="100%" text="@{parameters.classroom.notes}" textAlign="left" height="100" maxHeight="100"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Language')}">
 				<s:PopUpList id="languagePopup" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />

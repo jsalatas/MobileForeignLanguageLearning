@@ -11,7 +11,6 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.core.IVisualElementContainer;
 			[Bindable]
 			public var image:BitmapData;
 			
@@ -36,13 +35,6 @@
 				ok.dispatch(croppedImage);
 				this.dispose();
 				
-			}
-			
-			public function dispose():void
-			{
-				if(parent && parent.contains(this)) {
-					IVisualElementContainer(parent).removeElement(this);
-				}
 			}
 			
 			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
