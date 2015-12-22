@@ -83,7 +83,7 @@ public class Classroom implements java.io.Serializable {
 	this.name = name;
     }
 
-    @Column(name = "notes", length = 65535)
+    @Column(name = "notes", length = 65535, columnDefinition="Text")
     public String getNotes() {
 	return this.notes;
     }

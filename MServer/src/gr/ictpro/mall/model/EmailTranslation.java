@@ -84,7 +84,7 @@ public class EmailTranslation implements java.io.Serializable {
 	this.language = language;
     }
 
-    @Column(name = "body", nullable = false, length = 65535)
+    @Column(name = "body", nullable = false, length = 65535, columnDefinition="Text")
     public String getBody() {
 	return this.body;
     }
