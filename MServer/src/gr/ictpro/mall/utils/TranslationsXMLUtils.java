@@ -115,7 +115,6 @@ public class TranslationsXMLUtils {
 		if(translationNodes.item(i) instanceof Element) {
 		    Element tranlationElement = (Element)translationNodes.item(i);
 		    EmailTranslation email = new EmailTranslation();
-		    emails.add(email);
 		    email.setLanguage(language);
 		    email.setClassroom(classroom);
 		    email.setSubject(((Element)tranlationElement.getElementsByTagName("subject").item(0)).getElementsByTagName("translatedText").item(0).getTextContent());
@@ -123,6 +122,9 @@ public class TranslationsXMLUtils {
 		    EnglishEmail englishEmail = englishEmailService.listByProperty("emailType", EmailType.valueOf(tranlationElement.getElementsByTagName("type").item(0).getTextContent())).get(0);
 		    email.setEnglishEmail(englishEmail);
 		    email.setId(new EmailTranslationId(language.getCode(), classroom.getId(), englishEmail.getEmailType()));
+		    if(email.getSubject() != null && !email.getSubject().equals("") && email.getBody() != null && !email.getBody().equals("")) {
+			emails.add(email);
+		    }
 		}
 	    }
 	}
@@ -145,13 +147,15 @@ public class TranslationsXMLUtils {
 		if(translationNodes.item(i) instanceof Element) {
 		    Element tranlationElement = (Element)translationNodes.item(i);
 		    Translation translation = new Translation();
-		    translations.add(translation);
 		    translation.setLanguage(language);
 		    translation.setClassroom(classroom);
 		    translation.setTranslatedText(tranlationElement.getElementsByTagName("translatedText").item(0).getTextContent());
 		    EnglishText englishText = englishTextService.listByProperty("englishText", tranlationElement.getElementsByTagName("originalText").item(0).getTextContent()).get(0);
 		    translation.setEnglishText(englishText);
 		    translation.setId(new TranslationId(englishText.getId(), language.getCode(), classroom.getId()));
+		    if(translation.getTranslatedText() != null && !translation.getTranslatedText().equals("")) {
+			translations.add(translation);
+		    }
 		}
 	    }
 	}
