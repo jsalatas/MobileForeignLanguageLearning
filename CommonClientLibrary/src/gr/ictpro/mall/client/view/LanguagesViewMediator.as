@@ -8,34 +8,25 @@ package gr.ictpro.mall.client.view
 	import mx.utils.ObjectProxy;
 	
 	import spark.collections.SortField;
-
-	import gr.ictpro.mall.client.model.Channel;
+	
+	import gr.ictpro.mall.client.components.TopBarListView;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.Mediator;
-	
-	public class LanguagesViewMediator extends Mediator
+	public class LanguagesViewMediator extends TopBarListViewMediator
 	{
-		[Inject]
-		public var view:LanguagesView;
-
-		[Inject]
-		public var addView:AddViewSignal;
-		
-		[Inject]
-		public var channel:Channel;
 
 		override public function onRegister():void
 		{
+			super.onRegister();
+			
 			view.title = Translation.getTranslation("Languages");
-			view.back.add(backHandler);
-			view.showDetail.add(showDetailHandler);
-			view.add.add(addLanguageHandler);
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getLanguages", null, handleGetLanguages, getLanguagesError); 
+			setBuildParametersHandler(buildDetailParameters);
+			setDetailViewClass(LanguageView);
+			setGetNewHandler(getNew);
 
+			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getLanguages", null, handleGetLanguages, getLanguagesError); 
 		}
 		
 		private function handleGetLanguages(event:ResultEvent):void
@@ -51,7 +42,7 @@ package gr.ictpro.mall.client.view
 			languages.sort = sort;
 			languages.refresh();
 			
-			view.languages = languages;
+			TopBarListView(view).data = languages;
 		}
 		
 		private function getLanguagesError(event:FaultEvent):void
@@ -59,56 +50,28 @@ package gr.ictpro.mall.client.view
 			UI.showError(view, Translation.getTranslation("Cannot Get Languages."));
 		}
 
-		private function addLanguageHandler():void
-		{
-			var language:ObjectProxy = new ObjectProxy();
-			language.code = "";
-			language.englishName = "";
-			language.localName = "";
-			showDetailHandler(language);
-		}	
-
-		private function cancelHandler():void
-		{
-			backHandler();
-		}
-		
 		private function buildDetailParameters(language:Object): ObjectProxy
 		{
 			var parameters:ObjectProxy = new ObjectProxy();
 			parameters.language = language;
 			var languageCodes:ArrayList = new ArrayList();
-			for (var i:int = 0; i< view.languages.length; i++) {
-				languageCodes.addItem(view.languages.getItemAt(i).code);
+			for (var i:int = 0; i< TopBarListView(view).data.length; i++) {
+				languageCodes.addItem(TopBarListView(view).data.getItemAt(i).code);
 			}
 			parameters.languageCodes = languageCodes; 
 
 			return parameters;
 		}
-		
-		private function showDetailHandler(language:Object):void
+
+		private function getNew():ObjectProxy
 		{
-			var parameters:Object = buildDetailParameters(language); 
-			var detailView:LanguageView = new LanguageView();
-			detailView.masterView = view;
-			view.back.removeAll();
-			view.showDetail.removeAll();
-			view.add.removeAll();
-			view.dispose();
-			addView.dispatch(detailView, parameters, view);
-		}
-		
-		private function backHandler():void
-		{
-			view.back.removeAll();
-			view.showDetail.removeAll();
-			view.add.removeAll();
-			view.dispose();
-			if(view.masterView == null) {
-				addView.dispatch(new MainView());	
-			} else {
-				addView.dispatch(view.masterView);
-			}
-		}
+			var language:ObjectProxy = new ObjectProxy();
+			language.code = "";
+			language.englishName = "";
+			language.localName = "";
+			
+			return language;
+		}	
+
 	}
 }

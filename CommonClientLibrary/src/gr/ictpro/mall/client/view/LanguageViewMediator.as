@@ -12,40 +12,32 @@ package gr.ictpro.mall.client.view
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.Mediator;
-	
-	public class LanguageViewMediator extends Mediator
+	public class LanguageViewMediator extends TopBarDetailViewMediator
 	{
-		[Inject]
-		public var view:LanguageView;
-		
-		[Inject]
-		public var addView:AddViewSignal;
-
-		[Inject]
-		public var channel:Channel;
 		
 		private var translationsXml:String;
 		
 		override public function onRegister():void
 		{
-			view.cancel.add(cancelHandler);
-			view.back.add(backHandler);
-			view.ok.add(saveHandler);
-			view.deleteLang.add(deleteLanguageHandler);
-			view.getAllTranslations.add(allTranslationsHandler);
-			view.getUntranslated.add(untranslatedHandler);
-			view.uploadTranslations.add(uploadTranslationsHandler);
+			super.onRegister();
+			
+			setSaveHandler(saveHandler);
+			setDeleteHandler(deleteLanguageHandler);
+			setSaveErrorMessage(Translation.getTranslation('Cannot Delete Language.'));
+			setDeleteErrorMessage(Translation.getTranslation('Cannot Save Language.'));
+			
+			LanguageView(view).getAllTranslations.add(allTranslationsHandler);
+			LanguageView(view).getUntranslated.add(untranslatedHandler);
+			LanguageView(view).uploadTranslations.add(uploadTranslationsHandler);
 			if(view.parameters.language.code == 'en') {
 				view.disableDelete();
-				view.btnGetUntranslated.enabled = false;
-				view.btnUploadTranslations.enabled = false;
+				LanguageView(view).btnGetUntranslated.enabled = false;
+				LanguageView(view).btnUploadTranslations.enabled = false;
 			}
 			if(view.parameters.language.code=="") {
 				view.currentState = "new";
@@ -115,7 +107,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleUpdateTranslations(event:ResultEvent):void
 		{
-			backHandler();
+			back();
 		}
 
 		private function handleUpdateTranslationsError(event:ResultEvent):void
@@ -123,18 +115,13 @@ package gr.ictpro.mall.client.view
 			UI.showError(view,Translation.getTranslation('Cannot Update Translations.'));
 		}
 		
-		private function deleteLanguageHandler(language:Object):void 
+		private function deleteLanguageHandler():void 
 		{
 			if(view.parameters.language.code == null || view.parameters.language.code =='') {
 				UI.showError(view,Translation.getTranslation('Cannot Delete Language with Empty Code.'));
 			} else {
-				var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "deleteLanguage", view.parameters.language, handleDelete, handleDeleteError);
+				deleteData(SaveLocation.SERVER, view.parameters.language, "languageRemoteService", "deleteLanguage");
 			}
-		}
-		
-		private function handleDelete(event:ResultEvent):void
-		{
-			backHandler();
 		}
 		
 		private function handleDeleteError(event:FaultEvent):void
@@ -154,42 +141,13 @@ package gr.ictpro.mall.client.view
 					
 				} else 
 				{
-					var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "updateLanguage", view.parameters.language, handleSave, handleSaveError);
+					saveData(SaveLocation.SERVER, view.parameters.language, "languageRemoteService", "updateLanguage");
 				}
 			} else {
 				UI.showError(view,Translation.getTranslation('Please Complete all Fields.'));
 			}
 		}
 
-		private function handleSave(event:ResultEvent):void
-		{
-			backHandler();	
-		}
-		
-		private function handleSaveError(event:FaultEvent):void
-		{
-			UI.showError(view,Translation.getTranslation('Cannot Save Language.'));
-		}
-		
-
-		private function backHandler():void
-		{
-			view.cancel.removeAll();
-			view.back.removeAll();
-			view.ok.removeAll();
-			view.deleteLang.removeAll();
-			view.dispose();
-			if(view.masterView == null) {
-				addView.dispatch(new MainView());	
-			} else {
-				addView.dispatch(view.masterView);
-			}
-		}
-
-		private function cancelHandler():void
-		{
-			backHandler();
-		}
 
 	}
 }

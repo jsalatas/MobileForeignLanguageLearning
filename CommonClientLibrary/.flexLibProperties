@@ -54,7 +54,7 @@
     <classEntry path="gr.ictpro.mall.client.model.menu.MenuItemSelected"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
-    <classEntry path="gr.ictpro.mall.client.components.TopBarGroup"/>
+    <classEntry path="gr.ictpro.mall.client.components.TopBarDetailView"/>
     <classEntry path="gr.ictpro.mall.client.components.PopUpMenu"/>
     <classEntry path="gr.ictpro.mall.client.utils.image.ImageTransform"/>
     <classEntry path="gr.ictpro.mall.client.utils.string.StringCapitalize"/>
@@ -124,6 +124,13 @@
     <classEntry path="gr.ictpro.mall.client.view.ClassroomView"/>
     <classEntry path="gr.ictpro.mall.client.view.ClassroomViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.TextArea"/>
+    <classEntry path="gr.ictpro.mall.client.view.TopBarViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.model.SaveLocation"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ShowErrorSignal"/>
+    <classEntry path="gr.ictpro.mall.client.components.TopBarListView"/>
+    <classEntry path="gr.ictpro.mall.client.components.TopBarView"/>
+    <classEntry path="gr.ictpro.mall.client.view.TopBarListViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.TopBarDetailViewMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

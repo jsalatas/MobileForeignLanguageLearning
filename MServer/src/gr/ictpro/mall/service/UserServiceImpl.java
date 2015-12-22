@@ -40,7 +40,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	if(item.hasRole("Teacher")) {
 	    notificationService.createUserNotification(new Notification("Please setup your classes.", "gr.ictpro.mall.client.view.ClassroomsView", "Classes Setup", true), item);
 	    if(!item.isEnabled()) {
-		Notification n = new Notification("A new teacher has registered. Please review and enable her account.", "gr.ictpro.mall.client.view.ProfileView", "New Teacher", true);
+		Notification n = new Notification("A new teacher has registered. Please review and enable her account.", "gr.ictpro.mall.client.view.UserView", "New Teacher", true);
 		Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
 		parameters.put("user_id", item.getId());
 		n.setParameters(Serialize.serialize(parameters));

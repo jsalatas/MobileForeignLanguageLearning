@@ -9,39 +9,26 @@ package gr.ictpro.mall.client.view
 	
 	import spark.collections.SortField;
 	
-	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.Mediator;
-	
-	public class ClassroomViewMediator extends Mediator
+	public class ClassroomViewMediator extends TopBarDetailViewMediator
 	{
-		[Inject]
-		public var view:ClassroomView;
-		
-		[Inject]
-		public var addView:AddViewSignal;
-		
 		[Inject]
 		public var settings:Settings;
 		
-		[Inject]
-		public var channel:Channel;
-		
-		[Inject]
-		public var serverNotificationHandle:ServerNotificationHandledSignal;
-		
 		override public function onRegister():void
 		{
-			view.cancel.add(cancelHandler);
-			view.back.add(backHandler);
-			view.ok.add(saveHandler);
-			view.deleteClassroom.add(deleteClassroomHandler);
+			super.onRegister();
+			
+			setSaveHandler(handleSave);
+			setSaveErrorHandler(handleSaveError);
+			setDeleteHandler(handleDelete);
+			setDeleteErrorMessage(Translation.getTranslation('Cannot Delete Classroom.'));
+
 			var ro:RemoteObjectService;
 			if(view.parameters.classroom.name=="") {
 				view.currentState = "new";
@@ -50,14 +37,13 @@ package gr.ictpro.mall.client.view
 				view.currentState = "edit";
 			}
 			if(settings.user != null && !settings.user.isAdmin) {
-				view.teacher.visible = false;
+				ClassroomView(view).teacher.visible = false;
 			} else {
 				var args:Object = new Object();
 				args.role="Teacher";
 				ro = new RemoteObjectService(channel, "userRemoteService", "getUsers", args, handleGetTeachers, handleGetTeachersError);
 			}
 			ro = new RemoteObjectService(channel, "languageRemoteService", "getLanguages", null, handleGetLanguages, getLanguagesError);
-
 		}
 
 		private function handleGetLanguages(event:ResultEvent):void
@@ -74,7 +60,7 @@ package gr.ictpro.mall.client.view
 			languages.sort = sort;
 			languages.refresh();
 			
-			view.languages = new ArrayList(languages.toArray());
+			ClassroomView(view).languages = new ArrayList(languages.toArray());
 		}
 		
 		private function getLanguagesError(event:FaultEvent):void
@@ -97,7 +83,7 @@ package gr.ictpro.mall.client.view
 			teachers.sort = sort;
 			teachers.refresh();
 				
-			view.teachers = new ArrayList(teachers.toArray());
+			ClassroomView(view).teachers = new ArrayList(teachers.toArray());
 	
 		}
 		
@@ -106,26 +92,7 @@ package gr.ictpro.mall.client.view
 			UI.showError(view,Translation.getTranslation('Cannot Get Teachers.'));
 		}
 		
-		private function cancelHandler():void
-		{
-			backHandler();
-		}
-
-		private function backHandler():void
-		{
-			view.cancel.removeAll();
-			view.back.removeAll();
-			view.ok.removeAll();
-			view.deleteClassroom.removeAll();
-			view.dispose();
-			if(view.masterView == null) {
-				addView.dispatch(new MainView());	
-			} else {
-				addView.dispatch(view.masterView);
-			}
-		}
-
-		private function saveHandler():void
+		private function handleSave():void
 		{
 			var teacherId:int;
 			var classroom:Object = new Object();
@@ -135,41 +102,30 @@ package gr.ictpro.mall.client.view
 			}
 			
 			if(settings.user.isAdmin) {
-				if(view.teacherPopup.selected == null) {
+				if(ClassroomView(view).teacherPopup.selected == null) {
 					UI.showError(view, Translation.getTranslation("Please Assign a Teacher to the Classroom"));
 					return;
 				}
-				teacherId =view.teacherPopup.selected.id; 
+				teacherId = ClassroomView(view).teacherPopup.selected.id; 
 			} else {
 				teacherId =settings.user.id;
 			}
 			
-			if(view.languagePopup.selected == null) {
+			if(ClassroomView(view).languagePopup.selected == null) {
 				UI.showError(view, Translation.getTranslation("Please Assign a Language to the Classroom"));
 				return;
 			}
 			if(view.parameters.classroom.hasOwnProperty("id")) {
 				classroom.id = view.parameters.classroom.id; 
 			}
-			classroom.language_code = view.languagePopup.selected.code;
+			classroom.language_code = ClassroomView(view).languagePopup.selected.code;
 			classroom.teacher_id = teacherId; 
 			classroom.name = view.parameters.classroom.name;
 			classroom.notes = view.parameters.classroom.notes;
 			
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "classroomRemoteService", "updateClassroom", classroom, handleSave, handleSaveError);
+			saveData(SaveLocation.SERVER, classroom, "classroomRemoteService", "updateClassroom");
 		}
 
-		private function handleSave(event:ResultEvent):void
-		{
-			if(view.parameters.hasOwnProperty('notification')) {
-				serverNotificationHandle.dispatch(view.parameters.notification);
-			}
-			if(view.parameters.hasOwnProperty('notification')) {
-				serverNotificationHandle.dispatch(view.parameters.notification);
-			}
-			backHandler();	
-		}
-		
 		private function handleSaveError(event:FaultEvent):void
 		{
 			if(event.fault.faultString.indexOf("org.hibernate.exception.ConstraintViolationException") > -1) {
@@ -179,23 +135,12 @@ package gr.ictpro.mall.client.view
 			}
 		}
 
-		private function deleteClassroomHandler(language:Object):void 
+		private function handleDelete():void 
 		{
 			var classroom:Object = new Object();
 			classroom.classroom_id = view.parameters.classroom.id; 
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "classroomRemoteService", "deleteClassroom", classroom, handleDelete, handleDeleteError);
+			deleteData(SaveLocation.SERVER, classroom, "classroomRemoteService", "deleteClassroom");
 		}
-		
-		private function handleDelete(event:ResultEvent):void
-		{
-			backHandler();
-		}
-		
-		private function handleDeleteError(event:FaultEvent):void
-		{
-			UI.showError(view,Translation.getTranslation('Cannot Delete Classroom.'));
-		}
-		
 
 	}
 }

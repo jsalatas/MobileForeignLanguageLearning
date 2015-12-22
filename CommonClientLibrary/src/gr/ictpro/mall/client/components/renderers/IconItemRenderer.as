@@ -1824,7 +1824,14 @@ package gr.ictpro.mall.client.components.renderers
 		{
 			this._bottomSeparatorAlpha = bottomSeparatorAlpha;
 		}
-
+		
+		public function set styles(obj:Object):void
+		{
+			for (var styleProp:String in obj) 
+			{
+				setStyle(styleProp,obj[styleProp]);
+			}
+		}
 		
 	}
 }

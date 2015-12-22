@@ -37,7 +37,6 @@ package gr.ictpro.mall.client.view
 		{
 			addView.add(handleAddView);
 			serverConnectError.add(handleConnectionError);
-			
 			initialize.dispatch();
 		}
 		
@@ -58,7 +57,7 @@ package gr.ictpro.mall.client.view
 		{
 			UI.showError(view,Translation.getTranslation("Cannot Connect to Server."), connectionErrorPopup_close);
 		}
-		
+
 		private function connectionErrorPopup_close(evt:PopUpEvent):void
 		{
 			addView.dispatch(new ServerNameView());

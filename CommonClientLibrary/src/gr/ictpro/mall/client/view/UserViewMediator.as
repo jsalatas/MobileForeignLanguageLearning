@@ -20,21 +20,20 @@ package gr.ictpro.mall.client.view
 	import mx.core.FlexGlobals;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
+	import mx.utils.ObjectProxy;
 	
 	import spark.components.Group;
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.PopUpMenu;
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
 	import gr.ictpro.mall.client.utils.ui.UI;
@@ -43,56 +42,54 @@ package gr.ictpro.mall.client.view
 	import jp.shichiseki.exif.ExifLoader;
 	import jp.shichiseki.exif.IFD;
 	
-	import org.robotlegs.mvcs.Mediator;
-	
-	public class ProfileViewMediator extends Mediator
+	public class UserViewMediator extends TopBarDetailViewMediator
 	{
-		[Inject]
-		public var view:ProfileView;
-		
-		[Inject]
-		public var addView:AddViewSignal;
-		
 		[Inject]
 		public var settings:Settings;
 		
 		[Inject]
 		public var updateServerNotifications:UpdateServerNotificationsSignal;
 		
-		[Inject]
-		public var serverNotificationHandle:ServerNotificationHandledSignal;
-		
-		[Inject]
-		public var channel:Channel;
-		
 		private var photoUrl:String = "";
 		private var bitmap:Bitmap = null; 
 		
-		
 		override public function onRegister():void
 		{
-			if(view.parameters == null || !view.parameters.hasOwnProperty("parameters") || view.parameters.parameters == null) {
+			super.onRegister();
+			
+			setSaveHandler(saveHandler);
+			setSaveSuccessHandler(saveSuccessHandler);
+			
+			var saveErrorMessage:String;
+
+			if(view.parameters == null || !view.parameters.hasOwnProperty("initParams") || view.parameters.initParams == null || !view.parameters.hasOwnProperty("user") ) {
 				view.title = Translation.getTranslation("My Profile");
-				view.user = settings.user;
+				if(view.parameters == null) {
+					view.parameters = new ObjectProxy();
+				}
+				view.parameters.user = settings.user;
 				view.currentState = "profile";
-			} else {
+				saveErrorMessage = Translation.getTranslation("Cannot Save Profile.");
+			} else if(view.parameters.hasOwnProperty("initParams") && view.parameters.initParams.hasOwnProperty("user_id")) {
 				view.currentState = "edit";
 				view.title = Translation.getTranslation("Edit User");
 				var args:Object = new Object();
-				args.id=view.parameters.parameters.user_id;
+				args.id=view.parameters.initParams.user_id;
+				saveErrorMessage = "Cannot Save User.";
 				var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "getUser",args, handleGetUser, getUserError); 
+			} else {
+				throw new Error("Unknown User.");
 			}
-			view.save.add(saveHandler);
-			view.cancel.add(cancelHandler);
-			view.back.add(backHandler);
-			view.choosePhoto.add(choosePhotoHandler);
+			
+			UserView(view).choosePhoto.add(choosePhotoHandler);
+			setSaveErrorMessage(Translation.getTranslation(saveErrorMessage));
 		}
 		
 		private function handleGetUser(event:ResultEvent):void
 		{
 			var o:Object = event.result; 
 			if(o != null) {
-				view.user = User.createUser(o);
+				view.parameters.user = User.createUser(o);
 			} else {
 				getUserError(null);
 			}
@@ -105,42 +102,23 @@ package gr.ictpro.mall.client.view
 
 		private function saveHandler():void
 		{
-			if(view.txtPassword.text != "" || view.txtPassword2.text != "") {
-				if(view.txtPassword.text != view.txtPassword2.text) {
+			if(UserView(view).txtPassword.text != "" || UserView(view).txtPassword2.text != "") {
+				if(UserView(view).txtPassword.text != UserView(view).txtPassword2.text) {
 					UI.showError(view,Translation.getTranslation("Passwords do not Match."));
 					return;
 				} else {
-					view.user.plainPassword = view.txtPassword.text; 
+					view.parameters.user.plainPassword = UserView(view).txtPassword.text; 
 				}
 			}
-			view.user.name = view.txtName.text;
-			view.user.photo = view.imgPhoto.source;
-			view.user.email = view.txtEmail.text;
-			view.user.color = view.popupColor.selected;
+			view.parameters.user.name = UserView(view).txtName.text;
+			view.parameters.user.photo = UserView(view).imgPhoto.source;
+			view.parameters.user.email = UserView(view).txtEmail.text;
+			view.parameters.user.color = UserView(view).popupColor.selected;
 			if(view.currentState == "edit") {
-				view.user.enabled = view.chkEnabled.selected;
+				view.parameters.user.enabled = UserView(view).chkEnabled.selected;
 			}
 			
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "save", view.user.persistentData,saveSuccessHandler, saveErrorHandler); 
-		}
-		
-		private function cancelHandler():void
-		{
-			backHandler();
-		}
-
-		private function backHandler():void
-		{
-			view.save.removeAll();
-			view.cancel.removeAll();
-			view.back.removeAll();
-			view.dispose();
-			if(view.masterView == null) {
-				addView.dispatch(new MainView());	
-			} else {
-				addView.dispatch(view.masterView);
-			}
-			
+			saveData(SaveLocation.SERVER, view.parameters.user.persistentData, "userRemoteService", "save");
 		}
 		
 		private function saveSuccessHandler(event:Event):void
@@ -151,17 +129,9 @@ package gr.ictpro.mall.client.view
 				settings.user = User.createUser(o);
 				settings.user.initializeMenu();
 				updateServerNotifications.dispatch();
-			} else if(view.parameters.hasOwnProperty('notification')) {
-				serverNotificationHandle.dispatch(view.parameters.notification);
 			}
-			backHandler();
 		}
 
-		private function saveErrorHandler(event:FaultEvent):void
-		{
-			UI.showError(view,Translation.getTranslation("Cannot Save Profile."));
-		}
-		
 		private function choosePhotoHandler(event:MouseEvent):void
 		{
 			var popup:PopUpMenu = new PopUpMenu();
@@ -320,7 +290,7 @@ package gr.ictpro.mall.client.view
 		
 		private function applyCropHandler(croppedImage:BitmapData):void {
 			trace("Image Cropped");
-			view.imgPhoto.source = croppedImage;
+			UserView(view).imgPhoto.source = croppedImage;
 			
 			
 		}

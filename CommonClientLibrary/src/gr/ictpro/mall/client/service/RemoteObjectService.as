@@ -1,18 +1,12 @@
 package gr.ictpro.mall.client.service
 {
-	import flash.text.ReturnKeyLabel;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
-	
-	import mx.rpc.AsyncResponder;
-	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.remoting.RemoteObject;
 	
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-
+	
 	public class RemoteObjectService
 	{
 		private var _channel:Channel;
@@ -33,7 +27,7 @@ package gr.ictpro.mall.client.service
 			this._handleError = handleError;
 			execute();				
 		}
-		
+
 		private function execute():void
 		{
 			var ro:RemoteObject = new RemoteObject();
@@ -57,7 +51,6 @@ package gr.ictpro.mall.client.service
 
 		private function handleGenericError(event:FaultEvent):void
 		{
-			trace("Error: " + event);
 			_handleError(event);
 		}
 		

@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:TopBarGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:TopBarDetailView xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="gr.ictpro.mall.client.components.*"
 			   xmlns:signals="org.osflash.signals.*"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="100%" height="100%" backClicked="topbargroup1_backClickedHandler(event)"
-			   cancelClicked="topbargroup1_cancelClickedHandler(event)"
-			   okClicked="topbargroup1_okClickedHandler(event)">
+			   width="100%" height="100%">
 	<fx:Declarations>
-		<signals:Signal id="save"/>
-		<signals:Signal id="cancel"/>
-		<signals:Signal id="back"/>
 		<signals:Signal id="choosePhoto"/>
 	</fx:Declarations>
 	
@@ -24,10 +19,6 @@
 
 			import gr.ictpro.mall.client.model.Device;
 			import gr.ictpro.mall.client.model.Translation;
-			import gr.ictpro.mall.client.model.User;
-			
-			[Bindable]
-			public var user:User;
 			
 			[Bindable]
 			private var colorList:ArrayList = new ArrayList([
@@ -67,22 +58,6 @@
 				0x444500]);
 			
 
-			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
-			{
-				save.dispatch();
-			}
-			
-			protected function topbargroup1_cancelClickedHandler(event:MouseEvent):void
-			{
-				cancel.dispatch();
-			}
-			
-			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
-			{
-				back.dispatch();
-				
-			}
-			
 			protected function imgPhoto_clickHandler(event:MouseEvent):void
 			{
 				choosePhoto.dispatch(event);
@@ -107,7 +82,7 @@
 					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2"
 									  paddingTop="2"/>
 				</s:layout>
-				<s:Image id="imgPhoto" width="150" height="200" source="{user.photo}"/>	
+				<s:Image id="imgPhoto" width="150" height="200" source="{parameters.user.photo}"/>	
 			</s:Group>
 		</s:Group>
 
@@ -119,7 +94,7 @@
 			<s:FormItem width="100%" label="{Translation.getTranslation('Enabled')}"
 						visible.edit="true"
 						visible.profile="false">
-				<s:CheckBox id="chkEnabled" selected="{user.enabled}"/>
+				<s:CheckBox id="chkEnabled" selected="{parameters.user.enabled}"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}">
 				<s:TextInput id="txtPassword" width="100%" autoCapitalize="word"
@@ -130,12 +105,12 @@
 							 displayAsPassword="true" text="" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" autoCapitalize="word" text="{user.name}"
+				<s:TextInput id="txtName" width="100%" autoCapitalize="word" text="{parameters.user.name}"
 							 textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Email')}">
 				<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
-							 text="{user.email}" textAlign="left"/>
+							 text="{parameters.user.email}" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Color')}">
 				<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
@@ -146,4 +121,4 @@
 	</s:Group>
 	
 	
-</s:TopBarGroup>
+</s:TopBarDetailView>

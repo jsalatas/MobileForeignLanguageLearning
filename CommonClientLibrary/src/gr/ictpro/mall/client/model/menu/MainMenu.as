@@ -33,7 +33,7 @@ package gr.ictpro.mall.client.model.menu
 			}
 			
 			//Profile editor (common to all roles)
-			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ProfileView")); 
+			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, Device.defaultColorTransform, "gr.ictpro.mall.client.view.UserView")); 
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));

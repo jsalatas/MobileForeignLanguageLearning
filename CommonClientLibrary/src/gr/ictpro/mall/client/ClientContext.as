@@ -1,5 +1,8 @@
 package gr.ictpro.mall.client
 {
+	import gr.ictpro.mall.client.components.TopBarDetailView;
+	import gr.ictpro.mall.client.components.TopBarListView;
+	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.LoginCommand;
 	import gr.ictpro.mall.client.controller.MenuCommand;
@@ -32,6 +35,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
+	import gr.ictpro.mall.client.signal.ShowErrorSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.ClassroomView;
@@ -44,20 +48,26 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.LanguagesViewMediator;
 	import gr.ictpro.mall.client.view.MainView;
 	import gr.ictpro.mall.client.view.MainViewMediator;
-	import gr.ictpro.mall.client.view.ProfileView;
-	import gr.ictpro.mall.client.view.ProfileViewMediator;
 	import gr.ictpro.mall.client.view.ServerNameView;
 	import gr.ictpro.mall.client.view.ServerNameViewMediator;
 	import gr.ictpro.mall.client.view.SettingsView;
 	import gr.ictpro.mall.client.view.SettingsViewMediator;
 	import gr.ictpro.mall.client.view.ShellView;
 	import gr.ictpro.mall.client.view.ShellViewMediator;
+	import gr.ictpro.mall.client.view.UserView;
+	import gr.ictpro.mall.client.view.UserViewMediator;
 	
+	import org.robotlegs.core.IInjector;
 	import org.robotlegs.utilities.modular.core.IModule;
 	import org.robotlegs.utilities.modular.mvcs.ModuleContext;
 	
 	public class ClientContext extends ModuleContext
 	{
+		public function getInjector():IInjector
+		{
+			return injector;
+		}
+			
 		override public function startup():void
 		{
 			viewMap.mapType(IModule);
@@ -68,6 +78,7 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(RegisterSuccessSignal);
 			injector.mapSingleton(ServerConnectErrorSignal);
 			injector.mapSingleton(ServerMessageReceivedSignal);
+			injector.mapSingleton(ShowErrorSignal);
 			injector.mapSingleton(Modules);
 			injector.mapSingleton(MessagingService);
 			injector.mapSingleton(Channel);
@@ -78,12 +89,12 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ShellView, ShellViewMediator);
 			mediatorMap.mapView(ServerNameView, ServerNameViewMediator);
 			mediatorMap.mapView(MainView, MainViewMediator);
-			mediatorMap.mapView(SettingsView, SettingsViewMediator);
-			mediatorMap.mapView(ProfileView, ProfileViewMediator);
-			mediatorMap.mapView(LanguagesView, LanguagesViewMediator);
-			mediatorMap.mapView(LanguageView, LanguageViewMediator);
-			mediatorMap.mapView(ClassroomsView, ClassroomsViewMediator);
-			mediatorMap.mapView(ClassroomView, ClassroomViewMediator);
+			mediatorMap.mapView(SettingsView, SettingsViewMediator, TopBarView);
+			mediatorMap.mapView(UserView, UserViewMediator, TopBarView);
+			mediatorMap.mapView(LanguagesView, LanguagesViewMediator, TopBarView);
+			mediatorMap.mapView(LanguageView, LanguageViewMediator, TopBarView);
+			mediatorMap.mapView(ClassroomsView, ClassroomsViewMediator, TopBarView);
+			mediatorMap.mapView(ClassroomView, ClassroomViewMediator, TopBarView);
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);
 			signalCommandMap.mapSignalClass(SavePropertySignal, SavePropertyCommand);

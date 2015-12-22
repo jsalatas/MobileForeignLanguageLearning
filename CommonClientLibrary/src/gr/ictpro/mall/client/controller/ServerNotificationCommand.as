@@ -27,7 +27,7 @@ package gr.ictpro.mall.client.controller
 			if(selectedNotification.notification.isInternalModule) {
 				loadedModules.module = null;
 				var p:ObjectProxy = new ObjectProxy();
-				p.parameters = selectedNotification.notification.parameters;
+				p.initParams = selectedNotification.notification.parameters;
 				p.notification = selectedNotification.notification;
 				addView.dispatch(createInstance(selectedNotification.notification.module), p);
 			} else {

@@ -1,7 +1,6 @@
 package gr.ictpro.mall.client.components
 {
 	import flash.events.Event;
-	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	
 	import mx.core.IVisualElement;
@@ -23,29 +22,26 @@ package gr.ictpro.mall.client.components
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.ParameterizedView;
 
-use namespace mx_internal;	
-	
+
+	use namespace mx_internal;	
+
 	[Event(name="backClicked", type="flash.events.MouseEvent")]
-	[Event(name="okClicked", type="flash.events.MouseEvent")]
-	[Event(name="cancelClicked", type="flash.events.MouseEvent")]
-	[Event(name="addClicked", type="flash.events.MouseEvent")]
-	[Event(name="deleteClicked", type="flash.events.MouseEvent")]
-	
-	public class TopBarGroup extends Group implements gr.ictpro.mall.client.model.DetailView, gr.ictpro.mall.client.model.ParameterizedView
+
+	public class TopBarView extends Group implements DetailView, ParameterizedView
 	{
 		public var addButton:Boolean = false;
 		public  var deleteButton:Boolean = false;
-		public var okButton:Boolean = true;
-		public var cancelButton:Boolean = true;
-		private var mxmlContentGroup:Group = new Group(); 
+		public var okButton:Boolean = false;
+		public var cancelButton:Boolean = false;
 		protected var _title:String;
 		private var _titleLabel:Label; 
-		private var _scroller:Scroller = new Scroller();
-		private var _groupDelete:Group;
+		protected var mxmlContentGroup:Group = new Group(); 
 		private var _masterView:IVisualElement;
 		private var _parameters:ObjectProxy;
-		
-		public function TopBarGroup()
+		private var _groupDelete:Group;
+		private var _disableDelete:Boolean = false; 
+
+		public function TopBarView()
 		{
 			super();
 		}
@@ -63,14 +59,13 @@ use namespace mx_internal;
 		{
 			return this._title;
 		}
-
+		
 		public function dispose():void
 		{
 			if(parent && parent.contains(this)) {
 				IVisualElementContainer(parent).removeElement(this);
 			}
 		}
-		
 		public function set masterView(masterView:IVisualElement):void 
 		{
 			this._masterView = masterView;
@@ -80,19 +75,21 @@ use namespace mx_internal;
 		{
 			return this._masterView;
 		}
-
+		
 		[Bindable]
 		public function set parameters(parameters:ObjectProxy):void
 		{
 			this._parameters = parameters;
 		}
-
+		
 		public function get parameters():ObjectProxy
 		{
 			return this._parameters;
 		}
 		
-
+		
+		
+		
 		override protected function createChildren():void
 		{
 			super.createChildren();
@@ -131,7 +128,7 @@ use namespace mx_internal;
 			var fxgBack:back = new back();
 			fxgBack.width = Device.getScaledSize(16);
 			fxgBack.height = Device.getScaledSize(15);
-
+			
 			var groupBack:Group = new Group();
 			groupBack.addElement(fxgBack);
 			groupBack.addEventListener(MouseEvent.CLICK, backClickedHandler);
@@ -162,7 +159,7 @@ use namespace mx_internal;
 			ocgroup.right = 0;
 			ocgroup.top = 0;
 			ocgroup.height = 30; //Device.getScaledSize(40);
-
+			
 			if(addButton) {
 				var fxgAdd:add = new add();
 				fxgAdd.width = Device.getScaledSize(15);
@@ -173,7 +170,7 @@ use namespace mx_internal;
 				
 				ocgroup.addElement(groupAdd);
 			}
-
+			
 			if(deleteButton) {
 				var fxgDelete:trashcan = new trashcan();
 				fxgDelete.width = Device.getScaledSize(11);
@@ -184,7 +181,7 @@ use namespace mx_internal;
 				
 				ocgroup.addElement(_groupDelete);
 			}
-
+			
 			if(okButton) {
 				var fxgOk:ok = new ok();
 				fxgOk.width = Device.getScaledSize(21);
@@ -195,7 +192,8 @@ use namespace mx_internal;
 				groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
 				
 				ocgroup.addElement(groupOK);
-
+				addElement(mxmlContentGroup);
+				
 			}
 			
 			if(cancelButton) {
@@ -208,20 +206,58 @@ use namespace mx_internal;
 				groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
 				ocgroup.addElement(groupCancel);
 			}
-
+			
 			topBarGroup.addElement(ocgroup);
-			_scroller.percentWidth = 100;
-			_scroller.percentHeight = 100;
-			_scroller.minViewportInset = 1;
-			_scroller.hasFocusableChildren = true;
-			_scroller.ensureElementIsVisibleForSoftKeyboard = true;
-			_scroller.viewport = mxmlContentGroup;
-			mxmlContentGroup.addEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
 			mxmlContentGroup.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-			addElement(_scroller);
+
+		}
+
+		private function removedFromStageHandler(event:Event):void 
+		{
+			mxmlContentGroup.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 		}
 		
-		private var _disableDelete:Boolean = false; 
+		override public function set layout(value:LayoutBase):void
+		{
+			mxmlContentGroup.layout = layout;
+		}
+		
+		private function backClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("backClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+		
+		private function okClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("okClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+		
+		private function addClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("addClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+		
+		private function deleteClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("deleteClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+		
+		private function cancelClickedHandler(event:MouseEvent):void
+		{
+			var e:MouseEvent = new MouseEvent("cancelClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			dispatchEvent(e);
+		}
+		
+		override public function set mxmlContent(value:Array):void
+		{
+			mxmlContentGroup.mxmlContent = value;
+			invalidateDisplayList();
+		}
+
 		public function disableDelete():void {
 			_disableDelete = true;
 			if(_groupDelete != null) {
@@ -236,59 +272,6 @@ use namespace mx_internal;
 				_groupDelete.getChildAt(0).alpha = 1.0;
 				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
 			}
-		}
-		
-			
-		private function removedFromStageHandler(event:Event):void 
-		{
-			mxmlContentGroup.removeEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
-			mxmlContentGroup.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-		}
-		
-		private function globalFocusInHandler(event:FocusEvent):void 
-		{
-			_scroller.ensureElementIsVisible(IVisualElement(event.target));
-		}
-		
-		override public function set layout(value:LayoutBase):void
-		{
-			mxmlContentGroup.layout = layout;
-		}
-		
-		private function backClickedHandler(event:MouseEvent):void
-		{
-			var e:MouseEvent = new MouseEvent("backClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
-			dispatchEvent(e);
-		}
-
-		private function okClickedHandler(event:MouseEvent):void
-		{
-			var e:MouseEvent = new MouseEvent("okClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
-			dispatchEvent(e);
-		}
-
-		private function addClickedHandler(event:MouseEvent):void
-		{
-			var e:MouseEvent = new MouseEvent("addClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
-			dispatchEvent(e);
-		}
-
-		private function deleteClickedHandler(event:MouseEvent):void
-		{
-			var e:MouseEvent = new MouseEvent("deleteClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
-			dispatchEvent(e);
-		}
-
-		private function cancelClickedHandler(event:MouseEvent):void
-		{
-			var e:MouseEvent = new MouseEvent("cancelClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
-			dispatchEvent(e);
-		}
-
-		override public function set mxmlContent(value:Array):void
-		{
-			mxmlContentGroup.mxmlContent = value;
-			invalidateDisplayList();
 		}
 	}
 }

@@ -4,48 +4,33 @@ package gr.ictpro.mall.client.view
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
-	import mx.rpc.events.FaultEvent;
 	
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.FormItem;
 	import gr.ictpro.mall.client.components.TextInput;
-	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
-	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.Mediator;
 	
-	public class SettingsViewMediator extends Mediator
+	public class SettingsViewMediator extends TopBarDetailViewMediator
 	{
 		[Inject]
-		public var view:SettingsView;
-		
-		[Inject]
-		public var addView:AddViewSignal;
-		
-		[Inject]
-		public var serverNotificationHandle:ServerNotificationHandledSignal;
-
-		[Inject]
 		public var settings:Settings; 
-		
-		[Inject]
-		public var channel:Channel;
 		
 		private var settingsMap:Object = new Object();
 		
 		override public function onRegister():void
 		{
+			super.onRegister();
+			
+			setSaveHandler(saveHandler);
+			setSaveSuccessHandler(saveSuccessHandler);
+			setSaveErrorMessage(Translation.getTranslation("Cannot Save Server Configuration."));
+			
 			view.title = Translation.getTranslation("Server Settings");
-			view.save.add(saveHandler);
-			view.cancel.add(cancelHandler);
-			view.back.add(backHandler);
 			if(settings.serverConfiguration.persistentData != null) {
 				initView();
 			}
@@ -65,7 +50,7 @@ package gr.ictpro.mall.client.view
 				textInput.text = o.value;
 				settingsMap[o.name]=textInput;
 				formItem.addElement(textInput);
-				view.settings.addElement(formItem);
+				SettingsView(view).settings.addElement(formItem);
 				formItem.percentWidth = 100;
 				textInput.percentWidth = 100;
 			}
@@ -98,51 +83,15 @@ package gr.ictpro.mall.client.view
 				p[setting]=(settingsMap[setting] as TextInput).text;
 			}
 			
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "configRemoteService", "saveConfig", p, saveSuccessHandler, saveErrorHandler); 
-			
+			saveData(SaveLocation.SERVER, p, "configRemoteService", "saveConfig");
 		}
 		
 		private function saveSuccessHandler(event:Event):void
 		{
-			var p:Object = new Object();
-			for(var setting:String in settingsMap) {
-				p[setting]=(settingsMap[setting] as TextInput).text;
-			}
-			
 			// Reread settings from server
 			settings.serverConfiguration = new ServerConfiguration(channel);
-
-			if(view.parameters != null && view.parameters.hasOwnProperty('notification')) {
-				serverNotificationHandle.dispatch(view.parameters.notification);
-			}
-
-			backHandler();
 		}
 		
-		private function saveErrorHandler(event:FaultEvent):void
-		{
-			UI.showError(view,Translation.getTranslation("Cannot Save Server Configuration."));
-		}
-		
-
-
-		private function cancelHandler():void
-		{
-			backHandler();
-		}
-
-		private function backHandler():void
-		{
-			view.save.removeAll();
-			view.cancel.removeAll();
-			view.back.removeAll();
-			view.dispose();
-			if(view.masterView == null) {
-				addView.dispatch(new MainView());	
-			} else {
-				addView.dispatch(view.masterView);
-			}
-		}
 
 	}
 }
