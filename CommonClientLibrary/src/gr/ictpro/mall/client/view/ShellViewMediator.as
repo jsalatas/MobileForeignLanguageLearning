@@ -8,7 +8,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.IDetailView;
 	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.components.IParameterizedView;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;

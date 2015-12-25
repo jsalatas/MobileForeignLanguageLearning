@@ -13,7 +13,7 @@ package gr.ictpro.mall.client.view
 	import mx.rpc.events.ResultEvent;
 	
 	import gr.ictpro.mall.client.model.SaveLocation;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	

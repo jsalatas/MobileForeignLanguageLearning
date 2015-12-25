@@ -9,7 +9,7 @@
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.runtime.Device;
-			import gr.ictpro.mall.client.model.Translation;
+			import gr.ictpro.mall.client.runtime.Translation;
 		]]>
 	</fx:Script>
 	<fx:Declarations>

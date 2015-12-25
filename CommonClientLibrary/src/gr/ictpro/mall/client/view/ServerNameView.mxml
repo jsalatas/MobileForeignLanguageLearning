@@ -11,7 +11,7 @@
 		<![CDATA[
 			import mx.core.IVisualElementContainer;
 			
-			import gr.ictpro.mall.client.model.Translation;
+			import gr.ictpro.mall.client.runtime.Translation;
 			
 			protected function ok_clickHandler(event:MouseEvent):void
 			{

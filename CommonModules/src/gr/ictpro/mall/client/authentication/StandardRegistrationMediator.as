@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.authentication
 	import mx.utils.ObjectProxy;
 	
 	import gr.ictpro.mall.client.model.RegistrationDetails;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;

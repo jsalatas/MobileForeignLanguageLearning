@@ -12,7 +12,7 @@
 			import mx.collections.ArrayList;
 			import mx.core.IVisualElementContainer;
 			
-			import gr.ictpro.mall.client.model.Translation;
+			import gr.ictpro.mall.client.runtime.Translation;
 			
 			import org.robotlegs.core.IInjector;
 			import org.robotlegs.utilities.modular.core.IModuleContext;

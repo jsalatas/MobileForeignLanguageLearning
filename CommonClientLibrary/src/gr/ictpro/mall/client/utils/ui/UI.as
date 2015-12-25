@@ -5,7 +5,7 @@ package gr.ictpro.mall.client.utils.ui
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.components.PopupNotification;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 
 	public class UI
 	{

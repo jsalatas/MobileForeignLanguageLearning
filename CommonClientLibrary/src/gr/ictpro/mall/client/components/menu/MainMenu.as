@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.components.menu
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.runtime.Device;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.model.User;
 
 	public class MainMenu

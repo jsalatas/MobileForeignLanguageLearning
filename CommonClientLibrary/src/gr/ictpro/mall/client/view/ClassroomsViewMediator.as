@@ -10,7 +10,7 @@ package gr.ictpro.mall.client.view
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.TopBarListView;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	

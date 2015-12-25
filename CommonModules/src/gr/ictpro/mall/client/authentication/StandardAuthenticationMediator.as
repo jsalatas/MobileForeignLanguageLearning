@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.authentication
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.service.RegistrationProvider;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;

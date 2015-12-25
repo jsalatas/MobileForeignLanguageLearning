@@ -1,7 +1,7 @@
 package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.model.SaveLocation;
-	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.utils.ui.UI;
 
 	public class ClassroomgroupViewMediator extends TopBarDetailViewMediator
