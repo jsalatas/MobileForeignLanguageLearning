@@ -40,6 +40,10 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.ClassroomView;
 	import gr.ictpro.mall.client.view.ClassroomViewMediator;
+	import gr.ictpro.mall.client.view.ClassroomgroupView;
+	import gr.ictpro.mall.client.view.ClassroomgroupViewMediator;
+	import gr.ictpro.mall.client.view.ClassroomgroupsView;
+	import gr.ictpro.mall.client.view.ClassroomgroupsViewMediator;
 	import gr.ictpro.mall.client.view.ClassroomsView;
 	import gr.ictpro.mall.client.view.ClassroomsViewMediator;
 	import gr.ictpro.mall.client.view.LanguageView;
@@ -95,6 +99,8 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(LanguageView, LanguageViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomsView, ClassroomsViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomView, ClassroomViewMediator, TopBarView);
+			mediatorMap.mapView(ClassroomgroupsView, ClassroomgroupsViewMediator, TopBarView);
+			mediatorMap.mapView(ClassroomgroupView, ClassroomgroupViewMediator, TopBarView);
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);
 			signalCommandMap.mapSignalClass(SavePropertySignal, SavePropertyCommand);

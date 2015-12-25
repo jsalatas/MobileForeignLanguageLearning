@@ -131,6 +131,11 @@
     <classEntry path="gr.ictpro.mall.client.components.TopBarView"/>
     <classEntry path="gr.ictpro.mall.client.view.TopBarListViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.TopBarDetailViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.TabbedList"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupsView"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupView"/>
+    <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupViewMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

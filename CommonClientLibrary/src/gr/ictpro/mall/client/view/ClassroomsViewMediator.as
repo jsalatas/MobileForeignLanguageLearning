@@ -10,7 +10,6 @@ package gr.ictpro.mall.client.view
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.TopBarListView;
-	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.utils.ui.UI;
@@ -18,9 +17,6 @@ package gr.ictpro.mall.client.view
 	
 	public class ClassroomsViewMediator extends TopBarListViewMediator
 	{
-		[Inject]
-		public var settings:Settings;
-
 		override public function onRegister():void
 		{
 			super.onRegister();
@@ -72,7 +68,7 @@ package gr.ictpro.mall.client.view
 		private function getNew():ObjectProxy
 		{
 			var classroom:ObjectProxy = new ObjectProxy();
-			classroom.languageCode = "";
+			classroom.id = null;
 			classroom.name = "";
 			classroom.notes = "";
 			

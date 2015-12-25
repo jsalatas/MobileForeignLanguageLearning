@@ -30,6 +30,7 @@ package gr.ictpro.mall.client.model.menu
 			
 			if(user.isAdmin || user.isTeacher) {
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ClassroomsView")); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ClassroomgroupsView")); 
 			}
 			
 			//Profile editor (common to all roles)

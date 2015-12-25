@@ -30,7 +30,7 @@ package gr.ictpro.mall.client.view
 			setDeleteErrorMessage(Translation.getTranslation('Cannot Delete Classroom.'));
 
 			var ro:RemoteObjectService;
-			if(view.parameters.classroom.name=="") {
+			if(!view.parameters.classroom.hasOwnProperty("id") || view.parameters.classroom.id == null) {
 				view.currentState = "new";
 				view.disableDelete();
 			} else {

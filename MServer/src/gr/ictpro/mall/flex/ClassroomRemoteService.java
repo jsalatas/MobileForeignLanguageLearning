@@ -11,6 +11,7 @@ import java.util.Set;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
+import gr.ictpro.mall.model.Classroomgroup;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
@@ -28,6 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ClassroomRemoteService {
     @Autowired(required = true)
     private ClassroomService classroomService;
+
+    @Autowired(required = true)
+    private GenericService<Classroomgroup, Integer> classroomgroupService;
 
     @Autowired(required = true)
     private UserService userService;
@@ -68,7 +72,7 @@ public class ClassroomRemoteService {
 
     public void updateClassroom(ASObject classroomObj) {
 	Integer id = -1;
-	if(classroomObj.containsKey("id")) {
+	if(classroomObj.containsKey("id") && classroomObj.get("id") != null) {
 	    id = (Integer)classroomObj.get("id");
 	}
 	
@@ -104,6 +108,44 @@ public class ClassroomRemoteService {
 	    c.setLanguage(language);
 	    classroomService.update(c);
 	}
+    }
+
+    public List<Classroomgroup> getClassroomgroups() {
+	return classroomgroupService.listAll();
+    }
+
+    public void updateClassroomgroup(ASObject classroomgroupObj) {
+	Integer id = -1;
+	if(classroomgroupObj.containsKey("id") && classroomgroupObj.get("id") != null) {
+	    id = (Integer)classroomgroupObj.get("id");
+	}
+	
+	String name = (String)classroomgroupObj.get("name");
+	String notes = (String)classroomgroupObj.get("notes");
+
+	Classroomgroup c; 
+	if(id == -1) {
+	    c = new Classroomgroup(name);
+	    c.setNotes(notes);
+//	    Set<User> users = new HashSet<User>();
+//	    users.add(teacher);
+//	    c.setUsers(users);
+//	    c.setLanguage(language);
+	    classroomgroupService.create(c);
+	} else {
+	    c = classroomgroupService.retrieveById(id);
+	    c.setName(name);
+	    c.setNotes(notes);
+//	    classroomService.replaceTeacher(c, teacher);
+//	    c.setLanguage(language);
+	    classroomgroupService.update(c);
+	}
+    }
+
+    public void deleteClassroomgroup(ASObject classroomgroupObj) {
+	Integer id = (Integer)classroomgroupObj.get("classroomgroup_id");
+	
+	classroomgroupService.delete(id);
     }
 
 }
