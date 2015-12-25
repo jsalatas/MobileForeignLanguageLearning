@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="CommonClient.mxml" projectUUID="3a8844f8-92cf-4830-ada7-acfd3d4b2dc6" version="10">
-  <compiler additionalCompilerArguments="-locale en_US -keep-as3-metadata+=Inject -keep-as3-metadata+=PostConstruct" autoRSLOrdering="true" copyDependentFiles="true" flex3CompatMode="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+<actionScriptProperties analytics="false" mainApplicationPath="CommonClient.mxml" projectUUID="3a8844f8-92cf-4830-ada7-acfd3d4b2dc6" version="11">
+  <compiler additionalCompilerArguments="-locale en_US -keep-as3-metadata+=Inject -keep-as3-metadata+=PostConstruct" autoRSLOrdering="true" copyDependentFiles="true" flex3CompatMode="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" useFlashSDK="false" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
       <libraryPathEntry kind="4" path="">
@@ -23,9 +23,12 @@
       <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/themes/Mobile/mobile.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/as3-signals-v0.9-BETA.swc" sourcepath="C:/actionscript/as3-signals-master/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-modular-signals.swc" sourcepath="C:/actionscript/robotlegs-modular-signals-master/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-utilities-Modular-v0.5.3.swc" sourcepath="C:/actionscript/robotlegs-utilities-Modular-master/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/as3-signals-v0.9.swc" sourcepath="C:/actionscript/as3-signals-v0.9/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-framework-v1.5.2.swc" sourcepath="C:/actionscript/robotlegs-framework-v1.5.2/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-modular-signals-v1.2.swc" sourcepath="C:/actionscript/robotlegs-modular-signals-v1.2/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-utilities-Modular-v0.5.3.swc" sourcepath="C:/actionscript/robotlegs-utilities-Modular-v0.5.3/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/signals-extension-SignalsCommandMap-v0.4.swc" sourcepath="C:/actionscript/signals-extension-SignalsCommandMap-v0.4/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/SwiftSuspenders-v1.6.0.swc" sourcepath="C:/actionscript/SwiftSuspenders-v1.6.0/src" useDefaultLinkType="false"/>
     </sourceAttachmentPath>
   </compiler>
   <applications>
@@ -37,13 +40,18 @@
     <module destPath="gr/ictpro/mall/client/authentication/StandardAuthentication.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/StandardAuthentication.mxml"/>
     <module destPath="gr/ictpro/mall/client/authentication/StandardRegistration.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/StandardRegistration.mxml"/>
   </modules>
+  <workers/>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
-    <buildTarget buildTargetName="default">
+    <buildTarget buildTargetName="default" platformId="default">
       <airSettings airCertificatePath="" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths/>
+        <newLaunchParams/>
+        <modifiedLaunchParams/>
+        <newPackagingParams/>
+        <modifiedPackagingParams/>
       </airSettings>
       <actionScriptSettings version="1"/>
     </buildTarget>

@@ -11,7 +11,7 @@ package gr.ictpro.mall.client.controller
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
-	public class ServerNotificationHandledCommand extends SignalCommand
+	public class HandleServerNotificationCommand extends SignalCommand
 	{
 		[Inject]
 		public var notification:ServerNotification;

@@ -5,7 +5,6 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -19,9 +18,6 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var addView:AddViewSignal;
-
-		[Inject]
-		public var serverNotificationHandle:ServerNotificationHandledSignal;
 
 		private var _backHandler:Function;
 		

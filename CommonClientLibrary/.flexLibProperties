@@ -105,8 +105,8 @@
     <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationCommand"/>
     <classEntry path="gr.ictpro.mall.client.components.IParameterizedView"/>
     <classEntry path="gr.ictpro.mall.client.components.IDetailView"/>
-    <classEntry path="gr.ictpro.mall.client.signal.ServerNotificationHandledSignal"/>
-    <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationHandledCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.HandleServerNotificationSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.HandleServerNotificationCommand"/>
     <classEntry path="gr.ictpro.mall.client.runtime.Translation"/>
     <classEntry path="gr.ictpro.mall.client.components.CheckBox"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguagesView"/>

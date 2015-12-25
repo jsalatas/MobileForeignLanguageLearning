@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.signal.HandleServerNotificationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 
 	public class TopBarDetailViewMediator extends TopBarViewMediator
@@ -20,6 +21,10 @@ package gr.ictpro.mall.client.view
 		private var _deleteSuccessHandler:Function;
 		private var _deleteErrorHandler:Function;
 		private var _deleteErrorMessage:String;
+
+		[Inject]
+		public var serverNotificationHandle:HandleServerNotificationSignal;
+		
 
 		override public function onRegister():void
 		{
