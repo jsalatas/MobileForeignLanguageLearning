@@ -1,6 +1,6 @@
 package gr.ictpro.mall.client.controller
 {
-	import gr.ictpro.mall.client.model.RegistrationProvider;
+	import gr.ictpro.mall.client.service.RegistrationProvider;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.ExternalModuleLoader;
 	import gr.ictpro.mall.client.service.RegistrationProviders;

@@ -13,7 +13,7 @@ package gr.ictpro.mall.client.model
 	import assets.fxg.profile;
 	
 	import gr.ictpro.mall.client.Icons;
-	import gr.ictpro.mall.client.model.menu.MainMenu;
+	import gr.ictpro.mall.client.components.menu.MainMenu;
 
 	public class User extends EventDispatcher 
 	{

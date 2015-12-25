@@ -1,8 +1,5 @@
-package gr.ictpro.mall.client.model
+package gr.ictpro.mall.client.service
 {
-	import flash.system.System;
-	
-	import mx.collections.ArrayCollection;
 	import mx.events.ModuleEvent;
 	
 	import spark.modules.ModuleLoader;

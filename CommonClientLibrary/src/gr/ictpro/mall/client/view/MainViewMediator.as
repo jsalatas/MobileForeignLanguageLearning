@@ -2,8 +2,8 @@ package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.model.ServerNotification;
 	import gr.ictpro.mall.client.model.Settings;
-	import gr.ictpro.mall.client.model.menu.MenuItem;
-	import gr.ictpro.mall.client.model.menu.MenuItemSelected;
+	import gr.ictpro.mall.client.components.menu.MenuItem;
+	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.signal.MenuSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationSignal;
 	

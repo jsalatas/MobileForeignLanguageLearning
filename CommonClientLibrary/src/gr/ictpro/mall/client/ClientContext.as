@@ -12,7 +12,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand;
 	import gr.ictpro.mall.client.model.Device;
-	import gr.ictpro.mall.client.model.Modules;
+	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.Channel;

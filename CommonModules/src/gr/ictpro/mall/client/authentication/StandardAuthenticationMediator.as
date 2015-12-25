@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.authentication
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.model.RegistrationProvider;
+	import gr.ictpro.mall.client.service.RegistrationProvider;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;

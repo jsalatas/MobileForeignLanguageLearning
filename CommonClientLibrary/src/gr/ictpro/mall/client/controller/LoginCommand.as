@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.controller
 	import mx.rpc.events.ResultEvent;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.model.Modules;
+	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;

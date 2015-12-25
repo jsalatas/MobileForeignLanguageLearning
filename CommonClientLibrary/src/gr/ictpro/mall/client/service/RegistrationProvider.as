@@ -1,11 +1,11 @@
-package gr.ictpro.mall.client.model
+package gr.ictpro.mall.client.service
 {
 	import flash.events.EventDispatcher;
 
-	public class AuthenticationProvider extends EventDispatcher
+	public class RegistrationProvider extends EventDispatcher
 	{
 		private var _provider:String;
-		public function AuthenticationProvider(provider:String)
+		public function RegistrationProvider(provider:String)
 		{
 			this._provider = provider;
 		}

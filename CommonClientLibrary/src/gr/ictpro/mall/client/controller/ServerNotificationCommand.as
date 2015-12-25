@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.controller
 	
 	import mx.utils.ObjectProxy;
 	
-	import gr.ictpro.mall.client.model.Modules;
+	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.model.ServerNotification;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	

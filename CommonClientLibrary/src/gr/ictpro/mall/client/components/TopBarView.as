@@ -18,16 +18,14 @@ package gr.ictpro.mall.client.components
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
-	import gr.ictpro.mall.client.model.DetailView;
 	import gr.ictpro.mall.client.model.Device;
-	import gr.ictpro.mall.client.model.ParameterizedView;
 
 
 	use namespace mx_internal;	
 
 	[Event(name="backClicked", type="flash.events.MouseEvent")]
 
-	public class TopBarView extends Group implements DetailView, ParameterizedView
+	public class TopBarView extends Group implements IDetailView, IParameterizedView
 	{
 		public var addButton:Boolean = false;
 		public  var deleteButton:Boolean = false;

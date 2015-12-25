@@ -32,7 +32,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
-	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
+	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;

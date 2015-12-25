@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.controller
 {
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.model.AuthenticationProvider;
+	import gr.ictpro.mall.client.service.AuthenticationProvider;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.ExternalModuleLoader;

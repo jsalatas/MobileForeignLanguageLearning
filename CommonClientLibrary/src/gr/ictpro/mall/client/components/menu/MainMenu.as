@@ -1,4 +1,4 @@
-package gr.ictpro.mall.client.model.menu
+package gr.ictpro.mall.client.components.menu
 {
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;

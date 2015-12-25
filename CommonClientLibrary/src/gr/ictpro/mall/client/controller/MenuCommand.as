@@ -2,11 +2,11 @@ package gr.ictpro.mall.client.controller
 {
 	import flash.utils.getDefinitionByName;
 	
-	import gr.ictpro.mall.client.model.Modules;
-	import gr.ictpro.mall.client.model.menu.MenuItemCommand;
-	import gr.ictpro.mall.client.model.menu.MenuItemExternalModule;
-	import gr.ictpro.mall.client.model.menu.MenuItemInternalModule;
-	import gr.ictpro.mall.client.model.menu.MenuItemSelected;
+	import gr.ictpro.mall.client.service.Modules;
+	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
+	import gr.ictpro.mall.client.components.menu.MenuItemExternalModule;
+	import gr.ictpro.mall.client.components.menu.MenuItemInternalModule;
+	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;

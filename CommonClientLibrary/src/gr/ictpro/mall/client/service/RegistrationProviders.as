@@ -1,6 +1,5 @@
 package gr.ictpro.mall.client.service
 {
-	import gr.ictpro.mall.client.model.RegistrationProvider;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	

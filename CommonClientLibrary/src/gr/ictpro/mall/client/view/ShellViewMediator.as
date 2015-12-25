@@ -5,9 +5,9 @@ package gr.ictpro.mall.client.view
 	
 	import spark.events.PopUpEvent;
 	
-	import gr.ictpro.mall.client.model.DetailView;
-	import gr.ictpro.mall.client.model.Modules;
-	import gr.ictpro.mall.client.model.ParameterizedView;
+	import gr.ictpro.mall.client.components.IDetailView;
+	import gr.ictpro.mall.client.service.Modules;
+	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
@@ -43,11 +43,11 @@ package gr.ictpro.mall.client.view
 		private function handleAddView(module:IVisualElement, parameters:ObjectProxy=null, backView:IVisualElement = null):void
 		{
 			loadedModules.unloadModule();
-			if(module is ParameterizedView) {
-				(module as ParameterizedView).parameters = parameters;
+			if(module is IParameterizedView) {
+				(module as IParameterizedView).parameters = parameters;
 			}
-			if(module is DetailView) {
-				(module as DetailView).masterView = backView;
+			if(module is IDetailView) {
+				(module as IDetailView).masterView = backView;
 			}
 			view.addElement(module);
 		

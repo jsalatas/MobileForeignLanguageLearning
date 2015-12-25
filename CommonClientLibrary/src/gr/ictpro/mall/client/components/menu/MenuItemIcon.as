@@ -1,4 +1,4 @@
-package gr.ictpro.mall.client.model.menu
+package gr.ictpro.mall.client.components.menu
 {
 	import flash.display.DisplayObject;
 	import flash.geom.ColorTransform;
