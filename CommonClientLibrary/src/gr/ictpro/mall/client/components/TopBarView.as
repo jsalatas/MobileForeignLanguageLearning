@@ -261,7 +261,7 @@ package gr.ictpro.mall.client.components
 		public function disableDelete():void {
 			_disableDelete = true;
 			if(_groupDelete != null) {
-				_groupDelete.getChildAt(0).alpha = 0.4;
+				_groupDelete.getChildAt(0).alpha = 0;
 				_groupDelete.removeEventListener(MouseEvent.CLICK, deleteClickedHandler);
 			}
 		}
