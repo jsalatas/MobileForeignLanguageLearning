@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.view
 	import flash.events.MouseEvent;
 	
 	import gr.ictpro.mall.client.components.TopBarView;
-	import gr.ictpro.mall.client.model.Channel;
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationHandledSignal;
 	

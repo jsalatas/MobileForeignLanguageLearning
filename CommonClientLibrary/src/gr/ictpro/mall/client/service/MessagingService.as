@@ -4,7 +4,6 @@ package gr.ictpro.mall.client.service
 	import mx.messaging.Consumer;
 	import mx.messaging.events.MessageEvent;
 	
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 

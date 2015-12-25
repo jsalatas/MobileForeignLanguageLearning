@@ -1,7 +1,6 @@
-package gr.ictpro.mall.client.model
+package gr.ictpro.mall.client.service
 {
 	import mx.messaging.ChannelSet;
-	import mx.messaging.channels.AMFChannel;
 	import mx.messaging.channels.SecureAMFChannel;
 
 	public class Channel

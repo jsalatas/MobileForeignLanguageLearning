@@ -3,8 +3,8 @@ package gr.ictpro.mall.client.controller
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.ServerNotification;
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;

@@ -1,16 +1,13 @@
 package gr.ictpro.mall.client.service
 {
-	import flash.text.ReturnKeyLabel;
 	
 	import gr.ictpro.mall.client.model.AuthenticationProvider;
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
-	import mx.rpc.remoting.RemoteObject;
 	
 	public class AuthenticationProviders
 	{

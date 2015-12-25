@@ -1,11 +1,10 @@
 package gr.ictpro.mall.client.model
 {
-	import flash.sampler.NewObjectSample;
-	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 
 	public class ServerConfiguration 

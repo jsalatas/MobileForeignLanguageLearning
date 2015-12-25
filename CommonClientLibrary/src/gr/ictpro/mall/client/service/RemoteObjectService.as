@@ -4,7 +4,6 @@ package gr.ictpro.mall.client.service
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.remoting.RemoteObject;
 	
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	
 	public class RemoteObjectService

@@ -6,9 +6,9 @@ package gr.ictpro.mall.client.authentication
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.ObjectProxy;
 	
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
 	import gr.ictpro.mall.client.model.Translation;
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;

@@ -13,7 +13,7 @@
     <classEntry path="gr.ictpro.mall.client.view.ServerNameViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.model.AuthenticationDetails"/>
     <classEntry path="gr.ictpro.mall.client.service.AuthenticationProviders"/>
-    <classEntry path="gr.ictpro.mall.client.model.Channel"/>
+    <classEntry path="gr.ictpro.mall.client.service.Channel"/>
     <classEntry path="gr.ictpro.mall.client.service.ExternalModuleLoader"/>
     <classEntry path="gr.ictpro.mall.client.model.AuthenticationProvider"/>
     <classEntry path="gr.ictpro.mall.client.signal.AddViewSignal"/>

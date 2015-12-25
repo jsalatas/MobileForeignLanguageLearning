@@ -3,9 +3,9 @@ package gr.ictpro.mall.client.controller
 	import flash.system.Capabilities;
 	
 	import gr.ictpro.mall.client.model.AuthenticationProvider;
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.Storage;
 	import gr.ictpro.mall.client.signal.AddViewSignal;

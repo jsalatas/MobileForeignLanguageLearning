@@ -1,7 +1,5 @@
 package gr.ictpro.mall.client
 {
-	import gr.ictpro.mall.client.components.TopBarDetailView;
-	import gr.ictpro.mall.client.components.TopBarListView;
 	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.LoginCommand;
@@ -13,11 +11,11 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand;
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Device;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RegistrationProviders;
 	import gr.ictpro.mall.client.signal.AddViewSignal;

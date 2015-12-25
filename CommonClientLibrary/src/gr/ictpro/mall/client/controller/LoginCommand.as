@@ -4,11 +4,11 @@ package gr.ictpro.mall.client.controller
 	import mx.rpc.events.ResultEvent;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.Modules;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.User;
+	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
