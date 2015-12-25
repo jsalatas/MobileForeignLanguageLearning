@@ -112,7 +112,7 @@ package gr.ictpro.mall.client.view
 				serverNotificationHandle.dispatch(view.parameters.notification);
 			}
 			
-			super.back();
+			back();
 		}
 		
 		private function handleSaveError(event:FaultEvent):void
