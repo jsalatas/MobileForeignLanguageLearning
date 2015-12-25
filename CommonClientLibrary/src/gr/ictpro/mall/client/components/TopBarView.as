@@ -39,7 +39,11 @@ package gr.ictpro.mall.client.components
 		private var _masterView:IVisualElement;
 		private var _parameters:ObjectProxy;
 		private var _groupDelete:Group;
+		private var _groupOK:Group;
+		private var _groupCancel:Group;
 		private var _disableDelete:Boolean = false; 
+		private var _disableOK:Boolean = false; 
+		private var _disableCancel:Boolean = false; 
 
 		public function TopBarView()
 		{
@@ -187,11 +191,11 @@ package gr.ictpro.mall.client.components
 				fxgOk.width = Device.getScaledSize(21);
 				fxgOk.height = Device.getScaledSize(15);
 				fxgOk.left = 10;
-				var groupOK:Group = new Group();
-				groupOK.addElement(fxgOk);
-				groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
+				_groupOK = new Group();
+				_groupOK.addElement(fxgOk);
+				_groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
 				
-				ocgroup.addElement(groupOK);
+				ocgroup.addElement(_groupOK);
 				addElement(mxmlContentGroup);
 				
 			}
@@ -201,10 +205,10 @@ package gr.ictpro.mall.client.components
 				fxgCancel.width = Device.getScaledSize(15);
 				fxgCancel.height = Device.getScaledSize(15);
 				fxgCancel.left = okButton?0:10;
-				var groupCancel:Group = new Group();
-				groupCancel.addElement(fxgCancel);
-				groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
-				ocgroup.addElement(groupCancel);
+				_groupCancel = new Group();
+				_groupCancel.addElement(fxgCancel);
+				_groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
+				ocgroup.addElement(_groupCancel);
 			}
 			
 			topBarGroup.addElement(ocgroup);
@@ -273,5 +277,39 @@ package gr.ictpro.mall.client.components
 				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
 			}
 		}
+		
+		public function disableCancel():void {
+			_disableCancel = true;
+			if(_groupCancel != null) {
+				_groupCancel.getChildAt(0).alpha = 0;
+				_groupCancel.removeEventListener(MouseEvent.CLICK, cancelClickedHandler);
+			}
+		}
+		
+		public function enableCancel():void {
+			_disableCancel = false;
+			if(_groupCancel != null) {
+				_groupCancel.getChildAt(0).alpha = 1.0;
+				_groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
+			}
+		}
+
+		
+		public function disableOK():void {
+			_disableOK = true;
+			if(_groupOK != null) {
+				_groupOK.getChildAt(0).alpha = 0;
+				_groupOK.removeEventListener(MouseEvent.CLICK, okClickedHandler);
+			}
+		}
+		
+		public function enableOK():void {
+			_disableOK = false;
+			if(_groupOK != null) {
+				_groupOK.getChildAt(0).alpha = 1.0;
+				_groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
+			}
+		}
+
 	}
 }
