@@ -10,7 +10,7 @@ package gr.ictpro.mall.client.mobile.skins
 	import spark.skins.mobile.CheckBoxSkin;
 	
 	import gr.ictpro.mall.client.components.Path;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 
 
 	public class CheckBoxSkin extends spark.skins.mobile.CheckBoxSkin

@@ -5,8 +5,6 @@ package gr.ictpro.mall.client.service
 	import flash.data.SQLStatement;
 	import flash.filesystem.File;
 	
-	import gr.ictpro.mall.client.model.Settings;
-
 	public class Storage
 	{
 		private static var _dbFile:String = "settings.db";

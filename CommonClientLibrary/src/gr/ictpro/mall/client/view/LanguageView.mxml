@@ -15,7 +15,7 @@
 	</s:states>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.model.Translation;
 			
 			protected function button1_clickHandler(event:MouseEvent):void

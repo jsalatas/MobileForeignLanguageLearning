@@ -13,13 +13,13 @@ package gr.ictpro.mall.client.service
 		{
 		}
 		
-		public function setupChannel(serverName:String, applicationPath:String):void
+		public function setupChannel(serverURL:String, applicationPath:String):void
 		{
-			var endPoint:String = "https://" +serverName + ":8443/" + applicationPath+"/messagebroker/amfsecure";
+			var endPoint:String = serverURL + applicationPath+"/messagebroker/amfsecure";
 			var channel:SecureAMFChannel = new SecureAMFChannel("my-secure-amf", endPoint);
 			_channelSet.addChannel(channel);
 			
-			var messagingEndPoint:String = "https://" +serverName + ":8443/" + applicationPath+"/messagebroker/amfsecurepolling";
+			var messagingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurepolling";
 			var messagingChannel:SecureAMFChannel = new SecureAMFChannel("my-secure-polling-amf", messagingEndPoint);
 			_messagingChannelSet.addChannel(messagingChannel);
 		}

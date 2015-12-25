@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.components
 	import mx.states.OverrideBase;
 	
 	import gr.ictpro.mall.client.components.renderers.IconItemRenderer;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 
 	[Event(name="addClicked", type="flash.events.MouseEvent")]
 	[Event(name="showDetailClicked", type="flash.events.MouseEvent")]

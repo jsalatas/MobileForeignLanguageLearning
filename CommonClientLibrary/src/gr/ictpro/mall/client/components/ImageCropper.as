@@ -41,7 +41,7 @@ package gr.ictpro.mall.client.components {
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.UIComponent;
 	

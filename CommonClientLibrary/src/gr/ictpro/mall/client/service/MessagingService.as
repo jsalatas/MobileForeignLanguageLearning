@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.service
 	import mx.messaging.Consumer;
 	import mx.messaging.events.MessageEvent;
 	
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
 
 	public class MessagingService
@@ -13,7 +13,7 @@ package gr.ictpro.mall.client.service
 		public var channel:Channel;
 
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 		
 		[Inject]
 		public var updateServerNotifications:UpdateServerNotificationsSignal;

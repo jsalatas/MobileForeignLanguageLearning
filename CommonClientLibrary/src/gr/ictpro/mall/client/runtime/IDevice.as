@@ -1,4 +1,4 @@
-package gr.ictpro.mall.client.model
+package gr.ictpro.mall.client.runtime
 {
 	public interface IDevice
 	{

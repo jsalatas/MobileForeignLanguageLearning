@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
-    <classEntry path="gr.ictpro.mall.client.model.Settings"/>
+    <classEntry path="gr.ictpro.mall.client.runtime.RuntimeSettings"/>
     <classEntry path="gr.ictpro.mall.client.controller.SavePropertyCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.InitializeCommand"/>
     <classEntry path="gr.ictpro.mall.client.signal.SavePropertySignal"/>
@@ -57,8 +57,8 @@
     <classEntry path="gr.ictpro.mall.client.components.PopUpMenu"/>
     <classEntry path="gr.ictpro.mall.client.utils.image.ImageTransform"/>
     <classEntry path="gr.ictpro.mall.client.utils.string.StringCapitalize"/>
-    <classEntry path="gr.ictpro.mall.client.model.IDevice"/>
-    <classEntry path="gr.ictpro.mall.client.model.Device"/>
+    <classEntry path="gr.ictpro.mall.client.runtime.IDevice"/>
+    <classEntry path="gr.ictpro.mall.client.runtime.Device"/>
     <classEntry path="gr.ictpro.mall.client.components.FormItem"/>
     <classEntry path="gr.ictpro.mall.client.components.Module"/>
     <classEntry path="gr.ictpro.mall.client.components.TextInput"/>

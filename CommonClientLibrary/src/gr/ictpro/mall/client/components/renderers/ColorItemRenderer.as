@@ -1,7 +1,7 @@
 package gr.ictpro.mall.client.components.renderers
 {
 	import gr.ictpro.mall.client.components.SolidColor;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.IDataRenderer;
 	import mx.core.IFlexDisplayObject;

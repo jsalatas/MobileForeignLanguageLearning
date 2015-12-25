@@ -21,7 +21,7 @@
 			import mx.events.FlexEvent;
 			
 			import gr.ictpro.mall.client.components.renderers.ColorItemRenderer;
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			
 			private var listClicked:Boolean = false;

@@ -1,4 +1,4 @@
-package gr.ictpro.mall.client.model
+package gr.ictpro.mall.client.runtime
 {
 	import flash.geom.ColorTransform;
 	import flash.text.ReturnKeyLabel;
@@ -25,7 +25,7 @@ package gr.ictpro.mall.client.model
 		private static var _curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
 		private static var _curAppDPI:Number = 160; 
 		
-		private static var _settings:Settings; 
+		private static var _settings:RuntimeSettings; 
 
 		public static function set device(device:IDevice):void
 		{
@@ -101,7 +101,7 @@ package gr.ictpro.mall.client.model
 			return transform;
 		}
 
-		public static function set settings(settings:Settings):void
+		public static function set settings(settings:RuntimeSettings):void
 		{
 			_settings = settings;
 		}

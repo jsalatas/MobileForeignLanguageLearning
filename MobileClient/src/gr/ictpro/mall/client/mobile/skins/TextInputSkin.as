@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.mobile.skins
 	import flash.display.JointStyle;
 	import flash.display.LineScaleMode;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.DPIClassification;
 	

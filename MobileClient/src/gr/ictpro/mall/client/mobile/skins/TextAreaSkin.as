@@ -8,7 +8,7 @@ package gr.ictpro.mall.client.mobile.skins
 	
 	import spark.skins.mobile.TextAreaSkin;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	public class TextAreaSkin extends spark.skins.mobile.TextAreaSkin
 	{

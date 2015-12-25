@@ -6,7 +6,7 @@ package gr.ictpro.mall.client.mobile.skins
 	import flash.display.LineScaleMode;
 	import flash.text.TextLineMetrics;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.DPIClassification;
 	import mx.core.mx_internal;

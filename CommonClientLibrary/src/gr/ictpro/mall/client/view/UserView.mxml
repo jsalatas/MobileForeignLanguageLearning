@@ -18,7 +18,7 @@
 		<![CDATA[
 			import mx.collections.ArrayList;
 
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.model.Translation;
 			
 			[Bindable]

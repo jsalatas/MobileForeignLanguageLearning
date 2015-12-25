@@ -18,7 +18,7 @@ package gr.ictpro.mall.client.components
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 
 
 	use namespace mx_internal;	

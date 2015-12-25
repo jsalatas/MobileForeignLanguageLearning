@@ -14,7 +14,7 @@ package gr.ictpro.mall.client.desktop
 	import gr.ictpro.mall.client.desktop.skins.TextAreaSkin;
 	import gr.ictpro.mall.client.desktop.skins.TextInputSkin;
 	import gr.ictpro.mall.client.desktop.skins.VScrollBarSkin;
-	import gr.ictpro.mall.client.model.IDevice;
+	import gr.ictpro.mall.client.runtime.IDevice;
 
 	public class DesktopDevice implements IDevice
 	{

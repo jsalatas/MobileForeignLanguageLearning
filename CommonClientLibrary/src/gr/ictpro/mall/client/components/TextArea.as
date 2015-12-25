@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.components
 	
 	import spark.components.TextArea;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	public class TextArea extends spark.components.TextArea
 	{

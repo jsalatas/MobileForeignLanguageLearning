@@ -86,7 +86,7 @@ viewport property to link them together.
             <s:VScrollBar visible="false" skinClass="{Device.vScrollBarSkin}" >
 				<fx:Script>
 					<![CDATA[
-						import gr.ictpro.mall.client.model.Device;
+						import gr.ictpro.mall.client.runtime.Device;
 					]]>
 				</fx:Script>
 			</s:VScrollBar>
@@ -100,7 +100,7 @@ viewport property to link them together.
             <s:HScrollBar visible="false" skinClass="{Device.hScrollBarSkin}" >
 				<fx:Script>
 					<![CDATA[
-						import gr.ictpro.mall.client.model.Device;
+						import gr.ictpro.mall.client.runtime.Device;
 					]]>
 				</fx:Script>
 			</s:HScrollBar>

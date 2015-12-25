@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.controller
 	import flash.system.Capabilities;
 	
 	import gr.ictpro.mall.client.service.AuthenticationProvider;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.MessagingService;
@@ -21,7 +21,7 @@ package gr.ictpro.mall.client.controller
 		public var showAuthentication:ShowAuthenticationSignal;
 
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 		
 		[Inject]
 		public var channel:Channel;
@@ -37,14 +37,14 @@ package gr.ictpro.mall.client.controller
 
 		override public function execute():void
 		{
-			settings.settings = Storage.loadSettings();
+			settings.clientSettings = Storage.loadSettings();
 			// Get locale settings
-			settings.settings.lang = Capabilities.languages[0]; 
+			settings.clientSettings.lang = Capabilities.languages[0]; 
 			
-			if(settings.getSetting(Settings.SERVER_URL) == null) {
+			if(settings.getClientSetting(RuntimeSettings.SERVER_URL) == null) {
 				addView.dispatch(new ServerNameView());
 			} else {
-				channel.setupChannel(settings.getSetting(Settings.SERVER_URL), settings.getSetting(Settings.APP_PATH));
+				channel.setupChannel(settings.getClientSetting(RuntimeSettings.SERVER_URL), settings.getClientSetting(RuntimeSettings.APP_PATH));
 				showAuthentication.dispatch(new AuthenticationProvider(null));
 			}
 			

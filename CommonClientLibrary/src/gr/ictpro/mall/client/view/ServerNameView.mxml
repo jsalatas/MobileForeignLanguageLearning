@@ -30,7 +30,7 @@
 			<s:layout>
 				<s:FormLayout/>
 			</s:layout>
-			<s:FormItem label="{Translation.getTranslation('Server Name')}">
+			<s:FormItem label="{Translation.getTranslation('Server URL')}">
 				<s:TextInput id="serverName" autoCorrect="false" textAlign="left" />
 			</s:FormItem>
 			<s:FormItem label="{Translation.getTranslation('Application Path')}">

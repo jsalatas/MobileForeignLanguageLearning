@@ -9,7 +9,7 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			import mx.events.ResizeEvent;
 			

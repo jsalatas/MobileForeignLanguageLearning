@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.components
 {
 	import flash.text.ReturnKeyLabel;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.InteractionMode;
 	

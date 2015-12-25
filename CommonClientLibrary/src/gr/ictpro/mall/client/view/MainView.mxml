@@ -24,7 +24,7 @@
 			
 			import spark.events.IndexChangeEvent;
 			
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.model.ServerNotification;
 			import gr.ictpro.mall.client.model.User;
 			

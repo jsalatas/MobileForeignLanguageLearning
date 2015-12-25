@@ -13,7 +13,7 @@ package gr.ictpro.mall.client.mobile
 	import gr.ictpro.mall.client.mobile.skins.TextAreaSkin;
 	import gr.ictpro.mall.client.mobile.skins.TextInputSkin;
 	import gr.ictpro.mall.client.mobile.skins.VScrollBarSkin;
-	import gr.ictpro.mall.client.model.IDevice;
+	import gr.ictpro.mall.client.runtime.IDevice;
 	
 	public class MobileDevice implements IDevice
 	{

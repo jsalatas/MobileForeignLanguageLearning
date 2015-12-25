@@ -27,9 +27,9 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.PopUpMenu;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.model.SaveLocation;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
@@ -45,7 +45,7 @@ package gr.ictpro.mall.client.view
 	public class UserViewMediator extends TopBarDetailViewMediator
 	{
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 		
 		[Inject]
 		public var updateServerNotifications:UpdateServerNotificationsSignal;

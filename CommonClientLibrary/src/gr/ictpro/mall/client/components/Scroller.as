@@ -1,7 +1,7 @@
 package gr.ictpro.mall.client.components
 {
 	import gr.ictpro.mall.client.components.skins.ScrollerSkin;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.InteractionMode;
 	

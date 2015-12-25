@@ -11,14 +11,14 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.TextInput;
 	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.model.Translation;
 	
 	
 	public class SettingsViewMediator extends TopBarDetailViewMediator
 	{
 		[Inject]
-		public var settings:Settings; 
+		public var settings:RuntimeSettings; 
 		
 		private var settingsMap:Object = new Object();
 		

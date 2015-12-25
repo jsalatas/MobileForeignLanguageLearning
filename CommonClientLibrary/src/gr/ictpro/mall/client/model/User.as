@@ -14,6 +14,7 @@ package gr.ictpro.mall.client.model
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.menu.MainMenu;
+	import gr.ictpro.mall.client.runtime.Device;
 
 	public class User extends EventDispatcher 
 	{

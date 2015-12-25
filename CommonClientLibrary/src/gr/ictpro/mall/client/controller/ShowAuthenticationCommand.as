@@ -1,9 +1,8 @@
 package gr.ictpro.mall.client.controller
 {
 	
-	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.service.AuthenticationProvider;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.ExternalModuleLoader;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
@@ -16,7 +15,7 @@ package gr.ictpro.mall.client.controller
 		public var showAuthentication:ShowAuthenticationSignal;
 
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 
 		[Inject]
 		public var authenticationProviders:AuthenticationProviders;
@@ -33,7 +32,7 @@ package gr.ictpro.mall.client.controller
 				if(authenticationProvider.provider == null) {
 					showAuthentication.dispatch(authenticationProviders.getNextProvider(null));	
 				} else {
-					loader = new ExternalModuleLoader("https://"+settings.getSetting(Settings.SERVER_URL)+ ":8443/" + settings.getSetting(Settings.MODULES_PATH)+ "/"+ authenticationProvider.provider);
+					loader = new ExternalModuleLoader(settings.getClientSetting(RuntimeSettings.SERVER_URL)+"/" + settings.getClientSetting(RuntimeSettings.MODULES_PATH)+ "/"+ authenticationProvider.provider);
 					injector.injectInto(loader);
 					loader.load();
 				}

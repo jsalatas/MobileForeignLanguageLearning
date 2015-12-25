@@ -9,7 +9,7 @@ package gr.ictpro.mall.client.components.renderers
 	import flash.utils.Timer;
 	import flash.utils.flash_proxy;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.utils.string.IntoToHexString;
 	
 	import mx.core.DPIClassification;

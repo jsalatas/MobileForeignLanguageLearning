@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.mobile.skins
 	import flash.events.Event;
 	
 	import gr.ictpro.mall.client.components.ColoredButton;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.DPIClassification;
 	

@@ -6,7 +6,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.MessagingService;
@@ -41,7 +41,7 @@ package gr.ictpro.mall.client.controller
 		public var loginFailed:LoginFailedSignal;
 		
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 		
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;

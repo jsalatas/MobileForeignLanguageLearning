@@ -11,7 +11,7 @@
 	<![CDATA[
 		import mx.events.ResizeEvent;
 		
-		import gr.ictpro.mall.client.model.Device;
+		import gr.ictpro.mall.client.runtime.Device;
 		private static var dayNames:Array = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusrday', 'Friday', 'Saturday'];
 		private static var monthNames:Array = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		

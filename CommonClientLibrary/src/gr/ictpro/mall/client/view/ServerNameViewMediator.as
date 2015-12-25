@@ -1,6 +1,6 @@
 package gr.ictpro.mall.client.view
 {
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.SavePropertySignal;
 	
@@ -25,17 +25,17 @@ package gr.ictpro.mall.client.view
 		protected function handleOK():void
 		{
 			var property:Object = new Object();
-			property.name = Settings.SERVER_URL;
+			property.name = RuntimeSettings.SERVER_URL;
 			property.value = view.serverName.text;
 			saveProperty.dispatch(property);
 
 			property = new Object();
-			property.name = Settings.APP_PATH;
+			property.name = RuntimeSettings.APP_PATH;
 			property.value = view.applicationPath.text;
 			saveProperty.dispatch(property);
 
 			property = new Object();
-			property.name = Settings.MODULES_PATH;
+			property.name = RuntimeSettings.MODULES_PATH;
 			property.value = view.modulesPath.text;
 			saveProperty.dispatch(property);
 			view.dispose();

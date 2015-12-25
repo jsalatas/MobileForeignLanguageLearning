@@ -1,28 +1,31 @@
-package gr.ictpro.mall.client.model
+package gr.ictpro.mall.client.runtime
 {
-	public class Settings
+	import gr.ictpro.mall.client.model.ServerConfiguration;
+	import gr.ictpro.mall.client.model.User;
+
+	public class RuntimeSettings
 	{
-		public static const SERVER_URL:String = "server.name";
+		public static const SERVER_URL:String = "server.url";
 		public static const APP_PATH:String = "server.applicationPath";
 		public static const MODULES_PATH:String = "server.modulesPath";
 		
-		private var _settings:Object = null;
+		private var _clientSettings:Object = null;
 		private var _user:User = null;
 		
 		private var _serverConfiguration:ServerConfiguration = null;
 		
-		public function Settings()
+		public function RuntimeSettings()
 		{
 		}
 		
-		public function get settings():Object 
+		public function get clientSettings():Object 
 		{
-			return _settings; 
+			return _clientSettings; 
 		}
 		
-		public function set settings(settings:Object):void 
+		public function set clientSettings(clientSettings:Object):void 
 		{
-			this._settings = settings;
+			this._clientSettings = clientSettings;
 		}
 
 		public function get serverConfiguration():ServerConfiguration 
@@ -36,11 +39,11 @@ package gr.ictpro.mall.client.model
 		}
 
 		
-		public function getSetting(name:String):String
+		public function getClientSetting(name:String):String
 		{
-			if(_settings != null && _settings.hasOwnProperty(name))
+			if(_clientSettings != null && _clientSettings.hasOwnProperty(name))
 			{
-				return _settings[name];
+				return _clientSettings[name];
 			}
 			return null;
 		}

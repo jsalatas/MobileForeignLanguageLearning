@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.components
 {
 	import spark.components.RichEditableText;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	public class RichEditableText extends spark.components.RichEditableText
 	{

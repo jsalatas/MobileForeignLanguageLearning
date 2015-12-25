@@ -5,7 +5,7 @@
 					   deleteButton="false">
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 		]]>
 	</fx:Script>

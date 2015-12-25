@@ -1,7 +1,7 @@
 package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.model.ServerNotification;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.components.menu.MenuItem;
 	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.signal.MenuSignal;
@@ -21,7 +21,7 @@ package gr.ictpro.mall.client.view
 		public var serverNotificationSignal:ServerNotificationSignal;
 
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 
 		override public function onRegister():void
 		{

@@ -1,7 +1,7 @@
 package gr.ictpro.mall.client.desktop
 {
 	import gr.ictpro.mall.client.ClientContext;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	public class DesktopClientContext extends ClientContext
 	{

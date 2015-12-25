@@ -6,7 +6,7 @@ package gr.ictpro.mall.client.components.menu
 	import mx.collections.ArrayList;
 	
 	import gr.ictpro.mall.client.Icons;
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.model.User;
 
@@ -24,7 +24,7 @@ package gr.ictpro.mall.client.components.menu
 
 			// System Settings (admin) 
 			if(user.isAdmin) {
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Settings"), Icons.icon_settings, Device.defaultColorTransform, "gr.ictpro.mall.client.view.SettingsView")); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Server Settings"), Icons.icon_settings, Device.defaultColorTransform, "gr.ictpro.mall.client.view.SettingsView")); 
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, Device.defaultColorTransform, "gr.ictpro.mall.client.view.LanguagesView")); 
 			}
 			

@@ -10,7 +10,7 @@ package gr.ictpro.mall.client.view
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.model.SaveLocation;
-	import gr.ictpro.mall.client.model.Settings;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.model.Translation;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.utils.ui.UI;
@@ -18,7 +18,7 @@ package gr.ictpro.mall.client.view
 	public class ClassroomViewMediator extends TopBarDetailViewMediator
 	{
 		[Inject]
-		public var settings:Settings;
+		public var settings:RuntimeSettings;
 		
 		override public function onRegister():void
 		{

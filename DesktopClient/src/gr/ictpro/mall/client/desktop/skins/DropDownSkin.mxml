@@ -44,7 +44,7 @@ in accordance with the terms of the license agreement accompanying it.
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			import mx.events.FlexEvent;
 			

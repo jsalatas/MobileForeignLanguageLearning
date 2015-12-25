@@ -14,7 +14,7 @@
 			import mx.events.FlexEvent;
 			import mx.utils.ObjectProxy;
 			
-			import gr.ictpro.mall.client.model.Device;
+			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.model.Translation;
 			
 			[Bindable]

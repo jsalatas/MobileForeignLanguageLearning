@@ -1,26 +1,21 @@
 package gr.ictpro.mall.client.service
 {
+	import flash.events.ErrorEvent;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.utils.ByteArray;
 	
-	import gr.ictpro.mall.client.model.Device;
-	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	
 	import mx.core.IVisualElement;
 	import mx.events.ModuleEvent;
-	import mx.modules.IModuleInfo;
-	import mx.modules.ModuleManager;
 	
-	import org.swiftsuspenders.Injector;
-	
-	import spark.modules.Module;
 	import spark.modules.ModuleLoader;
-	import spark.skins.SparkSkin;
+	
+	import gr.ictpro.mall.client.signal.AddViewSignal;
+	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	
 	public class ExternalModuleLoader
 	{
@@ -48,6 +43,8 @@ package gr.ictpro.mall.client.service
 			var loader:URLLoader = new URLLoader();
 			loader.dataFormat = URLLoaderDataFormat.BINARY;
 			loader.addEventListener(Event.COMPLETE, handleDownloaded);
+			loader.addEventListener(ErrorEvent.ERROR, handleError);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, handleError);
 			loader.load(new URLRequest(_url));
 			
 		}

@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.components
 {
 	import spark.components.DataGrid;
 	
-	import gr.ictpro.mall.client.model.Device;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	public class DataGrid extends spark.components.DataGrid
 	{

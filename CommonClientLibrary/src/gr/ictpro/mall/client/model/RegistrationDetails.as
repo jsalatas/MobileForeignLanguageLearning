@@ -1,13 +1,5 @@
 package gr.ictpro.mall.client.model
 {
-	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
-	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
-	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
-
 	public class RegistrationDetails
 	{
 
