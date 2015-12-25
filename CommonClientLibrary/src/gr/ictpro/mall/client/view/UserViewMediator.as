@@ -64,6 +64,7 @@ package gr.ictpro.mall.client.view
 
 			if(view.parameters == null || !view.parameters.hasOwnProperty("initParams") || view.parameters.initParams == null || !view.parameters.hasOwnProperty("user") ) {
 				view.title = Translation.getTranslation("My Profile");
+				view.disableDelete(); // user cannot delete her own profile
 				if(view.parameters == null) {
 					view.parameters = new ObjectProxy();
 				}
