@@ -104,7 +104,6 @@
     <classEntry path="gr.ictpro.mall.client.model.ServerNotification"/>
     <classEntry path="gr.ictpro.mall.client.signal.ServerNotificationSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationCommand"/>
-    <classEntry path="gr.ictpro.mall.client.model.ServerNotificationSelected"/>
     <classEntry path="gr.ictpro.mall.client.model.ParameterizedView"/>
     <classEntry path="gr.ictpro.mall.client.model.DetailView"/>
     <classEntry path="gr.ictpro.mall.client.signal.ServerNotificationHandledSignal"/>

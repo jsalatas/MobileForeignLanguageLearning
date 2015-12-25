@@ -1,7 +1,6 @@
 package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.model.ServerNotification;
-	import gr.ictpro.mall.client.model.ServerNotificationSelected;
 	import gr.ictpro.mall.client.model.Settings;
 	import gr.ictpro.mall.client.model.menu.MenuItem;
 	import gr.ictpro.mall.client.model.menu.MenuItemSelected;
@@ -39,7 +38,7 @@ package gr.ictpro.mall.client.view
 		
 		private function notificationClicked(notification:ServerNotification):void
 		{
-			serverNotificationSignal.dispatch(new ServerNotificationSelected(notification));
+			serverNotificationSignal.dispatch(notification);
 			view.dispose();
 		}
 		

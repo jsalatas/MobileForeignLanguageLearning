@@ -62,7 +62,7 @@ package gr.ictpro.mall.client.view
 			
 			var saveErrorMessage:String;
 
-			if(view.parameters == null || !view.parameters.hasOwnProperty("initParams") || view.parameters.initParams == null || !view.parameters.hasOwnProperty("user") ) {
+			if(view.parameters == null) {
 				view.title = Translation.getTranslation("My Profile");
 				view.disableDelete(); // user cannot delete her own profile
 				if(view.parameters == null) {
@@ -78,6 +78,12 @@ package gr.ictpro.mall.client.view
 				args.id=view.parameters.initParams.user_id;
 				saveErrorMessage = "Cannot Save User.";
 				var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "getUser",args, handleGetUser, getUserError); 
+			} else if(view.parameters.hasOwnProperty("user")) {
+				view.currentState = "view";
+				view.title = view.parameters.user.name;
+				view.disableDelete();
+				view.disableOK();
+				view.disableCancel();
 			} else {
 				throw new Error("Unknown User.");
 			}

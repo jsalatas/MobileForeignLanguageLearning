@@ -11,6 +11,7 @@
 	<s:states>
 		<mx:State name="profile"/>
 		<mx:State name="edit"/>
+		<mx:State name="view"/>
 	</s:states>
 	
 	<fx:Script>
@@ -72,7 +73,7 @@
 							  paddingRight="10" paddingTop="10"/>
 		</s:layout>
 
-		<s:Group id="imgContainer" width="154" height="204" click="imgPhoto_clickHandler(event)"
+		<s:Group id="imgContainer" width="154" height="204" click.profile="imgPhoto_clickHandler(event)" click.edit="imgPhoto_clickHandler(event)"
 				 horizontalCenter="0">
 			<s:Rect width="100%" height="100%">
 				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
@@ -93,26 +94,26 @@
 			</s:layout>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Enabled')}"
 						visible.edit="true"
-						visible.profile="false">
+						visible="false">
 				<s:CheckBox id="chkEnabled" selected="{parameters.user.enabled}"/>
 			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}">
+			<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}" visible.view="false">
 				<s:TextInput id="txtPassword" width="100%" autoCapitalize="word"
 							 displayAsPassword="true" text="" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Reenter New Password')}">
+			<s:FormItem width="100%" label="{Translation.getTranslation('Reenter New Password')}" visible.view="false">
 				<s:TextInput id="txtPassword2" width="100%" autoCapitalize="word"
 							 displayAsPassword="true" text="" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" autoCapitalize="word" text="{parameters.user.name}"
+				<s:TextInput id="txtName" width="100%" autoCapitalize="word" text="{parameters.user.name}" enabled.view="false"
 							 textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Email')}">
-				<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
+				<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email" visible.view="false"
 							 text="{parameters.user.email}" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Color')}">
+			<s:FormItem width="100%" label="{Translation.getTranslation('Color')}" visible.view="false">
 				<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
 									  selected="{Device.getDefaultColor()}"/>
 			</s:FormItem>
