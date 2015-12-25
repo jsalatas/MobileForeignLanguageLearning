@@ -17,6 +17,11 @@ public interface RegistrationMethod extends BeanNameAware, PrioritySortable {
     public String getUi();
     public void setUi(String ui);
     public String getBeanName();
-    public User register(ASObject registrationDetails);
+    /**
+     * 
+     * @param registrationDetails
+     * @return true if account is enabled, false if account is disabled
+     */
+    public boolean register(ASObject registrationDetails);
 
 }

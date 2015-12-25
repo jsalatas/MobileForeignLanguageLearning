@@ -40,9 +40,6 @@ package gr.ictpro.mall.client.authentication
 			registrationFailed.add(handleRegisterFailed);
 			registrationSuccess.add(handleRegisterSuccess);
 			getRoles();
-			
-			//debug
-			//register.dispatch(new RegistrationDetails("standardRegistrationProvider","teacher1", "One Teacher", "12345", "jsalatas+teacher1@gmail.com", 2));
 		}		
 
 		private function getRoles():void
@@ -86,8 +83,6 @@ package gr.ictpro.mall.client.authentication
 				var email:String = view.txtEmail.text;
 				var role:int = view.role.selected.id;
 				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role));
-				
-				//TODO
 			}
 		}
 		

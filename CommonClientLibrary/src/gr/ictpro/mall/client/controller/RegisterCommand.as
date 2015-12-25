@@ -1,5 +1,9 @@
 package gr.ictpro.mall.client.controller
 {
+	import mx.core.mx_internal;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.Channel;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
@@ -8,10 +12,6 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	
-	import mx.core.mx_internal;
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -50,9 +50,15 @@ package gr.ictpro.mall.client.controller
 		
 		private function handleSuccess(event:ResultEvent):void
 		{
-			var o:Object = event.result;
+			var enabled:Boolean = Boolean(event.result);
 			registerSuccess.dispatch();
-			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password, true));
+			if(enabled) {
+				// If Acoounr is enabled then login automatically 
+				login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password, true));
+			}				
+			else {
+				
+			}
 		}
 		
 		private function handleError(event:FaultEvent):void

@@ -23,7 +23,7 @@ import gr.ictpro.mall.service.MailService;
 public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 
     @Override
-    public User register(ASObject registrationDetails) {
+    public boolean register(ASObject registrationDetails) {
 
 	String userName = (String) registrationDetails.get("userName");
 	String name = (String) registrationDetails.get("name");
@@ -37,7 +37,6 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	    e.printStackTrace();
 	}                                 
 	 
-	//TODO: check enabled status
 	User u = new User(userName, password, email, false);
 	u.setRoles(r);
 	userService.create(u);
@@ -49,7 +48,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	MailService mail = (MailService) ctx.getBean("mailService");
 	mail.registrationMail(u);
 	
-	return null;
+	return u.isEnabled();
     }
 
 }

@@ -44,7 +44,7 @@ public class UserRemoteService {
     @Autowired(required = true)
     private UserContext userContext;
 
-    public User register(ASObject registrationDetails) {
+    public boolean register(ASObject registrationDetails) {
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
 	RegistrationMethod reg = (RegistrationMethod) ctx.getBean((String) registrationDetails
 		.get("registrationMethod"));
