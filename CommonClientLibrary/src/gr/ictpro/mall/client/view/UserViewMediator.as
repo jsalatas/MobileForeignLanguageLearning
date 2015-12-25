@@ -34,7 +34,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
+	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
@@ -48,7 +48,7 @@ package gr.ictpro.mall.client.view
 		public var settings:RuntimeSettings;
 		
 		[Inject]
-		public var updateServerNotifications:UpdateServerNotificationsSignal;
+		public var updateServerNotifications:GetServerNotificationsSignal;
 		
 		private var photoUrl:String = "";
 		private var bitmap:Bitmap = null; 

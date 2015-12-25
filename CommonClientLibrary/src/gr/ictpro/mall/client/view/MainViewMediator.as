@@ -4,8 +4,8 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.components.menu.MenuItem;
 	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
-	import gr.ictpro.mall.client.signal.MenuSignal;
-	import gr.ictpro.mall.client.signal.ServerNotificationSignal;
+	import gr.ictpro.mall.client.signal.MenuClickedSignal;
+	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -15,10 +15,10 @@ package gr.ictpro.mall.client.view
 		public var view:MainView;
 
 		[Inject]
-		public var menuSignal:MenuSignal;
+		public var menuClickedSignal:MenuClickedSignal;
 
 		[Inject]
-		public var serverNotificationSignal:ServerNotificationSignal;
+		public var serverNotificationClickedSignal:ServerNotificationClickedSignal;
 
 		[Inject]
 		public var settings:RuntimeSettings;
@@ -32,13 +32,13 @@ package gr.ictpro.mall.client.view
 		
 		private function menuClicked(menuItem:MenuItem):void
 		{
-			menuSignal.dispatch(new MenuItemSelected(menuItem));
+			menuClickedSignal.dispatch(new MenuItemSelected(menuItem));
 			view.dispose();
 		}
 		
 		private function notificationClicked(notification:ServerNotification):void
 		{
-			serverNotificationSignal.dispatch(notification);
+			serverNotificationClickedSignal.dispatch(notification);
 			view.dispose();
 		}
 		

@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
+	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -20,7 +20,7 @@ package gr.ictpro.mall.client.controller
 		public var channel:Channel;
 		
 		[Inject]
-		public var updateServerNotifications:UpdateServerNotificationsSignal;
+		public var updateServerNotifications:GetServerNotificationsSignal;
 		
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;

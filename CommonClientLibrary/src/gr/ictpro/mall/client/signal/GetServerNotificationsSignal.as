@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.signal
 {
 	import org.osflash.signals.Signal;
 	
-	public class UpdateServerNotificationsSignal extends Signal
+	public class GetServerNotificationsSignal extends Signal
 	{
 	}
 }

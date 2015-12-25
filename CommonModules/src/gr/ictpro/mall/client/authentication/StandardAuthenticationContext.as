@@ -1,10 +1,8 @@
 package gr.ictpro.mall.client.authentication
 {
 	import flash.display.DisplayObjectContainer;
-	import flash.system.ApplicationDomain;
 	
 	import org.robotlegs.core.IInjector;
-	import org.robotlegs.utilities.modular.core.IModule;
 	import org.robotlegs.utilities.modular.mvcs.ModuleContext;
 	
 	public class StandardAuthenticationContext extends ModuleContext

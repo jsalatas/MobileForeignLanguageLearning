@@ -48,8 +48,8 @@
     <classEntry path="gr.ictpro.mall.client.components.menu.MainMenu"/>
     <classEntry path="gr.ictpro.mall.client.components.menu.MenuItemInternalModule"/>
     <classEntry path="gr.ictpro.mall.client.components.menu.MenuItemIcon"/>
-    <classEntry path="gr.ictpro.mall.client.signal.MenuSignal"/>
-    <classEntry path="gr.ictpro.mall.client.controller.MenuCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.MenuClickedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.MenuClickedCommand"/>
     <classEntry path="gr.ictpro.mall.client.components.menu.MenuItemSelected"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
@@ -98,11 +98,11 @@
     <classEntry path="gr.ictpro.mall.client.components.Path"/>
     <classEntry path="gr.ictpro.mall.client.components.renderers.ServerNotificationRenderer"/>
     <classEntry path="gr.ictpro.mall.client.components.ItemRenderer"/>
-    <classEntry path="gr.ictpro.mall.client.controller.UpdateServerNotificationsCommand"/>
-    <classEntry path="gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.GetServerNotificationsCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.GetServerNotificationsSignal"/>
     <classEntry path="gr.ictpro.mall.client.model.ServerNotification"/>
-    <classEntry path="gr.ictpro.mall.client.signal.ServerNotificationSignal"/>
-    <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.ServerNotificationClickedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.ServerNotificationClickedCommand"/>
     <classEntry path="gr.ictpro.mall.client.components.IParameterizedView"/>
     <classEntry path="gr.ictpro.mall.client.components.IDetailView"/>
     <classEntry path="gr.ictpro.mall.client.signal.HandleServerNotificationSignal"/>

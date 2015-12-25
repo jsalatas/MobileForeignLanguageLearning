@@ -12,7 +12,7 @@ package gr.ictpro.mall.client.controller
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
-	public class UpdateServerNotificationsCommand extends SignalCommand
+	public class GetServerNotificationsCommand extends SignalCommand
 	{
 		[Inject]
 		public var channel:Channel;

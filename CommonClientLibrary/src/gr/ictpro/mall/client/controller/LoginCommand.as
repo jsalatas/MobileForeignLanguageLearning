@@ -15,7 +15,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.UpdateServerNotificationsSignal;
+	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.MainView;
 	
 	import org.robotlegs.mvcs.SignalCommand;
@@ -50,7 +50,7 @@ package gr.ictpro.mall.client.controller
 		public var messagingService:MessagingService;
 
 		[Inject]
-		public var updateServerNotifications:UpdateServerNotificationsSignal;
+		public var updateServerNotifications:GetServerNotificationsSignal;
 		
 
 		override public function execute():void

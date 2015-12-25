@@ -12,7 +12,7 @@ package gr.ictpro.mall.client.controller
 	import org.robotlegs.mvcs.SignalCommand;
 	
 
-	public class MenuCommand extends SignalCommand
+	public class MenuClickedCommand extends SignalCommand
 	{
 		[Inject]
 		public var selectedMenu:MenuItemSelected;
