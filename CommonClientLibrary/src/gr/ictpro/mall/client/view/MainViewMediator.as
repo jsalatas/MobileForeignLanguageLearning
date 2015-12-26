@@ -1,15 +1,15 @@
 package gr.ictpro.mall.client.view
 {
-	import gr.ictpro.mall.client.model.ServerNotification;
-	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.components.menu.MenuItem;
 	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
+	import gr.ictpro.mall.client.model.ServerNotification;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.MenuClickedSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
 	
-	import org.robotlegs.mvcs.Mediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class MainViewMediator extends Mediator
+	public class MainViewMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:MainView;
@@ -25,8 +25,8 @@ package gr.ictpro.mall.client.view
 
 		override public function onRegister():void
 		{
-			view.menuClicked.add(menuClicked);
-			view.notificationClicked.add(notificationClicked);
+			addToSignal(view.menuClicked, menuClicked);
+			addToSignal(view.notificationClicked, notificationClicked);
 			view.user = settings.user;
 		}
 		

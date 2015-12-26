@@ -15,9 +15,9 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
+	import org.robotlegs.mvcs.SignalModuleMediator;
 	
-	public class StandardRegistrationMediator extends ModuleMediator
+	public class StandardRegistrationMediator extends SignalModuleMediator
 	{
 		[Inject]
 		public var view:StandardRegistration;
@@ -36,9 +36,9 @@ package gr.ictpro.mall.client.authentication
 
 		override public function onRegister():void
 		{
-			view.okClicked.add(handleRegistration);
-			registrationFailed.add(handleRegisterFailed);
-			registrationSuccess.add(handleRegisterSuccess);
+			addToSignal(view.okClicked, handleRegistration);
+			addToSignal(registrationFailed, handleRegisterFailed);
+			addToSignal(registrationSuccess, handleRegisterSuccess);
 			getRoles();
 		}		
 
@@ -94,8 +94,6 @@ package gr.ictpro.mall.client.authentication
 		private function handleRegisterSuccess():void 
 		{
 			view.dispose();
-			registrationFailed.removeAll();
-			registrationSuccess.removeAll();
 		}
 	}
 }

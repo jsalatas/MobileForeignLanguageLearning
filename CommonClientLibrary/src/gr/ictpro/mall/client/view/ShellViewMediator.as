@@ -6,17 +6,17 @@ package gr.ictpro.mall.client.view
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.components.IDetailView;
-	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.Mediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class ShellViewMediator extends Mediator
+	public class ShellViewMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:ShellView;
@@ -35,8 +35,8 @@ package gr.ictpro.mall.client.view
 
 		override public function onRegister():void
 		{
-			addView.add(handleAddView);
-			serverConnectError.add(handleConnectionError);
+			addToSignal(addView, handleAddView);
+			addToSignal(serverConnectError, handleConnectionError);
 			initialize.dispatch();
 		}
 		

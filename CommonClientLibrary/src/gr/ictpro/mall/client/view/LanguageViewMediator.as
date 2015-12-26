@@ -31,9 +31,9 @@ package gr.ictpro.mall.client.view
 			setSaveErrorMessage(Translation.getTranslation('Cannot Delete Language.'));
 			setDeleteErrorMessage(Translation.getTranslation('Cannot Save Language.'));
 			
-			LanguageView(view).getAllTranslations.add(allTranslationsHandler);
-			LanguageView(view).getUntranslated.add(untranslatedHandler);
-			LanguageView(view).uploadTranslations.add(uploadTranslationsHandler);
+			addToSignal(LanguageView(view).getAllTranslations, allTranslationsHandler);
+			addToSignal(LanguageView(view).getUntranslated, untranslatedHandler);
+			addToSignal(LanguageView(view).uploadTranslations, uploadTranslationsHandler);
 			if(view.parameters.language.code == 'en') {
 				view.disableDelete();
 				LanguageView(view).btnGetUntranslated.enabled = false;

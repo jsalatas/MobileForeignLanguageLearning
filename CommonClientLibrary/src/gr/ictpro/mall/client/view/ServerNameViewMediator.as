@@ -4,9 +4,9 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.SavePropertySignal;
 	
-	import org.robotlegs.mvcs.Mediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class ServerNameViewMediator extends Mediator
+	public class ServerNameViewMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:ServerNameView;
@@ -19,7 +19,7 @@ package gr.ictpro.mall.client.view
 
 		override public function onRegister():void
 		{
-			view.okClicked.add(handleOK);
+			addToSignal(view.okClicked, handleOK);
 		}
 		
 		protected function handleOK():void

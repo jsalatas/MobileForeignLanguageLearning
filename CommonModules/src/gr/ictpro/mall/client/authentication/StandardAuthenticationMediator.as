@@ -3,8 +3,8 @@ package gr.ictpro.mall.client.authentication
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.service.RegistrationProvider;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.service.RegistrationProvider;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
@@ -12,9 +12,9 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.utilities.modular.mvcs.ModuleMediator;
+	import org.robotlegs.mvcs.SignalModuleMediator;
 	
-	public class StandardAuthenticationMediator extends ModuleMediator
+	public class StandardAuthenticationMediator extends SignalModuleMediator
 	{
 		[Inject]
 		public var view:StandardAuthentication;
@@ -36,11 +36,11 @@ package gr.ictpro.mall.client.authentication
 
 		override public function onRegister():void
 		{
-			loginSuccess.add(disposeView);
-			loginFailed.add(showFailedPopup);
-			serverConnectError.add(disposeView);
-			view.okClicked.add(handleAuthentication);
-			view.registerClicked.add(handleRegistration);
+			addToSignal(loginSuccess, disposeView);
+			addToSignal(loginFailed, showFailedPopup);
+			addToSignal(serverConnectError, disposeView);
+			addToSignal(view.okClicked, handleAuthentication);
+			addToSignal(view.registerClicked, handleRegistration);
 			
 			// uncomment for testing purposes (fast login) 
 			//login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", "admin", "admin"));
@@ -63,10 +63,6 @@ package gr.ictpro.mall.client.authentication
 		private function disposeView():void 
 		{
 			view.dispose();
-			loginSuccess.removeAll();
-			loginFailed.removeAll();
-			serverConnectError.removeAll();
-
 		}
 
 		private function showFailedPopup():void 

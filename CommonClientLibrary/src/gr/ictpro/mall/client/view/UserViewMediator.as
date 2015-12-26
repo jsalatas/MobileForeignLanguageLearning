@@ -88,7 +88,7 @@ package gr.ictpro.mall.client.view
 				throw new Error("Unknown User.");
 			}
 			
-			UserView(view).choosePhoto.add(choosePhotoHandler);
+			addToSignal(UserView(view).choosePhoto, choosePhotoHandler);
 			setSaveErrorMessage(Translation.getTranslation(saveErrorMessage));
 		}
 		

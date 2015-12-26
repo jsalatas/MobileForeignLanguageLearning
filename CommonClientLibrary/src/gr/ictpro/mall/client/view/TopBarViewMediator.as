@@ -6,9 +6,9 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	
-	import org.robotlegs.mvcs.Mediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class TopBarViewMediator extends Mediator
+	public class TopBarViewMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:TopBarView;

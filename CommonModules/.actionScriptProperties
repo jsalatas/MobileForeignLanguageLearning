@@ -21,6 +21,7 @@
       <libraryPathEntry kind="3" linkType="1" path="/CommonClientLibrary/bin/CommonClientLibrary.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mobile/mobilecomponents.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/themes/Mobile/mobile.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/robotlegs-utilities-SignalMediator/bin/robotlegs-utilities-SignalMediator.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath>
       <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/as3-signals-v0.9.swc" sourcepath="C:/actionscript/as3-signals-v0.9/src" useDefaultLinkType="false"/>
