@@ -134,6 +134,9 @@
     <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupView"/>
     <classEntry path="gr.ictpro.mall.client.view.ClassroomgroupViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.model.IPersistent"/>
+    <classEntry path="gr.ictpro.mall.client.model.Persistent"/>
+    <classEntry path="gr.ictpro.mall.client.model.Classroom"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

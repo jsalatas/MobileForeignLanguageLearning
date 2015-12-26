@@ -194,8 +194,6 @@ package gr.ictpro.mall.client.components
 				_groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
 				
 				ocgroup.addElement(_groupOK);
-				addElement(mxmlContentGroup);
-				
 			}
 			
 			if(cancelButton) {
@@ -210,6 +208,7 @@ package gr.ictpro.mall.client.components
 			}
 			
 			topBarGroup.addElement(ocgroup);
+			//addElement(mxmlContentGroup);
 			mxmlContentGroup.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 
 		}

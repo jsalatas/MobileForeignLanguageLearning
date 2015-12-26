@@ -1,17 +1,25 @@
 package gr.ictpro.mall.client.components
 {
-	import flash.text.ReturnKeyLabel;
+	import flash.events.Event;
+	import flash.events.FocusEvent;
 	
-	import gr.ictpro.mall.client.runtime.Device;
-	
+	import mx.core.IVisualElement;
 	import mx.core.InteractionMode;
+	import mx.core.mx_internal;
 	
 	import spark.layouts.supportClasses.LayoutBase;
 	import spark.modules.Module;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
+	use namespace mx_internal;	
+	
+
 	public class Module extends spark.modules.Module
 	{
-		private var mxmlContentGroup:Group = new Group(); 
+		private var mxmlContentGroup:Group = new Group();
+		private var _scroller:Scroller = new Scroller();
+		
 		public function Module()
 		{
 			super();
@@ -29,13 +37,27 @@ package gr.ictpro.mall.client.components
 		{
 			super.createChildren();
 			
-			var scroller:Scroller = new Scroller();
-			scroller.percentWidth = 100;
-			scroller.percentHeight = 100;
-			scroller.viewport = mxmlContentGroup;
-			addElement(scroller);
+			
+			_scroller.percentWidth = 100;
+			_scroller.percentHeight = 100;
+			_scroller.hasFocusableChildren = true;
+			_scroller.ensureElementIsVisibleForSoftKeyboard = true;
+			_scroller.viewport = mxmlContentGroup;
+			mxmlContentGroup.addEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
+			mxmlContentGroup.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			addElement(_scroller);
 		}
 		
+		private function removedFromStageHandler(event:Event):void 
+		{
+			mxmlContentGroup.removeEventListener(FocusEvent.FOCUS_IN, globalFocusInHandler);
+		}
+		
+		private function globalFocusInHandler(event:FocusEvent):void 
+		{
+			_scroller.ensureElementIsVisible(IVisualElement(event.target));
+		}
+
 		override public function set layout(value:LayoutBase):void
 		{
 			mxmlContentGroup.layout = layout;

@@ -24,9 +24,9 @@
 			
 			import spark.events.IndexChangeEvent;
 			
-			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.model.ServerNotification;
 			import gr.ictpro.mall.client.model.User;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			[Bindable]
 			public var user:User;
@@ -63,12 +63,10 @@
 					var notification:ServerNotification = event.currentTarget.selectedItem;
 					notificationClicked.dispatch(notification);
 				}
-				
 			}
-			
 		]]>
 	</fx:Script>
-	<s:Group  width="100%">
+	<s:Group  width="100%" height="100%">
 		<s:layout>
 			<s:VerticalLayout gap="5" />
 		</s:layout>		
@@ -84,9 +82,9 @@
 				<s:Label id="username" color="0xFFFFFF" fontSize="{Device.isAndroid?14:16}" fontWeight="normal" text="{user.name}"/>
 			</s:Group>
 		</s:Group>
-		<s:Group width="100%">
+		<s:Group width="100%" height="100%">
 			<s:List itemRenderer="gr.ictpro.mall.client.components.renderers.ServerNotificationRenderer" dataProvider="{user.notifications}" borderAlpha="0"
-					contentBackgroundColor="0xffffff" change="notificationsList_changeHandler(event)" left="0" right="0"  />
+					contentBackgroundColor="0xffffff" change="notificationsList_changeHandler(event)" width="100%" height="100%" />
 		</s:Group>
 	</s:Group>
 	<s:Menu id="mainMenu" top="{topBar.definedHeight}" bottom="0" width="200"
