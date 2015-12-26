@@ -7,7 +7,7 @@
 
 	<flex:message-broker services-config-path="classpath:/resources/flex/services-config.xml">
 		<flex:remoting-service default-channels="my-secure-amf" />
-		<flex:message-service default-channels="my-secure-polling-amf" />
+		<flex:message-service default-channels="my-secure-streaming-amf" />
  		<flex:secured />
 	</flex:message-broker>
 	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" >

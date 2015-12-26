@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.service
 {
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.SecureAMFChannel;
+	import mx.messaging.channels.SecureStreamingAMFChannel;
 	import mx.messaging.channels.StreamingAMFChannel;
 
 	public class Channel
@@ -21,7 +22,10 @@ package gr.ictpro.mall.client.service
 			_channelSet.addChannel(channel);
 			
 			var messagingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurestreaming";
-			var messagingChannel:StreamingAMFChannel = new StreamingAMFChannel("my-secure-streaming-amf", messagingEndPoint);
+			var messagingChannel:SecureStreamingAMFChannel = new SecureStreamingAMFChannel("my-secure-streaming-amf", messagingEndPoint);
+			//var messagingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurepolling";
+			//var messagingChannel:SecureAMFChannel = new SecureAMFChannel("my-secure-polling-amf", messagingEndPoint);
+			
 			_messagingChannelSet.addChannel(messagingChannel);
 		}
 		

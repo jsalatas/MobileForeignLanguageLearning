@@ -2,9 +2,9 @@
 <services-config>
 	<services>
 		<default-channels>
-			<channel ref="my-secure-amf" /> 
+			<channel ref="my-secure-amf" />
 		</default-channels>
- 	</services>
+	</services>
 
 	<channels>
 		<channel-definition id="my-secure-amf" class="mx.messaging.channels.SecureAMFChannel">
@@ -15,11 +15,18 @@
 			</properties>
 		</channel-definition>
 		<channel-definition id="my-secure-polling-amf" class="mx.messaging.channels.SecureAMFChannel">
-			<endpoint url="http://{server.name}:{server.port}/{context.root}/messagebroker/amfsecurepolling"
-				class="flex.messaging.endpoints.AMFEndpoint" />
+			<endpoint url="https://{server.name}:{server.port}/{context.root}/messagebroker/amfsecurepolling"
+				class="flex.messaging.endpoints.SecureAMFEndpoint" />
 			<properties>
 				<polling-enabled>true</polling-enabled>
 				<polling-interval-seconds>4</polling-interval-seconds>
+			</properties>
+		</channel-definition>
+		<channel-definition id="my-secure-streaming-amf" class="mx.messaging.channels.SecureStreamingAMFChannel">
+			<endpoint url="https://{server.name}:{server.port}/{context.root}/messagebroker/amfsecurestreaming"
+				class="flex.messaging.endpoints.SecureStreamingAMFEndpoint" />
+			<properties>
+				<server-to-client-heartbeat-millis>5000</server-to-client-heartbeat-millis>
 			</properties>
 		</channel-definition>
 	</channels>
@@ -33,14 +40,14 @@
 			<enabled>false</enabled>
 		</redeploy>
 	</system>
-<security>
-     <security-constraint  id="loggedin">
-     	<roles> 
-                <role>Admin</role> 
-                <role>Teacher</role> 
-                <role>Student</role> 
-                <role>Parent</role> 
-        </roles>
-        </security-constraint> 
-</security>	
+	<security>
+		<security-constraint id="loggedin">
+			<roles>
+				<role>Admin</role>
+				<role>Teacher</role>
+				<role>Student</role>
+				<role>Parent</role>
+			</roles>
+		</security-constraint>
+	</security>
 </services-config>
