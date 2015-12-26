@@ -28,7 +28,6 @@
     <classEntry path="gr.ictpro.mall.client.signal.ServerConnectErrorSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.ShowRegistrationSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.ShowRegistrationCommand"/>
-    <classEntry path="gr.ictpro.mall.client.service.Modules"/>
     <classEntry path="gr.ictpro.mall.client.model.RegistrationDetails"/>
     <classEntry path="gr.ictpro.mall.client.signal.RegisterSuccessSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.RegisterFailedSignal"/>

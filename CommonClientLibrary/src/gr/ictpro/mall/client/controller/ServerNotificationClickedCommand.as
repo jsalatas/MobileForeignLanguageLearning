@@ -4,7 +4,6 @@ package gr.ictpro.mall.client.controller
 	
 	import mx.utils.ObjectProxy;
 	
-	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.model.ServerNotification;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	
@@ -16,16 +15,12 @@ package gr.ictpro.mall.client.controller
 		public var selectedNotification:ServerNotification;
 
 		[Inject]
-		public var loadedModules:Modules;
-		
-		[Inject]
 		public var addView:AddViewSignal;
 		
 
 		override public function execute():void
 		{
 			if(selectedNotification.isInternalModule) {
-				loadedModules.module = null;
 				var p:ObjectProxy = new ObjectProxy();
 				p.initParams = selectedNotification.parameters;
 				p.notification = selectedNotification;

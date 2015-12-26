@@ -8,7 +8,6 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.IDetailView;
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.runtime.Translation;
-	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
@@ -30,9 +29,6 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
 
-		[Inject]
-		public var loadedModules:Modules;
-
 		override public function onRegister():void
 		{
 			addToSignal(addView, handleAddView);
@@ -42,7 +38,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleAddView(module:IVisualElement, parameters:ObjectProxy=null, backView:IVisualElement = null):void
 		{
-			loadedModules.unloadModule();
+//			loadedModules.unloadModule();
 			if(module is IParameterizedView) {
 				(module as IParameterizedView).parameters = parameters;
 			}

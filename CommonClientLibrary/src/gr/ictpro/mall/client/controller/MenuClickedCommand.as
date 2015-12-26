@@ -2,7 +2,6 @@ package gr.ictpro.mall.client.controller
 {
 	import flash.utils.getDefinitionByName;
 	
-	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
 	import gr.ictpro.mall.client.components.menu.MenuItemExternalModule;
 	import gr.ictpro.mall.client.components.menu.MenuItemInternalModule;
@@ -18,9 +17,6 @@ package gr.ictpro.mall.client.controller
 		public var selectedMenu:MenuItemSelected;
 
 		[Inject]
-		public var loadedModules:Modules;
-
-		[Inject]
 		public var addView:AddViewSignal;
 		
 		override public function execute():void
@@ -29,7 +25,6 @@ package gr.ictpro.mall.client.controller
 			{
 				(selectedMenu.menuItem as MenuItemCommand).execute();
 			} else if(selectedMenu.menuItem is MenuItemInternalModule) {
-				loadedModules.module = null;
 				addView.dispatch(createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
 				
 			} else if(selectedMenu.menuItem is MenuItemExternalModule) {

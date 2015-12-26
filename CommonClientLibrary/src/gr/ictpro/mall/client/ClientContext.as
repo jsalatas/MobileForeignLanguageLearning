@@ -12,7 +12,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.controller.GetServerNotificationsCommand;
 	import gr.ictpro.mall.client.runtime.Device;
-	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.Channel;
@@ -81,7 +80,6 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(ServerConnectErrorSignal);
 			injector.mapSingleton(ServerMessageReceivedSignal);
 			injector.mapSingleton(ShowErrorSignal);
-			injector.mapSingleton(Modules);
 			injector.mapSingleton(MessagingService);
 			injector.mapSingleton(Channel);
 			injector.mapSingleton(RuntimeSettings);

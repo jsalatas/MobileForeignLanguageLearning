@@ -4,7 +4,6 @@ package gr.ictpro.mall.client.controller
 	import mx.rpc.events.ResultEvent;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.service.Modules;
 	import gr.ictpro.mall.client.model.ServerConfiguration;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.model.User;
@@ -27,9 +26,6 @@ package gr.ictpro.mall.client.controller
 
 		[Inject]
 		public var channel:Channel;
-
-		[Inject]
-		public var loadedModule:Modules;
 
 		[Inject]
 		public var addView:AddViewSignal;
@@ -83,7 +79,6 @@ package gr.ictpro.mall.client.controller
 				if(settings.user.isAdmin) {
 					settings.serverConfiguration = new ServerConfiguration(channel);
 				}
-				loadedModule.module = null;
 				updateServerNotifications.dispatch();
 				addView.dispatch(new MainView());
 			}

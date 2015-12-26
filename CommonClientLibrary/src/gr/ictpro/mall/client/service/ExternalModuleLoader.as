@@ -25,8 +25,8 @@ package gr.ictpro.mall.client.service
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
 		
-		[Inject]
-		public var loadedModules:Modules;
+//		[Inject]
+//		public var loadedModules:Modules;
 
 		private var _url:String;
 		
@@ -66,7 +66,7 @@ package gr.ictpro.mall.client.service
 
 		public function handleLoaded(event:ModuleEvent):void
 		{
-			loadedModules.module = _loader;
+//			loadedModules.module = _loader;
 			var e:IVisualElement = event.module.factory.create()as IVisualElement;
 			addView.dispatch(e);
 		}
