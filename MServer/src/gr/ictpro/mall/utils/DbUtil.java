@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -37,7 +39,7 @@ public class DbUtil {
 	this.dataSource = dataSource;
     }
 
-    public void initialize() throws FileNotFoundException, IOException {
+    public void initialize() throws FileNotFoundException, IOException, URISyntaxException {
 	String[] scriptFiles = initSQL.split(",");
 	try {
 	    Connection connection = dataSource.getConnection();
@@ -52,8 +54,8 @@ public class DbUtil {
 		} else {
 		    url = new URL(scriptFile);
 		}
-
-		runner.runScript(new BufferedReader(new FileReader(url.getFile())));		
+		URI uri = new URI(url.toString());
+		runner.runScript(new BufferedReader(new FileReader(uri.getPath())));		
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
