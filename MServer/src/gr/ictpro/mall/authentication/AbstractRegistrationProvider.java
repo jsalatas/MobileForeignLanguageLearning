@@ -20,6 +20,7 @@ import gr.ictpro.mall.service.UserService;
 public abstract class AbstractRegistrationProvider implements RegistrationMethod {
     protected int priority;
     protected String ui;
+    protected String clientClassName;
     protected String beanName;
 
     @Autowired(required = true)
@@ -79,5 +80,13 @@ public abstract class AbstractRegistrationProvider implements RegistrationMethod
 	this.priority = priority;
     }
 
-
+    @Override
+    public String getClientClassName() {
+        return clientClassName;
+    }
+    
+    @Override
+    public void setClientClassName(String clientClassName) {
+        this.clientClassName = clientClassName;
+    }
 }

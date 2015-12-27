@@ -136,6 +136,7 @@
     <classEntry path="gr.ictpro.mall.client.model.IPersistent"/>
     <classEntry path="gr.ictpro.mall.client.model.Persistent"/>
     <classEntry path="gr.ictpro.mall.client.model.Classroom"/>
+    <classEntry path="gr.ictpro.mall.client.service.LoadedSWFs"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

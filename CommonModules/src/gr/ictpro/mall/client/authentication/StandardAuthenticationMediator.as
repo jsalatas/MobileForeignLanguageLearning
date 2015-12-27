@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.authentication
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.runtime.Translation;
-	import gr.ictpro.mall.client.service.RegistrationProvider;
+	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
@@ -12,15 +12,18 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.SignalModuleMediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class StandardAuthenticationMediator extends SignalModuleMediator
+	public class StandardAuthenticationMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:StandardAuthentication;
 
 		[Inject]
 		public var login:LoginSignal;
+
+		[Inject]
+		public var addView:AddViewSignal;
 
 		[Inject]
 		public var showRegistration:ShowRegistrationSignal;
@@ -36,16 +39,18 @@ package gr.ictpro.mall.client.authentication
 
 		override public function onRegister():void
 		{
+			super.onRegister();
+
 			addToSignal(loginSuccess, disposeView);
 			addToSignal(loginFailed, showFailedPopup);
 			addToSignal(serverConnectError, disposeView);
 			addToSignal(view.okClicked, handleAuthentication);
 			addToSignal(view.registerClicked, handleRegistration);
-			
+
 			// uncomment for testing purposes (fast login) 
 			//login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", "admin", "admin"));
 		}
-		
+
 		private function handleAuthentication():void
 		{
 			var userName:String = view.txtUserName.text;
@@ -56,8 +61,9 @@ package gr.ictpro.mall.client.authentication
 
 		private function handleRegistration():void
 		{
+			//showRegistration.dispatch(new RegistrationProvider(null, null, null));
+			addView.dispatch(new StandardRegistration());
 			disposeView();
-			showRegistration.dispatch(new RegistrationProvider(null));
 		}
 		
 		private function disposeView():void 

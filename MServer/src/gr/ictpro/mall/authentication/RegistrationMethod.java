@@ -16,6 +16,8 @@ import gr.ictpro.mall.service.UserService;
 public interface RegistrationMethod extends BeanNameAware, PrioritySortable {
     public String getUi();
     public void setUi(String ui);
+    public String getClientClassName();
+    public void setClientClassName(String clientClassName);
     public String getBeanName();
     /**
      * 

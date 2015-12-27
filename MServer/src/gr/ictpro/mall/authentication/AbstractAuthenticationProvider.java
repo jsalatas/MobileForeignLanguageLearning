@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public abstract class AbstractAuthenticationProvider implements AuthenticationMethod, BeanNameAware {
     protected int priority;
     protected String ui;
+    protected String clientClassName;
     protected String beanName;
 
     @Autowired(required = true)
@@ -27,18 +28,6 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationMe
 
     @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
-
-//    @Autowired(required = true)
-//    @Qualifier(value = "userService")
-//    public void setUserService(UserService userService) {
-//	this.userService = userService;
-//    }
-//
-//    @Autowired(required = true)
-//    @Qualifier(value = "passwordEncoder")
-//    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-//	this.passwordEncoder = passwordEncoder;
-//    }
 
     @Override
     public String getBeanName() {
@@ -96,5 +85,16 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationMe
     public void setPriority(int priority) {
 	this.priority = priority;
     }
+
+    @Override
+    public String getClientClassName() {
+        return clientClassName;
+    }
+    
+    @Override
+    public void setClientClassName(String clientClassName) {
+        this.clientClassName = clientClassName;
+    }
+    
 
 }

@@ -45,7 +45,7 @@ package gr.ictpro.mall.client.controller
 				addView.dispatch(new ServerNameView());
 			} else {
 				channel.setupChannel(settings.getClientSetting(RuntimeSettings.SERVER_URL), settings.getClientSetting(RuntimeSettings.APP_PATH));
-				showAuthentication.dispatch(new AuthenticationProvider(null));
+				showAuthentication.dispatch(new AuthenticationProvider(null, null));
 			}
 			
 		}

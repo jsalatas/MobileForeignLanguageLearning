@@ -15,9 +15,9 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
-	import org.robotlegs.mvcs.SignalModuleMediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class StandardRegistrationMediator extends SignalModuleMediator
+	public class StandardRegistrationMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:StandardRegistration;
@@ -36,6 +36,8 @@ package gr.ictpro.mall.client.authentication
 
 		override public function onRegister():void
 		{
+			super.onRegister();
+	
 			addToSignal(view.okClicked, handleRegistration);
 			addToSignal(registrationFailed, handleRegisterFailed);
 			addToSignal(registrationSuccess, handleRegisterSuccess);
@@ -50,7 +52,6 @@ package gr.ictpro.mall.client.authentication
 		
 		private function handleSuccess(event:ResultEvent):void
 		{
-			//view.roles = ArrayCollection(event.result);
 			var res:ArrayCollection = ArrayCollection(event.result);
 			var studentRole:ObjectProxy;
 			view.roles = new ArrayList();

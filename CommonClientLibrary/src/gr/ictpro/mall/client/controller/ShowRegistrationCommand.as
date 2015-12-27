@@ -31,7 +31,7 @@ package gr.ictpro.mall.client.controller
 				if(registrationProvider.provider == null) {
 					showRegistration.dispatch(registrationProviders.getNextProvider(null));	
 				} else {
-					loader= new ExternalModuleLoader(settings.getClientSetting(RuntimeSettings.SERVER_URL)+ "/" + settings.getClientSetting(RuntimeSettings.MODULES_PATH)+ "/"+ registrationProvider.provider);
+					loader= new ExternalModuleLoader(settings.getClientSetting(RuntimeSettings.SERVER_URL)+ "/" + settings.getClientSetting(RuntimeSettings.MODULES_PATH)+ "/"+ registrationProvider.provider, registrationProvider.className);
 					injector.injectInto(loader);
 					loader.load();
 				}

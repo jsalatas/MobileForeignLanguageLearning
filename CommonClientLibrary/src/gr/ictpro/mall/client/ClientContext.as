@@ -1,23 +1,26 @@
 package gr.ictpro.mall.client
 {
 	import gr.ictpro.mall.client.components.TopBarView;
+	import gr.ictpro.mall.client.controller.GetServerNotificationsCommand;
+	import gr.ictpro.mall.client.controller.HandleServerNotificationCommand;
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.LoginCommand;
 	import gr.ictpro.mall.client.controller.MenuClickedCommand;
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SavePropertyCommand;
 	import gr.ictpro.mall.client.controller.ServerNotificationClickedCommand;
-	import gr.ictpro.mall.client.controller.HandleServerNotificationCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
-	import gr.ictpro.mall.client.controller.GetServerNotificationsCommand;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.Channel;
+	import gr.ictpro.mall.client.service.LoadedSWFs;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RegistrationProviders;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
+	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
+	import gr.ictpro.mall.client.signal.HandleServerNotificationSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
@@ -29,12 +32,10 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.SavePropertySignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
-	import gr.ictpro.mall.client.signal.HandleServerNotificationSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowErrorSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
-	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.ClassroomView;
 	import gr.ictpro.mall.client.view.ClassroomViewMediator;
 	import gr.ictpro.mall.client.view.ClassroomgroupView;
@@ -85,6 +86,7 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(RuntimeSettings);
 			injector.mapSingleton(AuthenticationProviders);
 			injector.mapSingleton(RegistrationProviders);
+			injector.mapSingleton(LoadedSWFs);
 			
 			mediatorMap.mapView(ShellView, ShellViewMediator);
 			mediatorMap.mapView(ServerNameView, ServerNameViewMediator);

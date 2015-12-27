@@ -32,7 +32,7 @@ package gr.ictpro.mall.client.controller
 				if(authenticationProvider.provider == null) {
 					showAuthentication.dispatch(authenticationProviders.getNextProvider(null));	
 				} else {
-					loader = new ExternalModuleLoader(settings.getClientSetting(RuntimeSettings.SERVER_URL)+"/" + settings.getClientSetting(RuntimeSettings.MODULES_PATH)+ "/"+ authenticationProvider.provider);
+					loader = new ExternalModuleLoader(settings.getClientSetting(RuntimeSettings.SERVER_URL)+"/" + settings.getClientSetting(RuntimeSettings.MODULES_PATH)+ "/"+ authenticationProvider.provider, authenticationProvider.className);
 					injector.injectInto(loader);
 					loader.load();
 				}

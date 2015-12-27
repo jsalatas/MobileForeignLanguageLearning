@@ -1,12 +1,12 @@
 package gr.ictpro.mall.client.service
 {
 	
-	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
-	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
+	
+	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
+	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	
 	public class AuthenticationProviders
 	{
@@ -40,26 +40,29 @@ package gr.ictpro.mall.client.service
 		public function getNextProvider(previous:String):AuthenticationProvider
 		{
 			var provider:String;
+			var className:String;
 				if(previous == null) {
-					provider = _authenticationProviders.getItemAt(0).toString();
+					provider = _authenticationProviders.getItemAt(0).ui.toString();
+					className = _authenticationProviders.getItemAt(0).clientClassName.toString();
 				} else {
-					
 					var pos:int = _authenticationProviders.getItemIndex(previous);
 					
 					if(pos == -1) {
 						provider = null;
+						className = null;
 					} else {
-						provider = _authenticationProviders.getItemAt(pos+1).toString();
+						provider = _authenticationProviders.getItemAt(pos+1).ui.toString();
+						className = _authenticationProviders.getItemAt(pos+1).clientClassName.toString();
 					}
 				}
-				return new AuthenticationProvider(provider);
+				return new AuthenticationProvider(provider, className);
 		}
 		
 		private function handleSuccess(event:ResultEvent):void
 		{
 			_isInitialized = true;
 			_authenticationProviders = ArrayCollection(event.result);
-			showAuthentication.dispatch(new AuthenticationProvider(null));
+			showAuthentication.dispatch(new AuthenticationProvider(null, null));
 		}
 
 		private function handleError(event:FaultEvent):void

@@ -39,27 +39,31 @@ package gr.ictpro.mall.client.service
 		public function getNextProvider(previous:String):RegistrationProvider
 		{
 			var provider:String;
+			var className:String;
 			
 			if(previous == null) {
 				provider = _registrationProviders.getItemAt(0).toString();
 			} else {
 				
 				var pos:int = _registrationProviders.getItemIndex(previous);
+				className = _registrationProviders.getItemAt(0).clientClassName.toString();
 				
 				if(pos == -1) {
 					provider = null;
+					className = null;
 				} else {
 					provider = _registrationProviders.getItemAt(pos+1).toString();
+					className = _registrationProviders.getItemAt(pos+1).clientClassName.toString();
 				}
 			}
-			   return new RegistrationProvider(provider);
+			   return new RegistrationProvider(provider, className);
 		}
 		
 		private function handleSuccess(event:ResultEvent):void
 		{
 			_isInitialized = true;
 			_registrationProviders = ArrayCollection(event.result);
-			showRegistration.dispatch(new RegistrationProvider(null));
+			showRegistration.dispatch(new RegistrationProvider(null, null));
 		}
 
 		private function handleError(event:FaultEvent):void

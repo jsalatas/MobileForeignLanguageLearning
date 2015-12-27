@@ -38,8 +38,7 @@
     </application>
   </applications>
   <modules>
-    <module destPath="gr/ictpro/mall/client/authentication/StandardAuthentication.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/StandardAuthentication.mxml"/>
-    <module destPath="gr/ictpro/mall/client/authentication/StandardRegistration.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/StandardRegistration.mxml"/>
+    <module application="src/CommonClient.mxml" destPath="gr/ictpro/mall/client/authentication/Standard.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/Initialize.as"/>
   </modules>
   <workers/>
   <buildCSSFiles/>

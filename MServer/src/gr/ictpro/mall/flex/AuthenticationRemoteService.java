@@ -86,22 +86,12 @@ public class AuthenticationRemoteService {
     }
 
 
-    public ArrayList<String> getAuthenticationModules() {
-	ArrayList<String> res = new ArrayList<String>();
-	for(AuthenticationMethod a: authMethods) {
-	    res.add(a.getUi());
-	}
-	
-	return res;
+    public List<AuthenticationMethod> getAuthenticationModules() {
+	return authMethods;
     }
 
-    public ArrayList<String> getRegistrationModules() {
-	ArrayList<String> res = new ArrayList<String>();
-	for(RegistrationMethod a: registrationMethods) {
-	    res.add(a.getUi());
-	}
-	
-	return res;
+    public List<RegistrationMethod> getRegistrationModules() {
+	return registrationMethods;
     }
 
     public List<Role> getRoles() {
