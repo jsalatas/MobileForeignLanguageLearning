@@ -33,20 +33,19 @@ public class ClassroomServiceImpl extends GenericServiceImpl<Classroom, Integer>
     @Transactional
     @Override
     public void replaceTeacher(Classroom c, User newTeacher) {
-	if(c.getUsers() instanceof HibernateProxy) {
+	if (c.getUsers() instanceof HibernateProxy) {
 	    Hibernate.initialize(c.getUsers());
 	}
-	
-	if(!c.getUsers().contains(newTeacher)) {
-	    for(User u: c.getUsers()) {
-		if(u.hasRole("Teacher")) {
-		    c.getUsers().remove(u);
-		    break;
-		}
+
+	//remove old teacher
+	for (User u : c.getUsers()) {
+	    if (u.hasRole("Teacher")) {
+		c.getUsers().remove(u);
+		break;
 	    }
 	}
 	c.getUsers().add(newTeacher);
-	
+	update(c);
     }
 
 }

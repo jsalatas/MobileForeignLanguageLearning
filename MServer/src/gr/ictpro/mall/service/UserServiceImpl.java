@@ -3,7 +3,6 @@
  */
 package gr.ictpro.mall.service;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

@@ -1,14 +1,19 @@
 package gr.ictpro.mall.client.service
 {
-	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
-	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
+	
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
+	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	
 	public class RegistrationProviders
 	{
+		private static var GET_REGISTRATION_PROVIDERS:String = "getRegistrationProviders";
+		
 		[Inject]
 		public var channel:Channel;
 
@@ -18,7 +23,15 @@ package gr.ictpro.mall.client.service
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
 		
-
+		[Inject]
+		public var genericCall:GenericCallSignal;
+		
+		[Inject]
+		public var genericCallSuccess:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+		
 		private var _registrationProviders:ArrayCollection = null;
 		private var _isInitialized:Boolean = false;
 
@@ -33,7 +46,14 @@ package gr.ictpro.mall.client.service
 		
 		public function setupRegistrationProviders():void 
 		{
-			var r: RemoteObjectService = new RemoteObjectService(channel, "authenticationRemoteService", "getRegistrationModules", null, handleSuccess, handleError);
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = null;
+			args.destination = "authenticationRemoteService";
+			args.method = "getRegistrationModules";
+			args.type = GET_REGISTRATION_PROVIDERS;
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
 		}
 		
 		public function getNextProvider(previous:String):RegistrationProvider
@@ -59,16 +79,28 @@ package gr.ictpro.mall.client.service
 			   return new RegistrationProvider(provider, className);
 		}
 		
-		private function handleSuccess(event:ResultEvent):void
+		private function success(type:String, result:Object):void
 		{
-			_isInitialized = true;
-			_registrationProviders = ArrayCollection(event.result);
-			showRegistration.dispatch(new RegistrationProvider(null, null));
+			if(type == GET_REGISTRATION_PROVIDERS) {
+				removeSignals();
+				_isInitialized = true;
+				_registrationProviders = ArrayCollection(result);
+				showRegistration.dispatch(new RegistrationProvider(null, null));
+			}
 		}
 
-		private function handleError(event:FaultEvent):void
+		private function error(type:String, event:FaultEvent):void
 		{
-			serverConnectError.dispatch();
+			if(type == GET_REGISTRATION_PROVIDERS) {
+				removeSignals();
+				serverConnectError.dispatch();
+			}
+		}
+		
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
 		}
 
 	}

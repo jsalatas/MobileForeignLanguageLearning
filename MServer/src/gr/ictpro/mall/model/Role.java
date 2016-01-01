@@ -2,6 +2,7 @@ package gr.ictpro.mall.model;
 
 // Generated Sep 5, 2014 11:12:49 PM by Hibernate Tools 4.0.0
 
+import gr.ictpro.mall.interceptors.ClientReferenceClass;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.flex.core.io.AmfIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -27,8 +29,13 @@ import org.springframework.security.core.GrantedAuthority;
 @Entity
 @Table(name = "role"
 	, uniqueConstraints = @UniqueConstraint(columnNames = "role"))
+@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.Role")
 public class Role implements java.io.Serializable, GrantedAuthority {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7911048899002478210L;
+    
     private Integer id;
     private String role;
     private Set<User> users = new HashSet<User>(0);
@@ -71,19 +78,23 @@ public class Role implements java.io.Serializable, GrantedAuthority {
     @JoinTable(name = "user_role", joinColumns = {
 	    @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "user_id", nullable = false, updatable = false) })
+    @AmfIgnore
     public Set<User> getUsers() {
 	return this.users;
     }
 
+    @AmfIgnore
     public void setUsers(Set<User> users) {
 	this.users = users;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    @AmfIgnore
     public Set<RoleNotification> getRoleNotifications() {
 	return this.roleNotifications;
     }
 
+    @AmfIgnore
     public void setRoleNotifications(Set<RoleNotification> roleNotifications) {
 	this.roleNotifications = roleNotifications;
     }
@@ -112,6 +123,7 @@ public class Role implements java.io.Serializable, GrantedAuthority {
 
     @Override
     @Transient
+    @AmfIgnore
     public String getAuthority() {
 	return getRole();
     }

@@ -2,11 +2,11 @@ package gr.ictpro.mall.client.controller
 {
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
+	import mx.rpc.remoting.RemoteObject;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
 	import gr.ictpro.mall.client.service.Channel;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
@@ -44,10 +44,17 @@ package gr.ictpro.mall.client.controller
 			arguments.role=registrationDetails.role;
 			arguments.registrationMethod=registrationDetails.registrationMethod;
 			
-			var r: RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "register", arguments, handleSuccess, handleError);
+			var ro:RemoteObject = new RemoteObject();
+			ro.showBusyCursor= true;
+			ro.channelSet = channel.getChannelSet();
+			ro.destination = "userRemoteService";
+			ro.register.addEventListener(ResultEvent.RESULT, success);
+			ro.register.addEventListener(FaultEvent.FAULT, error);
+			ro.register.send(arguments);
+
 		}
 		
-		private function handleSuccess(event:ResultEvent):void
+		private function success(event:ResultEvent):void
 		{
 			var enabled:Boolean = Boolean(event.result);
 			registerSuccess.dispatch();
@@ -60,7 +67,7 @@ package gr.ictpro.mall.client.controller
 			}
 		}
 		
-		private function handleError(event:FaultEvent):void
+		private function error(event:FaultEvent):void
 		{
 			if(event.fault.faultString.indexOf("org.hibernate.exception.ConstraintViolationException") > -1) {
 				registerFailed.dispatch();

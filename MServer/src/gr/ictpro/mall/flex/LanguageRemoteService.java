@@ -52,24 +52,20 @@ public class LanguageRemoteService {
 	return languageService.listAll();
     }
 
-    public void updateLanguage(ASObject langObj) {
-	String code = (String) langObj.get("code");
-	String englishName = (String) langObj.get("englishName");
-	String localName = (String) langObj.get("localName");
-	Language l = languageService.retrieveById(code);
+    public void updateLanguage(Language language) {
+	Language l = languageService.retrieveById(language.getCode());
 	if(l == null) {
-	    l = new Language(code, englishName, localName);
-	    languageService.create(l);
+	    languageService.create(language);
 	} else {
-	    l.setEnglishName(englishName);
-	    l.setLocalName(localName);
-	    languageService.update(l);
+	    Language persistentLanguage = languageService.retrieveById(language.getCode());
+	    persistentLanguage.setLocalName(language.getLocalName());
+	    persistentLanguage.setEnglishName(language.getEnglishName());
+	    languageService.update(persistentLanguage);
 	}
     }
 
-    public void deleteLanguage(ASObject langObj) {
-	String code = (String) langObj.get("code");
-	languageService.delete(code);
+    public void deleteLanguage(Language language) {
+	languageService.delete(languageService.retrieveById(language.getCode()));
     }
     
     public String getTranslationsXML(ASObject translObj) throws TransformerException {

@@ -17,6 +17,7 @@ package gr.ictpro.mall.client.components
 			
 			if(Device.isAndroid) {
 				super.setStyle("interactionMode", InteractionMode.TOUCH);
+				needsSoftKeyboard = true;
 			} else {
 				super.setStyle("interactionMode", InteractionMode.MOUSE);
 			}

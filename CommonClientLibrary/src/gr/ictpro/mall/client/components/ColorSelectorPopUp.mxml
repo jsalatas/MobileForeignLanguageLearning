@@ -16,6 +16,7 @@
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
@@ -40,7 +41,7 @@
 			}
 			
 			[Bindable]
-			public var dataList:ArrayList;
+			public var dataList:ArrayCollection;
 			
 			[Bindable]
 			private var controlHeight:int=0;

@@ -2,8 +2,9 @@ package gr.ictpro.mall.model;
 
 // Generated Sep 5, 2014 11:12:49 PM by Hibernate Tools 4.0.0
 
+
+import gr.ictpro.mall.interceptors.ClientReferenceClass;
 import gr.ictpro.mall.model.Classroom;
-import gr.ictpro.mall.model.Translation;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.flex.core.io.AmfIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -34,8 +36,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "user", uniqueConstraints = {
 	@UniqueConstraint(columnNames = "username"),
 	@UniqueConstraint(columnNames = "email") })
+@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.User")
 public class User implements java.io.Serializable, UserDetails {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1552192962451182653L;
+    
     private Integer id;
     private String username;
     private String password;
@@ -57,8 +64,9 @@ public class User implements java.io.Serializable, UserDetails {
 	this.enabled = enabled;
     }
 
-    public User(String username, String password, String email, boolean enabled, Profile profile, 
-	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<RoleNotification> roleNotifications, Set<Role> roles) {
+    public User(String username, String password, String email, boolean enabled, Profile profile,
+	    Set<Classroom> classrooms, Set<UserNotification> userNotifications,
+	    Set<RoleNotification> roleNotifications, Set<Role> roles) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -91,6 +99,7 @@ public class User implements java.io.Serializable, UserDetails {
     }
 
     @Column(name = "password", nullable = false, length = 60)
+    @AmfIgnore
     public String getPassword() {
 	return this.password;
     }
@@ -125,21 +134,25 @@ public class User implements java.io.Serializable, UserDetails {
     public void setProfile(Profile profile) {
 	this.profile = profile;
     }
-    
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @AmfIgnore
     public Set<UserNotification> getUserNotifications() {
 	return this.userNotifications;
     }
 
+    @AmfIgnore
     public void setUserNotifications(Set<UserNotification> userNotifications) {
 	this.userNotifications = userNotifications;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @AmfIgnore
     public Set<RoleNotification> getRoleNotifications() {
 	return this.roleNotifications;
     }
 
+    @AmfIgnore
     public void setRoleNotifications(Set<RoleNotification> roleNotifications) {
 	this.roleNotifications = roleNotifications;
     }
@@ -161,10 +174,12 @@ public class User implements java.io.Serializable, UserDetails {
     @JoinTable(name = "classroom_user", joinColumns = {
 	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "class_id", nullable = false, updatable = false) })
+    @AmfIgnore
     public Set<Classroom> getClassrooms() {
 	return this.classrooms;
     }
 
+    @AmfIgnore
     public void setClassrooms(Set<Classroom> classrooms) {
 	this.classrooms = classrooms;
     }
@@ -201,24 +216,28 @@ public class User implements java.io.Serializable, UserDetails {
 
     @Override
     @Transient
+    @AmfIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
 	return this.roles;
     }
 
     @Override
     @Transient
+    @AmfIgnore
     public boolean isAccountNonExpired() {
 	return true;
     }
 
     @Override
     @Transient
+    @AmfIgnore
     public boolean isAccountNonLocked() {
 	return this.enabled;
     }
 
     @Override
     @Transient
+    @AmfIgnore
     public boolean isCredentialsNonExpired() {
 	return true;
     }

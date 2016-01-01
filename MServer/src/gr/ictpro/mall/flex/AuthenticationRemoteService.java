@@ -5,7 +5,6 @@ package gr.ictpro.mall.flex;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.context.ContextLoader;
 import flex.messaging.FlexContext;
 import flex.messaging.HttpFlexSession;
 import flex.messaging.io.amf.ASObject;
-import gr.ictpro.mall.authentication.PrioritySortableComparator;
 import gr.ictpro.mall.authentication.AuthenticationMethod;
 import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.model.Role;
@@ -95,12 +93,7 @@ public class AuthenticationRemoteService {
     }
 
     public List<Role> getRoles() {
-	List<Role> roles = roleService.listAll();
-	
-	// Remove admin role
-	roles.remove(roleService.listByProperty("role", "Admin").get(0));
-	
-	return roles;
+	return roleService.listAll();
     }
 
     

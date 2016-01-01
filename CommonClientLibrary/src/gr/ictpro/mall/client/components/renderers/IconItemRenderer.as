@@ -1780,7 +1780,7 @@ package gr.ictpro.mall.client.components.renderers
 		override protected function drawBackground(unscaledWidth:Number, 
 										  unscaledHeight:Number):void
 		{
-			if(!data.isGroup)  {
+			if(!data.hasOwnProperty("isGroup") || !data.isGroup)  {
 				super.drawBackground(unscaledWidth, unscaledHeight);
 			}
 		}

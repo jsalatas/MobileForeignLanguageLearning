@@ -21,12 +21,18 @@ package gr.ictpro.mall.client.service
 			var channel:SecureAMFChannel = new SecureAMFChannel("my-secure-amf", endPoint);
 			_channelSet.addChannel(channel);
 			
-			var messagingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurestreaming";
-			var messagingChannel:SecureStreamingAMFChannel = new SecureStreamingAMFChannel("my-secure-streaming-amf", messagingEndPoint);
-			//var messagingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurepolling";
-			//var messagingChannel:SecureAMFChannel = new SecureAMFChannel("my-secure-polling-amf", messagingEndPoint);
+			var pollingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurepolling";
+			var pollingChannel:SecureAMFChannel = new SecureAMFChannel("my-secure-polling-amf", pollingEndPoint);
+			pollingChannel.pollingEnabled = true;
+			pollingChannel.pollingInterval = 1000;
 			
-			_messagingChannelSet.addChannel(messagingChannel);
+//			var streamingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurestreaming";
+//			var streamingChannel:SecureStreamingAMFChannel = new SecureStreamingAMFChannel("my-secure-streaming-amf", streamingEndPoint);
+
+//			_messagingChannelSet.addChannel(streamingChannel);
+			_messagingChannelSet.addChannel(pollingChannel);
+			_messagingChannelSet.heartbeatInterval = 5000;
+			
 		}
 		
 		public function getChannelSet():ChannelSet

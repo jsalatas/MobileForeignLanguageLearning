@@ -11,6 +11,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserNotificationId implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -9160517359818720089L;
+    
     private int userId;
     private int notificationId;
 

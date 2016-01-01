@@ -73,8 +73,8 @@ package gr.ictpro.mall.client.runtime
 		public static function getDefaultColor(alpha:Number = 1):int
 		{
 			var color:int= 0x000066;
-			if (_settings != null && _settings.user != null && !isNaN(_settings.user.color)) {
-				color = _settings.user.color;
+			if (_settings != null && _settings.user != null && !isNaN(_settings.user.profile.color)) {
+				color = _settings.user.profile.color;
 			}
 			
 			if(alpha == 1) 

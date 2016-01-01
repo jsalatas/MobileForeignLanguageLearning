@@ -8,6 +8,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.model.vo.Classroomgroup;
 			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
 		]]>
@@ -24,10 +25,10 @@
 				<s:FormLayout/>
 			</s:layout>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" text="@{parameters.classroomgroup.name}" textAlign="left"/>
+				<s:TextInput id="txtName" width="100%" text="@{Classroomgroup(parameters.vo).name}" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Notes')}">
-				<s:TextArea id="txtNotes" width="100%" text="@{parameters.classroomgroup.notes}" textAlign="left" height="100" maxHeight="100"/>
+				<s:TextArea id="txtNotes" width="100%" text="@{Classroomgroup(parameters.vo).notes}" textAlign="left" height="100" maxHeight="100"/>
 			</s:FormItem>
 		</s:Group>
 	</s:Group>

@@ -21,6 +21,11 @@ import javax.persistence.UniqueConstraint;
 	, uniqueConstraints = @UniqueConstraint(columnNames = { "language_code", "email_type" }))
 public class EmailTranslation implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 788609926863226227L;
+    
     private EmailTranslationId id;
     private Classroom classroom;
     private EnglishEmail englishEmail;

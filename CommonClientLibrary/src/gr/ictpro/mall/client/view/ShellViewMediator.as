@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.components.IDetailView;
 	import gr.ictpro.mall.client.components.IParameterizedView;
+	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
@@ -36,7 +37,7 @@ package gr.ictpro.mall.client.view
 			initialize.dispatch();
 		}
 		
-		private function handleAddView(module:IVisualElement, parameters:ObjectProxy=null, backView:IVisualElement = null):void
+		private function handleAddView(module:IVisualElement, parameters:ViewParameters=null, backView:IVisualElement = null):void
 		{
 //			loadedModules.unloadModule();
 			if(module is IParameterizedView) {

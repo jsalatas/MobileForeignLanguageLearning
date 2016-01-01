@@ -6,19 +6,53 @@ package gr.ictpro.mall.client.view
 	import mx.utils.ObjectProxy;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
+	import gr.ictpro.mall.client.components.TopBarListView;
+	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.IPersistent;
+	import gr.ictpro.mall.client.model.ViewParameters;
+	import gr.ictpro.mall.client.signal.ListErrorSignal;
+	import gr.ictpro.mall.client.signal.ListSignal;
+	import gr.ictpro.mall.client.signal.ListSuccessSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 
 	public class TopBarListViewMediator extends TopBarViewMediator
 	{
 		private var _detailViewClass:Class;
-		private var _buildParametersHandler:Function;
-		private var _getNewHandler:Function;
 
+		protected var model:AbstractModel;
+		
+		[Inject]
+		public var listSignal:ListSignal;
+		
+		[Inject]
+		public var listErrorSignal:ListErrorSignal;
+		
+		[Inject]
+		public var listSuccessSignal:ListSuccessSignal;
+		
 		override public function onRegister():void
 		{
 			super.onRegister();
 			
-			view.addEventListener("addClicked", addClicked);
-			view.addEventListener("showDetailClicked", showDetailClicked);
+			eventMap.mapListener(view, "addClicked", addClicked);
+			eventMap.mapListener(view, "showDetailClicked", showDetailClicked);
+			addToSignal(listSuccessSignal, listSuccess);
+			addToSignal(listErrorSignal, listError);
+			listSignal.dispatch(model.getVOClass());
+		}
+
+		private function listSuccess(classType:Class):void
+		{
+			if(classType == model.getVOClass()) {
+				TopBarListView(view).data = model.list;
+			}
+		}
+
+		private function listError(classType:Class, errorMessage:String):void
+		{
+			if(classType == model.getVOClass()) {
+				UI.showError(view, errorMessage);
+			}
 		}
 
 		protected function setDetailViewClass(detailViewClass:Class):void
@@ -26,43 +60,35 @@ package gr.ictpro.mall.client.view
 			this._detailViewClass = detailViewClass;
 		}
 		
-		protected function setBuildParametersHandler(buildParametersHandler:Function):void
+		private function addClicked(event:MouseEvent):void
 		{
-			this._buildParametersHandler = buildParametersHandler;
-		}
-		
-		protected function setGetNewHandler(getNewHandler:Function):void
-		{
-			this._getNewHandler = getNewHandler;
-		}
-		
-		protected function addClicked(event:MouseEvent):void
-		{
-			var parameters:ObjectProxy = _buildParametersHandler(_getNewHandler());
+			var parameters:Object = buildParameters(model.create());
 			showDetail(parameters);
 		}
+		
+		private function buildParameters(vo:Object):ViewParameters
+		{
+			var parameters:ViewParameters = new ViewParameters();
+			parameters.vo = vo;
 
-		protected function showDetailClicked(event:Event):void
+			if(view.parameters != null && view.parameters.notification != null) {
+				parameters.notification = view.parameters.notification; 
+			}
+			
+
+			return parameters;
+		}		
+		
+		private function showDetailClicked(event:Event):void
 		{
-			var parameters:ObjectProxy = _buildParametersHandler(event.target.selectedItem);
-			showDetail(parameters);
+			showDetail(buildParameters(event.target.selectedItem));
 		}
 		
-		protected function showDetail(parameters:ObjectProxy):void
+		private function showDetail(parameters:Object):void
 		{
 			var detailView:TopBarDetailView = new _detailViewClass() as TopBarDetailView;
-			view.removeEventListener("addClicked", addClicked);
-			view.removeEventListener("showDetailClicked", showDetailClicked);
 			addView.dispatch(detailView, parameters, view);
 			view.dispose();
 		}
-
-		override protected function back():void
-		{
-			view.removeEventListener("addClicked", addClicked);
-			view.removeEventListener("showDetailClicked", showDetailClicked);
-			super.back();
-		}
-
 	}
 }

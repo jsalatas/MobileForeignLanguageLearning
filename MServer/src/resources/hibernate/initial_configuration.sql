@@ -38,6 +38,7 @@ BEGIN
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Parent');
 		INSERT IGNORE INTO `user` (`username`, `email`, `password`, `enabled`) VALUES ('admin', 'admin@example.com', '$2a$10$AtT/8iMJDG/M3Tsakn38tuKRO4AxzEFi/22qDOUO9Ay3W6RhI1702', 1);
+		INSERT IGNORE INTO `profile` (`user_id`, `color`, `name`) SELECT `user`.`id` as `user_id`, 102 as `color`, 'admin' as `name` FROM `user` WHERE `username` = 'admin';
 		INSERT IGNORE INTO `user_role` (`user_id`, `role_id`) SELECT `user`.`id` as `user_id`, `role`.`id` as `role_id` FROM `user`, `role` WHERE `user`.`username` = 'admin'  AND `role`.`role` = 'Admin';
 		INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`) VALUES ('en', 'English', 'English');
 		SET SESSION SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";

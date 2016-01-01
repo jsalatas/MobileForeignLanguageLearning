@@ -18,7 +18,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "translation")
 public class Translation implements java.io.Serializable {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -604018584901393501L;
+   
     private TranslationId id;
     private Classroom classroom;
     private EnglishText englishText;

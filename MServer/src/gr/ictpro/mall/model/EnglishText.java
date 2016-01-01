@@ -26,6 +26,11 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "english_text"
 	, uniqueConstraints = @UniqueConstraint(columnNames = "md5"))
 public class EnglishText implements java.io.Serializable, DatabaseGeneratedValues {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 15356302068571285L;
+    
     private Integer id;
     private String englishText;
     private String md5 = " "; // setting as empty string in order to pass the nullable=false validation

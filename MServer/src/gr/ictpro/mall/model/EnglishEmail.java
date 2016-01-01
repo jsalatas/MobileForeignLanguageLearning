@@ -17,7 +17,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "english_email")
 public class EnglishEmail implements java.io.Serializable {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4156228606849284350L;
+    
+    
     private EmailType emailType;
     private String body;
     private String subject;

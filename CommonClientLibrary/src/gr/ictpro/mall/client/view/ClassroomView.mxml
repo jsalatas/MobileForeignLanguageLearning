@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TopBarDetailView xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
-			   title="{parameters.classroom.name}"
+			   title="{Classroom(parameters.vo).name}"
 			   xmlns:mx="library://ns.adobe.com/flex/mx">
 	<s:states>
 		<mx:State name="new" />
@@ -10,27 +10,30 @@
 
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayList;
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
-			import mx.utils.ObjectProxy;
 			
+			import gr.ictpro.mall.client.model.UserModel;
+			import gr.ictpro.mall.client.model.vo.Classroom;
+			import gr.ictpro.mall.client.model.vo.User;
 			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
 			
 			[Bindable]
-			private var _teachers:ArrayList;
+			private var _teachers:ArrayCollection;
 			
 			[Bindable]
-			public var _languages:ArrayList;
+			public var _languages:ArrayCollection;
 			
+			public var userModel:UserModel;
 			
-			public function set teachers(teachers:ArrayList):void
+			public function set teachers(teachers:ArrayCollection):void
 			{
 				this._teachers = teachers;
 				selectTeacher();
 			}
 			
-			public function set languages(languages:ArrayList):void
+			public function set languages(languages:ArrayCollection):void
 			{
 				this._languages = languages;
 				selectLanguage();
@@ -49,32 +52,19 @@
 			
 			// set initial selected language
 			private function selectLanguage():void {
-				if(_languages != null && parameters != null && parameters.classroom != null && parameters.classroom.hasOwnProperty("language") && languagePopup != null) {
-					for (var i:int=0;i<_languages.length; i++) {
-						var language:ObjectProxy = ObjectProxy(_languages.getItemAt(i));
-						if(language.code == parameters.classroom.language.code) {
-							languagePopup.selected = language;
-							break;
-						}
-					}
+				languagePopup.selected = null;
+				if(_languages != null && parameters != null && parameters.vo != null && Classroom(parameters.vo).language != null && languagePopup != null) {
+					languagePopup.selected = Classroom(parameters.vo).language;
 				}
 			}
 			
 			// set initial selected teacher
 			private function selectTeacher():void {
-				if(currentState == 'edit' && _teachers != null && parameters != null && parameters.classroom != null && parameters.classroom.hasOwnProperty("users") && teacherPopup != null) {
-					var found:Boolean = false;
-					for (var i:int=0;i<_teachers.length; i++) {
-						var teacher:ObjectProxy = ObjectProxy(_teachers.getItemAt(i));
-						for(var j:int=0;j<parameters.classroom.users.length; j++) {
-							if(teacher.id == parameters.classroom.users.getItemAt(j).id) {
-								teacherPopup.selected = teacher;
-								found = true;
-								break;
-							}
-						}
-						if(found) {
-							break;
+				if(_teachers != null && parameters != null && parameters.vo != null && Classroom(parameters.vo).users != null && teacherPopup != null) {
+					teacherPopup.selected = null;
+					for each (var user:User in Classroom(parameters.vo).users) {
+						if(userModel.isTeacher(user)) {
+							teacherPopup.selected = user;
 						}
 					}
 				}
@@ -91,10 +81,10 @@
 				<s:FormLayout/>
 			</s:layout>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" text="@{parameters.classroom.name}" textAlign="left"/>
+				<s:TextInput id="txtName" width="100%" text="@{Classroom(parameters.vo).name}" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Notes')}">
-				<s:TextArea id="txtNotes" width="100%" text="@{parameters.classroom.notes}" textAlign="left" height="100" maxHeight="100"/>
+				<s:TextArea id="txtNotes" width="100%" text="@{Classroom(parameters.vo).notes}" textAlign="left" height="100" maxHeight="100"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Language')}">
 				<s:PopUpList id="languagePopup" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />

@@ -15,8 +15,8 @@
 			[Bindable]
 			public var image:BitmapData;
 			
-			const WIDTH:int = 150;
-			const HEIGHT:int = 200;
+			private const WIDTH:int = 150;
+			private const HEIGHT:int = 200;
 			
 			private function imageReady():void {
 				imageCropper.setCropRect(WIDTH, HEIGHT); 				

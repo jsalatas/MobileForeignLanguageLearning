@@ -2,10 +2,6 @@ package gr.ictpro.mall.client.components.menu
 {
 	import flash.display.DisplayObject;
 	import flash.geom.ColorTransform;
-	
-	import spark.core.SpriteVisualElement;
-	import spark.filters.ColorMatrixFilter;
-	import spark.primitives.Graphic;
 
 	public class MenuItemIcon extends MenuItem
 	{

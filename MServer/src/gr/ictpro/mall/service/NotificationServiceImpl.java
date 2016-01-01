@@ -4,7 +4,6 @@
 package gr.ictpro.mall.service;
 
 import gr.ictpro.mall.dao.GenericDAO;
-import gr.ictpro.mall.flex.MessagingService;
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.RoleNotification;
@@ -41,7 +40,6 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	userNotificationDAO.create(un);
 	List<User> userList = new ArrayList<User>();
 	userList.add(u);
-	MessagingService.newNotifications(userList, null);
     }
 
     @Transactional
@@ -58,8 +56,6 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	for (User user : u) {
 	    createUserNotificationNoMessaging(n, user);
 	}
-	MessagingService.newNotifications(u, null);
-
     }
 
     @Transactional
@@ -72,8 +68,6 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	List<Role> roleList = new ArrayList<Role>();
 	roleList.add(r);
 
-	MessagingService.newNotifications(null, roleList);
-
     }
 
     @Transactional
@@ -85,8 +79,6 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	roleNotificationDAO.create(rn);
 	List<Role> roleList = new ArrayList<Role>();
 	roleList.add(r);
-
-	MessagingService.newNotifications(null, roleList);
     }
 
     @Transactional
@@ -95,8 +87,6 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	roleNotificationDAO.update(n);
 	List<Role> roleList = new ArrayList<Role>();
 	roleList.add(n.getRole());
-
-	MessagingService.newNotifications(null, roleList);
     }
 
     @Transactional
@@ -105,34 +95,30 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	userNotificationDAO.update(n);
 	List<User> userList = new ArrayList<User>();
 	userList.add(n.getUser());
-	MessagingService.newNotifications(userList, null);
     }
 
     @Transactional
     @Override
     public void deleteRoleNotification(Notification n, Role r) {
-	RoleNotificationId rnid = new RoleNotificationId(r.getId(), n.getId());
-	roleNotificationDAO.delete(rnid);
+	RoleNotification rn = roleNotificationDAO.retrieveById(new RoleNotificationId(r.getId(), n.getId()));
+	roleNotificationDAO.delete(rn);
 	List<Role> roleList = new ArrayList<Role>();
 	roleList.add(r);
-
-	MessagingService.newNotifications(null, roleList);
     }
 
     @Transactional
     @Override
     public void deleteUserNotification(Notification n, User u) {
-	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
-	userNotificationDAO.delete(unid);
+	UserNotification un = userNotificationDAO.retrieveById(new UserNotificationId(u.getId(), n.getId()));
+	userNotificationDAO.delete(un);
 	List<User> userList = new ArrayList<User>();
 	userList.add(u);
-	MessagingService.newNotifications(userList, null);
     }
 
     @Transactional
     private void deleteUserNotificationNoMessaging(Notification n, User u) {
-	UserNotificationId unid = new UserNotificationId(u.getId(), n.getId());
-	userNotificationDAO.delete(unid);
+	UserNotification un = userNotificationDAO.retrieveById(new UserNotificationId(u.getId(), n.getId()));
+	userNotificationDAO.delete(un);
     }
 
     @Transactional
@@ -141,7 +127,6 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	for (User user : u) {
 	    deleteUserNotificationNoMessaging(n, user);
 	}
-	MessagingService.newNotifications(u, null);
     }
 
     @Transactional

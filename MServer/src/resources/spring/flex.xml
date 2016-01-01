@@ -6,8 +6,8 @@
         http://www.springframework.org/schema/flex http://www.springframework.org/schema/flex/spring-flex-1.5.xsd">
 
 	<flex:message-broker services-config-path="classpath:/resources/flex/services-config.xml">
-		<flex:remoting-service default-channels="my-secure-amf" />
-		<flex:message-service default-channels="my-secure-streaming-amf" />
+		<flex:remoting-service default-channels="my-secure-amf"  />
+		<flex:message-service default-channels="my-secure-streaming-amf, my-secure-polling-amf" />
  		<flex:secured />
 	</flex:message-broker>
 	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" >
@@ -52,7 +52,7 @@
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="getNotifications" />
-			<security:protect access="Admin, Teacher, Student, Parent" method="handleNotification" />
+			<security:protect access="Admin, Teacher, Student, Parent" method="updateNotification" />
 		</security:intercept-methods>
 	</bean>
 

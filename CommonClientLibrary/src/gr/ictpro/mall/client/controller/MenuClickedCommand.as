@@ -25,19 +25,13 @@ package gr.ictpro.mall.client.controller
 			{
 				(selectedMenu.menuItem as MenuItemCommand).execute();
 			} else if(selectedMenu.menuItem is MenuItemInternalModule) {
-				addView.dispatch(createInstance((selectedMenu.menuItem as MenuItemInternalModule).moduleName));
+				var classType:Class = (selectedMenu.menuItem as MenuItemInternalModule).classType; 
+				addView.dispatch(new classType());
 				
 			} else if(selectedMenu.menuItem is MenuItemExternalModule) {
 				//TODO: load external module				
 			}
-
 		}
 		
-		public function createInstance(className:String):Object
-		{
-			var myClass:Class = getDefinitionByName(className) as Class;
-			var instance:Object = new myClass();
-			return instance;
-		}
 	}
 }

@@ -1,24 +1,19 @@
 package gr.ictpro.mall.client.components.menu
 {
 	import flash.geom.ColorTransform;
-	
-	import spark.core.SpriteVisualElement;
-	import spark.filters.ColorMatrixFilter;
-	import spark.modules.Module;
-	import spark.primitives.Graphic;
 
 	public class MenuItemInternalModule extends MenuItemIcon
 	{
-		private var _moduleName:String;
-		public function MenuItemInternalModule(text:String, icon:Object, colorTransform:ColorTransform, moduleName:String)
+		private var _classType:Class;
+		public function MenuItemInternalModule(text:String, icon:Object, colorTransform:ColorTransform, classType:Class)
 		{
 			super(text, icon, colorTransform);
-			this._moduleName = moduleName;
+			this._classType = classType;
 		}
 		
-		public function get moduleName():String
+		public function get classType():Class
 		{
-			return this._moduleName;
+			return this._classType;
 		}
 	}
 }

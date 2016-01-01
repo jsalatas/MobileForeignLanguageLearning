@@ -2,19 +2,26 @@ package gr.ictpro.mall.client.controller
 {
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
+	import mx.rpc.remoting.RemoteObject;
 	
+	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.model.ServerConfiguration;
+	import gr.ictpro.mall.client.model.vo.Notification;
+	import gr.ictpro.mall.client.model.vo.Role;
+	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
-	import gr.ictpro.mall.client.model.User;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.MessagingService;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.ListErrorSignal;
+	import gr.ictpro.mall.client.signal.ListSignal;
+	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
 	import gr.ictpro.mall.client.view.MainView;
 	
 	import org.robotlegs.mvcs.SignalCommand;
@@ -38,6 +45,9 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var settings:RuntimeSettings;
+
+		[Inject]
+		public var mainMenu:MainMenu;
 		
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
@@ -46,7 +56,22 @@ package gr.ictpro.mall.client.controller
 		public var messagingService:MessagingService;
 
 		[Inject]
-		public var updateServerNotifications:GetServerNotificationsSignal;
+		public var listSignal:ListSignal;
+		
+		[Inject]
+		public var listSuccessSignal:ListSuccessSignal;
+		
+		[Inject]
+		public var listErrorSignal:ListErrorSignal;
+		
+		[Inject]
+		public var genericCallSignal:GenericCallSignal;
+
+		[Inject]
+		public var genericCallSuccessSignal:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallErrorSignal:GenericCallErrorSignal;
 		
 
 		override public function execute():void
@@ -55,13 +80,19 @@ package gr.ictpro.mall.client.controller
 			arguments.username = authenticationDetails.username;
 			arguments.credentials = authenticationDetails.credentials;
 			arguments.authenticationMethod = authenticationDetails.authenticationMethod;
-			var r: RemoteObjectService = new RemoteObjectService(channel, "authenticationRemoteService", "login", arguments, handleSuccess, handleError);
+			var ro:RemoteObject = new RemoteObject();
+			ro.showBusyCursor= true;
+			ro.channelSet = channel.getChannelSet();
+			ro.destination = "authenticationRemoteService";
+			ro.login.addEventListener(ResultEvent.RESULT, success);
+			ro.login.addEventListener(FaultEvent.FAULT, error);
+			ro.login.send(arguments);
 		}
 		
-		private function handleSuccess(event:ResultEvent):void
+		private function success(event:ResultEvent):void
 		{
-			var o:Object = event.result; 
-			if(o == null) 
+			var user:User = User(event.result); 
+			if(user == null) 
 			{
 				if(!authenticationDetails.autoLogin) {
 					loginFailed.dispatch();
@@ -70,20 +101,40 @@ package gr.ictpro.mall.client.controller
 				}
 			} else {
 				messagingService.init();
-				loginSuccess.dispatch();
-				
-				settings.user = User.createUser(o);
-				injector.injectInto(settings.user);
-				
-				settings.user.initializeMenu();
-				if(settings.user.isAdmin) {
-					settings.serverConfiguration = new ServerConfiguration(channel);
-				}
-				updateServerNotifications.dispatch();
-				addView.dispatch(new MainView());
+				settings.user = user;
+				listSuccessSignal.add(listSuccess);
+				listErrorSignal.add(listError);
+				listSignal.dispatch(Role);
 			}
 		}
-		private function handleError(event:FaultEvent):void
+		
+		private function listSuccess(classType:Class):void
+		{
+			if(classType == Role) {
+				settings.menu = mainMenu.getMenu(settings.user);
+				listSignal.dispatch(Notification);
+			}
+			if(classType == Notification) {
+				listSuccessSignal.remove(listSuccess);
+				listErrorSignal.remove(listError);
+				addView.dispatch(new MainView());
+
+				loginSuccess.dispatch();
+			}
+
+		}
+
+		private function listError(classType:Class, errorMessage:String):void
+		{
+			if(classType == Role || classType == Notification) {
+				listSuccessSignal.remove(listSuccess);
+				listErrorSignal.remove(listError);
+				serverConnectError.dispatch();			
+			}
+
+		}
+
+		private function error(event:FaultEvent):void
 		{
 			serverConnectError.dispatch();			
 		}

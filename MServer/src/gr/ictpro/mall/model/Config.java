@@ -17,7 +17,11 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "config"
 	, uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Config implements java.io.Serializable {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6937080813950945767L;
+    
     private Integer id;
     private String name;
     private String value;

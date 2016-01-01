@@ -11,6 +11,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TranslationId implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4558670238125552900L;
+    
     private int englishTextId;
     private String languageCode;
     private int classroomId;

@@ -1,11 +1,14 @@
 package gr.ictpro.mall.client.components
 {
-	import gr.ictpro.mall.client.components.skins.ScrollerSkin;
-	import gr.ictpro.mall.client.runtime.Device;
-	
 	import mx.core.InteractionMode;
+	import mx.core.mx_internal;
 	
 	import spark.components.Scroller;
+	
+	import gr.ictpro.mall.client.components.skins.ScrollerSkin;
+	import gr.ictpro.mall.client.runtime.Device;
+
+	use namespace mx_internal
 	
 	public class Scroller extends spark.components.Scroller
 	{
@@ -20,6 +23,7 @@ package gr.ictpro.mall.client.components
 			} else {
 				super.setStyle("interactionMode", InteractionMode.MOUSE);
 			}
+			
 		}
 		
 		override public function setStyle(styleProp:String, newValue:*):void

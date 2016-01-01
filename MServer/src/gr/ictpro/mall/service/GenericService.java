@@ -14,7 +14,7 @@ import java.util.Map;
 public interface GenericService <T, ID extends Serializable> {
 	public void create(T item);
 	public void update(T item);
-	public void delete(ID id);
+	public void delete(T item);
 	public T retrieveById(ID id);
 	public List<T> listAll();
 	public List<T> listByProperty(String propertyName, Object propertyValue);

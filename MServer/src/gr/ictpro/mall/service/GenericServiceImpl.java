@@ -4,7 +4,6 @@
 package gr.ictpro.mall.service;
 
 import gr.ictpro.mall.dao.GenericDAO;
-import gr.ictpro.mall.model.User;
 
 import java.io.Serializable;
 import java.util.List;
@@ -56,8 +55,8 @@ public class GenericServiceImpl<T, ID extends Serializable> implements GenericSe
      */
     @Transactional
     @Override
-    public void delete(ID id) {
-	dao.delete(id);
+    public void delete(T item) {
+	dao.delete(item);
     }
 
     /*
@@ -119,4 +118,5 @@ public class GenericServiceImpl<T, ID extends Serializable> implements GenericSe
     public List<T> listByCustomSQL(String sql) {
 	return dao.listByCustomSQL(sql);
     }
+
 }

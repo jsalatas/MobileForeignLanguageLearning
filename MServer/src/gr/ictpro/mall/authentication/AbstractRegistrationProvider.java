@@ -5,7 +5,6 @@ package gr.ictpro.mall.authentication;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import gr.ictpro.mall.model.Profile;

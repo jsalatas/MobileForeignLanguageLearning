@@ -1,10 +1,10 @@
 package gr.ictpro.mall.client.components
 {
-	import mx.utils.ObjectProxy;
+	import gr.ictpro.mall.client.model.ViewParameters;
 
 	public interface IParameterizedView
 	{
-		function set parameters(parameters:ObjectProxy):void;
-		function get parameters():ObjectProxy;
+		function set parameters(parameters:ViewParameters):void;
+		function get parameters():ViewParameters;
 	}
 }

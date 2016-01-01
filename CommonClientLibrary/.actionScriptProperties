@@ -2,7 +2,7 @@
 <actionScriptProperties analytics="false" mainApplicationPath="CommonClientLibrary.as" projectUUID="ec4ce8d3-4706-44ed-946b-8e6acde6a4e8" version="11">
   <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="false" flex3CompatMode="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" useFlashSDK="false" verifyDigests="true" warn="true">
     <compilerSourcePath/>
-    <libraryPath defaultLinkType="1">
+    <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
         <excludedEntries>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/advancedgrids.swc" useDefaultLinkType="false"/>
@@ -17,18 +17,15 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="1" linkType="1" path="libs"/>
-      <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mobile/mobilecomponents.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/themes/Mobile/mobile.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/robotlegs-utilities-SignalMediator/bin/robotlegs-utilities-SignalMediator.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mobile/mobilecomponents.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/as3-signals-v0.9.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/robotlegs-framework-v1.5.2.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/robotlegs-modular-signals-v1.2.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/signals-extension-SignalsCommandMap-v0.4.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/SwiftSuspenders-v1.6.0.swc" useDefaultLinkType="false"/>
     </libraryPath>
-    <sourceAttachmentPath>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonClientLibrary/libs/as3-signals-v0.9.swc" sourcepath="C:/actionscript/as3-signals-v0.9/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonClientLibrary/libs/robotlegs-framework-v1.5.2.swc" sourcepath="C:/actionscript/robotlegs-framework-v1.5.2/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonClientLibrary/libs/robotlegs-modular-signals-v1.2.swc" sourcepath="C:/actionscript/robotlegs-modular-signals-v1.2/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonClientLibrary/libs/signals-extension-SignalsCommandMap-v0.4.swc" sourcepath="C:/actionscript/signals-extension-SignalsCommandMap-v0.4/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonClientLibrary/libs/SwiftSuspenders-v1.6.0.swc" sourcepath="C:/actionscript/SwiftSuspenders-v1.6.0/src" useDefaultLinkType="false"/>
-    </sourceAttachmentPath>
+    <sourceAttachmentPath/>
   </compiler>
   <applications>
     <application path="CommonClientLibrary.as"/>

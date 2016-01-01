@@ -10,7 +10,11 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class RoleNotificationId implements java.io.Serializable {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4604063994874375487L;
+    
     private int roleId;
     private int notificationId;
 

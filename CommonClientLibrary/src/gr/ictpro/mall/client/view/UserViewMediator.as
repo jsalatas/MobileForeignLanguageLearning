@@ -15,7 +15,9 @@ package gr.ictpro.mall.client.view
 	import flash.media.MediaType;
 	import flash.net.FileFilter;
 	import flash.net.URLRequest;
+	import flash.utils.ByteArray;
 	
+	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	import mx.core.FlexGlobals;
 	import mx.rpc.events.FaultEvent;
@@ -27,14 +29,22 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.Icons;
 	import gr.ictpro.mall.client.components.PopUpMenu;
+	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
+	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.IPersistent;
+	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.ViewParameters;
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
+	import gr.ictpro.mall.client.model.vo.Profile;
+	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.Device;
-	import gr.ictpro.mall.client.model.SaveLocation;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.runtime.Translation;
-	import gr.ictpro.mall.client.model.User;
-	import gr.ictpro.mall.client.components.menu.MenuItemCommand;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.GetServerNotificationsSignal;
+	import gr.ictpro.mall.client.service.AuthenticationProvider;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
 	import gr.ictpro.mall.client.utils.image.ImageTransform;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
@@ -44,12 +54,30 @@ package gr.ictpro.mall.client.view
 	
 	public class UserViewMediator extends TopBarDetailViewMediator
 	{
+		private static var GET_USER:String = "getUser";
+
 		[Inject]
 		public var settings:RuntimeSettings;
+
+		[Inject]
+		public var genericCall:GenericCallSignal;
 		
 		[Inject]
-		public var updateServerNotifications:GetServerNotificationsSignal;
+		public var genericCallSuccess:GenericCallSuccessSignal;
 		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+
+		[Inject]
+		public var saveSuccess:SaveSuccessSignal;
+
+		[Inject]
+		public function set userModel(model:UserModel):void
+		{
+			super.model = model as AbstractModel;
+		}
+		
+
 		private var photoUrl:String = "";
 		private var bitmap:Bitmap = null; 
 		
@@ -57,85 +85,111 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			
-			setSaveHandler(saveHandler);
-			setSaveSuccessHandler(saveSuccessHandler);
+			addToSignal(saveSuccess, saveSuccessHandler);
 			
-			var saveErrorMessage:String;
-
-			if(view.parameters == null) {
+			if(view.parameters == null || (view.parameters != null && view.parameters.initParams == null && view.parameters.vo == null)) {
 				view.title = Translation.getTranslation("My Profile");
 				view.disableDelete(); // user cannot delete her own profile
 				if(view.parameters == null) {
-					view.parameters = new ObjectProxy();
+					view.parameters = new ViewParameters();
 				}
-				view.parameters.user = settings.user;
+				view.parameters.vo = settings.user;
 				view.currentState = "profile";
-				saveErrorMessage = Translation.getTranslation("Cannot Save Profile.");
-			} else if(view.parameters.hasOwnProperty("initParams") && view.parameters.initParams.hasOwnProperty("user_id")) {
+			} else if(view.parameters.initParams.hasOwnProperty("user_id")) {
 				view.currentState = "edit";
 				view.title = Translation.getTranslation("Edit User");
-				var args:Object = new Object();
-				args.id=view.parameters.initParams.user_id;
-				saveErrorMessage = "Cannot Save User.";
-				var ro:RemoteObjectService = new RemoteObjectService(channel, "userRemoteService", "getUser",args, handleGetUser, getUserError); 
-			} else if(view.parameters.hasOwnProperty("user")) {
+				getUser(view.parameters.initParams.user_id);
+			} else if(view.parameters.vo != null) {
 				view.currentState = "view";
-				view.title = view.parameters.user.name;
+				view.title = User(view.parameters.vo).username;
 				view.disableDelete();
 				view.disableOK();
 				view.disableCancel();
 			} else {
-				throw new Error("Unknown User.");
+				throw new Error("Unknown User");
 			}
 			
 			addToSignal(UserView(view).choosePhoto, choosePhotoHandler);
-			setSaveErrorMessage(Translation.getTranslation(saveErrorMessage));
 		}
 		
-		private function handleGetUser(event:ResultEvent):void
+		
+		private function getUser(id:int):void
 		{
-			var o:Object = event.result; 
-			if(o != null) {
-				view.parameters.user = User.createUser(o);
-			} else {
-				getUserError(null);
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.id = id;
+			args.destination = "userRemoteService";
+			args.method = "getUser";
+			args.type = GET_USER;
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
+
+		}
+		
+		private function success(type:String, result:Object):void
+		{
+			if(type == GET_USER) {
+				removeSignals();
+				if(result != null) {
+					view.parameters.vo = result;
+				} else {
+					UI.showError(view,Translation.getTranslation("Cannot get User"));
+					back();
+				}
 			}
 		}
 		
-		private function getUserError(event:FaultEvent):void
+		private function error(type:String, event:FaultEvent):void
 		{
-			UI.showError(view,Translation.getTranslation("Cannot Get User."));
+			if(type == GET_USER) {
+				removeSignals();
+				UI.showError(view,Translation.getTranslation("Cannot get User"));
+				back();
+			}
 		}
-
-		private function saveHandler():void
+		
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
+		}
+		
+		override protected function beforeSaveHandler():void
+		{
+			var user:User = User(view.parameters.vo);
+			var userView:UserView = UserView(view);
+			user.email = userView.txtEmail.text;
+			user.profile.name = userView.txtName.text;
+			//user.profile.photo = ByteArray(userView.imgPhoto.source);
+			user.profile.image = userView.imgPhoto;
+			user.profile.color = userView.popupColor.selected;
+			if(view.currentState == "edit") {
+				user.enabled = userView.chkEnabled.selected;
+			}
+		}
+		
+		override protected function validateSave():Boolean
 		{
 			if(UserView(view).txtPassword.text != "" || UserView(view).txtPassword2.text != "") {
 				if(UserView(view).txtPassword.text != UserView(view).txtPassword2.text) {
-					UI.showError(view,Translation.getTranslation("Passwords do not Match."));
-					return;
+					UI.showError(view,Translation.getTranslation("Passwords do not Match"));
+					return false;
 				} else {
-					view.parameters.user.plainPassword = UserView(view).txtPassword.text; 
+					User(view.parameters.vo).password = UserView(view).txtPassword.text; 
 				}
 			}
-			view.parameters.user.name = UserView(view).txtName.text;
-			view.parameters.user.photo = UserView(view).imgPhoto.source;
-			view.parameters.user.email = UserView(view).txtEmail.text;
-			view.parameters.user.color = UserView(view).popupColor.selected;
-			if(view.currentState == "edit") {
-				view.parameters.user.enabled = UserView(view).chkEnabled.selected;
-			}
-			
-			saveData(SaveLocation.SERVER, view.parameters.user.persistentData, "userRemoteService", "save");
+			return true;
 		}
 		
-		private function saveSuccessHandler(event:Event):void
+
+		private function saveSuccessHandler(classType:Class):void
 		{
-			if(view.parameters == null) {
-				// user edited his own profile
-				var o:Object = (event as ResultEvent).result;
-				settings.user = User.createUser(o);
-				settings.user.initializeMenu();
-				updateServerNotifications.dispatch();
+			if(classType == User) {
+				if(view.parameters == null) {
+					// user edited his own profile
+					settings.user = User(view.parameters.vo);
+				}
 			}
 		}
 
@@ -195,9 +249,9 @@ package gr.ictpro.mall.client.view
 			cameraUI.addEventListener(ErrorEvent.ERROR, onError);
 		}
 
-		private function getPhotoOptions():ArrayList
+		private function getPhotoOptions():ArrayCollection
 		{
-			var res:ArrayList = new ArrayList();
+			var res:ArrayCollection = new ArrayCollection();
 			if(CameraRoll.supportsBrowseForImage) {
 				res.addItem(new MenuItemCommand(Translation.getTranslation("Choose Photo"), Icons.icon_folder, Device.defaultColorTransform, openGallery));
 			}

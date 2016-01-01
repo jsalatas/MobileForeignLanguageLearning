@@ -17,31 +17,30 @@
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayList;
+			import mx.collections.ArrayCollection;
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
-			import mx.utils.ObjectProxy;
 			
 			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
 			
 			private var listClicked:Boolean = false;
 			
-			private var _selected:ObjectProxy = null;
+			private var _selected:Object = null;
 			
 			[Bindable]
-			public function get selected():ObjectProxy
+			public function get selected():Object
 			{
 				return this._selected;
 			}
 			
-			public function set selected(selected:ObjectProxy):void
+			public function set selected(selected:Object):void
 			{
-				this._selected = new ObjectProxy(selected);
+				this._selected = selected;
 			}
 			
 			[Bindable]
-			private var _dataList:ArrayList;
+			private var _dataList:ArrayCollection;
 			
 			private var _maxWidth:int;
 			
@@ -49,7 +48,7 @@
 //			private var controlHeight:int=0;
 //			
 			[Bindable]
-			public function set dataList(dataList:ArrayList):void {
+			public function set dataList(dataList:ArrayCollection):void {
 				this._dataList = dataList;
 				
 //				var format:TextFormat = new TextFormat();
@@ -69,11 +68,11 @@
 //				
 			}
 			
-			public function get dataList():ArrayList {
+			public function get dataList():ArrayCollection {
 				return this._dataList;
 			}
 			
-			private function popUpAction(selected:ObjectProxy):void
+			private function popUpAction(selected:Object):void
 			{
 				this.selected = selected;
 				dispatchEvent(new Event(Event.CHANGE));
@@ -124,6 +123,6 @@
 	</fx:Script>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected.text}"  />
+	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected}"  />
 	
 </s:Group>

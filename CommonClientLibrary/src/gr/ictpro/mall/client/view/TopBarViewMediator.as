@@ -19,25 +19,20 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var addView:AddViewSignal;
 
-		private var _backHandler:Function;
+		public var cancelBack:Boolean = false;
 		
 		override public function onRegister():void
 		{
-			view.addEventListener("backClicked", backClicked);
+			eventMap.mapListener(view, "backClicked", backClicked);
 		}
 		
-
-		protected function setBackHandler(backHandler:Function):void
+		protected final function back():void
 		{
-			this._backHandler = backHandler;
-		}
+			backHandler();
 
-		protected function back():void
-		{
-			if(_backHandler != null)
-				_backHandler();
+			if(cancelBack)
+				return; 
 			
-			view.removeEventListener("backClicked", backClicked);
 			if(view.masterView == null) {
 				addView.dispatch(new MainView());	
 			} else {
@@ -47,7 +42,12 @@ package gr.ictpro.mall.client.view
 
 		}
 		
-		protected function backClicked(event:MouseEvent):void
+		protected function backHandler():void
+		{
+			
+		}
+
+		private function backClicked(event:MouseEvent):void
 		{
 			back();
 		}

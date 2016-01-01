@@ -9,7 +9,6 @@ import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.EmailTranslation;
 import gr.ictpro.mall.model.EmailTranslationId;
 import gr.ictpro.mall.model.EmailType;
-import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,6 @@ public class MailService {
 
     @Autowired(required = true)
     private GenericService<EmailTranslation, EmailTranslationId> emailTranslationService;
-
-    @Autowired(required = true)
-    private GenericService<Role, Integer> roleService;
 
     @Autowired(required = true)
     private UserService userService;

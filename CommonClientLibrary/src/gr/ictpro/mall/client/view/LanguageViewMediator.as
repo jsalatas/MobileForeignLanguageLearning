@@ -8,67 +8,81 @@ package gr.ictpro.mall.client.view
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import gr.ictpro.mall.client.model.SaveLocation;
+	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.LanguageModel;
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
+	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.runtime.Translation;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	public class LanguageViewMediator extends TopBarDetailViewMediator
 	{
-		
+		private static var GET_TRANSLATIONS:String = "getTranslations";
+		private static var UPDATE_TRANSLATIONS:String = "updateTranslations";
+			
 		private var translationsXml:String;
+		
+		[Inject]
+		public var genericCall:GenericCallSignal;
+		
+		[Inject]
+		public var genericCallSuccess:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+		
+
+		[Inject]
+		public function set languageModel(model:LanguageModel):void
+		{
+			super.model = model as AbstractModel;
+		}
 		
 		override public function onRegister():void
 		{
 			super.onRegister();
 			
-			setSaveHandler(saveHandler);
-			setDeleteHandler(deleteLanguageHandler);
-			setSaveErrorMessage(Translation.getTranslation('Cannot Delete Language.'));
-			setDeleteErrorMessage(Translation.getTranslation('Cannot Save Language.'));
-			
-			addToSignal(LanguageView(view).getAllTranslations, allTranslationsHandler);
-			addToSignal(LanguageView(view).getUntranslated, untranslatedHandler);
+			addToSignal(LanguageView(view).getTranslations, getTranslations);
 			addToSignal(LanguageView(view).uploadTranslations, uploadTranslationsHandler);
-			if(view.parameters.language.code == 'en') {
+			if(Language(view.parameters.vo).code == 'en') {
 				view.disableDelete();
 				LanguageView(view).btnGetUntranslated.enabled = false;
 				LanguageView(view).btnUploadTranslations.enabled = false;
 			}
-			if(view.parameters.language.code=="") {
-				view.currentState = "new";
-				view.disableDelete();
-			} else {
-				view.currentState = "edit";
-			}
 		}
 		
-		private function allTranslationsHandler():void 
+		private function getTranslations(untranslated:Boolean):void 
 		{
-			var arguments:Object = new Object();
-			arguments.language_code = view.parameters.language.code;
-			arguments.untranslated = false;
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslationsXML", arguments, handleGetTranslations, handleGetTranslationsError);
-		}
-		
-		private function untranslatedHandler():void 
-		{
-			var arguments:Object = new Object();
-			arguments.language_code = view.parameters.language.code;
-			arguments.untranslated = true;
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "getTranslationsXML", arguments, handleGetTranslations, handleGetTranslationsError);
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.language_code = Language(view.parameters.vo).code;
+			args.arguments.untranslated = untranslated;
+			args.destination = "languageRemoteService";
+			args.method = "getTranslationsXML";
+			args.type = GET_TRANSLATIONS;
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
 		}
 
-		private function handleGetTranslations(event:ResultEvent):void
+		private function success(type:String, result:Object):void
 		{
-			translationsXml = String(event.result);
-			var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + view.parameters.language.code +".xml");
-			xmlFile.browseForSave(Translation.getTranslation("Save Transalations"));
-			xmlFile.addEventListener(Event.SELECT, saveTranslationsXML);
+			if(type == GET_TRANSLATIONS) {
+				removeSignals();
+
+				translationsXml = String(result);
+				var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + Language(view.parameters.vo).code +".xml");
+				xmlFile.browseForSave(Translation.getTranslation("Save Transalations"));
+				xmlFile.addEventListener(Event.SELECT, saveTranslationsXML);
+			} else if (type == UPDATE_TRANSLATIONS) {
+				back();
+			}
 		}
 		
 		
@@ -80,11 +94,16 @@ package gr.ictpro.mall.client.view
 			stream.close();
 		}
 		
-		private function handleGetTranslationsError(event:FaultEvent):void
+		private function error(type:String, event:FaultEvent):void
 		{
-			UI.showError(view,Translation.getTranslation('Cannot Get Translations.'));
+			if(type == GET_TRANSLATIONS) {
+				removeSignals();
+
+				UI.showError(view,Translation.getTranslation('Cannot Get Translations'));
+			} else if (type == UPDATE_TRANSLATIONS) {
+				UI.showError(view,Translation.getTranslation('Cannot Update Translations.'));
+			}
 		}
-		
 		
 		private function uploadTranslationsHandler():void 
 		{
@@ -102,52 +121,40 @@ package gr.ictpro.mall.client.view
 		
 		private function loadedTranslationsXML(event:Event):void {
 			var xml:String = event.target.data;
-			var ro:RemoteObjectService = new RemoteObjectService(channel, "languageRemoteService", "updateTranslations", xml, handleUpdateTranslations, handleUpdateTranslationsError);
+			
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = xml;
+			args.destination = "languageRemoteService";
+			args.method = "updateTranslations";
+			args.type = UPDATE_TRANSLATIONS;
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
 		}
 		
-		private function handleUpdateTranslations(event:ResultEvent):void
+		override protected function validateSave():Boolean
 		{
-			back();
-		}
-
-		private function handleUpdateTranslationsError(event:ResultEvent):void
-		{
-			UI.showError(view,Translation.getTranslation('Cannot Update Translations.'));
-		}
-		
-		private function deleteLanguageHandler():void 
-		{
-			if(view.parameters.language.code == null || view.parameters.language.code =='') {
-				UI.showError(view,Translation.getTranslation('Cannot Delete Language with Empty Code.'));
-			} else {
-				deleteData(SaveLocation.SERVER, view.parameters.language, "languageRemoteService", "deleteLanguage");
+			var language:Language = Language(view.parameters.vo);
+			if(language.code == null || language.code == '') {
+				UI.showError(view,Translation.getTranslation("Language Code Cannot be Empty"));
+				return false;
 			}
-		}
-		
-		private function handleDeleteError(event:FaultEvent):void
-		{
-			UI.showError(view,Translation.getTranslation('Cannot Delete Language.'));
-		}
-		
-		private function saveHandler():void
-		{
-			if(view.parameters.language.code != null && view.parameters.language.code != ''
-				&& view.parameters.language.englishName != null && view.parameters.language.englishName != ''
-				&& view.parameters.language.localName != null && view.parameters.language.localName != ''
-			) {
-				if(view.currentState == 'new' && ArrayList(view.parameters.languageCodes).getItemIndex(view.parameters.language.code) != -1)
-				{
-					UI.showError(view,Translation.getTranslation('A Language with Code "{0}" Already Exist.', view.parameters.language.code));
-					
-				} else 
-				{
-					saveData(SaveLocation.SERVER, view.parameters.language, "languageRemoteService", "updateLanguage");
-				}
-			} else {
-				UI.showError(view,Translation.getTranslation('Please Complete all Fields.'));
+			if(language.englishName == null || language.englishName == '') {
+				UI.showError(view,Translation.getTranslation("English Name Cannot be Empty"));
+				return false;
 			}
+			if(language.localName == null || language.localName == '') {
+				UI.showError(view,Translation.getTranslation("Local Name Cannot be Empty"));
+				return false;
+			}
+			return true;
 		}
-
+		
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
+		}
 
 	}
 }

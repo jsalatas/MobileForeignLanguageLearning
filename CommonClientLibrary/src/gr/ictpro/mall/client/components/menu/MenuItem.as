@@ -19,5 +19,9 @@ package gr.ictpro.mall.client.components.menu
 			return false;
 		}
 		
+		public function toString():String
+		{
+			return this.text;
+		}
 	}
 }

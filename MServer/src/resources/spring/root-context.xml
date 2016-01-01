@@ -8,6 +8,10 @@
 	<!-- Data Access Configuration -->
 	<import resource="classpath:/resources/spring/beans.xml" />
 
+	<!-- AspectJ Intereceptors -->
+	<import resource="classpath:/resources/spring/aop.xml" />
+
+	
 	<!-- Beans Configuration -->
 	<import resource="classpath:/resources/spring/data-access.xml" />
 

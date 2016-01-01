@@ -2,9 +2,8 @@ package gr.ictpro.mall.client.controller
 {
 	import flash.utils.getDefinitionByName;
 	
-	import mx.utils.ObjectProxy;
-	
-	import gr.ictpro.mall.client.model.ServerNotification;
+	import gr.ictpro.mall.client.model.ViewParameters;
+	import gr.ictpro.mall.client.model.vo.Notification;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;
@@ -12,7 +11,7 @@ package gr.ictpro.mall.client.controller
 	public class ServerNotificationClickedCommand extends SignalCommand
 	{
 		[Inject]
-		public var selectedNotification:ServerNotification;
+		public var selectedNotification:Notification;
 
 		[Inject]
 		public var addView:AddViewSignal;
@@ -20,9 +19,9 @@ package gr.ictpro.mall.client.controller
 
 		override public function execute():void
 		{
-			if(selectedNotification.isInternalModule) {
-				var p:ObjectProxy = new ObjectProxy();
-				p.initParams = selectedNotification.parameters;
+			if(selectedNotification.internalModule) {
+				var p: ViewParameters = new ViewParameters();
+				p.initParams = selectedNotification.parameters!= null? JSON.parse(selectedNotification.parameters.toString()): null;
 				p.notification = selectedNotification;
 				addView.dispatch(createInstance(selectedNotification.module), p);
 			} else {

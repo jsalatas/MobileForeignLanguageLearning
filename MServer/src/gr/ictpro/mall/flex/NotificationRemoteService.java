@@ -5,22 +5,15 @@ package gr.ictpro.mall.flex;
 
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Notification;
 import gr.ictpro.mall.model.RoleNotification;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.model.UserNotification;
 import gr.ictpro.mall.service.NotificationService;
-import gr.ictpro.mall.utils.Serialize;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
@@ -36,13 +29,16 @@ public class NotificationRemoteService {
     public List<Notification> getNotifications() {
 	User currentUser = userContext.getCurrentUser();
 	List<Notification> res =notificationService.retrieveByUser(currentUser);
+//	for(Notification n:res) {
+//	    Hibernate.initialize(n.getRoleNotifications());
+//	    Hibernate.initialize(n.getUserNotifications());
+//	}
 	return res;
     }
     
-    public void handleNotification(ASObject obj) {
+    public void updateNotification(Notification n) {
 	User currentUser = userContext.getCurrentUser();
-	int id = (int) obj.get("id");
-	Notification n = notificationService.retrieveById(id);
+	n = notificationService.retrieveById(n.getId());
 	for(UserNotification un: n.getUserNotifications()) {
 	    if(un.getUser().equals(currentUser)) {
 		un.setSeen(GregorianCalendar.getInstance().getTime());
@@ -57,6 +53,5 @@ public class NotificationRemoteService {
 		notificationService.updateRoleNotification(rn);
 	    }
 	}
-	System.err.println(n);
     }
 }

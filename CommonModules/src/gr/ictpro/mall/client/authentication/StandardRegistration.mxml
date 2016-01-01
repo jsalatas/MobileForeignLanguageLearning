@@ -9,6 +9,7 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.core.IVisualElementContainer;
 			
@@ -34,7 +35,7 @@
 			}
 			
 			[Bindable]
-			public var roles:ArrayList;
+			public var roles:ArrayCollection;
 			
 		]]>
 	</fx:Script>

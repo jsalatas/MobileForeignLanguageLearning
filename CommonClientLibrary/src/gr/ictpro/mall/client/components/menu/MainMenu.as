@@ -6,35 +6,43 @@ package gr.ictpro.mall.client.components.menu
 	import mx.collections.ArrayList;
 	
 	import gr.ictpro.mall.client.Icons;
+	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.Translation;
-	import gr.ictpro.mall.client.model.User;
+	import gr.ictpro.mall.client.view.ClassroomgroupsView;
+	import gr.ictpro.mall.client.view.ClassroomsView;
+	import gr.ictpro.mall.client.view.LanguagesView;
+	import gr.ictpro.mall.client.view.SettingsView;
+	import gr.ictpro.mall.client.view.UserView;
 
 	public class MainMenu
 	{
+		[Inject]
+		public var userModel:UserModel;
+		
 		public function MainMenu()
 		{
-			throw new Error("Main Menu should be used a static class");
 		}
 		
-		public static function getMenu(user:User):ArrayList
+		public function getMenu(user:User):ArrayList
 		{
 			var res:ArrayList = new ArrayList();
 			res.addItem(new MenuItemGroup(Translation.getTranslation("Manage")));
 
 			// System Settings (admin) 
-			if(user.isAdmin) {
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Server Settings"), Icons.icon_settings, Device.defaultColorTransform, "gr.ictpro.mall.client.view.SettingsView")); 
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, Device.defaultColorTransform, "gr.ictpro.mall.client.view.LanguagesView")); 
+			if(userModel.isAdmin(user)) {
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Server Settings"), Icons.icon_settings, Device.defaultColorTransform, SettingsView)); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, Device.defaultColorTransform, LanguagesView)); 
 			}
 			
-			if(user.isAdmin || user.isTeacher) {
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ClassroomsView")); 
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, Device.defaultColorTransform, "gr.ictpro.mall.client.view.ClassroomgroupsView")); 
+			if(userModel.isAdmin(user) || userModel.isTeacher(user)) {
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, Device.defaultColorTransform, ClassroomsView)); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, Device.defaultColorTransform, ClassroomgroupsView)); 
 			}
 			
 			//Profile editor (common to all roles)
-			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, Device.defaultColorTransform, "gr.ictpro.mall.client.view.UserView")); 
+			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, Device.defaultColorTransform, UserView)); 
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));
@@ -44,7 +52,7 @@ package gr.ictpro.mall.client.components.menu
 		}
 		
 		
-		public static function logout():void
+		public function logout():void
 		{
 			var exitingEvent:Event = new Event(Event.EXITING, false, true); 
 			NativeApplication.nativeApplication.dispatchEvent(exitingEvent); 

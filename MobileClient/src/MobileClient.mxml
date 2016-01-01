@@ -4,20 +4,20 @@
 			   xmlns:mobile="gr.ictpro.mall.client.mobile.*"
 			   xmlns:view="gr.ictpro.mall.client.view.*"
 			   initialize="application1_initializeHandler(event)"
+			   resizeForSoftKeyboard="true"
 			   >
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.runtime.Device;
-			import gr.ictpro.mall.client.mobile.MobileDevice;
-			
 			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import gr.ictpro.mall.client.mobile.MobileDevice;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			protected function application1_initializeHandler(event:FlexEvent):void
 			{
 				Device.device = new MobileDevice();
-				
 			}
-			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

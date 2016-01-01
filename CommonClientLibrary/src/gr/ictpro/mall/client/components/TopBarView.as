@@ -6,6 +6,7 @@ package gr.ictpro.mall.client.components
 	import mx.core.IVisualElement;
 	import mx.core.IVisualElementContainer;
 	import mx.core.mx_internal;
+	import mx.events.ResizeEvent;
 	import mx.utils.ObjectProxy;
 	
 	import spark.layouts.supportClasses.LayoutBase;
@@ -18,6 +19,7 @@ package gr.ictpro.mall.client.components
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
+	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.runtime.Device;
 
 
@@ -33,9 +35,9 @@ package gr.ictpro.mall.client.components
 		public var cancelButton:Boolean = false;
 		protected var _title:String;
 		private var _titleLabel:Label; 
-		protected var mxmlContentGroup:Group = new Group(); 
+		protected var mxmlContentGroup:Group; 
 		private var _masterView:IVisualElement;
-		private var _parameters:ObjectProxy;
+		private var _parameters:ViewParameters;
 		private var _groupDelete:Group;
 		private var _groupOK:Group;
 		private var _groupCancel:Group;
@@ -46,6 +48,7 @@ package gr.ictpro.mall.client.components
 		public function TopBarView()
 		{
 			super();
+			mxmlContentGroup = new Group();
 		}
 		
 		[Bindable]
@@ -79,12 +82,12 @@ package gr.ictpro.mall.client.components
 		}
 		
 		[Bindable]
-		public function set parameters(parameters:ObjectProxy):void
+		public function set parameters(parameters:ViewParameters):void
 		{
 			this._parameters = parameters;
 		}
 		
-		public function get parameters():ObjectProxy
+		public function get parameters():ViewParameters
 		{
 			return this._parameters;
 		}

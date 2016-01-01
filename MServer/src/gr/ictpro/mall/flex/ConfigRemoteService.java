@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailSender;
 
-import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.helper.DatabaseBasedMailSender;
 import gr.ictpro.mall.model.Config;
 import gr.ictpro.mall.service.GenericService;
@@ -27,13 +26,12 @@ public class ConfigRemoteService {
 	return configService.listAll();
     }
 
-    public void saveConfig(ASObject configObject) {
-	for(Object key: configObject.keySet()) {
-	    Config c = configService.listByProperty("name", key).get(0);
-	    c.setValue((String) configObject.get(key));
-	    configService.update(c);
+    public void updateConfig(List<Config> configs) {
+	for(Config config:configs) {
+	    Config persistentConfig = configService.retrieveById(config.getId());
+	    persistentConfig.setValue(config.getValue());
+	    configService.update(persistentConfig);
 	}
-	
 	((DatabaseBasedMailSender)mailSender).init();
     }
 

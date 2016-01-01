@@ -1,15 +1,16 @@
 package gr.ictpro.mall.client.authentication
 {
 	import mx.collections.ArrayCollection;
-	import mx.collections.ArrayList;
 	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
-	import mx.utils.ObjectProxy;
 	
 	import gr.ictpro.mall.client.model.RegistrationDetails;
+	import gr.ictpro.mall.client.model.RoleModel;
+	import gr.ictpro.mall.client.model.vo.Role;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.service.Channel;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
+	import gr.ictpro.mall.client.signal.ListErrorSignal;
+	import gr.ictpro.mall.client.signal.ListSignal;
+	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
@@ -34,6 +35,18 @@ package gr.ictpro.mall.client.authentication
 		[Inject]
 		public var register:RegisterSignal;
 
+		[Inject]
+		public var listSignal:ListSignal;
+
+		[Inject]
+		public var listSuccessSignal:ListSuccessSignal;
+		
+		[Inject]
+		public var listErrorSignal:ListErrorSignal;
+		
+		[Inject]
+		public var roleModel:RoleModel;
+
 		override public function onRegister():void
 		{
 			super.onRegister();
@@ -46,31 +59,27 @@ package gr.ictpro.mall.client.authentication
 
 		private function getRoles():void
 		{
-			var r: RemoteObjectService = new RemoteObjectService(channel, "authenticationRemoteService", "getRoles", null, handleSuccess, handleError);
+			addToSignal(listSuccessSignal, success);
+			addToSignal(listErrorSignal, error);
+			listSignal.dispatch(Role);
 			
 		}
 		
-		private function handleSuccess(event:ResultEvent):void
+		private function success(classType:Class):void
 		{
-			var res:ArrayCollection = ArrayCollection(event.result);
-			var studentRole:ObjectProxy;
-			view.roles = new ArrayList();
-			for each (var role:Object in res) { 
-				var o:ObjectProxy = new ObjectProxy;
-				o.id = role.id;
-				o.text = role.role;
-				o.image = null; 
-				if(role.role == "Student") {
-					studentRole = o;
-				}
-				view.roles.addItem(o);
+			if(classType == Role) {
+				view.roles = new ArrayCollection(roleModel.list.source);
+				view.roles.removeItemAt(roleModel.getIndexByField("role", "Admin"));
+				
+				//Set default to student role
+				var studentRole:Role = Role(roleModel.getItemByField("role", "Student"));
+				view.role.selected = studentRole;
 			}
-			view.role.selected = studentRole;
 		}
 		
-		private function handleError(event:FaultEvent):void
+		private function error(event:FaultEvent):void
 		{
-			//TODO: 
+			
 		}
 		private function handleRegistration():void
 		{

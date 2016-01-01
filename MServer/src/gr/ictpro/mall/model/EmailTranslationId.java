@@ -11,6 +11,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EmailTranslationId implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8304364638962565624L;
+    
     private String languageCode;
     private int classroomId;
     private EmailType emailType;

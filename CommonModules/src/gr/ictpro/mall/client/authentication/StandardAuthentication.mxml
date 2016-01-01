@@ -19,7 +19,6 @@
 			
 			import gr.ictpro.mall.client.runtime.Translation;
 			
-			
 			public function dispose():void
 			{
 				if(parent && parent.contains(this))

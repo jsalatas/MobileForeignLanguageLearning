@@ -24,6 +24,7 @@ package gr.ictpro.mall.client.controller
 		public var authenticationProvider:AuthenticationProvider;
 		
 		private var loader:ExternalModuleLoader;
+		
 		override public function execute():void
 		{
 			if(!authenticationProviders.isInitialized) {

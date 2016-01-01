@@ -2,6 +2,8 @@ package gr.ictpro.mall.model;
 
 // Generated Dec 13, 2015 3:42:01 PM by Hibernate Tools 4.0.0
 
+import gr.ictpro.mall.interceptors.ClientReferenceClass;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -20,8 +22,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "classroomgroup")
+@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.Classroomgroup")
 public class Classroomgroup implements java.io.Serializable {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1642340623543540293L;
+   
     private Integer id;
     private String name;
     private String notes;

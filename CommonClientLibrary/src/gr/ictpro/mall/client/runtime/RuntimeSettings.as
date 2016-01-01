@@ -1,7 +1,9 @@
 package gr.ictpro.mall.client.runtime
 {
-	import gr.ictpro.mall.client.model.ServerConfiguration;
-	import gr.ictpro.mall.client.model.User;
+	import mx.collections.ArrayList;
+	
+	import gr.ictpro.mall.client.components.menu.MainMenu;
+	import gr.ictpro.mall.client.model.vo.User;
 
 	public class RuntimeSettings
 	{
@@ -11,8 +13,7 @@ package gr.ictpro.mall.client.runtime
 		
 		private var _clientSettings:Object = null;
 		private var _user:User = null;
-		
-		private var _serverConfiguration:ServerConfiguration = null;
+		private var _menu:ArrayList = null;
 		
 		public function RuntimeSettings()
 		{
@@ -28,17 +29,6 @@ package gr.ictpro.mall.client.runtime
 			this._clientSettings = clientSettings;
 		}
 
-		public function get serverConfiguration():ServerConfiguration 
-		{
-			return _serverConfiguration; 
-		}
-		
-		public function set serverConfiguration(serverConfiguration:ServerConfiguration):void 
-		{
-			this._serverConfiguration = serverConfiguration;
-		}
-
-		
 		public function getClientSetting(name:String):String
 		{
 			if(_clientSettings != null && _clientSettings.hasOwnProperty(name))
@@ -59,9 +49,15 @@ package gr.ictpro.mall.client.runtime
 			this._user = user;
 		}
 		
-
-	
-	
-	
+		[Bindable]
+		public function get menu():ArrayList 
+		{
+			return _menu; 
+		}
+		
+		public function set menu(menu:ArrayList):void 
+		{
+			this._menu = menu;
+		}
 	}
 }

@@ -2,169 +2,153 @@ package gr.ictpro.mall.client.view
 {
 	import flash.events.MouseEvent;
 	
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.events.ResultEvent;
+	import mx.states.State;
 	
-	import gr.ictpro.mall.client.model.SaveLocation;
-	import gr.ictpro.mall.client.service.RemoteObjectService;
-	import gr.ictpro.mall.client.signal.HandleServerNotificationSignal;
+	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.IPersistent;
+	import gr.ictpro.mall.client.signal.DeleteErrorSignal;
+	import gr.ictpro.mall.client.signal.DeleteSignal;
+	import gr.ictpro.mall.client.signal.DeleteSuccessSignal;
+	import gr.ictpro.mall.client.signal.SaveErrorSignal;
+	import gr.ictpro.mall.client.signal.SaveSignal;
+	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 
 	public class TopBarDetailViewMediator extends TopBarViewMediator
 	{
-		private var _saveHandler:Function;
-		private var _cancelHandler:Function;
-		private var _deleteHandler:Function;
-		private var _saveSuccessHandler:Function;
-		private var _saveErrorHandler:Function;
-		private var _saveErrorMessage:String;
-		private var _deleteSuccessHandler:Function;
-		private var _deleteErrorHandler:Function;
-		private var _deleteErrorMessage:String;
+		[Inject]
+		public var saveSignal:SaveSignal;
 
 		[Inject]
-		public var serverNotificationHandle:HandleServerNotificationSignal;
-		
+		public var saveSuccessSignal:SaveSuccessSignal;
 
+		[Inject]
+		public var saveErrorSignal:SaveErrorSignal;
+
+		[Inject]
+		public var deleteSignal:DeleteSignal;
+		
+		[Inject]
+		public var deleteSuccessSignal:DeleteSuccessSignal;
+		
+		[Inject]
+		public var deleteErrorSignal:DeleteErrorSignal;
+
+		protected var model:AbstractModel;
+		
 		override public function onRegister():void
 		{
 			super.onRegister();
-			view.addEventListener("okClicked", okClicked);
-			view.addEventListener("cancelClicked", cancelClicked);
-			view.addEventListener("deleteClicked", deleteClicked);
-		}
-		
-		protected function setSaveHandler(saveHandler:Function):void
-		{
-			this._saveHandler = saveHandler;
-		}
-		
-		protected function setCancelHandler(cancelHandler:Function):void
-		{
-			this._cancelHandler = cancelHandler;
-		}
+			eventMap.mapListener(view, "okClicked", okClicked);
+			eventMap.mapListener(view, "cancelClicked", cancelClicked);
+			eventMap.mapListener(view, "deleteClicked", deleteClicked);
 
-		protected function setDeleteHandler(deleteHandler:Function):void
-		{
-			this._deleteHandler = deleteHandler;
-		}
-		
-		protected function setSaveSuccessHandler(saveSuccessHandler:Function):void
-		{
-			this._saveSuccessHandler = saveSuccessHandler;
-		}
-		
-		protected function setSaveErrorHandler(saveErrorHandler:Function):void
-		{
-			this._saveErrorHandler = saveErrorHandler;
-		}
-		
-		protected function setSaveErrorMessage(saveErrorMessage:String):void
-		{
-			this._saveErrorMessage = saveErrorMessage;
-		}
-
-		protected function setDeleteSuccessHandler(deleteSuccessHandler:Function):void
-		{
-			this._deleteSuccessHandler = deleteSuccessHandler;
-		}
-		
-		protected function setDeleteErrorHandler(deleteErrorHandler:Function):void
-		{
-			this._deleteErrorHandler = deleteErrorHandler;
-		}
-		
-		protected function setDeleteErrorMessage(deleteErrorMessage:String):void
-		{
-			this._deleteErrorMessage = deleteErrorMessage;
-		}
-
-		protected function okClicked(event:MouseEvent):void
-		{
-			if(_saveHandler != null)
-				_saveHandler();
-		}
-		
-		protected function cancelClicked(event:MouseEvent):void
-		{
-			if(_cancelHandler != null)
-				_cancelHandler();
+			addToSignal(saveSuccessSignal, saveSuccess);
+			addToSignal(saveErrorSignal, saveError);
+			addToSignal(deleteSuccessSignal, deleteSuccess);
+			addToSignal(deleteErrorSignal, deleteError);
 			
-			backClicked(event);
-		}
-		
-		protected function deleteClicked(event:MouseEvent):void
-		{
-			if(_deleteHandler != null)
-				_deleteHandler();
-		}
-
-		protected function saveData(location:String, persistentObject:Object, service:String, method:String):void 
-		{
-			if(location == SaveLocation.SERVER) {
-				var ro:RemoteObjectService = new RemoteObjectService(channel, service, method, persistentObject, handleSaveSuccess, handleSaveError);
-			} else if(location == SaveLocation.CLIENT) {
-				//TODO: Save data on device
+			if(viewHasState("new") && viewHasState("edit") && view.parameters != null && view.parameters.vo != null) {
+				if(IPersistent(model).idIsNull(view.parameters.vo)) {
+					view.currentState = "new";
+					view.disableDelete();
+				} else {
+					view.currentState = "edit";
+				}
 			}
 		}
 		
-		private function handleSaveSuccess(event:ResultEvent):void
-		{
-			if(_saveSuccessHandler != null) 
-				_saveSuccessHandler(event);
-			
-			if(view.parameters.hasOwnProperty('notification')) {
-				serverNotificationHandle.dispatch(view.parameters.notification);
+		private function viewHasState(stateName:String):Boolean {
+			for(var i:int = 0; i < view.states.length; i++) {
+				if(view.states[i].name == stateName) {
+					return true;
+				}
+				
 			}
-			
+			return false;
+		}
+		
+		private function okClicked(event:MouseEvent):void
+		{
+			beforeSaveHandler();
+			if(validateSave()) {
+				saveHandler();
+			}
+		}
+		
+		protected function beforeSaveHandler():void {
+		}		
+		
+		protected function validateSave():Boolean {
+			return true;
+		}		
+		
+		protected function saveHandler():void {
+			saveSignal.dispatch(view.parameters.vo);
+		}
+
+		private function saveSuccess(classType:Class):void
+		{
+			if(classType == model.getVOClass()) {
+				if(view.parameters.notification != null) {
+					saveSignal.dispatch(view.parameters.notification);
+				}
+				back();
+			}
+		}
+		
+		private function saveError(classType:Class, errorMessage:String):void
+		{
+			if(classType == view.parameters.getVOClass()) {
+				if(errorMessage != null)
+					UI.showError(view, errorMessage);
+			}
+		}
+		
+		private function cancelClicked(event:MouseEvent):void
+		{
+			cancelHandler();
 			back();
 		}
-		
-		private function handleSaveError(event:FaultEvent):void
-		{
-			if(_saveErrorMessage != null)
-				UI.showError(view, _saveErrorMessage);
-			
-			if(_saveErrorHandler != null) 
-				_saveErrorHandler(event);
+
+		protected function cancelHandler():void {
 		}
 		
-		protected function deleteData(location:String, persistentObject:Object, service:String, method:String):void 
+		
+		private function deleteClicked(event:MouseEvent):void
 		{
-			if(location == SaveLocation.SERVER) {
-				var ro:RemoteObjectService = new RemoteObjectService(channel, service, method, persistentObject, handleDeleteSuccess, handleDeleteError);
-			} else if(location == SaveLocation.CLIENT) {
-				//TODO: Save data on device
+			beforeDeleteHandler();
+			if(validateDelete()) {
+				deleteHandler();
 			}
 		}
 		
-		private function handleDeleteSuccess(event:ResultEvent):void
-		{
-			if(_deleteSuccessHandler != null) 
-				_deleteSuccessHandler(event);
+		protected function validateDelete():Boolean {
+			return true;
+		}
+
+		protected function beforeDeleteHandler():void {
 			
-			super.back();
+		}
+
+		protected function deleteHandler():void {
+			deleteSignal.dispatch(view.parameters.vo);
 		}
 		
-		private function handleDeleteError(event:FaultEvent):void
+		private function deleteSuccess(classType:Class):void
 		{
-			if(_deleteErrorMessage != null)
-				UI.showError(view, _deleteErrorMessage);
-			
-			if(_deleteErrorHandler != null) 
-				_deleteErrorHandler(event);
-			
-			if(_deleteErrorHandler == null && _deleteErrorMessage != null) {
-				throw new Error("Unhandled Server Error");
+			if(classType == model.getVOClass()) {
+				back();
+			}
+		}
+		
+		private function deleteError(classType:Class, errorMessage:String):void
+		{
+			if(classType == model.getVOClass()) {
+				if(errorMessage != null)
+					UI.showError(view, errorMessage);
 			}
 		}
 
-		override protected function back():void
-		{
-			view.removeEventListener("okClicked", okClicked);
-			view.removeEventListener("cancelClicked", cancelClicked);
-			view.removeEventListener("deleteClicked", deleteClicked);
-			super.back();
-		}
 	}
 }

@@ -17,20 +17,17 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="3" linkType="1" path="/CommonClientLibrary/bin/CommonClientLibrary.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mobile/mobilecomponents.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/themes/Mobile/mobile.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/robotlegs-utilities-SignalMediator/bin/robotlegs-utilities-SignalMediator.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/as3-signals-v0.9.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/robotlegs-framework-v1.5.2.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/robotlegs-modular-signals-v1.2.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/robotlegs-utilities-Modular-v0.5.3.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/signals-extension-SignalsCommandMap-v0.4.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/SwiftSuspenders-v1.6.0.swc" useDefaultLinkType="false"/>
     </libraryPath>
-    <sourceAttachmentPath>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/as3-signals-v0.9.swc" sourcepath="C:/actionscript/as3-signals-v0.9/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-framework-v1.5.2.swc" sourcepath="C:/actionscript/robotlegs-framework-v1.5.2/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-modular-signals-v1.2.swc" sourcepath="C:/actionscript/robotlegs-modular-signals-v1.2/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/robotlegs-utilities-Modular-v0.5.3.swc" sourcepath="C:/actionscript/robotlegs-utilities-Modular-v0.5.3/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/signals-extension-SignalsCommandMap-v0.4.swc" sourcepath="C:/actionscript/signals-extension-SignalsCommandMap-v0.4/src" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="C:/workspace/MobileForeignLanguageLearning/CommonModules/libs/SwiftSuspenders-v1.6.0.swc" sourcepath="C:/actionscript/SwiftSuspenders-v1.6.0/src" useDefaultLinkType="false"/>
-    </sourceAttachmentPath>
+    <sourceAttachmentPath/>
   </compiler>
   <applications>
     <application path="CommonClient.mxml">

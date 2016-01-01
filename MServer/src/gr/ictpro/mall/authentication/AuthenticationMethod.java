@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 
 import flex.messaging.io.amf.ASObject;
-import gr.ictpro.mall.service.UserService;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>

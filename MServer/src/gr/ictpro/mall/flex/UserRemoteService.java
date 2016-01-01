@@ -3,22 +3,15 @@
  */
 package gr.ictpro.mall.flex;
 
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.context.UserContext;
-import gr.ictpro.mall.model.Profile;
-import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,14 +26,8 @@ public class UserRemoteService {
     private UserService userService;
 
     @Autowired(required = true)
-    private GenericService<Role, Integer> roleService;
-    
-    @Autowired(required = true)
-    private GenericService<Profile, Integer>  profileService;
-    
-    @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
-    
+
     @Autowired(required = true)
     private UserContext userContext;
 
@@ -51,108 +38,69 @@ public class UserRemoteService {
 	return reg.register(registrationDetails);
     }
 
-    public User save(ASObject userObject) {
+    public User save(User user) {
 	User currentUser = userContext.getCurrentUser();
 
-	int id = (Integer) userObject.get("id");
-	String email = (String) userObject.get("email");
-	String name = (String) userObject.get("name");
-	byte[] photo = (byte[]) userObject.get("photo");
-	int color = (int) userObject.get("color");
-	boolean enabled = userObject.get("enabled") != null? (boolean)userObject.get("enabled"):false;
-	boolean sendAccountReadyNotification = false;
-	
-	Set<Role> roles = new HashSet<Role>();
-	@SuppressWarnings("unchecked")
-	ArrayList<String> r = (ArrayList<String>) userObject.get("roles");
-	for (String role : r) {
-	    roles.add(roleService.listByProperty("role", role).get(0));
-	}
-	User u = null;
-	try {
-	    if (id == -1) {
-		String username = (String) userObject.get("username");
-		String password = passwordEncoder.encode((String) userObject.get("password"));
-		u = new User(username, password, email, enabled);
-		u.setRoles(roles);
-		userService.create(u);
-		Profile p = new Profile(u, name);
-		p.setPhoto(photo);
-		p.setColor(color);
-		profileService.create(p);
-		u.setProfile(p);
+	if (user.getId() == 0) {
+	    userService.create(user);
+	} else {
+	    // Only Admins and Teacher can modify other users' profiles
+	    if (user.getId() == currentUser.getId() || currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
+		User persistentUser = userService.retrieveById(user.getId());
+		boolean sendAccountReadyNotification = !persistentUser.isEnabled() && user.isEnabled();
 
-	    } else {
-		// Only Admins and Teacher can modify other users' profiles
-		if (id == currentUser.getId() || currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
-		    u = userService.retrieveById(id);
-		    u.setEmail(email);
-		    if(!u.isEnabled() && enabled) {
-			sendAccountReadyNotification = true;
-		    }
-		    u.setEnabled(enabled);
-		    Profile p = u.getProfile();
-		    if(p == null) {
-			// This is the case of admin
-			p = new Profile(u, name);
-			u.setProfile(p);
-			p.setPhoto(photo);
-			p.setColor(color);
-			profileService.create(p);
-		    } else { 
-			p.setName(name);
-			p.setPhoto(photo);
-			p.setColor(color);
-			profileService.update(p);
-		    }
-		    if(userObject.containsKey("password") && userObject.get("password") != null) {
-			u.setPassword(passwordEncoder.encode((String) userObject.get("password")));
-		    }
-		    if(sendAccountReadyNotification) {
-			userService.updateNotifyUser(u, sendAccountReadyNotification);
-		    } else {
-			userService.update(u);
-		    }
+		if (user.getPassword() != null) {
+		    // encrypt it
+		    persistentUser.setPassword(passwordEncoder.encode((String) user.getPassword()));
+		}
+		persistentUser.setEmail(user.getEmail());
+		persistentUser.setEnabled(user.isEnabled());
+		persistentUser.setRoles(user.getRoles());
+		persistentUser.setUsername(user.getUsername());
+		persistentUser.getProfile().setColor(user.getProfile().getColor());
+		persistentUser.getProfile().setName(user.getProfile().getName());
+		persistentUser.getProfile().setPhoto(user.getProfile().getPhoto());
+
+		// user.getProfile().setUserId(user.getId());
+		if (sendAccountReadyNotification) {
+		    userService.updateNotifyUser(persistentUser, sendAccountReadyNotification);
+		} else {
+		    userService.update(persistentUser);
 		}
 	    }
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    u = currentUser;
 	}
-	return u;
-
+	return user;
     }
-    
+
     public User getUser(ASObject userObject) {
 	int id = (Integer) userObject.get("id");
-	
-	if(id == 1) {
+
+	if (id == 1) {
 	    // admin
 	    return null;
 	}
-	
+
 	User u = userService.retrieveById(id);
-	
+
 	return u;
     }
-    
-    public List<User> getUsers(ASObject parameters) {
+
+    public List<User> getUsers() {
 	List<User> res = null;
-	if(parameters.containsKey("role")) {
-	    List<Role> roles = roleService.listByProperty("role", parameters.get("role"));
-	    if(roles.size() == 1) {
-		// Should have only one result
-		Role r = roles.get(0);
-		Hibernate.initialize(r.getUsers());
-		res = new ArrayList<User>(r.getUsers());
-	    }
-	    
+	User currentUser = userContext.getCurrentUser();
+	if (currentUser.hasRole("Admin") || currentUser.hasRole("teacher")) {
+	    res = userService.listAll();
+	} else {
+	    // TODO:
+	    // for students get their teachers, their parents and other students
+	    // in their classroom groups
+	    // for parents get their children and their children's teachers
 	}
-	
-	if(res == null) {
+
+	if (res == null) {
 	    res = new ArrayList<User>();
 	}
-	
+
 	return res;
     }
 }

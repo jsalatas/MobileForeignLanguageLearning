@@ -3,6 +3,7 @@
  */
 package gr.ictpro.mall.dao;
 
+import gr.ictpro.mall.interceptors.PersistentObjectModifier;
 import gr.ictpro.mall.utils.hibernate.DatabaseGeneratedValues;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     @Autowired(required=true)
     private SessionFactory sessionFactory;
     private Class<T> persistentClass;
+    @SuppressWarnings("unused")
     private Class<ID> idClass;
     
     public GenericDAOImpl(Class<T> t, Class<ID> id) {  
@@ -38,6 +40,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#create(java.lang.Object)
      */
+    @PersistentObjectModifier
     public void create(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.persist(item);
@@ -50,6 +53,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#update(java.lang.Object)
      */
+    @PersistentObjectModifier
     public void update(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.update(item);
@@ -62,13 +66,10 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     /* (non-Javadoc)
      * @see gr.ictpro.mall.model.GenericDAO#delete(int)
      */
-    @SuppressWarnings("unchecked")
-    public void delete(ID id) {
+    @PersistentObjectModifier
+    public void delete(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
-	T item = (T) session.get(getPersistentClass(), id);
-	if (null != item) {
-	    session.delete(item);
-	}
+	session.delete(item);
     }
 
     /* (non-Javadoc)

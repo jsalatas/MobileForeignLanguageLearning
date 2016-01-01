@@ -50,9 +50,8 @@ public class ScriptRunner {
     private final boolean stopOnError;
     private final boolean autoCommit;
 
-    @SuppressWarnings("UseOfSystemOutOrSystemErr")
     private PrintWriter logWriter = new PrintWriter(System.out);
-    @SuppressWarnings("UseOfSystemOutOrSystemErr")
+
     private PrintWriter errorLogWriter = new PrintWriter(System.err);
 
     private String delimiter = DEFAULT_DELIMITER;
@@ -216,7 +215,6 @@ public class ScriptRunner {
         return delimiter;
     }
 
-    @SuppressWarnings("UseOfSystemOutOrSystemErr")
     private void print(Object o) {
         if (logWriter != null) {
             System.out.print(o);
@@ -229,11 +227,11 @@ public class ScriptRunner {
         }
     }
 
-    private void printlnError(Object o) {
-        if (errorLogWriter != null) {
-            errorLogWriter.println(o);
-        }
-    }
+//    private void printlnError(Object o) {
+//        if (errorLogWriter != null) {
+//            errorLogWriter.println(o);
+//        }
+//    }
 
     private void flush() {
         if (logWriter != null) {

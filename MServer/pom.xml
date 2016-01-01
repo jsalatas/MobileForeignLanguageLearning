@@ -10,20 +10,7 @@
 		<repository>
 			<id>adobe blazeds</id>
 			<name>Adobe BlazeDS Repo</name>
-			<!-- <url>http://svn.code.sf.net/adobe/cairngorm/code/cairngorm3/maven-repository/</url> -->
-			<url>http://repository.jspresso.org/maven2/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring flex</id>
-			<name>Spring Flex 1.6.x Repo</name>
-			<!-- <url>http://svn.code.sf.net/adobe/cairngorm/code/cairngorm3/maven-repository/</url> -->
-			<url>http://maven.springframework.org/milestone/</url>
+			<url>http://repo.spring.io/plugins-release</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -51,7 +38,7 @@
 	</build>
 
 	<dependencies>
-	    <dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>3.2.10.RELEASE</version>
@@ -146,18 +133,18 @@
 		<dependency>
 			<groupId>org.springframework.flex</groupId>
 			<artifactId>spring-flex</artifactId>
-			<version>1.6.0.RC1</version>
+			<version>1.5.2.RELEASE</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.flex</groupId>
 			<artifactId>spring-flex-core</artifactId>
-			<version>1.6.0.RC1</version>
+			<version>1.5.2.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.flex</groupId>
 			<artifactId>spring-flex-parent</artifactId>
-			<version>1.6.0.RC1</version>
+			<version>1.5.2.RELEASE</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
@@ -190,7 +177,37 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+		<dependency>
+			<groupId>com.adobe.blazeds</groupId>
+			<artifactId>blazeds-core</artifactId>
+			<version>4.6.0.23207</version>
+		</dependency>
 
+		<dependency>
+			<groupId>com.adobe.blazeds</groupId>
+			<artifactId>blazeds-proxy</artifactId>
+			<version>4.6.0.23207</version>
+		</dependency>
+		<dependency>
+			<groupId>com.adobe.blazeds</groupId>
+			<artifactId>blazeds-common</artifactId>
+			<version>4.6.0.23207</version>
+		</dependency>
+		<dependency>
+			<groupId>com.adobe.blazeds</groupId>
+			<artifactId>blazeds-remoting</artifactId>
+			<version>4.6.0.23207</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.6</version>
+		</dependency>
 	</dependencies>
 
 </project>

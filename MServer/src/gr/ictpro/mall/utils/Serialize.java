@@ -4,8 +4,6 @@
 package gr.ictpro.mall.utils;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import com.google.gson.Gson;
 

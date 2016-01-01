@@ -2,6 +2,8 @@ package gr.ictpro.mall.model;
 
 // Generated Aug 31, 2015 8:07:08 PM by Hibernate Tools 4.0.0
 
+import gr.ictpro.mall.interceptors.ClientReferenceClass;
+
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -20,8 +22,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "user_notification")
+@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.Notification")
 public class UserNotification implements java.io.Serializable {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8357088135570298679L;
+    
     private UserNotificationId id;
     private User user;
     private Notification notification;

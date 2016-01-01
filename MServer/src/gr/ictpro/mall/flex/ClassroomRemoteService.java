@@ -8,12 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Classroomgroup;
 import gr.ictpro.mall.model.Language;
-import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.ClassroomService;
 import gr.ictpro.mall.service.GenericService;
@@ -24,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author John Salatas <jsalatas@gmail.com>
- *
+ * 
  */
 public class ClassroomRemoteService {
     @Autowired(required = true)
@@ -43,70 +41,70 @@ public class ClassroomRemoteService {
     private UserContext userContext;
 
     public List<Classroom> getClassrooms() {
-	User currentUser = userContext.getCurrentUser(); 
-	if(currentUser.hasRole("Teacher")) {
+	ArrayList<Classroom> res = null;
+	User currentUser = userContext.getCurrentUser();
+	if (currentUser.hasRole("Admin")) {
+	    res = new ArrayList<Classroom>(classroomService.listAll());
+	} else if (currentUser.hasRole("Teacher")) {
 	    // get only user's languages
-	   Hibernate.initialize(currentUser.getClassrooms());
-	   return new ArrayList<Classroom>(currentUser.getClassrooms());
+	    Hibernate.initialize(currentUser.getClassrooms());
+	    res = new ArrayList<Classroom>(currentUser.getClassrooms());
 	}
-	System.err.println(classroomService.listAll().size());
-	return classroomService.listAll();
+	return res;
     }
 
-    public void deleteClassroom(ASObject classroomObj) {
-	Integer id = (Integer)classroomObj.get("classroom_id");
-	
+    public void deleteClassroom(Classroom classroom) {
 	User currentUser = userContext.getCurrentUser();
-	
-	if(currentUser.hasRole("Admin")) {
-	    classroomService.delete(id);
+
+	Classroom persistentClassroom = classroomService.retrieveById(classroom.getId());
+	if (currentUser.hasRole("Admin")) {
+	    classroomService.delete(persistentClassroom);
 	} else {
-	    // A teacher can only delete her own classrooms 
-	    Classroom c = classroomService.retrieveById(id);
-	    Hibernate.initialize(c.getUsers()); 
-	    if(c.getUsers().contains(currentUser)) {
-		classroomService.delete(id);
+	    // A teacher can only delete her own classrooms
+	    if (persistentClassroom.getUsers().contains(currentUser)) {
+		classroomService.delete(persistentClassroom);
 	    }
 	}
     }
 
-    public void updateClassroom(ASObject classroomObj) {
-	Integer id = -1;
-	if(classroomObj.containsKey("id") && classroomObj.get("id") != null) {
-	    id = (Integer)classroomObj.get("id");
-	}
-	
-	String name = (String)classroomObj.get("name");
-	String notes = (String)classroomObj.get("notes");
-	String languageCode = (String)classroomObj.get("language_code");
-	
-	Language language = languageService.retrieveById(languageCode);
-	
-	User teacher;
-	User currentUser = userContext.getCurrentUser();
-	if(currentUser.hasRole("Admin")) {
-	    Integer teacherId = (Integer)classroomObj.get("teacher_id");
-	    teacher = userService.retrieveById(teacherId);
+    public void updateClassroom(Classroom classroom) {
+	classroom.setLanguage(languageService.retrieveById(classroom.getLanguage().getCode()));
+	Set<User> users = new HashSet<User>();
+//	for (User u : classroom.getUsers()) {
+//	    users.add(userService.retrieveById(u.getId()));
+//	}
+//	classroom.setUsers(users);
+//
+//	if (classroom.getClassroomgroups() == null) {
+//	    classroom.setClassroomgroups(new HashSet<Classroomgroup>(0));
+//	}
+//
+//	Set<Classroomgroup> classroomgroups = new HashSet<Classroomgroup>();
+//	for (Classroomgroup c : classroom.getClassroomgroups()) {
+//	    classroomgroups.add(classroomgroupService.retrieveById(c.getId()));
+//	}
+//	classroom.setClassroomgroups(classroomgroups);
+//
+	if (classroom.getId() == null) {
+	    classroomService.create(classroom);
 	} else {
-	    teacher = currentUser;
-	}
-	
-	Classroom c; 
-	if(id == -1) {
-	    c = new Classroom(name);
-	    c.setNotes(notes);
-	    Set<User> users = new HashSet<User>();
-	    users.add(teacher);
-	    c.setUsers(users);
-	    c.setLanguage(language);
-	    classroomService.create(c);
-	} else {
-	    c = classroomService.retrieveById(id);
-	    c.setName(name);
-	    c.setNotes(notes);
-	    classroomService.replaceTeacher(c, teacher);
-	    c.setLanguage(language);
-	    classroomService.update(c);
+	    Classroom persistentClassroom = classroomService.retrieveById(classroom.getId());
+	    persistentClassroom.setName(classroom.getName());
+	    persistentClassroom.setNotes(classroom.getNotes());
+	    persistentClassroom.setLanguage(classroom.getLanguage());
+	    persistentClassroom.setUsers(users);
+
+	    classroomService.update(persistentClassroom);
+
+	    User teacher;
+	    User currentUser = userContext.getCurrentUser();
+	    if (currentUser.hasRole("Admin") && classroom.getTeacher() != null) {
+		teacher = userService.retrieveById(classroom.getTeacher().getId());
+	    } else {
+		teacher = userService.retrieveById(currentUser.getId());
+	    }
+
+	    classroomService.replaceTeacher(persistentClassroom, teacher);
 	}
     }
 
@@ -114,38 +112,20 @@ public class ClassroomRemoteService {
 	return classroomgroupService.listAll();
     }
 
-    public void updateClassroomgroup(ASObject classroomgroupObj) {
-	Integer id = -1;
-	if(classroomgroupObj.containsKey("id") && classroomgroupObj.get("id") != null) {
-	    id = (Integer)classroomgroupObj.get("id");
-	}
-	
-	String name = (String)classroomgroupObj.get("name");
-	String notes = (String)classroomgroupObj.get("notes");
-
-	Classroomgroup c; 
-	if(id == -1) {
-	    c = new Classroomgroup(name);
-	    c.setNotes(notes);
-//	    Set<User> users = new HashSet<User>();
-//	    users.add(teacher);
-//	    c.setUsers(users);
-//	    c.setLanguage(language);
-	    classroomgroupService.create(c);
+    public void updateClassroomgroup(Classroomgroup classroomgroup) {
+	if (classroomgroup.getId() == 0) {
+	    classroomgroupService.create(classroomgroup);
 	} else {
-	    c = classroomgroupService.retrieveById(id);
-	    c.setName(name);
-	    c.setNotes(notes);
-//	    classroomService.replaceTeacher(c, teacher);
-//	    c.setLanguage(language);
-	    classroomgroupService.update(c);
+	    Classroomgroup persistentClassroomgroup = classroomgroupService.retrieveById(classroomgroup.getId());
+	    persistentClassroomgroup.setName(classroomgroup.getName());
+	    persistentClassroomgroup.setNotes(classroomgroup.getNotes());
+
+	    classroomgroupService.update(persistentClassroomgroup);
 	}
     }
 
-    public void deleteClassroomgroup(ASObject classroomgroupObj) {
-	Integer id = (Integer)classroomgroupObj.get("classroomgroup_id");
-	
-	classroomgroupService.delete(id);
+    public void deleteClassroomgroup(Classroomgroup classroomgroup) {
+	classroomgroupService.delete(classroomgroupService.retrieveById(classroomgroup.getId()));
     }
 
 }

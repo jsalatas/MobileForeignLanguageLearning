@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/18.0">
+<application xmlns="http://ns.adobe.com/air/application/19.0">
 
 <!-- Adobe AIR Application Descriptor File Template.
 
@@ -112,9 +112,10 @@
 		<!-- Display Resolution for the app (either "standard" or "high"). Optional, OSX-only. Default "standard" -->
 		<!-- <requestedDisplayResolution></requestedDisplayResolution> -->
 	<autoOrients>true</autoOrients>
-        <fullScreen>true</fullScreen>
+        <fullScreen>false</fullScreen>
         <visible>true</visible>
-        <softKeyboardBehavior>pan</softKeyboardBehavior>
+        <softKeyboardBehavior>none</softKeyboardBehavior>
+        <renderMode>cpu</renderMode>
     </initialWindow>
 
 	<!-- We recommend omitting the supportedProfiles element, -->
