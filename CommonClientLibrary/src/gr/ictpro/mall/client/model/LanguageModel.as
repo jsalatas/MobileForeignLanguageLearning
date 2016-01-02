@@ -2,12 +2,13 @@ package gr.ictpro.mall.client.model
 {
 	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.view.LanguageView;
 
 	public class LanguageModel extends AbstractModel implements IServerPersistent
 	{
 		public function LanguageModel()
 		{
-			super(Language);
+			super(Language, LanguageView);
 		}
 		
 		public function get saveErrorMessage():String

@@ -2,12 +2,13 @@ package gr.ictpro.mall.client.model
 {
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.view.ClassroomView;
 
 	public class ClassroomModel extends AbstractModel implements IServerPersistent
 	{
 		public function ClassroomModel()
 		{
-			super(Classroom);
+			super(Classroom, ClassroomView);
 		}
 
 		public function get saveErrorMessage():String

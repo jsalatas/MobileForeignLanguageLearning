@@ -18,7 +18,6 @@ package gr.ictpro.mall.client.view
 			super.onRegister();
 			
 			view.title = Translation.getTranslation("Classrooms");
-			setDetailViewClass(ClassroomView);
 		}
 		
 

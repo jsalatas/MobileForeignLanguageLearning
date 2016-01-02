@@ -60,8 +60,6 @@
 			protected function txt_clickHandler(event:MouseEvent):void
 			{
 				if(popUpMenu && mouseDown) {
-					trace("closing popup");
-//					popUpMenu.close();
 				} else {
 				if(!popUpMenu) {
 					popUpMenu = new PopUpMenu();
@@ -81,7 +79,6 @@
 				}
 				popUpMenu.open(this, false);
 				popUpMenu.list.selectedItem = selected;
-				//popUpMenu.list.setFocus();
 				}
 				mouseDown = false;
 
@@ -97,7 +94,6 @@
 				if(selected == null) {
 					txt.label=Translation.getTranslation("Select Item");
 				}
-//				controlHeight=height;
 			}
 
 			protected function addedToStageHandler(event:Event):void
@@ -108,12 +104,6 @@
 				txt.tabIndex = this.tabIndex;
 
 			}
-			
-//			protected function group1_focusInHandler(event:FocusEvent):void
-//			{
-//				txt.setFocus();
-//				
-//			}
 			
 			protected function txt_mouseDownHandler(event:MouseEvent):void
 			{

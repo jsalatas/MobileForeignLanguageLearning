@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.model
 {
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.utils.collections.ArrayUtils;
+	import gr.ictpro.mall.client.view.UserView;
 
 	public class UserModel extends AbstractModel implements IServerPersistent
 	{
@@ -10,7 +11,7 @@ package gr.ictpro.mall.client.model
 		
 		public function UserModel()
 		{
-			super(User);
+			super(User, UserView);
 		}
 		
 		public function get saveErrorMessage():String

@@ -72,6 +72,8 @@ package gr.ictpro.mall.client.view
 		
 		override protected function beforeSaveHandler():void
 		{
+			Classroom(view.parameters.vo).name = ClassroomView(view).txtName.text;
+			Classroom(view.parameters.vo).notes = ClassroomView(view).txtNotes.text;
 			Classroom(view.parameters.vo).language =  Language(ClassroomView(view).languagePopup.selected);
 			
 			var newTeacher:User;
@@ -104,12 +106,12 @@ package gr.ictpro.mall.client.view
 		override protected function validateSave():Boolean
 		{
 			if(Classroom(view.parameters.vo).name == null || Classroom(view.parameters.vo).name == '') {
-				UI.showError(view, Translation.getTranslation("Please Enter Classroom's Name"));
+				UI.showError(Translation.getTranslation("Please Enter Classroom's Name"));
 				return false;
 			}
 			
 			if(ClassroomView(view).languagePopup.selected == null) {
-				UI.showError(view, Translation.getTranslation("Please Assign a Language to the Classroom"));
+				UI.showError(Translation.getTranslation("Please Assign a Language to the Classroom"));
 				return false;
 			}
 			
@@ -122,7 +124,7 @@ package gr.ictpro.mall.client.view
 			}
 
 			if(teacher == null) {
-				UI.showError(view, Translation.getTranslation("Please Assign a Teacher to the Classroom"));
+				UI.showError(Translation.getTranslation("Please Assign a Teacher to the Classroom"));
 				return false;
 			}
 			return true;

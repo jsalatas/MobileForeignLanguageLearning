@@ -88,7 +88,6 @@ package gr.ictpro.mall.client.view
 			addToSignal(saveSuccess, saveSuccessHandler);
 			
 			if(view.parameters == null || (view.parameters != null && view.parameters.initParams == null && view.parameters.vo == null)) {
-				view.title = Translation.getTranslation("My Profile");
 				view.disableDelete(); // user cannot delete her own profile
 				if(view.parameters == null) {
 					view.parameters = new ViewParameters();
@@ -97,11 +96,9 @@ package gr.ictpro.mall.client.view
 				view.currentState = "profile";
 			} else if(view.parameters.initParams.hasOwnProperty("user_id")) {
 				view.currentState = "edit";
-				view.title = Translation.getTranslation("Edit User");
 				getUser(view.parameters.initParams.user_id);
 			} else if(view.parameters.vo != null) {
 				view.currentState = "view";
-				view.title = User(view.parameters.vo).username;
 				view.disableDelete();
 				view.disableOK();
 				view.disableCancel();
@@ -134,7 +131,7 @@ package gr.ictpro.mall.client.view
 				if(result != null) {
 					view.parameters.vo = result;
 				} else {
-					UI.showError(view,Translation.getTranslation("Cannot get User"));
+					UI.showError(Translation.getTranslation("Cannot get User"));
 					back();
 				}
 			}
@@ -144,7 +141,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(type == GET_USER) {
 				removeSignals();
-				UI.showError(view,Translation.getTranslation("Cannot get User"));
+				UI.showError(Translation.getTranslation("Cannot get User"));
 				back();
 			}
 		}
@@ -173,7 +170,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(UserView(view).txtPassword.text != "" || UserView(view).txtPassword2.text != "") {
 				if(UserView(view).txtPassword.text != UserView(view).txtPassword2.text) {
-					UI.showError(view,Translation.getTranslation("Passwords do not Match"));
+					UI.showError(Translation.getTranslation("Passwords do not Match"));
 					return false;
 				} else {
 					User(view.parameters.vo).password = UserView(view).txtPassword.text; 

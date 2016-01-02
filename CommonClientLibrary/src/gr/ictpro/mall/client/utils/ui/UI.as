@@ -5,6 +5,7 @@ package gr.ictpro.mall.client.utils.ui
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.components.PopupNotification;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.Translation;
 
 	public class UI
@@ -29,7 +30,7 @@ package gr.ictpro.mall.client.utils.ui
 			return res; 
 		}
 		
-		public static function showError(parent:UIComponent, message:String, closeHandler:Function=null):void
+		public static function showError(message:String, closeHandler:Function=null):void
 		{
 			var popup:PopupNotification = new PopupNotification();
 			popup.type = PopupNotification.TYPE_ERROR;
@@ -37,11 +38,10 @@ package gr.ictpro.mall.client.utils.ui
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}
-			popup.open(parent, true);
-
+			popup.open(Device.shellView, true);
 		}
 
-		public static function showInfo(parent:UIComponent, message:String, closeHandler:Function=null):void
+		public static function showInfo(message:String, closeHandler:Function=null):void
 		{
 			var popup:PopupNotification = new PopupNotification();
 			popup.type = PopupNotification.TYPE_INFO;
@@ -49,8 +49,7 @@ package gr.ictpro.mall.client.utils.ui
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}
-			popup.open(parent, true);
-			
+			popup.open(Device.shellView, true);
 		}
 
 	}

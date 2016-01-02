@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.SAXException;
 
 import flex.messaging.io.amf.ASObject;
+import gr.ictpro.mall.context.UserContext;
+import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.EmailTranslation;
 import gr.ictpro.mall.model.EmailTranslationId;
 import gr.ictpro.mall.model.EnglishEmail;
@@ -25,6 +27,8 @@ import gr.ictpro.mall.model.EnglishText;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Translation;
 import gr.ictpro.mall.model.TranslationId;
+import gr.ictpro.mall.model.User;
+import gr.ictpro.mall.service.ClassroomService;
 import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.utils.TranslationsXMLUtils;
 
@@ -48,6 +52,12 @@ public class LanguageRemoteService {
     @Autowired(required = true)
     private GenericService<EnglishEmail, Integer> englishEmailService;
     
+    @Autowired(required = true)
+    private ClassroomService classroomService;
+
+    @Autowired(required = true)
+    private UserContext userContext;
+
     public List<Language> getLanguages() {
 	return languageService.listAll();
     }
@@ -70,15 +80,33 @@ public class LanguageRemoteService {
     
     public String getTranslationsXML(ASObject translObj) throws TransformerException {
 	String languageCode = (String) translObj.get("language_code");
+	Integer classroomId = (Integer) translObj.get("classroom_id");
+	
+	if(classroomId == null) {
+	    classroomId = 0;
+	}
+	Classroom classroom = classroomService.retrieveById(classroomId);	
+	
+	if(languageCode == null) {
+	    languageCode = classroom.getLanguage().getCode();
+	}
+	Language language = languageService.retrieveById(languageCode);
+		
 	Boolean untranslatedOnly = (Boolean) translObj.get("untranslated");
+	
+	String translationsHQL = "FROM Translation WHERE (language.code = '"+languageCode+"' AND classroom.id = "+classroomId+")";
+	String emailTranslationsHQL = "FROM EmailTranslation WHERE (language.code = '"+languageCode+"' AND classroom.id = "+classroomId+")";
+	if(classroomId.intValue() != 0) {
+	    translationsHQL = translationsHQL + " OR (language.code = '"+languageCode+"' AND classroom.id = 0 AND englishText.id NOT IN (SELECT  englishText.id FROM Translation WHERE language.code = '"+languageCode+"' AND classroom.id = "+classroomId+"))";
+	    emailTranslationsHQL = emailTranslationsHQL + " OR (language.code = '"+languageCode+"' AND classroom.id = 0 AND englishEmail.emailType NOT IN (SELECT englishEmail.emailType FROM EmailTranslation WHERE language.code = '"+languageCode+"' AND classroom.id = "+classroomId+"))";
+	}
 	
 	// Get translations
 	List<Translation> translations = new ArrayList<Translation>();
 	List<Integer> translationIds = new ArrayList<Integer>();
-	Language language = languageService.retrieveById(languageCode);
-	Hibernate.initialize(language.getTranslations());
-	for(Translation t: language.getTranslations()) {
-	    if(!untranslatedOnly) {
+	List<Translation> allTanslations = translationService.listByCustomSQL(translationsHQL);
+	for(Translation t: allTanslations) {
+	    if(!untranslatedOnly.booleanValue()) {
 		translations.add(t);
 	    }
 	    translationIds.add(t.getEnglishText().getId());
@@ -93,8 +121,8 @@ public class LanguageRemoteService {
 	// Get emails
 	List<EmailTranslation> emails = new ArrayList<EmailTranslation>();
 	List<Integer> emailIds = new ArrayList<Integer>();
-	Hibernate.initialize(language.getEmailTranslations());
-	for(EmailTranslation e: language.getEmailTranslations()) {
+	List<EmailTranslation> allEmails = emailTranslationService.listByCustomSQL(emailTranslationsHQL);
+	for(EmailTranslation e: allEmails) {
 	    if(!untranslatedOnly) {
 		emails.add(e);
 	    }
@@ -112,9 +140,9 @@ public class LanguageRemoteService {
 	String res;
 	
 	if(untranslatedOnly) {
-	    res = TranslationsXMLUtils.getXML(language, null, englishTexts, englishEmails);
+	    res = TranslationsXMLUtils.getXML(language, classroom, englishTexts, englishEmails);
 	} else {
-	    res = TranslationsXMLUtils.getXML(language, null, translations, emails, englishTexts, englishEmails);
+	    res = TranslationsXMLUtils.getXML(language, classroom, translations, emails, englishTexts, englishEmails);
 	}
 	
 
@@ -122,9 +150,18 @@ public class LanguageRemoteService {
     }
 
     @SuppressWarnings("unchecked")
-    public void updateTranslations(String xml) {
+    public void updateTranslations(String xml) throws SecurityException {
 	try {
 	    Map<String, Object> parsedObjects = TranslationsXMLUtils.parseXML(xml);
+	    
+	    User currentUser = userContext.getCurrentUser(); 
+	    if(!currentUser.hasRole("Admin")) {
+		Classroom classroom = (Classroom)parsedObjects.get("classroom");
+		if(classroom == null || classroom.getTeacher().getId().intValue() != currentUser.getId().intValue()) {
+		    throw new SecurityException("Teachers can update translations only for their classrooms");
+		}
+	    }
+	    
 	    List<Translation> translations = (List<Translation>) parsedObjects.get("translations");
 	    List<EmailTranslation> emails = (List<EmailTranslation>) parsedObjects.get("emailTranslations");
 	    if(translations != null) {

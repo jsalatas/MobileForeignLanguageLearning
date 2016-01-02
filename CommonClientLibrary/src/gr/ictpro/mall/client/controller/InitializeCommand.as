@@ -2,7 +2,6 @@ package gr.ictpro.mall.client.controller
 {
 	import flash.system.Capabilities;
 	
-	import gr.ictpro.mall.client.model.VOToModelMapper;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProvider;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;

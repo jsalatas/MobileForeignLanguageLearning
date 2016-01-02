@@ -11,7 +11,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.IClientPersistent;
 	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.IServerPersistent;
-	import gr.ictpro.mall.client.model.VOToModelMapper;
+	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.SaveErrorSignal;
@@ -28,10 +28,10 @@ package gr.ictpro.mall.client.controller
 		public var vo:Object;
 		
 		[Inject]
-		public var mapper:VOToModelMapper;
+		public var mapper:VOMapper;
 		
 		[Inject]
-		public var model:VOToModelMapper;
+		public var model:VOMapper;
 
 		[Inject]
 		public var saveSuccess:SaveSuccessSignal;

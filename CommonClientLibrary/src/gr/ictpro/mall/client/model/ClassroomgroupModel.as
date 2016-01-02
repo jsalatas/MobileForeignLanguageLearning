@@ -3,12 +3,13 @@ package gr.ictpro.mall.client.model
 	
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.view.ClassroomgroupView;
 
 	public class ClassroomgroupModel extends AbstractModel  implements IServerPersistent
 	{
 		public function ClassroomgroupModel()
 		{
-			super(Classroomgroup);
+			super(Classroomgroup, ClassroomgroupView);
 		}
 		
 		public function get deleteErrorMessage():String

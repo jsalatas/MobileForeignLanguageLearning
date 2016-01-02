@@ -18,7 +18,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "email_translation"
-	, uniqueConstraints = @UniqueConstraint(columnNames = { "language_code", "email_type" }))
+	, uniqueConstraints = @UniqueConstraint(columnNames = { "classroom_id", "language_code", "email_type" }))
 public class EmailTranslation implements java.io.Serializable {
 
     /**

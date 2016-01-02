@@ -79,6 +79,12 @@
 				
 			}
 			
+			protected function list_clickHandler(event:MouseEvent):void
+			{
+				itemSelected.dispatch(list.selectedItem);
+				this.close();
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -92,7 +98,7 @@
 		<s:List id="list" width="100%"  
 				height="{(menuList.length&gt;5?5:menuList.length)*(new ListRenderer().definedHeight) +2}"
 				borderAlpha="{borderVisible?1:0}" borderVisible="{borderVisible}" keyUp="list_keyUpHandler(event)"
-				dataProvider="{menuList}" resize="list_resizeHandler(event)"
+				dataProvider="{menuList}" resize="list_resizeHandler(event)" click="list_clickHandler(event)"
 				itemRenderer="gr.ictpro.mall.client.components.renderers.ListRenderer"/>
 	</s:Group>
 </s:SkinnablePopUpContainer>

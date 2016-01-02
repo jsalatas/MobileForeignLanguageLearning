@@ -3,18 +3,22 @@ package gr.ictpro.mall.client.model
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	
+	import gr.ictpro.mall.client.model.vomapper.VOMapper;
+	
 	public class AbstractModel implements IModel
 	{
 		[Inject]
-		public var mapper:VOToModelMapper;
+		public var mapper:VOMapper;
 		
 		private var _voClass:Class;
+		private var _viewClass:Class;
 		
 		private var _list:ArrayCollection = new ArrayCollection();
 		
-		public function AbstractModel(voClass:Class) 
+		public function AbstractModel(voClass:Class, viewClass:Class) 
 		{
 			this._voClass = voClass;
+			this._viewClass = viewClass;
 		}
 		
 		public function getVOClass():Class
@@ -22,10 +26,15 @@ package gr.ictpro.mall.client.model
 			return this._voClass;
 		}
 		
+		public function getViewClass():Class
+		{
+			return this._viewClass;
+		}
+
 		[PostConstruct]
 		public function init():void
 		{
-			mapper.mapClass(this, _voClass);
+			mapper.mapClass(this, _voClass, _viewClass);
 		}
 		
 		public function set list(list:ArrayCollection):void

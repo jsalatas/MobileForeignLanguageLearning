@@ -7,7 +7,7 @@ package gr.ictpro.mall.client.model
 	{
 		public function RoleModel()
 		{
-			super(Role);
+			super(Role, null);
 		}
 		
 		public function get saveErrorMessage():String

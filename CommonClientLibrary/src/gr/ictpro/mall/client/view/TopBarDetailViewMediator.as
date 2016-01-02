@@ -101,7 +101,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(classType == view.parameters.getVOClass()) {
 				if(errorMessage != null)
-					UI.showError(view, errorMessage);
+					UI.showError(errorMessage);
 			}
 		}
 		
@@ -146,7 +146,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(classType == model.getVOClass()) {
 				if(errorMessage != null)
-					UI.showError(view, errorMessage);
+					UI.showError(errorMessage);
 			}
 		}
 

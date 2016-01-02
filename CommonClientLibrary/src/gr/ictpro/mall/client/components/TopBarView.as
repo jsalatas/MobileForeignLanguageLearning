@@ -92,9 +92,6 @@ package gr.ictpro.mall.client.components
 			return this._parameters;
 		}
 		
-		
-		
-		
 		override protected function createChildren():void
 		{
 			super.createChildren();

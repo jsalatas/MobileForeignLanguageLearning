@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TopBarDetailView xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
-			   title="{Classroom(parameters.vo).name}"
-			   xmlns:mx="library://ns.adobe.com/flex/mx">
+			   title.new="{Translation.getTranslation('New Classroom')}"
+			   title.edit="{Translation.getTranslation('Edit Classroom')}"
+			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="gr.ictpro.mall.client.view.components.*">
 	<s:states>
 		<mx:State name="new" />
 		<mx:State name="edit" />
@@ -81,10 +82,10 @@
 				<s:FormLayout/>
 			</s:layout>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" text="@{Classroom(parameters.vo).name}" textAlign="left"/>
+				<s:TextInput id="txtName" width="100%" text="{Classroom(parameters.vo).name}" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Notes')}">
-				<s:TextArea id="txtNotes" width="100%" text="@{Classroom(parameters.vo).notes}" textAlign="left" height="100" maxHeight="100"/>
+				<s:TextArea id="txtNotes" width="100%" text="{Classroom(parameters.vo).notes}" textAlign="left" height="100" maxHeight="100"/>
 			</s:FormItem>
 			<s:FormItem width="100%" label="{Translation.getTranslation('Language')}">
 				<s:PopUpList id="languagePopup" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />
@@ -93,5 +94,7 @@
 				<s:PopUpList id="teacherPopup" dataList="{_teachers}" textAlign="left" initialize="teacherPopup_initializeHandler(event)" />
 			</s:FormItem>
 		</s:Group>
+
+		<components:TranslationManagerComponent vo="{parameters.vo}" state="{currentState}" />
 	</s:Group>
 </s:TopBarDetailView>

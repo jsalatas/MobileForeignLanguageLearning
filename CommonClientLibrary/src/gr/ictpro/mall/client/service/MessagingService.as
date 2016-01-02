@@ -8,7 +8,7 @@ package gr.ictpro.mall.client.service
 	import mx.rpc.events.FaultEvent;
 	
 	import gr.ictpro.mall.client.model.AbstractModel;
-	import gr.ictpro.mall.client.model.VOToModelMapper;
+	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.ListSignal;
 
@@ -24,7 +24,7 @@ package gr.ictpro.mall.client.service
 		public var listSignal:ListSignal;
 		
 		[Inject]
-		public var mapper:VOToModelMapper;
+		public var mapper:VOMapper;
 
 		private var consumer:Consumer = new Consumer();
 		

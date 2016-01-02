@@ -86,7 +86,7 @@ package gr.ictpro.mall.client.authentication
 			var password:String = view.txtPassword.text;
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
-				UI.showError(view, Translation.getTranslation("Passwords do not Match."));
+				UI.showError(Translation.getTranslation("Passwords do not Match."));
 			} else {
 				var userName:String = view.txtUserName.text;
 				var name:String = view.txtName.text;
@@ -98,7 +98,7 @@ package gr.ictpro.mall.client.authentication
 		
 		private function handleRegisterFailed():void 
 		{
-			UI.showError(view, Translation.getTranslation("Cannot Register."));
+			UI.showError(Translation.getTranslation("Cannot Register."));
 		}
 
 		private function handleRegisterSuccess():void 

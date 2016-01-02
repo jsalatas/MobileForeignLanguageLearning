@@ -81,13 +81,15 @@ public class TranslationsXMLUtils {
 	Element root = doc.getDocumentElement();
 	
 	Language language = getLanguage(root);
+	res.put("language", language);
 	Classroom classroom = getClassroom(root);
 	if(classroom == null) {
 	    // Get master classroom
 	    ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
 	    GenericService<Classroom, Integer> classroomService = (GenericService<Classroom, Integer>) ctx.getBean("classroomService");
 	    classroom = classroomService.retrieveById(0);
-
+	} else {
+	    res.put("classroom", classroom);
 	}
 	
 	List<Translation> translations = getTraslations(root, language, classroom);
@@ -167,10 +169,10 @@ public class TranslationsXMLUtils {
 	NodeList classroomNode = root.getElementsByTagName("classroom");
 	Classroom classroom = null;
 	if(classroomNode.getLength() == 1) {
-	    Integer classroomId = Integer.parseInt(classroomNode.item(0).getTextContent());
+	    String classroomName = classroomNode.item(0).getTextContent();
 	    ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
 	    GenericService<Classroom, Integer> classroomService = (GenericService<Classroom, Integer>) ctx.getBean("classroomService");
-	    classroom = classroomService.retrieveById(classroomId);
+	    classroom = classroomService.listByProperty("name", classroomName).get(0);
 	}
 	return classroom;
     }

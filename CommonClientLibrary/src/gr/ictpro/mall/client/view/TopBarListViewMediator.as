@@ -4,11 +4,11 @@ package gr.ictpro.mall.client.view
 	import flash.events.MouseEvent;
 	
 	import mx.utils.ObjectProxy;
+	import mx.utils.ObjectUtil;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.components.TopBarListView;
 	import gr.ictpro.mall.client.model.AbstractModel;
-	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
@@ -17,8 +17,6 @@ package gr.ictpro.mall.client.view
 
 	public class TopBarListViewMediator extends TopBarViewMediator
 	{
-		private var _detailViewClass:Class;
-
 		protected var model:AbstractModel;
 		
 		[Inject]
@@ -51,15 +49,10 @@ package gr.ictpro.mall.client.view
 		private function listError(classType:Class, errorMessage:String):void
 		{
 			if(classType == model.getVOClass()) {
-				UI.showError(view, errorMessage);
+				UI.showError(errorMessage);
 			}
 		}
 
-		protected function setDetailViewClass(detailViewClass:Class):void
-		{
-			this._detailViewClass = detailViewClass;
-		}
-		
 		private function addClicked(event:MouseEvent):void
 		{
 			var parameters:Object = buildParameters(model.create());
@@ -81,12 +74,14 @@ package gr.ictpro.mall.client.view
 		
 		private function showDetailClicked(event:Event):void
 		{
-			showDetail(buildParameters(event.target.selectedItem));
+			// Use a copy of the object and not the one in the list
+			showDetail(buildParameters(ObjectUtil.copy(event.target.selectedItem)));
 		}
 		
 		private function showDetail(parameters:Object):void
 		{
-			var detailView:TopBarDetailView = new _detailViewClass() as TopBarDetailView;
+			var detailViewClass:Class = model.getViewClass();
+			var detailView:TopBarDetailView = new detailViewClass() as TopBarDetailView;
 			addView.dispatch(detailView, parameters, view);
 			view.dispose();
 		}

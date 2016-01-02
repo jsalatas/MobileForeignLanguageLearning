@@ -57,7 +57,7 @@ package gr.ictpro.mall.client.view
 		private function listErrorHandler(classType:Class, errorMessage:String):void
 		{
 			if(classType == Notification) {
-				UI.showError(view, errorMessage);
+				UI.showError(errorMessage);
 			}
 		}
 

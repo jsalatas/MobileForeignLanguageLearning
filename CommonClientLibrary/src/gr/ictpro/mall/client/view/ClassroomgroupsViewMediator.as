@@ -17,7 +17,6 @@ package gr.ictpro.mall.client.view
 			super.onRegister();
 			
 			view.title = Translation.getTranslation("Classroom Groups");
-			setDetailViewClass(ClassroomgroupView);
 		}
 	}
 }

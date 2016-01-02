@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.view
 {
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
+	import mx.utils.ObjectUtil;
 	
 	import spark.collections.SortField;
 	
@@ -80,15 +81,18 @@ package gr.ictpro.mall.client.view
 		
 		override protected function saveHandler():void
 		{
+			var list:ArrayCollection = new ArrayCollection();
 			for each (var c:Config in model.list) {
-				c.value=settingsMap[c.name.replace(".", "_")].text;
+				var config:Config = Config(ObjectUtil.copy(c));
+				config.value=settingsMap[c.name.replace(".", "_")].text;
+				list.addItem(config);
 			}
 
 			var args:GenericServiceArguments = new GenericServiceArguments;
 			args.type = UPDATE_CONFIG;
 			args.destination = IServerPersistent(model).destination;
 			args.method = IServerPersistent(model).saveMethod;
-			args.arguments = model.list;
+			args.arguments = list;
 			addToSignal(genericCallSuccessSignal, success);
 			addToSignal(genericCallErrorSignal, error);
 			genericCallSignal.dispatch(args);

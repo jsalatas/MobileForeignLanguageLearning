@@ -150,7 +150,6 @@
     <classEntry path="gr.ictpro.mall.client.signal.ListSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.ListCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.DeleteCommand"/>
-    <classEntry path="gr.ictpro.mall.client.model.VOToModelMapper"/>
     <classEntry path="gr.ictpro.mall.client.model.IModel"/>
     <classEntry path="gr.ictpro.mall.client.model.ConfigModel"/>
     <classEntry path="gr.ictpro.mall.client.model.ClassroomgroupModel"/>
@@ -166,7 +165,7 @@
     <classEntry path="gr.ictpro.mall.client.signal.GenericCallSuccessSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.GenericCallErrorSignal"/>
     <classEntry path="gr.ictpro.mall.client.utils.collections.ArrayUtils"/>
-    <classEntry path="gr.ictpro.mall.client.view.ddd"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

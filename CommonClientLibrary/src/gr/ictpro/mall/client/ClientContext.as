@@ -21,7 +21,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.UserModel;
-	import gr.ictpro.mall.client.model.VOToModelMapper;
+	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
@@ -79,6 +79,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.ShellViewMediator;
 	import gr.ictpro.mall.client.view.UserView;
 	import gr.ictpro.mall.client.view.UserViewMediator;
+	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
+	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
 	
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.utilities.modular.mvcs.ModuleContext;
@@ -118,7 +120,7 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(RegistrationProviders);
 			injector.mapSingleton(LoadedSWFs);
 			
-			injector.mapSingleton(VOToModelMapper);
+			injector.mapSingleton(VOMapper);
 			injector.mapSingleton(ClassroomModel);
 			injector.mapSingleton(ClassroomgroupModel);
 			injector.mapSingleton(ConfigModel);
@@ -139,6 +141,9 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ClassroomView, ClassroomViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomgroupsView, ClassroomgroupsViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomgroupView, ClassroomgroupViewMediator, TopBarView);
+			
+			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
+			
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);
 			signalCommandMap.mapSignalClass(SavePropertySignal, SavePropertyCommand);

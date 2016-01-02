@@ -17,6 +17,8 @@ package gr.ictpro.mall.client.runtime
 	import spark.skins.spark.TextAreaSkin;
 	import spark.skins.spark.TextInputSkin;
 	import spark.skins.spark.VScrollBarSkin;
+	
+	import gr.ictpro.mall.client.view.ShellView;
 
 	public class Device
 	{
@@ -26,6 +28,8 @@ package gr.ictpro.mall.client.runtime
 		private static var _curAppDPI:Number = 160; 
 		
 		private static var _settings:RuntimeSettings; 
+		
+		public static var shellView:ShellView; 
 
 		public static function set device(device:IDevice):void
 		{

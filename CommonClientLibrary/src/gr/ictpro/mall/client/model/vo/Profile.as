@@ -19,6 +19,7 @@ package gr.ictpro.mall.client.model.vo
 		public var name:String;
 		public var photo:ByteArray;
 		public var color:int;
+		[Transient]
 		private var _image:Image;
 		
 		public function Profile()
