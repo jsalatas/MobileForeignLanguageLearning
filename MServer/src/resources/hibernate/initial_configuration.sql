@@ -60,7 +60,6 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Profile.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Server Configuration.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Choose Photo');
-		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Choose Photo');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Code');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Color');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Confirm Password');
