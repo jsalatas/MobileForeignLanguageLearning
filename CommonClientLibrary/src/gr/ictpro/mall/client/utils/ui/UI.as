@@ -32,12 +32,25 @@ package gr.ictpro.mall.client.utils.ui
 		public static function showError(parent:UIComponent, message:String, closeHandler:Function=null):void
 		{
 			var popup:PopupNotification = new PopupNotification();
+			popup.type = PopupNotification.TYPE_ERROR;
 			popup.message = Translation.getTranslation(message);
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}
 			popup.open(parent, true);
 
+		}
+
+		public static function showInfo(parent:UIComponent, message:String, closeHandler:Function=null):void
+		{
+			var popup:PopupNotification = new PopupNotification();
+			popup.type = PopupNotification.TYPE_INFO;
+			popup.message = Translation.getTranslation(message);
+			if(closeHandler != null) {
+				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
+			}
+			popup.open(parent, true);
+			
 		}
 
 	}

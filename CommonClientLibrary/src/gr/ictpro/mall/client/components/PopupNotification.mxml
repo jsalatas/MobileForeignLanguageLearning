@@ -2,19 +2,35 @@
 <s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 						   xmlns:s="gr.ictpro.mall.client.components.*"
 						   xmlns:fxg="assets.fxg.*"
-						   height="45" backgroundColor="#FFFFFF"
+						   height="45" backgroundColor="#FFFFFF" xmlns:mx="library://ns.adobe.com/flex/mx"
 						   >
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<s:states>
+		<mx:State name="info" />
+		<mx:State name="error" />
+	</s:states>
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.runtime.Device;
+			
+			public static var TYPE_ERROR:String = "error";
+			public static var TYPE_INFO:String = "info";
 			
 			import mx.events.ResizeEvent;
 			
 			[Bindable]
 			public var message:String = "";
+			
+			private var typeIsSet:Boolean = false;
+			
+			public function set type(type:String):void {
+				if(!typeIsSet) {
+					currentState = type;
+					typeIsSet = true;
+				}
+			}
 			
 			protected function closeHandler(event:MouseEvent):void
 			{
@@ -39,11 +55,14 @@
 		
 	<s:Group left="0" width="40" height="45">
 		<s:layout>
-			<s:HorizontalLayout paddingBottom="9" paddingLeft="5" paddingRight="5" paddingTop="9"/>
+			<s:HorizontalLayout paddingBottom="8" paddingLeft="5" paddingRight="6" paddingTop="8"/>
 		</s:layout>
-		<fxg:exclamation width="100%" height="100%"/>
+		<s:Group width="100%" height="100%">
+			<fxg:exclamation visible="false" visible.error="true" width="100%" height="100%"/>
+			<fxg:info visible="false" visible.info="true" width="100%" height="100%"/>
+		</s:Group>
 	</s:Group>
-	<s:Label left="43" right="48" height="100%" color="#FF0000" text="{message}"
+	<s:Label left="43" right="48" height="100%" color="{Device.getDefaultColor()}" color.error="#FF0000" text="{message}"
 			 verticalAlign="middle"/>
 	<s:Group right="0" width="45" height="45" click="closeHandler(event)">
 		<s:layout>
