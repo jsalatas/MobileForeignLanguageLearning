@@ -4,11 +4,7 @@
 					  xmlns:mx="library://ns.adobe.com/flex/mx"
 					  addedToStage="addedToStageHandler(event)" 
 					  width="100%"
-					  hasFocusableChildren="true"
-					  implements="mx.managers.IFocusManagerComponent"
-					  initialize="initializeHandler(event)" 	
-					  focusIn="group1_focusInHandler(event)"
-					  click="txt_clickHandler(event)"
+					  initialize="initializeHandler(event)"
 					  >
 
 	<fx:Metadata>
@@ -42,30 +38,13 @@
 			[Bindable]
 			private var _dataList:ArrayCollection;
 			
-			private var _maxWidth:int;
+			private var popUpMenu:PopUpMenu;
+		
+			private var mouseDown:Boolean=false;
 			
-//			[Bindable]
-//			private var controlHeight:int=0;
-//			
 			[Bindable]
 			public function set dataList(dataList:ArrayCollection):void {
 				this._dataList = dataList;
-				
-//				var format:TextFormat = new TextFormat();
-//				var popUpMenu:PopUpMenu = new PopUpMenu();
-//				format.font = popUpMenu.getStyle("font-family"); // since we're working with a css file for the styling
-//				format.size = popUpMenu.getStyle("font-size");
-//				var textField:TextField = new TextField();
-//				textField.defaultTextFormat = format;
-//				
-//				_maxWidth = 0;
-//				for each(var o:Object in dataList) {
-//					textField.text = o.text;
-//					if(_maxWidth < textField.textWidth) {
-//						_maxWidth = textField.textWidth;
-//					}
-//				}
-//				
 			}
 			
 			public function get dataList():ArrayCollection {
@@ -77,25 +56,40 @@
 				this.selected = selected;
 				dispatchEvent(new Event(Event.CHANGE));
 			}
-			
+
 			protected function txt_clickHandler(event:MouseEvent):void
 			{
-				var popUpMenu:PopUpMenu = new PopUpMenu();
-				popUpMenu.menuList = dataList;
-				popUpMenu.borderVisible = true;
-				var point:Point = localToGlobal(new Point(0, txt.height)); 
-				var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
-				var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
-
-				popUpMenu.x = point.x*curAppDPI/curDensity;
-				popUpMenu.y = point.y*curAppDPI/curDensity;
-				popUpMenu.minWidth = txt.width;
-//				popUpMenu.width = _maxWidth < txt.definedWidth || _maxWidth > txt.definedWidth * 1.5 ? txt.definedWidth : _maxWidth;
-				popUpMenu.percentHeight=100;
-				popUpMenu.itemSelected.add(popUpAction);
+				if(popUpMenu && mouseDown) {
+					trace("closing popup");
+//					popUpMenu.close();
+				} else {
+				if(!popUpMenu) {
+					popUpMenu = new PopUpMenu();
+					popUpMenu.menuList = dataList;
+					popUpMenu.borderVisible = true;
+					var point:Point = localToGlobal(new Point(0, txt.height)); 
+					var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+					var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+	
+					popUpMenu.x = point.x*curAppDPI/curDensity;
+					popUpMenu.y = point.y*curAppDPI/curDensity;
+					popUpMenu.minWidth = txt.width;
+					popUpMenu.percentHeight=100;
+					popUpMenu.itemSelected.add(popUpAction);
+					popUpMenu.popUpClosed.add(popUpClosed);
+					
+				}
 				popUpMenu.open(this, false);
 				popUpMenu.list.selectedItem = selected;
-				popUpMenu.list.setFocus();
+				//popUpMenu.list.setFocus();
+				}
+				mouseDown = false;
+
+			}
+			
+			protected function popUpClosed():void
+			{
+				txt.setFocus();
 			}
 			
 			protected function initializeHandler(event:Event):void
@@ -111,18 +105,29 @@
 				if(this.height == 0) {
 					this.height = 20;
 				}
+				txt.tabIndex = this.tabIndex;
+
 			}
 			
-			protected function group1_focusInHandler(event:FocusEvent):void
+//			protected function group1_focusInHandler(event:FocusEvent):void
+//			{
+//				txt.setFocus();
+//				
+//			}
+			
+			protected function txt_mouseDownHandler(event:MouseEvent):void
 			{
-				txt.setFocus();
+				if(popUpMenu && popUpMenu.isOpen) {
+					mouseDown = true;
+				}
 				
 			}
+			
 			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected}"  />
+	<s:Button skinClass="{Device.dropDownSkin}" id="txt" width="100%" label="{selected}" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
 	
 </s:Group>
