@@ -1,8 +1,10 @@
 package gr.ictpro.mall.client.controller
 {
-	import gr.ictpro.mall.client.service.RegistrationProvider;
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
+	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.ExternalModuleLoader;
+	import gr.ictpro.mall.client.service.RegistrationProvider;
 	import gr.ictpro.mall.client.service.RegistrationProviders;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	
@@ -15,6 +17,9 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var showRegistration:ShowRegistrationSignal;
+		
+		[Inject]
+		public var clientSettingsModel:ClientSettingsModel;
 		
 		[Inject]
 		public var settings:RuntimeSettings;
@@ -31,7 +36,7 @@ package gr.ictpro.mall.client.controller
 				if(registrationProvider.provider == null) {
 					showRegistration.dispatch(registrationProviders.getNextProvider(null));	
 				} else {
-					loader= new ExternalModuleLoader(settings.getClientSetting(RuntimeSettings.SERVER_URL)+ "/" + settings.getClientSetting(RuntimeSettings.MODULES_PATH)+ "/"+ registrationProvider.provider, registrationProvider.className);
+					loader= new ExternalModuleLoader(ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL)).value + "/" + ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.MODULES_PATH)).value + "/"+ registrationProvider.provider, registrationProvider.className);
 					injector.injectInto(loader);
 					loader.load();
 				}

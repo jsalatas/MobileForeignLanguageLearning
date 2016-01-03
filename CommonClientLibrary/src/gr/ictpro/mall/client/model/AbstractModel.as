@@ -35,6 +35,9 @@ package gr.ictpro.mall.client.model
 		public function init():void
 		{
 			mapper.mapClass(this, _voClass, _viewClass);
+			if(this is IClientPersistent) {
+				IClientPersistent(this).initializeDB();
+			}
 		}
 		
 		public function set list(list:ArrayCollection):void

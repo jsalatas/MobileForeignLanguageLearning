@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.controller
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
+	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.remoting.RemoteObject;
@@ -13,6 +14,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.IServerPersistent;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.service.Channel;
+	import gr.ictpro.mall.client.service.LocalDBStorage;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.SaveErrorSignal;
 	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
@@ -23,6 +25,9 @@ package gr.ictpro.mall.client.controller
 	{
 		[Inject]
 		public var channel:Channel;
+		
+		[Inject]
+		public var localDBStorage:LocalDBStorage;
 		
 		[Inject]
 		public var vo:Object;
@@ -68,18 +73,30 @@ package gr.ictpro.mall.client.controller
 		
 		protected function saveClientObject(model:IClientPersistent):void
 		{
-			//TODO:
+			try {
+				localDBStorage.saveObject(model, vo);
+			} catch (e:Error) {
+				saveError.dispatch(Class(getDefinitionByName(getQualifiedClassName(vo))), model.saveErrorMessage);
+				return; 
+			}
+			saveSuccess.dispatch(AbstractModel(model).getVOClass());
 		}
 		
 		protected function success(event:ResultEvent):void
 		{
 			var model:IPersistent = IPersistent(mapper.getModelforVO(Class(getDefinitionByName(getQualifiedClassName(vo)))));
+			if(model is IClientPersistent) {
+				listSignal.dispatch(AbstractModel(model).getVOClass());
+			}
 			saveSuccess.dispatch(Class(getDefinitionByName(getQualifiedClassName(vo))));
 		}
 		
 		protected function error(event:FaultEvent):void
 		{
 			var model:IPersistent = IPersistent(mapper.getModelforVO(Class(getDefinitionByName(getQualifiedClassName(vo)))));
+			if(model is IClientPersistent) {
+				model.list.removeAll();
+			}
 			saveError.dispatch(Class(getDefinitionByName(getQualifiedClassName(vo))), model.saveErrorMessage);
 		}
 	}

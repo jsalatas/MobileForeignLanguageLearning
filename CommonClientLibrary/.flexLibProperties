@@ -2,9 +2,7 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="gr.ictpro.mall.client.runtime.RuntimeSettings"/>
-    <classEntry path="gr.ictpro.mall.client.controller.SavePropertyCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.InitializeCommand"/>
-    <classEntry path="gr.ictpro.mall.client.signal.SavePropertySignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.InitializeSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.ShowAuthenticationSignal"/>
     <classEntry path="gr.ictpro.mall.client.view.ServerNameView"/>
@@ -166,6 +164,8 @@
     <classEntry path="gr.ictpro.mall.client.signal.GenericCallErrorSignal"/>
     <classEntry path="gr.ictpro.mall.client.utils.collections.ArrayUtils"/>
     <classEntry path="gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator"/>
+    <classEntry path="gr.ictpro.mall.client.model.ClientSettingsModel"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.ClientSetting"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

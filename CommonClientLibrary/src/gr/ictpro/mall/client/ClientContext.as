@@ -10,23 +10,25 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.MenuClickedCommand;
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SaveCommand;
-	import gr.ictpro.mall.client.controller.SavePropertyCommand;
 	import gr.ictpro.mall.client.controller.ServerNotificationClickedCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.model.ClassroomModel;
 	import gr.ictpro.mall.client.model.ClassroomgroupModel;
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.model.ConfigModel;
 	import gr.ictpro.mall.client.model.LanguageModel;
 	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.LoadedSWFs;
+	import gr.ictpro.mall.client.service.LocalDBStorage;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.service.RegistrationProviders;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
@@ -48,7 +50,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.signal.SaveErrorSignal;
-	import gr.ictpro.mall.client.signal.SavePropertySignal;
 	import gr.ictpro.mall.client.signal.SaveSignal;
 	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
@@ -119,6 +120,7 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(AuthenticationProviders);
 			injector.mapSingleton(RegistrationProviders);
 			injector.mapSingleton(LoadedSWFs);
+			injector.mapSingleton(LocalDBStorage);
 			
 			injector.mapSingleton(VOMapper);
 			injector.mapSingleton(ClassroomModel);
@@ -128,6 +130,7 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(NotificationModel);
 			injector.mapSingleton(RoleModel);
 			injector.mapSingleton(UserModel);
+			injector.mapSingleton(ClientSettingsModel);
 
 			
 			mediatorMap.mapView(ShellView, ShellViewMediator);
@@ -146,7 +149,6 @@ package gr.ictpro.mall.client
 			
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);
-			signalCommandMap.mapSignalClass(SavePropertySignal, SavePropertyCommand);
 			signalCommandMap.mapSignalClass(ShowAuthenticationSignal, ShowAuthenticationCommand);
 			signalCommandMap.mapSignalClass(LoginSignal, LoginCommand);
 			signalCommandMap.mapSignalClass(RegisterSignal, RegisterCommand);
@@ -168,6 +170,7 @@ package gr.ictpro.mall.client
 			injector.getInstance(NotificationModel);
 			injector.getInstance(RoleModel);
 			injector.getInstance(UserModel);
+			injector.getInstance(ClientSettingsModel);
 
 		}
 	}

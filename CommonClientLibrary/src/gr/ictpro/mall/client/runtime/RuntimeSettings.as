@@ -1,8 +1,10 @@
 package gr.ictpro.mall.client.runtime
 {
+	import flash.desktop.NativeApplication;
+	import flash.events.Event;
+	
 	import mx.collections.ArrayList;
 	
-	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.model.vo.User;
 
 	public class RuntimeSettings
@@ -11,33 +13,15 @@ package gr.ictpro.mall.client.runtime
 		public static const APP_PATH:String = "server.applicationPath";
 		public static const MODULES_PATH:String = "server.modulesPath";
 		
-		private var _clientSettings:Object = null;
 		private var _user:User = null;
 		private var _menu:ArrayList = null;
+		
+		public var language:String;
 		
 		public function RuntimeSettings()
 		{
 		}
 		
-		public function get clientSettings():Object 
-		{
-			return _clientSettings; 
-		}
-		
-		public function set clientSettings(clientSettings:Object):void 
-		{
-			this._clientSettings = clientSettings;
-		}
-
-		public function getClientSetting(name:String):String
-		{
-			if(_clientSettings != null && _clientSettings.hasOwnProperty(name))
-			{
-				return _clientSettings[name];
-			}
-			return null;
-		}
-
 		[Bindable]
 		public function get user():User 
 		{
@@ -59,5 +43,16 @@ package gr.ictpro.mall.client.runtime
 		{
 			this._menu = menu;
 		}
+		
+		public function terminate():void
+		{
+			var exitingEvent:Event = new Event(Event.EXITING, false, true); 
+			NativeApplication.nativeApplication.dispatchEvent(exitingEvent); 
+			if (!exitingEvent.isDefaultPrevented()) { 
+				NativeApplication.nativeApplication.exit(); 
+			} 
+			
+		}
+
 	}
 }

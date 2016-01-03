@@ -99,7 +99,7 @@ package gr.ictpro.mall.client.view
 		
 		private function saveError(classType:Class, errorMessage:String):void
 		{
-			if(classType == view.parameters.getVOClass()) {
+			if(classType == model.getVOClass()) {
 				if(errorMessage != null)
 					UI.showError(errorMessage);
 			}

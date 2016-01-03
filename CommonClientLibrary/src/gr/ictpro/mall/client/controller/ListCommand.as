@@ -1,6 +1,8 @@
 package gr.ictpro.mall.client.controller
 {
 	import flash.utils.ByteArray;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
@@ -13,6 +15,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.IServerPersistent;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.service.Channel;
+	import gr.ictpro.mall.client.service.LocalDBStorage;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	
@@ -34,6 +37,9 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var listError:ListErrorSignal;
+		
+		[Inject]
+		public var localDBStorage:LocalDBStorage;
 		
 		override public function execute():void
 		{
@@ -66,7 +72,13 @@ package gr.ictpro.mall.client.controller
 
 		protected function listClientObjects(model:IClientPersistent):void
 		{
-			//TODO:
+			try {
+				localDBStorage.loadObjects(model);
+			} catch (e:Error) {
+				listError.dispatch(AbstractModel(model), model.saveErrorMessage);
+				return; 
+			}
+			listSuccess.dispatch(AbstractModel(model).getVOClass());
 		}
 
 		protected function success(event:ResultEvent):void

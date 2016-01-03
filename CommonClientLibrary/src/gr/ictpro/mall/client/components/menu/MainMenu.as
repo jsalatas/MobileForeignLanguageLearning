@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.components.menu
 	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.view.ClassroomgroupsView;
 	import gr.ictpro.mall.client.view.ClassroomsView;
@@ -20,6 +21,10 @@ package gr.ictpro.mall.client.components.menu
 	{
 		[Inject]
 		public var userModel:UserModel;
+	
+		[Inject]
+		public var runtimeSettings:RuntimeSettings;
+		
 		
 		public function MainMenu()
 		{
@@ -46,20 +51,11 @@ package gr.ictpro.mall.client.components.menu
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));
-			res.addItem(new MenuItemCommand(Translation.getTranslation("Exit"), Icons.icon_logout, Device.defaultColorTransform, logout));
+			res.addItem(new MenuItemCommand(Translation.getTranslation("Exit"), Icons.icon_logout, Device.defaultColorTransform, runtimeSettings.terminate));
 			
 			return res;
 		}
 		
 		
-		public function logout():void
-		{
-			var exitingEvent:Event = new Event(Event.EXITING, false, true); 
-			NativeApplication.nativeApplication.dispatchEvent(exitingEvent); 
-			if (!exitingEvent.isDefaultPrevented()) { 
-				NativeApplication.nativeApplication.exit(); 
-			} 
-
-		}
 	}
 }
