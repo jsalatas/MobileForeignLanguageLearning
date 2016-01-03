@@ -70,21 +70,7 @@ public class ClassroomRemoteService {
     public void updateClassroom(Classroom classroom) {
 	classroom.setLanguage(languageService.retrieveById(classroom.getLanguage().getCode()));
 	Set<User> users = new HashSet<User>();
-//	for (User u : classroom.getUsers()) {
-//	    users.add(userService.retrieveById(u.getId()));
-//	}
-//	classroom.setUsers(users);
-//
-//	if (classroom.getClassroomgroups() == null) {
-//	    classroom.setClassroomgroups(new HashSet<Classroomgroup>(0));
-//	}
-//
-//	Set<Classroomgroup> classroomgroups = new HashSet<Classroomgroup>();
-//	for (Classroomgroup c : classroom.getClassroomgroups()) {
-//	    classroomgroups.add(classroomgroupService.retrieveById(c.getId()));
-//	}
-//	classroom.setClassroomgroups(classroomgroups);
-//
+
 	if (classroom.getId() == null) {
 	    classroomService.create(classroom);
 	} else {
@@ -113,7 +99,7 @@ public class ClassroomRemoteService {
     }
 
     public void updateClassroomgroup(Classroomgroup classroomgroup) {
-	if (classroomgroup.getId() == 0) {
+	if (classroomgroup.getId() == null) {
 	    classroomgroupService.create(classroomgroup);
 	} else {
 	    Classroomgroup persistentClassroomgroup = classroomgroupService.retrieveById(classroomgroup.getId());
