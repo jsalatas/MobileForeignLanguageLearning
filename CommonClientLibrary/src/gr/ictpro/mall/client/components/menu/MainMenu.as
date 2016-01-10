@@ -11,6 +11,7 @@ package gr.ictpro.mall.client.components.menu
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.view.CalendarMonthView;
 	import gr.ictpro.mall.client.view.ClassroomgroupsView;
 	import gr.ictpro.mall.client.view.ClassroomsView;
 	import gr.ictpro.mall.client.view.LanguagesView;
@@ -43,8 +44,12 @@ package gr.ictpro.mall.client.components.menu
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, ClassroomgroupsView)); 
 			}
 			
+			//Calendar View (common to all roles)
+			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Calendar"), Icons.icon_calendar, CalendarMonthView)); 
+
 			//Profile editor (common to all roles)
 			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, UserView)); 
+			
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));

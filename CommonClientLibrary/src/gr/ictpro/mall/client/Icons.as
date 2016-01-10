@@ -1,5 +1,6 @@
 package gr.ictpro.mall.client
 {
+	import assets.fxg.calendar;
 	import assets.fxg.camera;
 	import assets.fxg.classroom;
 	import assets.fxg.folder;
@@ -20,6 +21,7 @@ package gr.ictpro.mall.client
 		public static const icon_logout:logout = new logout();
 		public static const icon_camera:camera = new camera();
 		public static const icon_folder:folder = new folder();
+		public static const icon_calendar:calendar = new calendar();
 		
 		public function Icons()
 		{

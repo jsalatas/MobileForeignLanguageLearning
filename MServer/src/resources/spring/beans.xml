@@ -119,6 +119,23 @@
 			<value>gr.ictpro.mall.model.TranslationId</value>
         </constructor-arg>
 	</bean>
+	<bean id="calendarDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Calendar</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
+	
+	<bean id="scheduleDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Schedule</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="dao" ref="userDAO"></property>
 	</bean>
@@ -154,5 +171,11 @@
 	</bean>
 	<bean id="classroomgroupService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="classroomgroupDAO"></property>
+	</bean>
+	<bean id="calendarService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="calendarDAO"></property>
+	</bean>
+	<bean id="scheduleService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="scheduleDAO"></property>
 	</bean>
 </beans>

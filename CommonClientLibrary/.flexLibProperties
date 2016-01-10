@@ -184,6 +184,10 @@
     <classEntry path="gr.ictpro.mall.client.components.DetailTabMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.TopBarCustomView"/>
     <classEntry path="gr.ictpro.mall.client.view.TopBarCustomViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.Calendar"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.Schedule"/>
+    <classEntry path="gr.ictpro.mall.client.view.CalendarMonthView"/>
+    <classEntry path="gr.ictpro.mall.client.view.CalendarMonthViewMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

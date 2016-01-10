@@ -59,6 +59,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowErrorSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
+	import gr.ictpro.mall.client.view.CalendarMonthView;
+	import gr.ictpro.mall.client.view.CalendarMonthViewMediator;
 	import gr.ictpro.mall.client.view.ClassroomView;
 	import gr.ictpro.mall.client.view.ClassroomViewMediator;
 	import gr.ictpro.mall.client.view.ClassroomgroupView;
@@ -145,6 +147,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ClassroomView, ClassroomViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomgroupsView, ClassroomgroupsViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomgroupView, ClassroomgroupViewMediator, TopBarView);
+			mediatorMap.mapView(CalendarMonthView, CalendarMonthViewMediator, TopBarView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);

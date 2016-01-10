@@ -35,6 +35,8 @@
 				<value>gr.ictpro.mall.model.Classroomgroup</value>
 				<value>gr.ictpro.mall.model.EnglishText</value>
 				<value>gr.ictpro.mall.model.Translation</value>
+				<value>gr.ictpro.mall.model.Calendar</value>
+				<value>gr.ictpro.mall.model.Schedule</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

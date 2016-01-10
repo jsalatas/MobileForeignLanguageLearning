@@ -46,6 +46,8 @@ public class Classroom implements java.io.Serializable {
     private Set<EmailTranslation> emailTranslations = new HashSet<EmailTranslation>(0);
     private Set<User> students = new HashSet<User>(0);
     private User teacher;
+    private Set<Schedule> schedules = new HashSet<Schedule>(0);
+    private Set<Calendar> calendars = new HashSet<Calendar>(0);
 
     public Classroom() {
     }
@@ -55,7 +57,8 @@ public class Classroom implements java.io.Serializable {
     }
 
     public Classroom(Language language, String name, String notes, Set<Translation> translations,
-	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> students, User teacher) {
+	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> students, User teacher, 
+	    Set<Schedule> schedules, Set<Calendar> calendars) {
 	this.language = language;
 	this.name = name;
 	this.notes = notes;
@@ -63,6 +66,8 @@ public class Classroom implements java.io.Serializable {
 	this.classroomgroups = classroomgroups;
 	this.emailTranslations = emailTranslations;
 	this.students = students;
+	this.schedules = schedules;
+	this.calendars = calendars;
     }
 
     @Id
@@ -159,4 +164,23 @@ public class Classroom implements java.io.Serializable {
     public void setTeacher(User teacher) {
 	this.teacher = teacher;
     }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
+    public Set<Schedule> getSchedules() {
+	return this.schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+	this.schedules = schedules;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
+    public Set<Calendar> getCalendars() {
+	return this.calendars;
+    }
+
+    public void setCalendars(Set<Calendar> calendars) {
+	this.calendars = calendars;
+    }
+
 }
