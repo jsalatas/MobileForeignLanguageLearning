@@ -6,7 +6,6 @@ package gr.ictpro.mall.client.authentication
 
 	public class Initialize extends Module 
 	{
-		
 		public function Initialize() 
 		{
 		}

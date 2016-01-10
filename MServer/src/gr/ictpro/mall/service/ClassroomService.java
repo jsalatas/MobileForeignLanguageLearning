@@ -11,6 +11,4 @@ import gr.ictpro.mall.model.User;
  *
  */
 public interface ClassroomService extends GenericService<Classroom, Integer> {
-    public void replaceTeacher(Classroom c, User newTeacher);
-
 }

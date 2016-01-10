@@ -76,7 +76,7 @@ public class Classroomgroup implements java.io.Serializable {
 	this.notes = notes;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "classroom_classroomgroup", joinColumns = {
 	    @JoinColumn(name = "group_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "classroom_id", nullable = false, updatable = false) })

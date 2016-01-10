@@ -19,9 +19,11 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
+	import gr.ictpro.mall.client.signal.SaveSignal;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	
-	public class SettingsViewMediator extends TopBarDetailViewMediator
+	public class SettingsViewMediator extends TopBarCustomViewMediator
 	{
 		private static var UPDATE_CONFIG:String = "updateConfig";
 		
@@ -32,6 +34,9 @@ package gr.ictpro.mall.client.view
 		public var listConfigSignal:ListSignal;
 
 		[Inject]
+		public var saveSignal:SaveSignal;
+		
+		[Inject]
 		public var genericCallSignal:GenericCallSignal;
 
 		[Inject]
@@ -41,10 +46,15 @@ package gr.ictpro.mall.client.view
 		public var genericCallErrorSignal:GenericCallErrorSignal;
 		
 		[Inject]
-		public function set configModel(model:ConfigModel):void
-		{
-			super.model = model as AbstractModel;
-		}
+		public var model:ConfigModel;
+		
+//		[Inject]
+//		public var saveSuccessSignal:SaveSuccessSignal;
+//		
+//		[Inject]
+//		public var saveErrorSignal:SaveErrorSignal;
+		
+
 		
 		private var settingsMap:Object = new Object();
 		
@@ -79,7 +89,12 @@ package gr.ictpro.mall.client.view
 			}
 		}
 		
-		override protected function saveHandler():void
+		override protected function cancelHandler():void
+		{
+			super.back();
+		}
+		
+		override protected function okHandler():void
 		{
 			var list:ArrayCollection = new ArrayCollection();
 			for each (var c:Config in model.list) {
@@ -101,14 +116,19 @@ package gr.ictpro.mall.client.view
 		private function success(type:String, result:Object):void
 		{
 			if(type == UPDATE_CONFIG) {
-				saveSuccessSignal.dispatch(Config);
+				
+				if(view.parameters != null && view.parameters.notification != null) {
+					saveSignal.dispatch(view.parameters.notification);
+				}
+
+				super.back();
 			}
 		}
 
 		private function error(type:String, event:FaultEvent):void
 		{
 			if(type == UPDATE_CONFIG) {
-				saveErrorSignal.dispatch(Config, IServerPersistent(model).saveErrorMessage);
+				UI.showError(ConfigModel(model).saveErrorMessage);
 			}
 		}
 

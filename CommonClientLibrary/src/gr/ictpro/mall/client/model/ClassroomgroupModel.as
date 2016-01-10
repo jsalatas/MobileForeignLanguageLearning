@@ -1,15 +1,19 @@
 package gr.ictpro.mall.client.model
 {
 	
+	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.view.ClassroomgroupView;
+	import gr.ictpro.mall.client.view.components.ClassroomgroupComponent;
 
 	public class ClassroomgroupModel extends AbstractModel  implements IServerPersistent
 	{
 		public function ClassroomgroupModel()
 		{
-			super(Classroomgroup, ClassroomgroupView);
+			super(Classroomgroup, ClassroomgroupView, ClassroomgroupComponent);
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, false, null, null));
 		}
 		
 		public function get deleteErrorMessage():String
@@ -55,6 +59,7 @@ package gr.ictpro.mall.client.model
 		{
 			return isNaN(vo[idField]);
 		}
-
+		
+		
 	}
 }

@@ -29,23 +29,4 @@ public class ClassroomServiceImpl extends GenericServiceImpl<Classroom, Integer>
         // Never show the master classroom 
 	return listByCustomSQL("FROM Classroom WHERE id <> 0");
     }
-
-    @Transactional
-    @Override
-    public void replaceTeacher(Classroom c, User newTeacher) {
-	if (c.getUsers() instanceof HibernateProxy) {
-	    Hibernate.initialize(c.getUsers());
-	}
-
-	//remove old teacher
-	for (User u : c.getUsers()) {
-	    if (u.hasRole("Teacher")) {
-		c.getUsers().remove(u);
-		break;
-	    }
-	}
-	c.getUsers().add(newTeacher);
-	update(c);
-    }
-
 }

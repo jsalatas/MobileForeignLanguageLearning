@@ -1,17 +1,12 @@
 package gr.ictpro.mall.client.components.menu
 {
-	import flash.geom.ColorTransform;
-	
-	import spark.core.SpriteVisualElement;
-	import spark.filters.ColorMatrixFilter;
-	import spark.primitives.Graphic;
 
 	public class MenuItemExternalModule extends MenuItemIcon
 	{
 		private var _moduleName:String;
-		public function MenuItemExternalModule(text:String, icon:Object, colorTransform:ColorTransform, moduleName:String)
+		public function MenuItemExternalModule(text:String, icon:Object, moduleName:String)
 		{
-			super(text, icon, colorTransform);
+			super(text, icon);
 			this._moduleName = moduleName;
 		}
 	}

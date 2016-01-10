@@ -1,8 +1,15 @@
 package gr.ictpro.mall.client.components
 {
-	import gr.ictpro.mall.client.runtime.Device;
+	import flash.display.DisplayObjectContainer;
+	
+	import mx.core.UIComponent;
+	import mx.core.mx_internal;
 	
 	import spark.components.Group;
+	
+	import gr.ictpro.mall.client.runtime.Device;
+	
+	use namespace mx_internal;
 	
 	public class Group extends spark.components.Group
 	{

@@ -13,7 +13,8 @@ package gr.ictpro.mall.client.model.vo
 		public var translations:ArrayCollection;
 		public var classroomgroups:ArrayCollection;
 		public var emailTranslations:ArrayCollection;
-		public var users:ArrayCollection;
+		public var students:ArrayCollection;
+		public var teacher:User;
 		
 		public function Classroom()
 		{
@@ -21,7 +22,7 @@ package gr.ictpro.mall.client.model.vo
 
 		public function toString():String
 		{
-			return name + (language!=null?"("+language.code+")":"");
+			return name + (language!=null?" ("+language.code+")":"");
 		}
 	}
 }

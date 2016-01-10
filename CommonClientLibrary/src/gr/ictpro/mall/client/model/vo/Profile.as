@@ -38,7 +38,7 @@ package gr.ictpro.mall.client.model.vo
 				_image = new Image(); 
 				if(photo == null) {
 					_image.source = Icons.icon_defaultProfile;
-					this._image.transform.colorTransform = Device.defaultColorTransform;
+					this._image.transform.colorTransform = Device.getDefaultColorTransform();
 				} else {
 					var ba:ByteArray = photo;
 					var width:int= ba.readInt();

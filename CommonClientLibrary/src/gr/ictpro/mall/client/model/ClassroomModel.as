@@ -1,16 +1,35 @@
 package gr.ictpro.mall.client.model
 {
+	import mx.collections.ArrayCollection;
+	
 	import gr.ictpro.mall.client.model.vo.Classroom;
+	import gr.ictpro.mall.client.model.vo.Classroomgroup;
+	import gr.ictpro.mall.client.model.vo.User;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
+	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.view.ClassroomView;
+	import gr.ictpro.mall.client.view.components.ClassroomComponent;
+	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 
 	public class ClassroomModel extends AbstractModel implements IServerPersistent
 	{
 		public function ClassroomModel()
 		{
-			super(Classroom, ClassroomView);
+			super(Classroom, ClassroomView, ClassroomComponent);
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null));
+			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, false, null, null));
+			addDetail(new DetailMapper("Students", "students", User, null, filterStudents, null, false, null, null));
+
 		}
 
+		private function filterStudents(item:Object):Boolean
+		{
+			var userModel:UserModel = UserModel(mapper.getModelforVO(User));
+			var user:User = User(item);
+			return UserModel.isStudent(user);
+		}
+		
 		public function get saveErrorMessage():String
 		{
 			return Translation.getTranslation("Cannot Save Classroom");

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VOEditor xmlns:fx="http://ns.adobe.com/mxml/2009"
+				  xmlns:s="gr.ictpro.mall.client.components.*"
+				  xmlns:mx="library://ns.adobe.com/flex/mx"
+				  width="100%" height="100%" >
+	<s:states>
+		<mx:State name="new" />
+		<mx:State name="edit" />
+		<mx:State name="view" />
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Translation;
+		]]>
+	</fx:Script>
+		<s:layout>
+			<s:FormLayout/>
+		</s:layout>
+		<s:FormItem width="100%" label="{Translation.getTranslation('Language Code')}">
+			<s:TextInput id="txtCode" width="100%" text="@{vo.code}" enabled.new="true" enabled.edit="false" textAlign="left"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('English Name')}">
+			<s:TextInput id="txtEnglishName" width="100%" text="@{vo.englishName}" textAlign="left"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('Local Name')}">
+			<s:TextInput id="txtLocalName" width="100%" text="@{vo.localName}" textAlign="left"/>
+		</s:FormItem>
+
+</s:VOEditor>

@@ -4,6 +4,7 @@ package gr.ictpro.mall.client.view
 	
 	import spark.collections.SortField;
 	
+	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.ClassroomModel;
 	import gr.ictpro.mall.client.model.LanguageModel;
@@ -44,12 +45,10 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			
-			ClassroomView(view).userModel = userModel;
-			
 			addToSignal(listSuccessSignal, listSuccess);
 
-			if(settings.user != null && !userModel.isAdmin(settings.user)) {
-				ClassroomView(view).teacher.visible = false;
+			if(settings.user != null && ! UserModel.isAdmin(settings.user)) {
+				TopBarDetailView(view).editor["teacher"].visible = false;
 			} else {
 				var args:Object = new Object();
 				listSignal.dispatch(User);
@@ -59,48 +58,31 @@ package gr.ictpro.mall.client.view
 
 		private function listSuccess(classType:Class):void {
 			if(classType == Language) {
-				ClassroomView(view).languages = languageModel.getSortedListByFields([new SortField("englishName")]);
+				TopBarDetailView(view).editor["languages"] = languageModel.getSortedListByFields([new SortField("englishName")]);
 			} else if (classType == User) {
-				ClassroomView(view).teachers = userModel.getFilteredList(filterTeachers);
+				TopBarDetailView(view).editor["teachers"] = userModel.getFilteredList(filterTeachers);
 			}
 		}
 		
 		private function filterTeachers(item:Object):Boolean {
 			var user:User = User(item);
-			return userModel.isTeacher(user);
+			return UserModel.isTeacher(user);
 		}
 		
 		override protected function beforeSaveHandler():void
 		{
-			Classroom(view.parameters.vo).name = ClassroomView(view).txtName.text;
-			Classroom(view.parameters.vo).notes = ClassroomView(view).txtNotes.text;
-			Classroom(view.parameters.vo).language =  Language(ClassroomView(view).languagePopup.selected);
+//			Classroom(view.parameters.vo).name = TopBarDetailView(view).editor["txtName"].text;
+//			Classroom(view.parameters.vo).notes = TopBarDetailView(view).editor["txtNotes"].text;
+			Classroom(view.parameters.vo).language =  Language(TopBarDetailView(view).editor["languagePopup"].selected);
 			
 			var newTeacher:User;
-			if(userModel.isAdmin(settings.user)) {
-				newTeacher = User(ClassroomView(view).teacherPopup.selected); 
+			if(UserModel.isAdmin(settings.user)) {
+				newTeacher = User(TopBarDetailView(view).editor["teacherPopup"].selected); 
 			} else {
 				newTeacher = settings.user;
 			}
 			
-			if(Classroom(view.parameters.vo).users == null) {
-				Classroom(view.parameters.vo).users = new ArrayCollection();
-			}
-			
-			// Get old Teacher (if exists)
-			var oldTeacher:User = null;
-			for each(var user:User in Classroom(view.parameters.vo).users) {
-				if(userModel.isTeacher(user)) {
-					oldTeacher = user;
-					break;
-				}
-			}
-			
-			if(oldTeacher != null) {
-				Classroom(view.parameters.vo).users.removeItemAt(Classroom(view.parameters.vo).users.getItemIndex(oldTeacher));
-			}
-			
-			Classroom(view.parameters.vo).users.addItem(newTeacher);
+			Classroom(view.parameters.vo).teacher = newTeacher;
 		}
 		
 		override protected function validateSave():Boolean
@@ -110,20 +92,12 @@ package gr.ictpro.mall.client.view
 				return false;
 			}
 			
-			if(ClassroomView(view).languagePopup.selected == null) {
+			if(TopBarDetailView(view).editor["languagePopup"].selected == null) {
 				UI.showError(Translation.getTranslation("Please Assign a Language to the Classroom"));
 				return false;
 			}
 			
-			var teacher:User = null;
-			for each(var user:User in Classroom(view.parameters.vo).users) {
-				if(userModel.isTeacher(user)) {
-					teacher = user;
-					break;
-				}
-			}
-
-			if(teacher == null) {
+			if(Classroom(view.parameters.vo).teacher  == null) {
 				UI.showError(Translation.getTranslation("Please Assign a Teacher to the Classroom"));
 				return false;
 			}

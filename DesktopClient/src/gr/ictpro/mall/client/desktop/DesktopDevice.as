@@ -1,6 +1,7 @@
 package gr.ictpro.mall.client.desktop
 {
 	
+	import gr.ictpro.mall.client.desktop.skins.ButtonBarSkin;
 	import gr.ictpro.mall.client.desktop.skins.ButtonSkin;
 	import gr.ictpro.mall.client.desktop.skins.CheckBoxSkin;
 	import gr.ictpro.mall.client.desktop.skins.ColorDropDownSkin;
@@ -47,6 +48,11 @@ package gr.ictpro.mall.client.desktop
 			return ButtonSkin;
 		}
 			
+		public function get buttonBarSkin():Class
+		{
+			return ButtonBarSkin;
+		}
+		
 		public function get imageSkin():Class
 		{
 			return ImageSkin;

@@ -1,6 +1,7 @@
 package gr.ictpro.mall.client.view
 {
 	
+	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.LanguageModel;
 	import gr.ictpro.mall.client.model.vo.Classroom;
@@ -27,9 +28,9 @@ package gr.ictpro.mall.client.view
 		
 		override protected function beforeSaveHandler():void
 		{
-			Language(view.parameters.vo).code = LanguageView(view).txtCode.text;
-			Language(view.parameters.vo).englishName = LanguageView(view).txtEnglishName.text;
-			Language(view.parameters.vo).localName = LanguageView(view).txtLocalName.text;
+//			Language(view.parameters.vo).code = TopBarDetailView(view).editor["txtCode"].text;
+//			Language(view.parameters.vo).englishName = TopBarDetailView(view).editor["txtEnglishName"].text;
+//			Language(view.parameters.vo).localName = TopBarDetailView(view).editor["txtLocalName"].text;
 		}
 		
 		

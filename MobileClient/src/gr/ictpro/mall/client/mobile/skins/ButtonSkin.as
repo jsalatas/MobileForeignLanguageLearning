@@ -188,7 +188,7 @@ package gr.ictpro.mall.client.mobile.skins
 		{
 			graphics.lineStyle(currentState=="up"?lineWidthUp:lineWidthDown, Device.getDefaultColor(), currentState=="disabled"?0.5:1, true, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
 			
-			graphics.beginFill(Device.getDefaultColor(), currentState == "up"?0.03:(currentState=="disabled"?0.5:0.07));
+			graphics.beginFill(Device.getDefaultColor(), currentState == "up"?0.03:(currentState=="disabled"?0:0.07));
 			
 			graphics.drawRoundRect(layoutBorderSize + x, layoutBorderSize + y, 
 				unscaledWidth - (layoutBorderSize * 2), 

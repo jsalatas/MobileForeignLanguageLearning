@@ -65,18 +65,18 @@
 					popUpMenu = new PopUpMenu();
 					popUpMenu.menuList = dataList;
 					popUpMenu.borderVisible = true;
-					var point:Point = localToGlobal(new Point(0, txt.height)); 
-					var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
-					var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
-	
-					popUpMenu.x = point.x*curAppDPI/curDensity;
-					popUpMenu.y = point.y*curAppDPI/curDensity;
-					popUpMenu.minWidth = txt.width;
 					popUpMenu.percentHeight=100;
 					popUpMenu.itemSelected.add(popUpAction);
 					popUpMenu.popUpClosed.add(popUpClosed);
 					
 				}
+				var point:Point = localToGlobal(new Point(0, txt.height)); 
+				var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+				var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+				
+				popUpMenu.x = point.x*curAppDPI/curDensity;
+				popUpMenu.y = point.y*curAppDPI/curDensity;
+				popUpMenu.minWidth = txt.width;
 				popUpMenu.open(this, false);
 				popUpMenu.list.selectedItem = selected;
 				}

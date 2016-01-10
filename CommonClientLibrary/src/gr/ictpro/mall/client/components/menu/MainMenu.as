@@ -20,9 +20,6 @@ package gr.ictpro.mall.client.components.menu
 	public class MainMenu
 	{
 		[Inject]
-		public var userModel:UserModel;
-	
-		[Inject]
 		public var runtimeSettings:RuntimeSettings;
 		
 		
@@ -36,22 +33,22 @@ package gr.ictpro.mall.client.components.menu
 			res.addItem(new MenuItemGroup(Translation.getTranslation("Manage")));
 
 			// System Settings (admin) 
-			if(userModel.isAdmin(user)) {
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Server Settings"), Icons.icon_settings, Device.defaultColorTransform, SettingsView)); 
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, Device.defaultColorTransform, LanguagesView)); 
+			if(UserModel.isAdmin(user)) {
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Server Settings"), Icons.icon_settings, SettingsView)); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Languages"), Icons.icon_languages, LanguagesView)); 
 			}
 			
-			if(userModel.isAdmin(user) || userModel.isTeacher(user)) {
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, Device.defaultColorTransform, ClassroomsView)); 
-				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, Device.defaultColorTransform, ClassroomgroupsView)); 
+			if(UserModel.isAdmin(user) || UserModel.isTeacher(user)) {
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, ClassroomsView)); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, ClassroomgroupsView)); 
 			}
 			
 			//Profile editor (common to all roles)
-			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, Device.defaultColorTransform, UserView)); 
+			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Profile"), Icons.icon_profile, UserView)); 
 			
 			// Exit command (common to all roles)
 			res.addItem(new MenuItemGroup(""));
-			res.addItem(new MenuItemCommand(Translation.getTranslation("Exit"), Icons.icon_logout, Device.defaultColorTransform, runtimeSettings.terminate));
+			res.addItem(new MenuItemCommand(Translation.getTranslation("Exit"), Icons.icon_logout, runtimeSettings.terminate));
 			
 			return res;
 		}

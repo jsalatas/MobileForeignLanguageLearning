@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.utils.collections.ArrayUtils;
 	import gr.ictpro.mall.client.view.UserView;
+	import gr.ictpro.mall.client.view.components.UserComponent;
 
 	public class UserModel extends AbstractModel implements IServerPersistent
 	{
@@ -11,7 +12,7 @@ package gr.ictpro.mall.client.model
 		
 		public function UserModel()
 		{
-			super(User, UserView);
+			super(User, UserView, UserComponent);
 		}
 		
 		public function get saveErrorMessage():String
@@ -59,22 +60,22 @@ package gr.ictpro.mall.client.model
 			return "getUsers";
 		}
 		
-		public function isAdmin(user:User):Boolean
+		public static function isAdmin(user:User):Boolean
 		{
 			return ArrayUtils.getItemIndexByProperty(user.roles.source, "role", "Admin") != -1;
 		}
 
-		public function isTeacher(user:User):Boolean
+		public static function isTeacher(user:User):Boolean
 		{
 			return ArrayUtils.getItemIndexByProperty(user.roles.source, "role", "Teacher") != -1;
 		}
 
-		public function isStudent(user:User):Boolean
+		public static function isStudent(user:User):Boolean
 		{
 			return ArrayUtils.getItemIndexByProperty(user.roles.source, "role", "Student") != -1;
 		}
 		
-		public function isParent(user:User):Boolean
+		public static function isParent(user:User):Boolean
 		{
 			return ArrayUtils.getItemIndexByProperty(user.roles.source, "role", "Parent") != -1;
 		}

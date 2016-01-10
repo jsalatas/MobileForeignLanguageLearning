@@ -82,7 +82,6 @@
     <classEntry path="gr.ictpro.mall.client.moblie.skins.ButtonSkin"/>
     <classEntry path="gr.ictpro.mall.client.moblie.skins.SkinnableContainerSkin"/>
     <classEntry path="gr.ictpro.mall.client.components.Scroller"/>
-    <classEntry path="gr.ictpro.mall.client.components.ScrollableGroup"/>
     <classEntry path="gr.ictpro.mall.client.utils.string.IntoToHexString"/>
     <classEntry path="gr.ictpro.mall.client.components.renderers.ColorItemRenderer"/>
     <classEntry path="gr.ictpro.mall.client.components.ColoredButton"/>
@@ -100,7 +99,6 @@
     <classEntry path="gr.ictpro.mall.client.runtime.Translation"/>
     <classEntry path="gr.ictpro.mall.client.components.CheckBox"/>
     <classEntry path="gr.ictpro.mall.client.view.LanguagesView"/>
-    <classEntry path="gr.ictpro.mall.client.view.LanguagesViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.DataGrid"/>
     <classEntry path="gr.ictpro.mall.client.utils.ui.UI"/>
     <classEntry path="gr.ictpro.mall.client.model.GenericServerPersistentObject"/>
@@ -166,6 +164,26 @@
     <classEntry path="gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator"/>
     <classEntry path="gr.ictpro.mall.client.model.ClientSettingsModel"/>
     <classEntry path="gr.ictpro.mall.client.model.vo.ClientSetting"/>
+    <classEntry path="gr.ictpro.mall.client.components.ButtonBar"/>
+    <classEntry path="gr.ictpro.mall.client.components.ButtonBarButton"/>
+    <classEntry path="gr.ictpro.mall.client.components.DataGroup"/>
+    <classEntry path="gr.ictpro.mall.client.components.ButtonBarHorizontalLayout"/>
+    <classEntry path="gr.ictpro.mall.client.components.renderers.DetailListRenderer"/>
+    <classEntry path="gr.ictpro.mall.client.view.LanguagesViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.ClassroomgroupComponent"/>
+    <classEntry path="gr.ictpro.mall.client.components.VOEditor"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.ClassroomComponent"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.UserComponent"/>
+    <classEntry path="gr.ictpro.mall.client.components.ImageAttacher"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.SettingsViewComponent"/>
+    <classEntry path="gr.ictpro.mall.client.model.vomapper.DetailMapper"/>
+    <classEntry path="gr.ictpro.mall.client.components.DetailTab"/>
+    <classEntry path="gr.ictpro.mall.client.components.VOViewerPopup"/>
+    <classEntry path="gr.ictpro.mall.client.components.MultiselectList"/>
+    <classEntry path="gr.ictpro.mall.client.components.MultiSelectPopup"/>
+    <classEntry path="gr.ictpro.mall.client.components.DetailTabMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.TopBarCustomView"/>
+    <classEntry path="gr.ictpro.mall.client.view.TopBarCustomViewMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

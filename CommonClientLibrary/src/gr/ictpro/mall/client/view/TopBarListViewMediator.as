@@ -82,6 +82,7 @@ package gr.ictpro.mall.client.view
 		{
 			var detailViewClass:Class = model.getViewClass();
 			var detailView:TopBarDetailView = new detailViewClass() as TopBarDetailView;
+//			detailView.model = model;
 			addView.dispatch(detailView, parameters, view);
 			view.dispose();
 		}

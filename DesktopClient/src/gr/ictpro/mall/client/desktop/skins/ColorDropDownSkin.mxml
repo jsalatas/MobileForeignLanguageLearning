@@ -51,7 +51,7 @@ in accordance with the terms of the license agreement accompanying it.
 			
 			protected function initializeHandler(event:Event):void
 			{
-				event.target.transform.colorTransform = Device.defaultColorTransform;
+				event.target.transform.colorTransform = Device.getDefaultColorTransform();
 			}
 		]]>
 	</fx:Script>

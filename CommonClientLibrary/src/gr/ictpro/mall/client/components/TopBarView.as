@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.components
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TouchEvent;
 	
 	import mx.core.IVisualElement;
 	import mx.core.IVisualElementContainer;
@@ -35,7 +36,7 @@ package gr.ictpro.mall.client.components
 		public var cancelButton:Boolean = false;
 		protected var _title:String;
 		private var _titleLabel:Label; 
-		protected var mxmlContentGroup:Group; 
+//		protected var mxmlContentGroup:Group; 
 		private var _masterView:IVisualElement;
 		private var _parameters:ViewParameters;
 		private var _groupDelete:Group;
@@ -48,7 +49,6 @@ package gr.ictpro.mall.client.components
 		public function TopBarView()
 		{
 			super();
-			mxmlContentGroup = new Group();
 		}
 		
 		[Bindable]
@@ -92,6 +92,20 @@ package gr.ictpro.mall.client.components
 			return this._parameters;
 		}
 		
+		public function invalidateChildren():void {
+			removeAllElements();
+			createChildren();
+			if(_disableCancel) {
+				disableCancel();
+			}
+			if(_disableDelete) {
+				disableDelete();
+			}
+			if(_disableOK) {
+				disableOK();
+			}
+		}
+		
 		override protected function createChildren():void
 		{
 			super.createChildren();
@@ -118,9 +132,10 @@ package gr.ictpro.mall.client.components
 			// Back button and title
 			var bgroup:Group = new Group();
 			var l1:HorizontalLayout = new HorizontalLayout();
-			l1.paddingLeft = 10;
-			l1.paddingRight = 10;
-			l1.gap = 10;
+			
+			l1.paddingLeft = 3;
+			l1.paddingRight = 2;
+			l1.gap = 0;
 			l1.verticalAlign = VerticalAlign.MIDDLE;
 			bgroup.layout = l1;
 			bgroup.left = 0;
@@ -132,6 +147,17 @@ package gr.ictpro.mall.client.components
 			fxgBack.height = Device.getScaledSize(15);
 			
 			var groupBack:Group = new Group();
+
+			groupBack.width = 31;
+			groupBack.height = 30;
+			var layout1:HorizontalLayout =  new HorizontalLayout();
+			layout1.paddingTop = 7;
+			layout1.paddingLeft = 7; 
+			layout1.paddingBottom = 8;
+			layout1.paddingRight = 8; 
+			groupBack.layout = layout1;
+			
+			
 			groupBack.addElement(fxgBack);
 			groupBack.addEventListener(MouseEvent.CLICK, backClickedHandler);
 			bgroup.addElement(groupBack);
@@ -154,8 +180,8 @@ package gr.ictpro.mall.client.components
 			var ocgroup:Group = new Group();
 			var l2:HorizontalLayout = new HorizontalLayout();
 			l2.paddingLeft = 10;
-			l2.paddingRight = 10;
-			l2.gap = 10;
+			l2.paddingRight = 2;
+			l2.gap = 0;
 			l2.verticalAlign = VerticalAlign.MIDDLE;
 			ocgroup.layout = l2;
 			ocgroup.right = 0;
@@ -167,6 +193,17 @@ package gr.ictpro.mall.client.components
 				fxgAdd.width = Device.getScaledSize(15);
 				fxgAdd.height = Device.getScaledSize(15);
 				var groupAdd:Group = new Group();
+				
+				groupAdd.width = 30;
+				groupAdd.height = 30;
+				var layout2:HorizontalLayout =  new HorizontalLayout();
+				layout2.paddingTop = 7;
+				layout2.paddingLeft = 7; 
+				layout2.paddingBottom = 8;
+				layout2.paddingRight = 8; 
+				groupAdd.layout = layout2;
+
+				
 				groupAdd.addElement(fxgAdd);
 				groupAdd.addEventListener(MouseEvent.CLICK, addClickedHandler);
 				
@@ -178,6 +215,18 @@ package gr.ictpro.mall.client.components
 				fxgDelete.width = Device.getScaledSize(11);
 				fxgDelete.height = Device.getScaledSize(15);
 				_groupDelete = new Group();
+				
+				_groupDelete.width = 21;
+				_groupDelete.height = 30;
+				var layout3:HorizontalLayout =  new HorizontalLayout();
+				layout3.paddingTop = 7;
+				layout3.paddingLeft = 7; 
+				layout3.paddingBottom = 8;
+				layout3.paddingRight = 3; 
+				_groupDelete.layout = layout3;
+
+				
+				
 				_groupDelete.addElement(fxgDelete);
 				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
 				
@@ -188,9 +237,20 @@ package gr.ictpro.mall.client.components
 				var fxgOk:ok = new ok();
 				fxgOk.width = Device.getScaledSize(21);
 				fxgOk.height = Device.getScaledSize(15);
-				fxgOk.left = 10;
+				//fxgOk.left = 10;
 				_groupOK = new Group();
+				
+				_groupOK.width = 31;
+				_groupOK.height = 30;
+				var layout4:HorizontalLayout =  new HorizontalLayout();
+				layout4.paddingTop = 7;
+				layout4.paddingLeft = 7; 
+				layout4.paddingBottom = 8;
+				layout4.paddingRight = 3; 
+				_groupOK.layout = layout4;
+
 				_groupOK.addElement(fxgOk);
+				
 				_groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
 				
 				ocgroup.addElement(_groupOK);
@@ -200,8 +260,20 @@ package gr.ictpro.mall.client.components
 				var fxgCancel:cancel = new cancel();
 				fxgCancel.width = Device.getScaledSize(15);
 				fxgCancel.height = Device.getScaledSize(15);
-				fxgCancel.left = okButton?0:10;
+				//fxgCancel.left = okButton?0:10;
 				_groupCancel = new Group();
+				
+				_groupCancel.width = 30;
+				_groupCancel.height = 30;
+				var layout5:HorizontalLayout =  new HorizontalLayout();
+				layout5.paddingTop = 7;
+				layout5.paddingLeft = 7; 
+				layout5.paddingBottom = 8;
+				layout5.paddingRight = 8; 
+				_groupCancel.layout = layout5;
+				
+
+				
 				_groupCancel.addElement(fxgCancel);
 				_groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
 				ocgroup.addElement(_groupCancel);
@@ -209,56 +281,39 @@ package gr.ictpro.mall.client.components
 			
 			topBarGroup.addElement(ocgroup);
 			//addElement(mxmlContentGroup);
-			mxmlContentGroup.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 
 		}
 
-		private function removedFromStageHandler(event:Event):void 
+		private function backClickedHandler(event:Event):void
 		{
-			mxmlContentGroup.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-		}
-		
-		override public function set layout(value:LayoutBase):void
-		{
-			mxmlContentGroup.layout = layout;
-		}
-		
-		private function backClickedHandler(event:MouseEvent):void
-		{
-			var e:MouseEvent = new MouseEvent("backClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			var e:MouseEvent = new MouseEvent("backClicked");
 			dispatchEvent(e);
 		}
 		
-		private function okClickedHandler(event:MouseEvent):void
+		private function okClickedHandler(event:Event):void
 		{
-			var e:MouseEvent = new MouseEvent("okClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			var e:MouseEvent = new MouseEvent("okClicked");
 			dispatchEvent(e);
 		}
 		
-		private function addClickedHandler(event:MouseEvent):void
+		private function addClickedHandler(event:Event):void
 		{
-			var e:MouseEvent = new MouseEvent("addClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			var e:MouseEvent = new MouseEvent("addClicked");
 			dispatchEvent(e);
 		}
 		
-		private function deleteClickedHandler(event:MouseEvent):void
+		private function deleteClickedHandler(event:Event):void
 		{
-			var e:MouseEvent = new MouseEvent("deleteClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			var e:MouseEvent = new MouseEvent("deleteClicked");
 			dispatchEvent(e);
 		}
 		
-		private function cancelClickedHandler(event:MouseEvent):void
+		private function cancelClickedHandler(event:Event):void
 		{
-			var e:MouseEvent = new MouseEvent("cancelClicked", event.bubbles, event.cancelable, event.localX, event.localY, event.relatedObject, event.ctrlKey, event.altKey, event.shiftKey, event.buttonDown, event.delta, event.commandKey, event.controlKey, event.clickCount);
+			var e:MouseEvent = new MouseEvent("cancelClicked");
 			dispatchEvent(e);
 		}
 		
-		override public function set mxmlContent(value:Array):void
-		{
-			mxmlContentGroup.mxmlContent = value;
-			invalidateDisplayList();
-		}
-
 		public function disableDelete():void {
 			_disableDelete = true;
 			if(_groupDelete != null) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" >
+	<Group>
+    	<Path data="M374.75 25.4497 349.3 0 187.4 161.9 25.5 0 0.0498047 25.4497 161.95 187.35 0 349.3 25.4502 374.75 187.4 212.8 349.35 374.75 374.8 349.3 212.85 187.35 374.75 25.4497Z">
+        	<fill>
+          		<SolidColor color="#ffffff"/>
+        	</fill>
+		</Path>
+	</Group>
+</Graphic>

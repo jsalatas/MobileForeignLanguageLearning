@@ -65,6 +65,7 @@ package gr.ictpro.mall.client.runtime
 			return isAndroid?9:12;
 		}
 		
+		[Inline]
 		public static function get isAndroid():Boolean
 		{
 			if(_device != null) {
@@ -98,10 +99,10 @@ package gr.ictpro.mall.client.runtime
 		}
 
 		[Inline]
-		public static function get defaultColorTransform():ColorTransform
+		public static function getDefaultColorTransform(alpha:Number = 1):ColorTransform
 		{
 			var transform:ColorTransform = new ColorTransform();
-			transform.color = getDefaultColor();
+			transform.color = getDefaultColor(alpha);
 			return transform;
 		}
 
@@ -142,6 +143,14 @@ package gr.ictpro.mall.client.runtime
 			return ButtonSkin;
 		}
 		
+		public static function get buttonBarSkin():Class
+		{
+			if(_device != null) {
+				return _device.buttonBarSkin;
+			}
+			return ButtonSkin;
+		}
+
 		public static function get imageSkin():Class
 		{
 			if(_device != null) {

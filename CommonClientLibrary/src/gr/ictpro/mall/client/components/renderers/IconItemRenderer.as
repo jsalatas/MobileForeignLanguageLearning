@@ -234,8 +234,8 @@ package gr.ictpro.mall.client.components.renderers
 			}
 			_fontSize = Device.getDefaultScaledFontSize();
 			super.setStyle("fontSize", _fontSize);
-			super.setStyle("downColor", Device.getDefaultColor(0.6));
-			super.setStyle("selectionColor", Device.getDefaultColor(0.3));
+			super.setStyle("downColor", Device.getDefaultColor(0.5));
+			super.setStyle("selectionColor", Device.getDefaultColor(0.5));
 			super.setStyle("rollOverColor", Device.getDefaultColor(0.05));
 			
 		}

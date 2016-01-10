@@ -9,7 +9,7 @@ package gr.ictpro.mall.client.model
 	{
 		public function NotificationModel()
 		{
-			super(Notification, null);
+			super(Notification, null, null);
 		}
 		
 		public function get deleteErrorMessage():String

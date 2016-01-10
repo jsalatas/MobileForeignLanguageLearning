@@ -44,7 +44,8 @@ public class Classroom implements java.io.Serializable {
     private Set<Translation> translations = new HashSet<Translation>(0);
     private Set<Classroomgroup> classroomgroups = new HashSet<Classroomgroup>(0);
     private Set<EmailTranslation> emailTranslations = new HashSet<EmailTranslation>(0);
-    private Set<User> users = new HashSet<User>(0);
+    private Set<User> students = new HashSet<User>(0);
+    private User teacher;
 
     public Classroom() {
     }
@@ -54,14 +55,14 @@ public class Classroom implements java.io.Serializable {
     }
 
     public Classroom(Language language, String name, String notes, Set<Translation> translations,
-	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> users) {
+	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> students, User teacher) {
 	this.language = language;
 	this.name = name;
 	this.notes = notes;
 	this.translations = translations;
 	this.classroomgroups = classroomgroups;
 	this.emailTranslations = emailTranslations;
-	this.users = users;
+	this.students = students;
     }
 
     @Id
@@ -114,7 +115,7 @@ public class Classroom implements java.io.Serializable {
 	this.translations = translations;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "classroom_classroomgroup", joinColumns = {
 	    @JoinColumn(name = "classroom_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "group_id", nullable = false, updatable = false) })
@@ -141,26 +142,21 @@ public class Classroom implements java.io.Serializable {
     @JoinTable(name = "classroom_user", joinColumns = {
 	    @JoinColumn(name = "class_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "user_id", nullable = false, updatable = false) })
-    public Set<User> getUsers() {
-	return this.users;
+    public Set<User> getStudents() {
+	return this.students;
     }
 
-    public void setUsers(Set<User> users) {
-	this.users = users;
+    public void setStudents(Set<User> students) {
+	this.students = students;
     }
 
-    @Transient
-    @AmfIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id")
     public User getTeacher() {
-	User res = null;
-	
-	for(User u:users) {
-	    if(u.hasRole("Teacher")) {
-		res = u;
-		break;
-	    }
-	}
-	
-	return res;
+	return this.teacher;
+    }
+
+    public void setTeacher(User teacher) {
+	this.teacher = teacher;
     }
 }

@@ -11,31 +11,9 @@
 	</s:states>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.vo.Language;
-			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
+			
 			
 		]]>
 	</fx:Script>
-	<s:Group width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0">
-		<s:layout>
-			<s:VerticalLayout gap="5" horizontalAlign="center" />
-		</s:layout>	
-		<s:Group>
-			<s:layout>
-				<s:FormLayout/>
-			</s:layout>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Language Code')}">
-				<s:TextInput id="txtCode" width="100%" text="{Language(parameters.vo).code}" enabled.new="true" enabled.edit="false" textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('English Name')}">
-				<s:TextInput id="txtEnglishName" width="100%" text="{Language(parameters.vo).englishName}" textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Local Name')}">
-				<s:TextInput id="txtLocalName" width="100%" text="{Language(parameters.vo).localName}" textAlign="left"/>
-			</s:FormItem>
-		</s:Group>
-
-		<components:TranslationManagerComponent vo="{parameters.vo}" state="{currentState}" />
-	</s:Group>
 </s:TopBarDetailView>

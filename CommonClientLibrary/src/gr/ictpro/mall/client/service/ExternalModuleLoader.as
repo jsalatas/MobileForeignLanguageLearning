@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.service
 	import flash.system.ApplicationDomain;
 	import flash.utils.ByteArray;
 	
+	import mx.collections.ArrayCollection;
 	import mx.core.IVisualElement;
 	import mx.events.ModuleEvent;
 	
@@ -21,6 +22,7 @@ package gr.ictpro.mall.client.service
 	
 	public class ExternalModuleLoader
 	{
+		private static var inProgressLoaders:ArrayCollection = new ArrayCollection();
 		[Inject]
 		public var addView:AddViewSignal;
 		
@@ -37,7 +39,7 @@ package gr.ictpro.mall.client.service
 		private var _className:String;
 		
 		private var _loader:ModuleLoader;
-
+		
 		public function ExternalModuleLoader(url:String, className:String)
 		{
 			this._url = url;
@@ -50,6 +52,7 @@ package gr.ictpro.mall.client.service
 			if(loadedSWFs.isLoaded(_url)) {
 				showClass();
 			} else {
+				inProgressLoaders.addItem(this);
 				var loader:URLLoader = new URLLoader();
 				loader.dataFormat = URLLoaderDataFormat.BINARY;
 				loader.addEventListener(Event.COMPLETE, handleDownloaded);
@@ -63,6 +66,7 @@ package gr.ictpro.mall.client.service
 		public function handleError(event:Event):void
 		{
 			serverConnectError.dispatch();
+			inProgressLoaders.removeItemAt(inProgressLoaders.getItemIndex(this));
 		}
 		
 		public function handleDownloaded(event:Event):void
@@ -70,12 +74,13 @@ package gr.ictpro.mall.client.service
 			_loader = new ModuleLoader();
 			var moduleBytes:ByteArray = ByteArray(URLLoader(event.target).data);
 			_loader.applicationDomain = ApplicationDomain.currentDomain;
+			_loader.trustContent = true;
 			_loader.addEventListener(ModuleEvent.READY, handleLoaded);
 			_loader.addEventListener(ModuleEvent.ERROR, handleError);
 			_loader.loadModule(_url, moduleBytes);
-			
 		}
-
+		
+		
 		public function handleLoaded(event:ModuleEvent):void
 		{
 			if(!loadedSWFs.isLoaded(_url)) {
@@ -83,6 +88,7 @@ package gr.ictpro.mall.client.service
 				injector.injectInto(initialize);
 				loadedSWFs.add(_url);
 			}
+			inProgressLoaders.removeItemAt(inProgressLoaders.getItemIndex(this));
 			showClass();
 		}
 		

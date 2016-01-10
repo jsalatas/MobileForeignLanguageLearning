@@ -1,5 +1,6 @@
 package gr.ictpro.mall.client.mobile
 {
+	import gr.ictpro.mall.client.mobile.skins.ButtonBarSkin;
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
 	import gr.ictpro.mall.client.mobile.skins.CheckBoxSkin;
 	import gr.ictpro.mall.client.mobile.skins.ColorDropDownSkin;
@@ -44,6 +45,11 @@ package gr.ictpro.mall.client.mobile
 		public function get buttonSkin():Class
 		{
 			return ButtonSkin;
+		}
+		
+		public function get buttonBarSkin():Class
+		{
+			return ButtonBarSkin;
 		}
 		
 		public function get imageSkin():Class

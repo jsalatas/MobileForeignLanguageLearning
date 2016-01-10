@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:TopBarDetailView xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:TopBarCustomView xmlns:fx="http://ns.adobe.com/mxml/2009"
 						xmlns:s="gr.ictpro.mall.client.components.*"
 						xmlns:signals="org.osflash.signals.*"
 						width="100%" height="100%" 
@@ -8,6 +8,7 @@
 						backClicked="topbargroup1_backClickedHandler(event)">
 	<fx:Declarations>
 		<signals:Signal id="ok"/>
+		<signals:Signal id="cancel"/>
 	</fx:Declarations>
 	
 	<fx:Script>
@@ -19,7 +20,7 @@
 			private const HEIGHT:int = 200;
 			
 			private function imageReady():void {
-				imageCropper.setCropRect(WIDTH, HEIGHT); 				
+				imageCropper.setCropRect(WIDTH, HEIGHT);
 			}
 
 			protected function topbargroup1_okClickedHandler(event:MouseEvent):void
@@ -40,6 +41,7 @@
 			
 			protected function topbargroup1_backClickedHandler(event:MouseEvent):void
 			{
+				cancel.dispatch();
 				this.dispose();
 				
 			}
@@ -51,4 +53,4 @@
 							 constrainToAspectRatio="true" handleColor="#AAAAAA" handleSize="12.0"
 							 maskAlpha="0.5" maskColor="#000000" sourceImage="{image}"
 							 sourceImageReady="imageReady()"/>
-</s:TopBarDetailView>
+</s:TopBarCustomView>

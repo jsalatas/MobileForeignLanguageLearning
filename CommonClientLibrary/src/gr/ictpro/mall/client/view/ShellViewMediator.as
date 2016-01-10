@@ -14,6 +14,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
+	import org.robotlegs.core.IInjector;
 	import org.robotlegs.mvcs.SignalMediator;
 	
 	public class ShellViewMediator extends SignalMediator
@@ -24,6 +25,9 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var addView:AddViewSignal;
 
+		[Inject]
+		public var injector:IInjector;
+		
 		[Inject]
 		public var initialize:InitializeSignal;
 		
@@ -39,7 +43,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleAddView(module:IVisualElement, parameters:ViewParameters=null, backView:IVisualElement = null):void
 		{
-//			loadedModules.unloadModule();
+			injector.injectInto(module);
 			if(module is IParameterizedView) {
 				(module as IParameterizedView).parameters = parameters;
 			}

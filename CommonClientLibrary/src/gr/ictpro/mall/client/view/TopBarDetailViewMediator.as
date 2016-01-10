@@ -1,11 +1,16 @@
 package gr.ictpro.mall.client.view
 {
 	import flash.events.MouseEvent;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	
 	import mx.states.State;
 	
+	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.IPersistent;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
+	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.signal.DeleteErrorSignal;
 	import gr.ictpro.mall.client.signal.DeleteSignal;
 	import gr.ictpro.mall.client.signal.DeleteSuccessSignal;
@@ -16,6 +21,9 @@ package gr.ictpro.mall.client.view
 
 	public class TopBarDetailViewMediator extends TopBarViewMediator
 	{
+		[Inject]
+		public var mapper:VOMapper;
+
 		[Inject]
 		public var saveSignal:SaveSignal;
 
@@ -71,6 +79,12 @@ package gr.ictpro.mall.client.view
 		private function okClicked(event:MouseEvent):void
 		{
 			beforeSaveHandler();
+			for each(var dm:DetailMapper in model.detailMapper) {
+				if(dm.propertyName != null && !dm.readOnly) {
+					view.parameters.vo[dm.propertyName] = dm.list;
+				}
+			}
+
 			if(validateSave()) {
 				saveHandler();
 			}
@@ -90,7 +104,7 @@ package gr.ictpro.mall.client.view
 		private function saveSuccess(classType:Class):void
 		{
 			if(classType == model.getVOClass()) {
-				if(view.parameters.notification != null) {
+				if(view.parameters != null && view.parameters.notification != null) {
 					saveSignal.dispatch(view.parameters.notification);
 				}
 				back();

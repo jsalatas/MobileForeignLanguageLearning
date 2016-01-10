@@ -16,7 +16,7 @@ package gr.ictpro.mall.client.model
 
 		public function ClientSettingsModel()
 		{
-			super(ClientSetting, null);
+			super(ClientSetting, null, null);
 		}
 		
 		public function get saveErrorMessage():String

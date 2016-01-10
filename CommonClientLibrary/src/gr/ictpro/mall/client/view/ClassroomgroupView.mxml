@@ -4,7 +4,7 @@
 					xmlns:mx="library://ns.adobe.com/flex/mx"
 					title.new="{Translation.getTranslation('New Classrooms Group')}"
 					title.edit="{Translation.getTranslation('Edit Classrooms Group')}"
-					width="100%" height="100%">
+					width="100%" height="100%" xmlns:components="gr.ictpro.mall.client.view.components.*">
 	<s:states>
 		<mx:State name="new"/>
 		<mx:State name="edit"/>
@@ -12,31 +12,7 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.model.vo.Classroomgroup;
-			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
 		]]>
 	</fx:Script>
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
-	<s:Group width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0">
-		<s:layout>
-			<s:VerticalLayout gap="5" horizontalAlign="center"/>
-		</s:layout>	
-		<s:Group>
-			<s:layout>
-				<s:FormLayout/>
-			</s:layout>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" text="{Classroomgroup(parameters.vo).name}"
-							 textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Notes')}">
-				<s:TextArea id="txtNotes" width="100%" height="100" maxHeight="100"
-							text="{Classroomgroup(parameters.vo).notes}" textAlign="left"/>
-			</s:FormItem>
-		</s:Group>
-	</s:Group>
-
 </s:TopBarDetailView>

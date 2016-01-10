@@ -1,9 +1,11 @@
 package gr.ictpro.mall.client.view
 {
+	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.ClassroomgroupModel;
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.utils.ui.UI;
 
@@ -22,9 +24,8 @@ package gr.ictpro.mall.client.view
 		
 		override protected function beforeSaveHandler():void
 		{
-			Classroomgroup(view.parameters.vo).name = ClassroomgroupView(view).txtName.text;
-			Classroomgroup(view.parameters.vo).notes = ClassroomgroupView(view).txtNotes.text;
-
+//			Classroomgroup(view.parameters.vo).name = TopBarDetailView(view).editor["txtName"].text;
+//			Classroomgroup(view.parameters.vo).notes = TopBarDetailView(view).editor["txtNotes"].text;
 		}
 		
 		

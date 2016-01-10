@@ -29,12 +29,12 @@ package gr.ictpro.mall.client.components
 		{
 			super.createChildren();
 			
+			_list.percentWidth = 100;
+			_list.percentHeight = 100;
 			_list.left = 10;
 			_list.top = 10;
 			_list.bottom = 10;
 			_list.right = 10;
-			_list.percentWidth = 100;
-			_list.percentHeight = 100;
 			_list.setStyle("borderAlpha", 0);
 			_list.setStyle("contentBackgroundColor", "#ffffff");
 			
@@ -42,11 +42,15 @@ package gr.ictpro.mall.client.components
 			itemRenderer.properties= {height: 25, bottomSeparatorColor: Device.getDefaultColor(0.5), styles:{verticalAlign: "middle", paddingLeft: 2, paddingRight: 2}};
 	
 			_list.itemRenderer =itemRenderer;
-			
-			mxmlContentGroup.percentHeight = 100;
-			mxmlContentGroup.percentWidth = 100;
-			mxmlContentGroup.mxmlContent = [_list];
-			addElement(mxmlContentGroup);
+
+			var listGroup:Group = new Group();
+			listGroup.percentHeight=100;
+			listGroup.percentWidth=100;
+			listGroup.addElement(_list);
+//			mxmlContentGroup.percentHeight = 100;
+//			mxmlContentGroup.percentWidth = 100;
+//			mxmlContentGroup.mxmlContent = [_list];
+			addElement(listGroup);
 			_list.addEventListener(Event.CHANGE, changeHandler);
 		}
 		

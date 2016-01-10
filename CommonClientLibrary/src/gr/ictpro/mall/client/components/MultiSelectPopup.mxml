@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+									xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" xmlns:fxg="assets.fxg.*"
+									show="skinnablepopupcontainer1_showHandler(event)"
+									backgroundColor="#ffffff"
+									creationComplete="skinnablepopupcontainer1_creationCompleteHandler(event)" xmlns:signals="org.osflash.signals.*">
+	<fx:Declarations>
+		<signals:Signal id="detailsAdded" valueClasses="{[]}" />
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			[Bindable]
+			public var list:MultiselectList;
+			
+			override public function open(owner:DisplayObjectContainer, modal:Boolean=false):void
+			{
+				super.open(owner, modal);
+				owner.addEventListener(ResizeEvent.RESIZE, handleResize);
+			}
+
+			override public function close(commit:Boolean=false, data:*=null):void
+			{
+				owner.removeEventListener(ResizeEvent.RESIZE, handleResize);
+				super.close(commit, data);
+			}
+			
+			private function handleResize(event:ResizeEvent) : void
+			{
+				this.close();				
+			}
+			
+
+			protected function closeHandler(event:MouseEvent):void
+			{
+				this.close();
+			}
+			
+			protected function okHandler(event:MouseEvent):void
+			{
+				var itemsAdded:ArrayCollection = new ArrayCollection();
+				for(var i:int = 0;i < list.selectedItems.length; i++) {
+					itemsAdded.addItem(list.selectedItems[i]);
+				}
+				detailsAdded.dispatch(itemsAdded);
+				this.close();
+			}
+
+			
+			protected function skinnablepopupcontainer1_showHandler(event:FlexEvent):void
+			{
+				var unscaledWidth:int = Device.getUnScaledSize(owner.width); 
+				var unscaledHeight:int = Device.getUnScaledSize(owner.height); 
+				x= Device.getScaledSize(30);
+				y=Device.getScaledSize(30);
+				this.width = unscaledWidth - Device.getUnScaledSize(x)*2;
+				this.height = unscaledHeight - Device.getUnScaledSize(y)*2;
+				this.graphics.lineStyle(2,Device.getDefaultColor(),1);
+				this.graphics.drawRect(0,0,this.width,this.height);
+			}
+			protected function skinnablepopupcontainer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				closePopup.transform.colorTransform = Device.getDefaultColorTransform();
+				ok.transform.colorTransform = Device.getDefaultColorTransform();
+			}
+			
+
+
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="5" paddingLeft="10" paddingTop="10" paddingBottom="10" paddingRight="10" />
+	</s:layout>
+
+	<s:Group height="10" width="100%">
+		<s:Group width="15" height="10" right="20" top="0" bottom="0" click="okHandler(event)" >
+			<fxg:ok id="ok" width="100%" height="100%" />
+		</s:Group>
+		<s:Group width="10" height="10" right="0" top="0" bottom="0" click="closeHandler(event)" >
+			<fxg:cancel id="closePopup" width="100%" height="100%" />
+		</s:Group>
+	</s:Group>
+
+	<s:Group width="100%" height="100%" id="listViewer" >
+		{[list]}
+	</s:Group>
+</s:SkinnablePopUpContainer>

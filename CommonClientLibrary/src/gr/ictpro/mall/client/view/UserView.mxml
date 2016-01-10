@@ -6,11 +6,7 @@
 			   title.view="{Translation.getTranslation('View User')}"
 			   title.edit="{Translation.getTranslation('Edit User')}"
 			   title.profile="{Translation.getTranslation('My Profile')}"
-			   width="100%" height="100%" >
-	<fx:Declarations>
-		<signals:Signal id="choosePhoto"/>
-	</fx:Declarations>
-	
+			   width="100%" height="100%" xmlns:components="gr.ictpro.mall.client.view.components.*" >
 	<s:states>
 		<mx:State name="profile"/>
 		<mx:State name="edit"/>
@@ -19,108 +15,11 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			
-			import gr.ictpro.mall.client.model.vo.User;
-			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
 			
-			[Bindable]
-			private var colorList:ArrayCollection = new ArrayCollection([
-				0x000000, 
-				0x333333, 
-				0x585858, 
-				0xff0000, 
-				0xcc0000, 
-				0xb10057, 
-				0x990000, 
-				0x960049, 
-				0x830083, 
-				0x7d003c,
-				0x690069,
-				0x5800b0, 
-				0x4b0096,
-				0x000066,
-				0x000099,
-				0x003194, 
-				0x0000cc, 
-				0x0000ff,  
-				0x0042c6, 
-				0x00476b, 
-				0x005885, 
-				0x005c4d, 
-				0x00699e, 
-				0x007562, 
-				0x3e7d00, 
-				0x009078, 
-				0x4b9600, 
-				0x58b000, 
-				0x848400, 
-				0x8f7700, 
-				0x756200, 
-				0x6b6b00, 
-				0x5d5e00, 
-				0x444500]);
 			
 
-			protected function imgPhoto_clickHandler(event:MouseEvent):void
-			{
-				choosePhoto.dispatch(event);
-			}
 		]]>
 	</fx:Script>
-	<s:Group width="100%">
-		<s:layout>
-			<s:VerticalLayout gap="10" horizontalAlign="center" paddingBottom="10" paddingLeft="10"
-							  paddingRight="10" paddingTop="10"/>
-		</s:layout>
-
-		<s:Group id="imgContainer" width="154" height="204" click.profile="imgPhoto_clickHandler(event)" click.edit="imgPhoto_clickHandler(event)"
-				 horizontalCenter="0">
-			<s:Rect width="100%" height="100%">
-				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
-			</s:Rect>
-			<s:Group width="154" height="204">
-				<s:layout>
-					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2"
-									  paddingTop="2"/>
-				</s:layout>
-				<s:Image id="imgPhoto" width="150" height="200" source="{User(parameters.vo).profile.image.source}"/>	
-			</s:Group>
-		</s:Group>
-
-		<s:Group width="100%" maxWidth="{Device.isAndroid?NaN:500}" horizontalCenter="0">
-			<s:layout>
-				<s:FormLayout/>
-			</s:layout>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Enabled')}"
-						visible.edit="true"
-						visible="false">
-				<s:CheckBox id="chkEnabled" selected="{User(parameters.vo).enabled}"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}" visible.view="false">
-				<s:TextInput id="txtPassword" width="100%" autoCapitalize="word"
-							 displayAsPassword="true" text="" textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Reenter New Password')}" visible.view="false">
-				<s:TextInput id="txtPassword2" width="100%" autoCapitalize="word"
-							 displayAsPassword="true" text="" textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
-				<s:TextInput id="txtName" width="100%" autoCapitalize="word" text="{User(parameters.vo).profile.name}" enabled.view="false"
-							 textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Email')}">
-				<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email" visible.view="false"
-							 text="{User(parameters.vo).email}" textAlign="left"/>
-			</s:FormItem>
-			<s:FormItem width="100%" label="{Translation.getTranslation('Color')}" visible.view="false">
-				<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
-									  selected="{Device.getDefaultColor()}"/>
-			</s:FormItem>
-		</s:Group>
-
-	</s:Group>
-	
 	
 </s:TopBarDetailView>

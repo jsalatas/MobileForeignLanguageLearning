@@ -1,14 +1,20 @@
 package gr.ictpro.mall.client.model
 {
+	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Language;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.view.LanguageView;
+	import gr.ictpro.mall.client.view.components.LanguageComponent;
+	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 
 	public class LanguageModel extends AbstractModel implements IServerPersistent
 	{
 		public function LanguageModel()
 		{
-			super(Language, LanguageView);
+			super(Language, LanguageView, LanguageComponent);
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, true, null, null));
 		}
 		
 		public function get saveErrorMessage():String

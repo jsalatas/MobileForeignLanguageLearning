@@ -1,13 +1,11 @@
 package gr.ictpro.mall.client.components.menu
 {
-	import flash.geom.ColorTransform;
-
 	public class MenuItemInternalModule extends MenuItemIcon
 	{
 		private var _classType:Class;
-		public function MenuItemInternalModule(text:String, icon:Object, colorTransform:ColorTransform, classType:Class)
+		public function MenuItemInternalModule(text:String, icon:Object, classType:Class)
 		{
-			super(text, icon, colorTransform);
+			super(text, icon);
 			this._classType = classType;
 		}
 		

@@ -61,7 +61,7 @@ public class ClassroomRemoteService {
 	    classroomService.delete(persistentClassroom);
 	} else {
 	    // A teacher can only delete her own classrooms
-	    if (persistentClassroom.getUsers().contains(currentUser)) {
+	    if (persistentClassroom.getTeacher().getId().intValue() == currentUser.getId().intValue()) {
 		classroomService.delete(persistentClassroom);
 	    }
 	}
@@ -69,7 +69,7 @@ public class ClassroomRemoteService {
 
     public void updateClassroom(Classroom classroom) {
 	classroom.setLanguage(languageService.retrieveById(classroom.getLanguage().getCode()));
-	Set<User> users = new HashSet<User>();
+	Set<User> students = new HashSet<User>();
 
 	if (classroom.getId() == null) {
 	    classroomService.create(classroom);
@@ -78,9 +78,8 @@ public class ClassroomRemoteService {
 	    persistentClassroom.setName(classroom.getName());
 	    persistentClassroom.setNotes(classroom.getNotes());
 	    persistentClassroom.setLanguage(classroom.getLanguage());
-	    persistentClassroom.setUsers(users);
+	    persistentClassroom.setStudents(students);
 
-	    classroomService.update(persistentClassroom);
 
 	    User teacher;
 	    User currentUser = userContext.getCurrentUser();
@@ -89,8 +88,10 @@ public class ClassroomRemoteService {
 	    } else {
 		teacher = userService.retrieveById(currentUser.getId());
 	    }
-
-	    classroomService.replaceTeacher(persistentClassroom, teacher);
+	    persistentClassroom.setTeacher(teacher);
+	    
+	    classroomService.update(persistentClassroom);
+	    
 	}
     }
 
@@ -105,6 +106,7 @@ public class ClassroomRemoteService {
 	    Classroomgroup persistentClassroomgroup = classroomgroupService.retrieveById(classroomgroup.getId());
 	    persistentClassroomgroup.setName(classroomgroup.getName());
 	    persistentClassroomgroup.setNotes(classroomgroup.getNotes());
+	    persistentClassroomgroup.setClassrooms(classroomgroup.getClassrooms());
 
 	    classroomgroupService.update(persistentClassroomgroup);
 	}

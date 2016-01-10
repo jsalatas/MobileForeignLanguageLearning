@@ -5,12 +5,13 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.Config;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.view.SettingsView;
+	import gr.ictpro.mall.client.view.components.SettingsViewComponent;
 
 	public class ConfigModel extends AbstractModel implements IServerPersistent
 	{
 		public function ConfigModel()
 		{
-			super(Config, null);
+			super(Config, null, SettingsViewComponent);
 		}
 		
 		public function get deleteErrorMessage():String

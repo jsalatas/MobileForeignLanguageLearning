@@ -81,7 +81,7 @@ public class Language implements java.io.Serializable {
 	this.localName = localName;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "language")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "language")
     public Set<Classroom> getClassrooms() {
 	return this.classrooms;
     }

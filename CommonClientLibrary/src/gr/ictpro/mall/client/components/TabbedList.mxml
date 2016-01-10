@@ -1,19 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="gr.ictpro.mall.client.components.*"
+		 xmlns:s1="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:fxg="assets.fxg.*"
+		 width="100%" height="100%" creationComplete="group1_creationCompleteHandler(event)" xmlns:signals="org.osflash.signals.*" >
+	<s:states>
+		<mx:State name="default" />
+		<mx:State name="readonly" />
+	</s:states>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<signals:Signal id="fillChoices" valueClasses="{[MultiselectList]}" />
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			[Bindable]
-			public var dp:ArrayCollection = new ArrayCollection(['item one', 'item two', 'item three']);
-			[Bindable]
-			public var dpTabs:ArrayCollection = new ArrayCollection(['tab one', 'tab two', 'tab three']);
+			public var dataProvider:ArrayCollection;
+
+			public var propertyClass:Class;
+
+			public var viewComponent:Class;
+			public var vo:Object;
+			
+			public var beforeDelete:Function;
+			public var afterAdd:Function;
+
+			private var viewerPopup:VOViewerPopup; 
+			private var selectPopup:MultiSelectPopup;
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+				fxgAddDetail.transform.colorTransform = Device.getDefaultColorTransform();
+				fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+			}
+			
+			protected function viewDetailHandler(event:MouseEvent):void
+			{
+				if(list.selectedItem != null) {
+					if(viewerPopup == null) {
+						viewerPopup = new VOViewerPopup();
+					}
+					
+					var component:VOEditor = new viewComponent();
+					component.vo = list.selectedItem;
+					component.currentState = "view";
+					viewerPopup.view = component;
+					viewerPopup.open(Device.shellView, true);
+				}
+			}
+			
+			protected function addDetailHandler(event:MouseEvent):void
+			{
+				if(selectPopup == null) {
+					selectPopup = new MultiSelectPopup();
+					selectPopup.detailsAdded.add(detailsAdded);
+				}
+				var ml:MultiselectList = new MultiselectList();
+				fillChoices.dispatch(ml);
+				selectPopup.list = ml;
+				selectPopup.open(Device.shellView, true);
+			}
+			
+			
+			protected function detailsAdded(items:ArrayCollection):void {
+				if(afterAdd != null) {
+					// TODO: Not sure if this would be usefull and how :\
+					afterAdd(items);
+				}
+				
+//				if(dataProvider == null) {
+//					dataProvider = new ArrayCollection();
+//				}
+				
+				for each (var item:Object in items) {
+					dataProvider.addItem(item);
+				}
+			}
+			
+			protected function removeDetailHandler(event:MouseEvent):void
+			{
+				if(list.selectedItem != null) {
+					if(beforeDelete != null && beforeDelete(list.selectedItem, vo)) {
+						dataProvider.removeItemAt(dataProvider.getItemIndex(list.selectedItem));
+					}
+				}				
+			}
+			
+			protected function list_changeHandler(event:IndexChangeEvent):void
+			{
+				if(list.selectedItem == null) {
+					fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+					fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+				} else {
+					fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform();
+					fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform();
+				}
+			}
 		]]>
 	</fx:Script>
-	<s:ButtonBar dataProvider="{dpTabs}" />
-	<s:List dataProvider="{dp}"/>
-	<s:Button label="add" />
+		<s:Group width="100%">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:Group>
+				<s:layout>
+					<s:VerticalLayout gap="10" paddingLeft="5" paddingRight="5" paddingTop="5"/>
+				</s:layout>
+				<s:Group width="16" height="16" click="viewDetailHandler(event)">
+					<fxg:viewdetail id="fxgViewDetail" width="100%" height="100%" alpha="{list.selectedItem==null?00:1}" />
+				</s:Group>
+				<s:Group width="16" height="16" visible.readonly="false" click="addDetailHandler(event)">
+					<fxg:adddetail id="fxgAddDetail" width="100%" height="100%"/>
+				</s:Group>
+				<s:Group width="16" height="16"  visible.readonly="false" click="removeDetailHandler(event)">
+					<s:layout>
+						<s:VerticalLayout paddingBottom="2" paddingLeft="2" paddingRight="2"
+										  paddingTop="2"/>
+					</s:layout>
+					<fxg:removedetail id="fxgRemoveDetail" width="100%" height="100%" alpha="{list.selectedItem==null?0:1}"/>
+				</s:Group>
+			</s:Group>
+			<s:List id="list" width="100%" borderColor="{Device.getDefaultColor(0.5)}" borderVisible="true"
+					color="0xffffff" dataProvider="{dataProvider}" doubleClick="viewDetailHandler(event)" change="list_changeHandler(event)"
+					itemRenderer="gr.ictpro.mall.client.components.renderers.DetailListRenderer" contentBackgroundColor="#ffffff"/>
+		</s:Group>
+	
 </s:Group>

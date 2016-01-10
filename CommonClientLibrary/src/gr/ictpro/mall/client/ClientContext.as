@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client
 {
+	import gr.ictpro.mall.client.components.DetailTab;
+	import gr.ictpro.mall.client.components.DetailTabMediator;
 	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.controller.DeleteCommand;
@@ -21,7 +23,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.UserModel;
-	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
@@ -146,6 +147,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ClassroomgroupView, ClassroomgroupViewMediator, TopBarView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
+			mediatorMap.mapView(DetailTab, DetailTabMediator);
 			
 			
 			signalCommandMap.mapSignalClass(InitializeSignal, InitializeCommand);

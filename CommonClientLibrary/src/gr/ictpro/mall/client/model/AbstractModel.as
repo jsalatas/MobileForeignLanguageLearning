@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.model
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	
 	public class AbstractModel implements IModel
@@ -12,13 +13,27 @@ package gr.ictpro.mall.client.model
 		
 		private var _voClass:Class;
 		private var _viewClass:Class;
+		private var _editorClass:Class;
+		
+		private var _detailMapper:ArrayCollection = new ArrayCollection();
 		
 		private var _list:ArrayCollection = new ArrayCollection();
 		
-		public function AbstractModel(voClass:Class, viewClass:Class) 
+		public function AbstractModel(voClass:Class, viewClass:Class, editorClass:Class) 
 		{
 			this._voClass = voClass;
 			this._viewClass = viewClass;
+			this._editorClass = editorClass;
+		}
+		
+		public function addDetail(detailMapper:DetailMapper):void
+		{
+			_detailMapper.addItem(detailMapper);
+		}
+		
+		public function get detailMapper():ArrayCollection
+		{
+			return this._detailMapper;
 		}
 		
 		public function getVOClass():Class
@@ -31,10 +46,15 @@ package gr.ictpro.mall.client.model
 			return this._viewClass;
 		}
 
+		public function getEditorClass():Class
+		{
+			return this._editorClass;
+		}
+		
 		[PostConstruct]
 		public function init():void
 		{
-			mapper.mapClass(this, _voClass, _viewClass);
+			mapper.mapClass(this, _voClass, _viewClass, _editorClass);
 			if(this is IClientPersistent) {
 				IClientPersistent(this).initializeDB();
 			}

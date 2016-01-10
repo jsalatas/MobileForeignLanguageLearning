@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VOEditor xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:s="gr.ictpro.mall.client.components.*"
+			width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:signals="org.osflash.signals.*">
+	<s:states>
+		<mx:State name="profile"/>
+		<mx:State name="edit"/>
+		<mx:State name="view"/>
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			import gr.ictpro.mall.client.runtime.Translation;
+			[Bindable]
+			private var colorList:ArrayCollection = new ArrayCollection([
+				0x000000, 
+				0x333333, 
+				0x585858, 
+				0xff0000, 
+				0xcc0000, 
+				0xb10057, 
+				0x990000, 
+				0x960049, 
+				0x830083, 
+				0x7d003c,
+				0x690069,
+				0x5800b0, 
+				0x4b0096,
+				0x000066,
+				0x000099,
+				0x003194, 
+				0x0000cc, 
+				0x0000ff,  
+				0x0042c6, 
+				0x00476b, 
+				0x005885, 
+				0x005c4d, 
+				0x00699e, 
+				0x007562, 
+				0x3e7d00, 
+				0x009078, 
+				0x4b9600, 
+				0x58b000, 
+				0x848400, 
+				0x8f7700, 
+				0x756200, 
+				0x6b6b00, 
+				0x5d5e00, 
+				0x444500]);
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	<s:FormItem width="100%">
+		<s:Group id="imgContainer" width="154" height="204" horizontalCenter="0">
+			<s:Rect width="100%" height="100%">
+				<s:fill><s:SolidColor color="{Device.getDefaultColor(0.67)}"/></s:fill>
+			</s:Rect>
+			<s:Group width="154" height="204">
+				<s:layout>
+					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2"
+									  paddingTop="2"/>
+				</s:layout>
+				<s:ImageAttacher id="imgPhoto" width="150" height="200"
+						 source="{vo.profile.image.source}"/>	
+			</s:Group>
+		</s:Group>
+	</s:FormItem>	
+		<s:FormItem visible="false" width="100%" label="{Translation.getTranslation('Enabled')}"
+					visible.edit="true">
+			<s:CheckBox id="chkEnabled" selected="@{vo.enabled}"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}"
+					visible.view="false">
+			<s:TextInput id="txtPassword" width="100%" autoCapitalize="word" displayAsPassword="true"
+						 text="" textAlign="left"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('Reenter New Password')}"
+					visible.view="false">
+			<s:TextInput id="txtPassword2" width="100%" autoCapitalize="word"
+						 displayAsPassword="true" text="" textAlign="left"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
+			<s:TextInput id="txtName" width="100%" autoCapitalize="word"
+						 text="@{vo.profile.name}" textAlign="left"
+						 enabled.view="false"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('Email')}">
+			<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
+						 text="@{vo.email}" textAlign="left"
+						 visible.view="false"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Translation.getTranslation('Color')}"
+					visible.view="false">
+			<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
+								  selected="{Device.getDefaultColor()}"/>
+		</s:FormItem>
+
+</s:VOEditor>
