@@ -6,6 +6,14 @@
 			   initialize="application1_initializeHandler(event)"
 			   resizeForSoftKeyboard="true"
 			   >
+		<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		mx|CursorManager {
+			busy-cursor: Embed(source="assets/swf/busy.swf");
+		}
+		
+	</fx:Style>
+
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;

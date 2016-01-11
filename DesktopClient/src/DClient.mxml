@@ -3,12 +3,21 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:desktop="gr.ictpro.mall.client.desktop.*"
 					   xmlns:view="gr.ictpro.mall.client.view.*"  
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   showStatusBar="false"
 					   initialize="windowedapplication1_initializeHandler(event)"
 					   >
+	<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		mx|CursorManager {
+			busy-cursor: Embed(source="assets/swf/busy.swf");
+		}
+
+	</fx:Style>
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
+			
 			
 			import gr.ictpro.mall.client.desktop.DesktopDevice;
 			import gr.ictpro.mall.client.runtime.Device;

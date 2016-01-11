@@ -190,6 +190,29 @@
     <classEntry path="gr.ictpro.mall.client.view.CalendarMonthViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.CalendarCell"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>
+    <resourceEntry destPath="assets/fxg/adddetail.fxg" sourcePath="assets/fxg/adddetail.fxg"/>
+    <resourceEntry destPath="assets/fxg/back.fxg" sourcePath="assets/fxg/back.fxg"/>
+    <resourceEntry destPath="assets/fxg/calendar.fxg" sourcePath="assets/fxg/calendar.fxg"/>
+    <resourceEntry destPath="assets/fxg/camera.fxg" sourcePath="assets/fxg/camera.fxg"/>
+    <resourceEntry destPath="assets/fxg/cancel.fxg" sourcePath="assets/fxg/cancel.fxg"/>
+    <resourceEntry destPath="assets/fxg/check.fxg" sourcePath="assets/fxg/check.fxg"/>
+    <resourceEntry destPath="assets/fxg/classroom.fxg" sourcePath="assets/fxg/classroom.fxg"/>
+    <resourceEntry destPath="assets/fxg/exclamation.fxg" sourcePath="assets/fxg/exclamation.fxg"/>
+    <resourceEntry destPath="assets/fxg/folder.fxg" sourcePath="assets/fxg/folder.fxg"/>
+    <resourceEntry destPath="assets/fxg/info.fxg" sourcePath="assets/fxg/info.fxg"/>
+    <resourceEntry destPath="assets/fxg/languages.fxg" sourcePath="assets/fxg/languages.fxg"/>
+    <resourceEntry destPath="assets/fxg/link.fxg" sourcePath="assets/fxg/link.fxg"/>
+    <resourceEntry destPath="assets/fxg/login.fxg" sourcePath="assets/fxg/login.fxg"/>
+    <resourceEntry destPath="assets/fxg/logout.fxg" sourcePath="assets/fxg/logout.fxg"/>
+    <resourceEntry destPath="assets/fxg/ok.fxg" sourcePath="assets/fxg/ok.fxg"/>
+    <resourceEntry destPath="assets/fxg/profile.fxg" sourcePath="assets/fxg/profile.fxg"/>
+    <resourceEntry destPath="assets/fxg/removedetail.fxg" sourcePath="assets/fxg/removedetail.fxg"/>
+    <resourceEntry destPath="assets/fxg/settings.fxg" sourcePath="assets/fxg/settings.fxg"/>
+    <resourceEntry destPath="assets/fxg/trashcan.fxg" sourcePath="assets/fxg/trashcan.fxg"/>
+    <resourceEntry destPath="assets/fxg/viewdetail.fxg" sourcePath="assets/fxg/viewdetail.fxg"/>
+    <resourceEntry destPath="assets/swf/busy.swf" sourcePath="assets/swf/busy.swf"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>
