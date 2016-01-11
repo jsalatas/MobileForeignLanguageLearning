@@ -35,5 +35,5 @@
 			<s:SolidColorStroke color="{borderColor}" weight="{Device.getScaledSize(1)}" />
 		</s:stroke>
 	</s:Rect>
-	<s:Label id="label" top="0" left="0" right="0" bottom="0" textAlign="center" verticalAlign="middle" />
+	<s:Label id="label" top="0" left="0" right="0" bottom="0" textAlign="center" verticalAlign="middle" maxDisplayedLines="1" />
 </s:Group>
