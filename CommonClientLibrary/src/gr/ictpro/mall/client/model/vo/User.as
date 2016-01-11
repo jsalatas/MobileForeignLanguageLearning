@@ -13,6 +13,8 @@ package gr.ictpro.mall.client.model.vo
 		public var enabled:Boolean;
 		public var profile:Profile;
 		public var roles:ArrayCollection;
+		public var calendars:ArrayCollection;
+		public var teacherClassrooms:ArrayCollection;
 
 		public function User()
 		{

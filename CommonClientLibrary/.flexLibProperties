@@ -188,6 +188,7 @@
     <classEntry path="gr.ictpro.mall.client.model.vo.Schedule"/>
     <classEntry path="gr.ictpro.mall.client.view.CalendarMonthView"/>
     <classEntry path="gr.ictpro.mall.client.view.CalendarMonthViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.CalendarCell"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -3,13 +3,139 @@
 							 xmlns:s="gr.ictpro.mall.client.components.*"
 							 width="100%" height="100%"
 							 cancelButton="false" okButton="false"
-							 title="{Translation.getTranslation('Calendar')}">
+							 title="{Translation.getTranslation('Calendar')}"
+							 creationComplete="topbarcustomview1_creationCompleteHandler(event)"
+							 resize="topbarcustomview1_resizeHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import gr.ictpro.mall.client.components.CalendarCell;
+			import gr.ictpro.mall.client.components.HorizontalLayout;
 			import gr.ictpro.mall.client.runtime.Translation;
+			
+			private var daysOfWeek:Array = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+			private var months:Array = new Array("January", "February", "March", 
+												 "April", "May", "June", 
+												 "July", "August", "September", 
+												 "October", "November", "December");
+
+			private var calendarCells:ArrayList = new ArrayList();
+			protected function topbarcustomview1_creationCompleteHandler(event:FlexEvent):void
+			{
+				drawCalendar();
+			}
+			
+			private function drawCalendar():void
+			{
+				var cellWidth:int = Math.min((this.definedWidth -20) / 7, (this.definedHeight -50) /7);
+				
+				calendar.addElement(getHeader(cellWidth));
+				calendar.addElement(getDates(cellWidth, 0, 2016));
+				
+			}
+			
+			private function getHeader(cellWidth:int):Group
+			{
+				var group:Group = getRow(cellWidth);
+				
+				for(var i:int=0; i<7;i++) {
+					var cell:CalendarCell = getCell(cellWidth);
+					cell.borderColor = 0xffffff;
+					cell.label.text = daysOfWeek[i];
+					cell.label.setStyle("fontWeight", "bold");
+					group.addElement(cell);
+				}
+				
+				return group;
+			}
+			
+			private function getCell(cellWidth:int, date:Date = null):CalendarCell
+			{
+				var cell:CalendarCell = new CalendarCell();
+				cell.width = cellWidth;
+				cell.height = cellWidth;
+				cell.label.setStyle("textAlign", "center");
+				cell.date = date;
+				cell.cellClicked.add(dateClicked);
+				calendarCells.addItem(cell);
+				return cell;
+			}
+			
+			private function getDates(cellWidth:int, month:int, year:int):Group
+			{
+				var group:Group = new Group();
+				var layout:VerticalLayout = new VerticalLayout();
+				layout.gap = -1;
+				group.layout = layout;
+
+				// calculate date of first Sunday
+				var startDate:Date = new Date(year, month, 1);
+				startDate.date -= startDate.day;
+				
+				var rowGroup:Group = getRow(cellWidth);
+
+				var showMore:Boolean = true; 
+				while(showMore) {
+					var cell:CalendarCell = getCell(cellWidth, new Date(startDate.fullYear, startDate.month, startDate.date));
+					cell.label.text = String(startDate.date);
+					if(startDate.month != month) {
+						cell.alpha = 0.5;
+					}
+					rowGroup.addElement(cell);
+					
+					startDate.date +=1;
+					if(startDate.day == 0) {
+						group.addElement(rowGroup);
+						if(startDate.month > month) {
+							showMore = false;
+						} else {
+							rowGroup = getRow(cellWidth);							
+						}
+					}
+				}
+				
+				return group;
+			}
+			
+			private function getRow(cellWidth:int):Group
+			{
+				var group:Group = new Group();
+				var layout:HorizontalLayout = new HorizontalLayout();
+				layout.gap = -1;
+				group.layout = layout;
+				
+				return group;
+			}
+			
+			private function dateClicked(cell:CalendarCell):void
+			{
+				trace("Clicked on: " + cell.date + " ("+cell.label.text+")");
+			}
+			
+			protected function topbarcustomview1_resizeHandler(event:ResizeEvent):void
+			{
+				var cellWidth:int = Math.min((this.definedWidth -20) / 7, (this.definedHeight -50) /7);
+				for (var i:int = 0; i<calendarCells.length; i++) {
+					var cell:CalendarCell = CalendarCell(calendarCells.getItemAt(i));
+					cell.width = cellWidth;
+					cell.height = cellWidth;
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<s:Group width="100%" height="100%" >
+		<s:Group id="calendar" horizontalCenter="0" verticalCenter="0">
+			<s:layout>
+				<s:VerticalLayout paddingLeft="10" paddingTop="10" paddingBottom="10" paddingRight="10" />
+			</s:layout>
+		</s:Group> 
+	</s:Group>
 </s:TopBarCustomView>
