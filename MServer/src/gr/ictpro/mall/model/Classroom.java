@@ -41,6 +41,7 @@ public class Classroom implements java.io.Serializable {
     private Language language;
     private String name;
     private String notes;
+    private boolean forceUILanguage;
     private Set<Translation> translations = new HashSet<Translation>(0);
     private Set<Classroomgroup> classroomgroups = new HashSet<Classroomgroup>(0);
     private Set<EmailTranslation> emailTranslations = new HashSet<EmailTranslation>(0);
@@ -52,16 +53,18 @@ public class Classroom implements java.io.Serializable {
     public Classroom() {
     }
 
-    public Classroom(String name) {
+    public Classroom(String name, boolean forceUILanguage) {
 	this.name = name;
+	this.forceUILanguage = forceUILanguage;
     }
 
-    public Classroom(Language language, String name, String notes, Set<Translation> translations,
+    public Classroom(Language language, String name, String notes, boolean forceUILanguage, Set<Translation> translations,
 	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> students, User teacher, 
 	    Set<Calendar> calendars, Set<Schedule> schedules) {
 	this.language = language;
 	this.name = name;
 	this.notes = notes;
+	this.forceUILanguage = forceUILanguage;
 	this.translations = translations;
 	this.classroomgroups = classroomgroups;
 	this.emailTranslations = emailTranslations;
@@ -108,6 +111,16 @@ public class Classroom implements java.io.Serializable {
     public void setNotes(String notes) {
 	this.notes = notes;
     }
+
+    @Column(name = "force_ui_language", nullable = false)
+    public boolean isForceUILanguage() {
+	return this.forceUILanguage;
+    }
+
+    public void setForceUILanguage(boolean forceUILanguage) {
+	this.forceUILanguage = forceUILanguage;
+    }
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
     @AmfIgnore

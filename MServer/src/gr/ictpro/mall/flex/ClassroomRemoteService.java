@@ -78,6 +78,7 @@ public class ClassroomRemoteService {
 	    persistentClassroom.setName(classroom.getName());
 	    persistentClassroom.setNotes(classroom.getNotes());
 	    persistentClassroom.setLanguage(classroom.getLanguage());
+	    persistentClassroom.setForceUILanguage(classroom.isForceUILanguage());
 	    persistentClassroom.setStudents(students);
 
 

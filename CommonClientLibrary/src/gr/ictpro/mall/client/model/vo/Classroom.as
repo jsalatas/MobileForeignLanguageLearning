@@ -16,6 +16,7 @@ package gr.ictpro.mall.client.model.vo
 		public var students:ArrayCollection;
 		public var teacher:User;
 		public var calendars:ArrayCollection;
+		public var forceUILanguage:Boolean;
 		
 		public function Classroom()
 		{
