@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.view
 {
 	import flash.events.MouseEvent;
 	
+	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
@@ -36,7 +37,7 @@ package gr.ictpro.mall.client.view
 			if(view.masterView == null) {
 				addView.dispatch(new MainView());	
 			} else {
-				addView.dispatch(view.masterView);
+				addView.dispatch(view.masterView, view.masterView is IParameterizedView?IParameterizedView(view.masterView).parameters:null);
 			}
 			view.dispose();
 

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VOEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					 xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
+					 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s1="library://ns.adobe.com/flex/spark">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.model.vo.Calendar;
+			import gr.ictpro.mall.client.runtime.Translation;
+			import gr.ictpro.mall.client.utils.date.DateUtils;
+
+			[Bindable]
+			public var selectedCalendarType:int = 0;
+
+			[Bindable]
+			private var _classrooms:ArrayCollection;
+			
+			public function set classrooms(classrooms:ArrayCollection):void
+			{
+				selectClassroom();
+			}
+
+			override public function set vo(vo:Object):void {
+				super.vo = vo;
+				if(Calendar(vo).schedule==null) {
+					selectedCalendarType = 0;
+				} else {
+					selectedCalendarType = 1;
+				}
+				
+			}
+			
+			[Bindable]
+			private var calendarType:ArrayCollection = new ArrayCollection([Translation.getTranslation("One time"), Translation.getTranslation("Repeating")]);
+			
+			protected function type_changeHandler(event:Event):void
+			{
+				selectedCalendarType = calendarType.getItemIndex(type.selected);
+				
+			}
+			
+			protected function classroom_initializeHandler(event:FlexEvent):void
+			{
+				selectClassroom();
+			}
+			protected function selectClassroom():void
+			{
+				if( vo != null && vo.schedule != null && vo.schedule.classroom != null && classroom != null) {
+					classroom.selected = vo.schedule.classroom;
+				} else if( vo != null && vo.classroom != null && classroom != null) {
+					classroom.selected = vo.classroom;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<mx:State name="new" />
+		<mx:State name="edit" />
+		<mx:State name="view" />
+	</s:states>
+	
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Type')}">
+		<s:PopUpList id="type" width="100%" change="type_changeHandler(event)" dataList="{calendarType}" selected="{Calendar(vo).schedule!=null?type.dataList.getItemAt(1):type.dataList.getItemAt(0)}" />  
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Description')}">
+		<s:TextInput width="100%" id="description" text="{selectedCalendarType == 0?vo.description:vo.schedule.description}" />  
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Start at')}">
+		<s:DateTimePicker width="100%" id="startDate" date="{selectedCalendarType == 0?vo.startTime:vo.schedule.startTime}" /> 
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('End at')}">
+		<s:DateTimePicker width="100%" id="endDate" date="{selectedCalendarType == 0?vo.endTime:vo.schedule.endTime}" /> 
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Classroom')}">
+		<s:PopUpList width="100%" id="classroom" dataList="{_classrooms}" initialize="classroom_initializeHandler(event)" /> 
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Repeat Every')}" visible="{selectedCalendarType == 1}">
+		<s:Group>
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>			
+			<s:TextInput width="50" id="repeatInterval" text="{vo.schedule.repeatInterval}" />
+			<s:Label text="week(s) on"/>
+			<s:PopUpList width="150" id="day" dataList="{DateUtils.dayNames}" selected="{selectedCalendarType == 1?DateUtils.dayNames.getItemAt(vo.schedule.day):null}" />
+		</s:Group>
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Repeat Until')}" visible="{selectedCalendarType == 1}">
+		<s:DatePicker id="repeatUntil" selectedDate="{vo.schedule.repeatUntil}" />
+	</s:FormItem>
+
+</s:VOEditor>

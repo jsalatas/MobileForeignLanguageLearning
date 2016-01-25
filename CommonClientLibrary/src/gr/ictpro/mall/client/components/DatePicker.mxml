@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
+				  >
+	<fx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+		[DefaultProperty("txt")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			
+			import spark.events.PopUpEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			import gr.ictpro.mall.client.utils.date.DateUtils;
+			
+			[Bindable]
+			public var selectedDate:Date;
+			
+			private var calendarPopUp:CalendarPopup;
+			
+			private var mouseDown:Boolean=false;
+			
+
+			protected function txt_clickHandler(event:MouseEvent):void
+			{
+				if(calendarPopUp && mouseDown) {
+				} else {
+					if(!calendarPopUp) {
+						calendarPopUp = new CalendarPopup();
+						calendarPopUp.percentHeight=100;
+						calendarPopUp.addEventListener(PopUpEvent.CLOSE,popUpClosed);
+					}
+					calendarPopUp.selectedDate = selectedDate;
+					var point:Point = localToGlobal(new Point(0, txt.height)); 
+					var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+					var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+					
+					calendarPopUp.x = point.x*curAppDPI/curDensity;
+					calendarPopUp.y = point.y*curAppDPI/curDensity;
+					calendarPopUp.minWidth = txt.width;
+					calendarPopUp.height = 250;
+					calendarPopUp.open(this, false);
+				}
+				mouseDown = false;
+				
+			}
+			
+			protected function popUpClosed(event:PopUpEvent):void
+			{
+				selectedDate = calendarPopUp.selectedDate;
+				txt.setFocus();
+				dispatchEvent(new Event("change"));
+			}
+			
+			protected function txt_mouseDownHandler(event:MouseEvent):void
+			{
+				if(calendarPopUp && calendarPopUp.isOpen) {
+					mouseDown = true;
+				}
+				
+			}
+		]]>
+	</fx:Script>
+	
+	
+	
+	<s:Button skinClass="{Device.dropDownSkin}" label="{DateUtils.toShortDate(selectedDate)}" 
+			id="txt" width="100%" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
+
+</s:Group>

@@ -42,6 +42,18 @@ package gr.ictpro.mall.client.runtime
 		}
 		
 		[Inline]
+		public static function get language():String
+		{
+			return _device.language;
+		}
+		
+		[Inline]
+		public static function get locale():String
+		{
+			return _device.locale;
+		}
+		
+		[Inline]
 		public static function getScaledSize(size:int):int
 		{
 			return (size * _curDensity/_curAppDPI) * (Device.isAndroid?2:1);

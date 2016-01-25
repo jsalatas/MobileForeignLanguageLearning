@@ -68,7 +68,19 @@
 		</security:intercept-methods>
 	</bean>
 		
+
+		<bean id="calendarRemoteService" class="gr.ictpro.mall.flex.CalendarRemoteService">
+		<flex:remoting-destination />
+		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
+			<security:protect access="Admin, Teacher, Student, Parent" method="getCalendars" />
+			<security:protect access="Admin, Teacher, Student, Parent" method="updateCalendar" />
+			<security:protect access="Admin, Teacher, Student, Parent" method="deleteCalendar" />
+			<security:protect access="Admin, Teacher, Student, Parent" method="updateSchedule" />
+			<security:protect access="Admin, Teacher, Student, Parent" method="deleteSchedule" />
+		</security:intercept-methods>
+	</bean>
 		
+			
 	<flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />
 			    
 	

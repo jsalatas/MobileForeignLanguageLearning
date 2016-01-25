@@ -69,8 +69,6 @@ package gr.ictpro.mall.client.controller
 		private function success(classType:Class):void
 		{
 			if(classType == clientSettingsModel.getVOClass()) {
-				settings.language = Capabilities.languages[0]; 
-				
 				if(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL) == null) {
 					addView.dispatch(new ServerNameView());
 				} else {

@@ -22,6 +22,7 @@
 			
 			import gr.ictpro.mall.client.components.renderers.PopupListRenderer;
 			
+			public var selected:Object;
 			
 			[Bindable]
 			public var menuList:ArrayCollection;
@@ -29,7 +30,9 @@
 			[Bindable]
 			public var borderVisible:Boolean=false;
 			
-
+			[Bindable]
+			public var labelFunction:Function; 
+			
 			protected function init(event:FlexEvent):void
 			{
 				this.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, mouseDownOutside);
@@ -81,8 +84,17 @@
 			
 			protected function list_clickHandler(event:MouseEvent):void
 			{
-				itemSelected.dispatch(list.selectedItem);
-				this.close();
+				if(list.selectedItem !=null) {
+					selected = list.selectedItem;
+					itemSelected.dispatch(list.selectedItem);
+					this.close();
+				}
+			}
+			
+			protected function list_initializeHandler(event:FlexEvent):void
+			{
+				
+				
 			}
 			
 		]]>
@@ -99,6 +111,7 @@
 				height="{(menuList.length&gt;5?5:menuList.length)*(new PopupListRenderer().definedHeight) +2}"
 				borderAlpha="{borderVisible?1:0}" borderVisible="{borderVisible}" keyUp="list_keyUpHandler(event)"
 				dataProvider="{menuList}" resize="list_resizeHandler(event)" click="list_clickHandler(event)"
+				labelFunction="{labelFunction}"
 				itemRenderer="gr.ictpro.mall.client.components.renderers.PopupListRenderer"/>
 	</s:Group>
 </s:SkinnablePopUpContainer>

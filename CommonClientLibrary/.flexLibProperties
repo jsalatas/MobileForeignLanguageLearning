@@ -190,6 +190,17 @@
     <classEntry path="gr.ictpro.mall.client.view.CalendarMonthViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.CalendarCell"/>
     <classEntry path="gr.ictpro.mall.client.utils.date.DateUtils"/>
+    <classEntry path="gr.ictpro.mall.client.model.CalendarModel"/>
+    <classEntry path="gr.ictpro.mall.client.view.CalendarView"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.CalendarComponent"/>
+    <classEntry path="gr.ictpro.mall.client.model.ScheduleModel"/>
+    <classEntry path="gr.ictpro.mall.client.view.CalendarViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.DatePicker"/>
+    <classEntry path="gr.ictpro.mall.client.components.CalendarPopup"/>
+    <classEntry path="gr.ictpro.mall.client.components.TimePicker"/>
+    <classEntry path="gr.ictpro.mall.client.components.DateTimePicker"/>
+    <classEntry path="gr.ictpro.mall.client.view.CalendarDayView"/>
+    <classEntry path="gr.ictpro.mall.client.view.CalendarDayViewMediator"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

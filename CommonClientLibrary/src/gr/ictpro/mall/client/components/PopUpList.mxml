@@ -118,8 +118,7 @@
 	</fx:Script>
 	<fx:Declarations>
 	</fx:Declarations>
-	<s:Button skinClass="{Device.dropDownSkin}" id="txt" 
-			  top="0" left="0" right="0" bottom="0"
+	<s:Button skinClass="{Device.dropDownSkin}" id="txt" top="0" left="0" right="0" bottom="0" 
 			  label="{selected}" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
 	
 </s:Group>

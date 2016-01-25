@@ -15,6 +15,7 @@ package gr.ictpro.mall.client.model.vo
 		public var emailTranslations:ArrayCollection;
 		public var students:ArrayCollection;
 		public var teacher:User;
+		public var calendars:ArrayCollection;
 		
 		public function Classroom()
 		{

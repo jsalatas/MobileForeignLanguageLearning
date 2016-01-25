@@ -13,10 +13,7 @@
 		
 		import gr.ictpro.mall.client.runtime.Device;
 		import gr.ictpro.mall.client.runtime.Translation;
-		[Bindable]
-		private static var dayNames:ArrayCollection = new ArrayCollection(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusrday', 'Friday', 'Saturday']);
-		[Bindable]
-		private static var monthNames:ArrayCollection = new ArrayCollection(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+		import gr.ictpro.mall.client.utils.date.DateUtils;
 		
 		override public function set data(value:Object):void
 		{
@@ -41,9 +38,9 @@
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
 			</s:layout>
-			<s:Label id="day" text.hasdate="{Translation.getTranslation(String(dayNames.getItemAt(data.date.getDay())))}" text.nodate="" />
+			<s:Label id="day" text.hasdate="{DateUtils.dayNames.getItemAt(data.date.getDay())}" text.nodate="" />
 			<s:Label id="date" text.hasdate="{data.date.getDate()}"  text.nodate="" fontSize="{Device.getDefaultUnscaledFontSize()+5}"/>
-			<s:Label id="month" text.hasdate="{Translation.getTranslation(String(monthNames.getItemAt(data.date.getMonth())))}"  text.nodate="" />
+			<s:Label id="month" text.hasdate="{DateUtils.monthNames.getItemAt(data.date.getMonth())}"  text.nodate="" />
 		</s:Group>
 		
 		

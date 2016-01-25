@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.runtime
 {
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
+	import flash.system.Capabilities;
 	
 	import mx.collections.ArrayList;
 	
@@ -15,8 +16,6 @@ package gr.ictpro.mall.client.runtime
 		
 		private var _user:User = null;
 		private var _menu:ArrayList = null;
-		
-		public var language:String;
 		
 		public function RuntimeSettings()
 		{

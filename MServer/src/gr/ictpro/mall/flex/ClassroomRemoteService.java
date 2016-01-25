@@ -47,8 +47,8 @@ public class ClassroomRemoteService {
 	    res = new ArrayList<Classroom>(classroomService.listAll());
 	} else if (currentUser.hasRole("Teacher")) {
 	    // get only user's languages
-	    Hibernate.initialize(currentUser.getClassrooms());
-	    res = new ArrayList<Classroom>(currentUser.getClassrooms());
+	    Hibernate.initialize(currentUser.getTeacherClassrooms());
+	    res = new ArrayList<Classroom>(currentUser.getTeacherClassrooms());
 	}
 	return res;
     }

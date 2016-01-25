@@ -3,202 +3,25 @@
 							 xmlns:s="gr.ictpro.mall.client.components.*"
 							 width="100%" height="100%"
 							 cancelButton="false" okButton="false"
-							 title="{Translation.getTranslation('Calendar')}"
-							 creationComplete="topbarcustomview1_creationCompleteHandler(event)"
+							 addButton="true"
+							 title="{Translation.getTranslation('Calendar')}" xmlns:signals="org.osflash.signals.*"
 							 >
+	<fx:Declarations>
+		<signals:Signal  id="dateSelected" valueClasses="{[Date]}" />
+	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.collections.ArrayList;
-			import mx.events.FlexEvent;
-			import mx.events.ResizeEvent;
-			
-			import spark.events.TextOperationEvent;
-			
-			import gr.ictpro.mall.client.components.CalendarCell;
-			import gr.ictpro.mall.client.components.HorizontalLayout;
-			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.runtime.Translation;
-			import gr.ictpro.mall.client.utils.date.DateUtils;
 			
-			[Bindable]
-			private var currentMonth:int;
 			
-			[Bindable]
-			private var currentYear:int;
 			
-			private var currentDate:Date;
-			
-			private var daysOfWeek:ArrayCollection = new ArrayCollection(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
-			
-			[Bindable]
-			private var months:ArrayCollection = new ArrayCollection(["January", "February", "March", 
-												 "April", "May", "June", 
-												 "July", "August", "September", 
-												 "October", "November", "December"]);
-
-			private var calendarCells:ArrayList = new ArrayList();
-			protected function topbarcustomview1_creationCompleteHandler(event:FlexEvent):void
+			protected function calendar_dateSelectedHandler(event:Event):void
 			{
-				currentDate = new Date();
-				currentMonth = currentDate.month;
-				currentYear = currentDate.fullYear;
-				
-				month.selected = months.getItemAt(currentMonth);
-				drawCalendar();
-			}
-			
-			private function drawCalendar():void
-			{
-				calendar.removeAllElements();
-				var cellWidth:int = Math.min((calendarContainer.definedWidth -20) / 7, (calendarContainer.definedHeight -50) /7);
-				if(cellWidth <30) {
-					cellWidth = 30;
-				}
-				
-				calendar.addElement(getHeader(cellWidth));
-				calendar.addElement(getDates(cellWidth));
-				
-			}
-			
-			private function getHeader(cellWidth:int):Group
-			{
-				var group:Group = getRow(cellWidth);
-				
-				for(var i:int=0; i<7;i++) {
-					var cell:CalendarCell = getCell(cellWidth);
-					cell.borderColor = 0xffffff;
-					cell.label.text = daysOfWeek[i];
-					cell.label.setStyle("fontWeight", "bold");
-					group.addElement(cell);
-				}
-				
-				return group;
-			}
-			
-			private function getCell(cellWidth:int, date:Date = null):CalendarCell
-			{
-				var cell:CalendarCell = new CalendarCell();
-				cell.width = cellWidth;
-				cell.height = cellWidth;
-				cell.label.setStyle("textAlign", "center");
-				cell.date = date;
-				cell.cellClicked.add(dateClicked);
-				calendarCells.addItem(cell);
-				return cell;
-			}
-			
-			private function getDates(cellWidth:int):Group
-			{
-				var group:Group = new Group();
-				var layout:VerticalLayout = new VerticalLayout();
-				layout.gap = -1;
-				group.layout = layout;
-
-				// calculate date of first Sunday
-				var startDate:Date = new Date(currentYear, currentMonth, 1);
-				startDate.date -= startDate.day;
-				
-				var rowGroup:Group = getRow(cellWidth);
-
-				var showMore:Boolean = true; 
-				while(showMore) {
-					var cell:CalendarCell = getCell(cellWidth, new Date(startDate.fullYear, startDate.month, startDate.date));
-					if(DateUtils.compareNoTime(cell.date, currentDate) == 0) {
-						cell.label.setStyle("fontWeight", "bold");
-					}
-					cell.label.text = String(startDate.date);
-					if(startDate.month != currentMonth) {
-						cell.alpha = 0.5;
-					}
-					rowGroup.addElement(cell);
-					
-					startDate.date +=1;
-					if(startDate.day == 0) {
-						group.addElement(rowGroup);
-						if(startDate.fullYear > currentYear || startDate.month > currentMonth) {
-							showMore = false;
-						} else {
-							rowGroup = getRow(cellWidth);							
-						}
-					}
-				}
-				
-				return group;
-			}
-			
-			private function getRow(cellWidth:int):Group
-			{
-				var group:Group = new Group();
-				var layout:HorizontalLayout = new HorizontalLayout();
-				layout.gap = -1;
-				group.layout = layout;
-				
-				return group;
-			}
-			
-			private function dateClicked(cell:CalendarCell):void
-			{
-				trace("Clicked on: " + cell.date + " ("+cell.label.text+")");
-			}
-			
-			protected function topbarcustomview1_resizeHandler(event:ResizeEvent):void
-			{
-				if(!Device.isAndroid || (Device.isAndroid && this.height == stage.height && this.width == stage.width)) { // don't resize if softKeyboard is visible
-					var cellWidth:int = Math.min((calendarContainer.definedWidth -20) / 7, (calendarContainer.definedHeight -20) /7);
-					if(cellWidth <30) {
-						cellWidth = 30;
-					}
-					for (var i:int = 0; i<calendarCells.length; i++) {
-						var cell:CalendarCell = CalendarCell(calendarCells.getItemAt(i));
-						cell.width = cellWidth;
-						cell.height = cellWidth;
-					}
-				}
-			}
-			
-			protected function txtYear_changeHandler(event:TextOperationEvent):void
-			{
-				if(txtYear.text.length == 4) {
-					currentYear = parseInt(txtYear.text, 10); 
-					drawCalendar();
-				}
-				
-			}
-			
-			protected function month_changeHandler(event:Event):void
-			{
-				currentMonth = months.getItemIndex(month.selected);
-				drawCalendar();
+				dateSelected.dispatch(calendar.selectedDate);
 				
 			}
 			
 		]]>
 	</fx:Script>
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
-	<s:Group width="100%" height="100%" minWidth="100" minHeight="100">
-		<s:layout>
-			<s:VerticalLayout gap="10" paddingLeft="10" paddingTop="10" paddingBottom="10" paddingRight="10" horizontalAlign="center" />
-		</s:layout>
-		<s:Group>
-			<s:layout>
-				<s:HorizontalLayout gap="10" verticalAlign="middle" />
-			</s:layout>
-			<s:Label text="{Translation.getTranslation('Month')}" />
-			<s:PopUpList dataList="{months}" id="month" width="100" change="month_changeHandler(event)" />
-			<s:Label text="{Translation.getTranslation('Year')}" />
-			<s:TextInput text="{String(currentYear)}" id="txtYear" restrict="0-9" width="50" change="txtYear_changeHandler(event)" />
-		</s:Group>
-		<s:Scroller width="100%" height="100%" resize="topbarcustomview1_resizeHandler(event)">
-			<s:Group id="calendarContainer" minWidth="210" minHeight="210" >
-				<s:Group id="calendar" horizontalCenter="0" >
-					<s:layout>
-						<s:VerticalLayout />
-					</s:layout>
-				</s:Group> 
-			</s:Group>
-		</s:Scroller>
-	</s:Group>
+	<s:Calendar id="calendar" dateSelected="calendar_dateSelectedHandler(event)" />
 </s:TopBarCustomView>

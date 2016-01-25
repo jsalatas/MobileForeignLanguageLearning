@@ -6,6 +6,7 @@
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   showStatusBar="false"
 					   initialize="windowedapplication1_initializeHandler(event)"
+					   addedToStage="windowedapplication1_addedToStageHandler(event)"
 					   >
 	<fx:Style>
 		@namespace mx "library://ns.adobe.com/flex/mx";
@@ -18,7 +19,6 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
-			
 			import gr.ictpro.mall.client.desktop.DesktopDevice;
 			import gr.ictpro.mall.client.runtime.Device;
 			
@@ -26,12 +26,16 @@
 			{
 				Device.device = new DesktopDevice();
 				systemManager.addEventListener(MouseEvent.MOUSE_WHEEL, bumpDelta, true);
-				
 			}
 			
 			public function bumpDelta(event:MouseEvent):void
 			{
 				event.delta *= 4;
+			}
+			
+			protected function windowedapplication1_addedToStageHandler(event:Event):void
+			{
+				stage.nativeWindow.maximize();
 			}
 			
 		]]>

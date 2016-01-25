@@ -47,7 +47,7 @@ package gr.ictpro.mall.client.view
 			if(module is IParameterizedView) {
 				(module as IParameterizedView).parameters = parameters;
 			}
-			if(module is IDetailView) {
+			if(module is IDetailView && backView != null) {
 				(module as IDetailView).masterView = backView;
 			}
 			view.addElement(module);

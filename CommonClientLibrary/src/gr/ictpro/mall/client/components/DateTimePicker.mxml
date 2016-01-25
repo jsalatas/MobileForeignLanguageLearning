@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%">
+<fx:Script>
+	<![CDATA[
+		
+		[Bindable]
+		private var selectedDate:Date;
+
+		[Bindable]
+		private var selectedTime:Date;
+		
+		public function set date(date:Date):void 
+		{
+			selectedDate = new Date(date);	
+			selectedTime = new Date(date);
+		}
+		
+		public function get date():Date
+		{
+			var date:Date = new Date(selectedDate);
+			date.setHours(selectedTime.hours, selectedTime.minutes, selectedTime.seconds, selectedTime.milliseconds);
+			
+			return date;
+		}
+		
+		protected function datePicker_changeHandler(event:Event):void
+		{
+			if(datePicker.selectedDate != null) {
+				selectedDate = datePicker.selectedDate;
+			}
+			
+		}
+		
+		protected function timePicker_changeHandler(event:Event):void
+		{
+			if(timePicker.selectedTime != null) {
+				selectedTime = timePicker.selectedTime;
+			}
+			
+		}
+		
+	]]>
+</fx:Script>
+<s:layout>
+	<s:HorizontalLayout gap="2" />
+</s:layout>
+	<s:DatePicker width="70%" id="datePicker" selectedDate="{selectedDate}" change="datePicker_changeHandler(event)"/> 
+	<s:TimePicker width="30%" id="timePicker" selectedTime="{selectedTime}" change="timePicker_changeHandler(event)"/>
+
+</s:Group>

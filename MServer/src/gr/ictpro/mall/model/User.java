@@ -51,6 +51,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Profile profile;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
+    private Set<Schedule> schedules = new HashSet<Schedule>(0);
     private Set<Classroom> teacherClassrooms = new HashSet<Classroom>(0);
     private Set<UserNotification> userNotifications = new HashSet<UserNotification>(0);
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
@@ -69,7 +70,7 @@ public class User implements java.io.Serializable, UserDetails {
     public User(String username, String password, String email, boolean enabled, Profile profile,
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications,
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, 
-	    Set<Classroom> teacherClassrooms ) {
+	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms ) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -81,6 +82,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.roles = roles;
 	this.calendars = calendars;
 	this.teacherClassrooms = teacherClassrooms;
+	this.schedules = schedules;
     }
 
     @Id
@@ -259,6 +261,7 @@ public class User implements java.io.Serializable, UserDetails {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @AmfIgnore
     public Set<Calendar> getCalendars() {
 	return this.calendars;
     }
@@ -267,7 +270,19 @@ public class User implements java.io.Serializable, UserDetails {
 	this.calendars = calendars;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @AmfIgnore
+    public Set<Schedule> getSchedules() {
+	return this.schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+	this.schedules = schedules;
+    }
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+    @AmfIgnore
     public Set<Classroom> getTeacherClassrooms() {
 	return this.teacherClassrooms;
     }

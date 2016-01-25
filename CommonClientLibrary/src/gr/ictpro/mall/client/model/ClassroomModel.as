@@ -1,12 +1,10 @@
 package gr.ictpro.mall.client.model
 {
-	import mx.collections.ArrayCollection;
-	
+	import gr.ictpro.mall.client.model.vo.Calendar;
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
-	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.view.ClassroomView;
 	import gr.ictpro.mall.client.view.components.ClassroomComponent;
@@ -20,6 +18,7 @@ package gr.ictpro.mall.client.model
 			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null));
 			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, false, null, null));
 			addDetail(new DetailMapper("Students", "students", User, null, filterStudents, null, false, null, null));
+			//addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, false, null, null));
 
 		}
 

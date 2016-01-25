@@ -34,9 +34,9 @@ package gr.ictpro.mall.client.mobile.skins
 					layoutPaddingTop = 0; //Device.getScaledSize(10);
 					layoutPaddingBottom = 0; //Device.getScaledSize(10);
 					layoutBorderSize = 1;
-					measuredDefaultWidth = 200; //Device.getScaledSize(100);
+					measuredDefaultWidth = 150; //Device.getScaledSize(100);
 					measuredDefaultHeight = 66; //Device.getScaledSize(22);
-					minWidth= 200; //Device.getScaledSize(100);
+					minWidth= 150; //Device.getScaledSize(100);
 					minHeight = 66; //Device.getScaledSize(22);
 					iconDefaultHeight = 30;
 					lineWidth = 4;
@@ -52,9 +52,9 @@ package gr.ictpro.mall.client.mobile.skins
 					layoutPaddingTop = 0; //Device.getScaledSize(10);
 					layoutPaddingBottom = 0; //Device.getScaledSize(10);
 					layoutBorderSize = 1;
-					measuredDefaultWidth = 150; //Device.getScaledSize(100);
+					measuredDefaultWidth = 112; //Device.getScaledSize(100);
 					measuredDefaultHeight = 50; //Device.getScaledSize(22);
-					minWidth= 150; //Device.getScaledSize(100);
+					minWidth= 112; //Device.getScaledSize(100);
 					minHeight = 33; //Device.getScaledSize(22);			
 					iconDefaultHeight = 30;
 					iconDefaultHeight = 23;
@@ -72,9 +72,9 @@ package gr.ictpro.mall.client.mobile.skins
 					layoutPaddingTop = 0; //Device.getScaledSize(10);
 					layoutPaddingBottom = 0; //Device.getScaledSize(10);
 					layoutBorderSize = 1;
-					measuredDefaultWidth = 100; //Device.getScaledSize(100);
+					measuredDefaultWidth = 75; //Device.getScaledSize(100);
 					measuredDefaultHeight = 33; //Device.getScaledSize(22);
-					minWidth= 100; //Device.getScaledSize(100);
+					minWidth= 75; //Device.getScaledSize(100);
 					minHeight = 22; //Device.getScaledSize(22);			
 					iconDefaultHeight = 15;
 					lineWidth = 2;

@@ -25,6 +25,13 @@ package gr.ictpro.mall.client.components
 			cancelButton = false;
 		}
 		
+		private var _listItemHeight:int = 25;
+		
+		public function set listItemHeight(height:int):void
+		{
+			_listItemHeight = height;
+		}
+		
 		override protected function createChildren():void
 		{
 			super.createChildren();
@@ -39,7 +46,7 @@ package gr.ictpro.mall.client.components
 			_list.setStyle("contentBackgroundColor", "#ffffff");
 			
 			var itemRenderer:ClassFactory = new ClassFactory(IconItemRenderer);
-			itemRenderer.properties= {height: 25, bottomSeparatorColor: Device.getDefaultColor(0.5), styles:{verticalAlign: "middle", paddingLeft: 2, paddingRight: 2}};
+			itemRenderer.properties= {height: _listItemHeight, bottomSeparatorColor: Device.getDefaultColor(0.5), styles:{verticalAlign: "middle", paddingLeft: 2, paddingRight: 2}};
 	
 			_list.itemRenderer =itemRenderer;
 

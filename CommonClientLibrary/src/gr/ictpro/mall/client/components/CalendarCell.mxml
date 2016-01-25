@@ -8,14 +8,19 @@
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.runtime.Device;
-			
+
 			[Bindable]
 			public var color:int = 0xffffff;
+
+			[Bindable]
+			public var fontColor:int = Device.getDefaultColor();
 
 			[Bindable]
 			public var borderColor:int = Device.getDefaultColor();
 			
 			public var date:Date = null;
+			
+			public var numberOfEvents:int = 0;
 			
 			protected function group1_clickHandler(event:MouseEvent):void
 			{
@@ -35,5 +40,5 @@
 			<s:SolidColorStroke color="{borderColor}" weight="{Device.getScaledSize(1)}" />
 		</s:stroke>
 	</s:Rect>
-	<s:Label id="label" top="0" left="0" right="0" bottom="0" textAlign="center" verticalAlign="middle" maxDisplayedLines="1" />
+	<s:Label id="label" top="0" left="0" right="0" color="{fontColor}" bottom="0" textAlign="center" verticalAlign="middle" maxDisplayedLines="1" />
 </s:Group>

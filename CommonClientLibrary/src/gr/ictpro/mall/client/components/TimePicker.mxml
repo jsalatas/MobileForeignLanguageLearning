@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%">
+	<fx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+		[DefaultProperty("txt")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			
+			import spark.events.PopUpEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			import gr.ictpro.mall.client.utils.date.DateUtils;
+			
+			private var timePopupMenu:PopUpMenu;
+			
+			private var mouseDown:Boolean=false;
+
+			[Bindable]
+			public var selectedTime:Date = null;
+			
+			protected function txt_clickHandler(event:MouseEvent):void
+			{
+				if(timePopupMenu && mouseDown) {
+				} else {
+					if(!timePopupMenu) {
+						timePopupMenu = new PopUpMenu();
+						timePopupMenu.borderVisible = true;
+						timePopupMenu.percentHeight=100;
+						timePopupMenu.addEventListener(PopUpEvent.CLOSE,popUpClosed);
+						timePopupMenu.itemSelected.add(itemSelected);
+						timePopupMenu.labelFunction = DateUtils.toShortTime;
+					}
+					timePopupMenu.menuList = DateUtils.getTimesList();
+					var point:Point = localToGlobal(new Point(0, txt.height)); 
+					var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+					var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+					
+					timePopupMenu.x = point.x*curAppDPI/curDensity;
+					timePopupMenu.y = point.y*curAppDPI/curDensity;
+					timePopupMenu.minWidth = txt.width;
+					timePopupMenu.open(this, false);
+				}
+				mouseDown = false;
+			}
+
+			protected function itemSelected(selected:Object):void
+			{
+				selectedTime = selected as Date;
+				
+				trace(selectedTime);
+			}
+			
+			protected function popUpClosed(event:PopUpEvent):void
+			{
+				selectedTime = timePopupMenu.selected as Date;
+				txt.setFocus();
+				dispatchEvent(new Event("change"));
+
+			}
+			
+			protected function txt_mouseDownHandler(event:MouseEvent):void
+			{
+				if(timePopupMenu && timePopupMenu.isOpen) {
+					mouseDown = true;
+				}
+				
+			}
+
+		]]>
+	</fx:Script>
+	<s:Button skinClass="{Device.dropDownSkin}"  
+				 label="{DateUtils.toShortTime(selectedTime)}" id="txt" width="100%" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
+
+</s:Group>

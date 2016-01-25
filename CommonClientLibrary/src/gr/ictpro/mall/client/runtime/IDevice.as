@@ -17,5 +17,7 @@ package gr.ictpro.mall.client.runtime
 		function get colorDropDownSkin():Class;
 		function get checkBoxSkin():Class;
 		function get textAreaSkin():Class;
+		function get language():String;
+		function get locale():String;
 	}
 }

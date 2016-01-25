@@ -39,7 +39,7 @@ package gr.ictpro.mall.client.view
 			listSignal.dispatch(model.getVOClass());
 		}
 
-		private function listSuccess(classType:Class):void
+		protected function listSuccess(classType:Class):void
 		{
 			if(classType == model.getVOClass()) {
 				TopBarListView(view).data = model.list;
@@ -59,7 +59,7 @@ package gr.ictpro.mall.client.view
 			showDetail(parameters);
 		}
 		
-		private function buildParameters(vo:Object):ViewParameters
+		protected function buildParameters(vo:Object):ViewParameters
 		{
 			var parameters:ViewParameters = new ViewParameters();
 			parameters.vo = vo;

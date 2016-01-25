@@ -6,10 +6,7 @@ package gr.ictpro.mall.client.components
 	
 	import mx.core.mx_internal;
 	
-	import spark.layouts.supportClasses.LayoutBase;
-	
 	import gr.ictpro.mall.client.model.AbstractModel;
-	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 
 	use namespace mx_internal;	
@@ -22,6 +19,7 @@ package gr.ictpro.mall.client.components
 	{
 
 		private var _editor:VOEditor; 
+
 		protected var mxmlContentGroup:Group; 
 		public var _scroller:Scroller = new Scroller();
 
@@ -72,11 +70,11 @@ package gr.ictpro.mall.client.components
 				mainGroup.layout = mainLayout;
 
 				var editorClass:Class = model.getEditorClass();
-				_editor = VOEditor(new editorClass());
-				_editor.id = "editor";
-				_editor.vo = parameters.vo;
-				_editor.state = currentState;
-				mainGroup.addElement(_editor);
+				editor = VOEditor(new editorClass());
+				editor.id = "editor";
+				editor.vo = parameters.vo;
+				editor.state = currentState;
+				mainGroup.addElement(editor);
 				
 				if(model.detailMapper.length >0) {
 					var detailTab:DetailTab = new DetailTab();
@@ -87,11 +85,16 @@ package gr.ictpro.mall.client.components
 			}
 		}
 		
+		[Bindable]
 		public function get editor():VOEditor
 		{
 			return this._editor; 
 		}
 			
+		public function set editor(editor:VOEditor):void
+		{
+			this._editor = editor; 
+		}
 		
 		
 //		override public function set layout(value:LayoutBase):void

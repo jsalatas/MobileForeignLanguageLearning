@@ -1,6 +1,9 @@
 package gr.ictpro.mall.client.desktop
 {
 	
+	import flash.system.Capabilities;
+	
+	import gr.ictpro.jsalatas.ane.locale.Locale;
 	import gr.ictpro.mall.client.desktop.skins.ButtonBarSkin;
 	import gr.ictpro.mall.client.desktop.skins.ButtonSkin;
 	import gr.ictpro.mall.client.desktop.skins.CheckBoxSkin;
@@ -97,5 +100,22 @@ package gr.ictpro.mall.client.desktop
 		{
 			return TextAreaSkin;
 		}
+		
+		public function get language():String
+		{
+			return Capabilities.languages[0];
+		}
+
+		private var _locale:String = null;
+
+		public function get locale():String
+		{
+			if(_locale == null){
+				var locale:Locale = new Locale();
+				_locale = locale.getLocale();
+			}
+			return _locale;
+		}
+		
 	}
 }

@@ -15,6 +15,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.ServerNotificationClickedCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
+	import gr.ictpro.mall.client.model.CalendarModel;
 	import gr.ictpro.mall.client.model.ClassroomModel;
 	import gr.ictpro.mall.client.model.ClassroomgroupModel;
 	import gr.ictpro.mall.client.model.ClientSettingsModel;
@@ -22,6 +23,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.model.LanguageModel;
 	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.RoleModel;
+	import gr.ictpro.mall.client.model.ScheduleModel;
 	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Device;
@@ -59,8 +61,12 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowErrorSignal;
 	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
+	import gr.ictpro.mall.client.view.CalendarDayView;
+	import gr.ictpro.mall.client.view.CalendarDayViewMediator;
 	import gr.ictpro.mall.client.view.CalendarMonthView;
 	import gr.ictpro.mall.client.view.CalendarMonthViewMediator;
+	import gr.ictpro.mall.client.view.CalendarView;
+	import gr.ictpro.mall.client.view.CalendarViewMediator;
 	import gr.ictpro.mall.client.view.ClassroomView;
 	import gr.ictpro.mall.client.view.ClassroomViewMediator;
 	import gr.ictpro.mall.client.view.ClassroomgroupView;
@@ -134,6 +140,8 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(RoleModel);
 			injector.mapSingleton(UserModel);
 			injector.mapSingleton(ClientSettingsModel);
+			injector.mapSingleton(CalendarModel);
+			injector.mapSingleton(ScheduleModel);
 
 			
 			mediatorMap.mapView(ShellView, ShellViewMediator);
@@ -148,6 +156,8 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ClassroomgroupsView, ClassroomgroupsViewMediator, TopBarView);
 			mediatorMap.mapView(ClassroomgroupView, ClassroomgroupViewMediator, TopBarView);
 			mediatorMap.mapView(CalendarMonthView, CalendarMonthViewMediator, TopBarView);
+			mediatorMap.mapView(CalendarDayView, CalendarDayViewMediator, TopBarView);
+			mediatorMap.mapView(CalendarView, CalendarViewMediator, TopBarView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);
@@ -176,6 +186,8 @@ package gr.ictpro.mall.client
 			injector.getInstance(RoleModel);
 			injector.getInstance(UserModel);
 			injector.getInstance(ClientSettingsModel);
+			injector.getInstance(CalendarModel);
+			injector.getInstance(ScheduleModel);
 
 		}
 	}

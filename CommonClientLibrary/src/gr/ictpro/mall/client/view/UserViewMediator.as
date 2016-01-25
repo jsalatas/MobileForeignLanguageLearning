@@ -93,7 +93,7 @@ package gr.ictpro.mall.client.view
 				removeSignals();
 				if(result != null) {
 					view.parameters.vo = result;
-					view.invalidateChildren()();
+					view.invalidateChildren();
 				} else {
 					UI.showError(Translation.getTranslation("Cannot get User"));
 					back();

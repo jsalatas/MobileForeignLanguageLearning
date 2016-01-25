@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client.mobile
 {
+	import flash.system.Capabilities;
+	
 	import gr.ictpro.mall.client.mobile.skins.ButtonBarSkin;
 	import gr.ictpro.mall.client.mobile.skins.ButtonSkin;
 	import gr.ictpro.mall.client.mobile.skins.CheckBoxSkin;
@@ -96,5 +98,17 @@ package gr.ictpro.mall.client.mobile
 		{
 			return TextAreaSkin;
 		}
+		
+		public function get language():String
+		{
+			return Capabilities.languages[0];
+		}
+		
+		public function get locale():String
+		{
+			//In android locale always matches User Interface's language 
+			return Capabilities.languages[0];
+		}
+
 	}
 }

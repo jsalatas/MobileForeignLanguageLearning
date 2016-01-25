@@ -17,7 +17,6 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import mx.collections.ArrayList;
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
