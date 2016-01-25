@@ -19,7 +19,8 @@ package gr.ictpro.mall.client.components
 	{
 
 		private var _editor:VOEditor; 
-
+		private var _detailTab:DetailTab;
+		
 		protected var mxmlContentGroup:Group; 
 		public var _scroller:Scroller = new Scroller();
 
@@ -77,11 +78,22 @@ package gr.ictpro.mall.client.components
 				mainGroup.addElement(editor);
 				
 				if(model.detailMapper.length >0) {
-					var detailTab:DetailTab = new DetailTab();
-					detailTab.vo = parameters.vo;
-					detailTab.state = currentState;
-					mainGroup.addElement(detailTab);
+					_detailTab = new DetailTab();
+					_detailTab.vo = parameters.vo;
+					_detailTab.state = currentState;
+					mainGroup.addElement(_detailTab);
 				}
+			}
+		}
+		
+		override public function set currentState(state:String):void
+		{
+			super.currentState = state;
+			if(editor != null) {
+				editor.state = state;
+			}
+			if(_detailTab != null) {
+				_detailTab.state = state;
 			}
 		}
 		

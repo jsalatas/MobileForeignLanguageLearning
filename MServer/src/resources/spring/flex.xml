@@ -65,6 +65,7 @@
 			<security:protect access="Admin, Teacher" method="getClassroomgroups" />
 			<security:protect access="Admin, Teacher" method="updateClassroomgroup" />
 			<security:protect access="Admin, Teacher" method="deleteClassroomgroup" />
+			<security:protect access="Teacher, Student" method="getCurrentClassroom" />
 		</security:intercept-methods>
 	</bean>
 		

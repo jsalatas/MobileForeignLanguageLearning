@@ -80,11 +80,11 @@
 	<s:FormItem width="100%" label="{Translation.getTranslation('Language')}">
 		<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />
 	</s:FormItem>
+	<s:FormItem width="100%" label="{Translation.getTranslation('Force Interface Language')}">
+		<s:CheckBox width="100%" id="chkForceUILanguage" selected="@{vo.forceUILanguage}"/>
+	</s:FormItem>
 	<s:FormItem id="teacher" width="100%" label="{Translation.getTranslation('Teacher')}">
 		<s:PopUpList id="teacherPopup" width="100%" dataList="{_teachers}" textAlign="left" initialize="teacherPopup_initializeHandler(event)" />
-	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Force Interface Language')}">
-		<s:CheckBox id="chkForceUILanguage" selected="@{vo.forceUILanguage}"/>
 	</s:FormItem>
 
 </s:VOEditor>
