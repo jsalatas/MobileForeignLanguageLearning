@@ -117,4 +117,9 @@ public class ClassroomRemoteService {
 	classroomgroupService.delete(classroomgroupService.retrieveById(classroomgroup.getId()));
     }
 
+    public Classroom getCurrentClassroom() {
+	User currentUser = userContext.getCurrentUser();
+	return userContext.getCurrentClassroom(currentUser);
+    }
+
 }

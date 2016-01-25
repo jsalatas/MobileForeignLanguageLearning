@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.GenericService;
@@ -31,6 +32,11 @@ public class UserContext {
     
     public Language getUserLang(User u) {
 	return languageService.listByProperty("code", "en").get(0); 
+    }
+    
+    public Classroom getCurrentClassroom(User u) {
+	//TODO:
+	return null; 
     }
 
 }
