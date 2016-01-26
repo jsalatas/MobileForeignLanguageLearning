@@ -3,6 +3,13 @@
  */
 package gr.ictpro.mall.context;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -23,8 +30,13 @@ public class UserContext {
     private GenericService<Language, Integer> languageService;
 
     @Autowired(required = true)
+    private GenericService<Classroom, Integer> classroomService;
+
+    @Autowired(required = true)
     private UserService userService;
 
+    private static SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm"); 
+    
     public User getCurrentUser() {
 	User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	return userService.retrieveById(u.getId());	
@@ -35,8 +47,25 @@ public class UserContext {
     }
     
     public Classroom getCurrentClassroom(User u) {
-	//TODO:
-	return null; 
+	String hql;
+	
+	Date now = GregorianCalendar.getInstance().getTime();
+	// Add 30 minutes
+	now.setTime(now.getTime()+1000*60*30);
+	
+	String timeHQL = "ca.startTime <= '" + sqlDateFormat.format(now) + "' AND ca.endTime >= '" + sqlDateFormat.format(now) + "'";
+	
+	if(u.hasRole("Teacher")) {
+	    hql = "SELECT cl FROM Classroom cl JOIN cl.calendars ca WHERE cl.teacher.id = " + u.getId() + " AND " + timeHQL;
+	} else if(u.hasRole("Student")) {
+	    hql = "SELECT cl FROM Classroom cl JOIN cl.calendars ca JOIN students st WHERE st.id = " + u.getId() + " AND " + timeHQL;
+	} else {
+	    return null;
+	}
+	
+	List<Classroom> classrooms = classroomService.listByCustomSQL(hql);
+	
+	return classrooms.size()>0? classrooms.get(0):null;
     }
 
 }
