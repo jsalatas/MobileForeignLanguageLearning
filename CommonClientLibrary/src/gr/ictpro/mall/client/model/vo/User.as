@@ -15,6 +15,10 @@ package gr.ictpro.mall.client.model.vo
 		public var roles:ArrayCollection;
 		public var calendars:ArrayCollection;
 		public var teacherClassrooms:ArrayCollection;
+		public var classrooms:ArrayCollection;
+		[Transient]
+		public var currentClassroom:Classroom;
+
 
 		public function User()
 		{

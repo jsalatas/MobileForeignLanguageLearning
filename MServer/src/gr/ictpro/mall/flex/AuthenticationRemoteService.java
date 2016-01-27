@@ -18,6 +18,7 @@ import flex.messaging.HttpFlexSession;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.AuthenticationMethod;
 import gr.ictpro.mall.authentication.RegistrationMethod;
+import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.GenericService;
@@ -40,6 +41,10 @@ public class AuthenticationRemoteService {
     @Autowired(required = true)
     private List<RegistrationMethod> registrationMethods;
     
+    @Autowired(required = true)
+    private UserContext userContext;
+    
+    
     private List<User> connectedUsers = new ArrayList<User>(); 
     
     public User login(ASObject authenticationDetails) {
@@ -57,6 +62,7 @@ public class AuthenticationRemoteService {
 	    return null;
 	}
 	if(u!=null && u.isEnabled()) {
+	    u.setCurrentClassroom(userContext.getCurrentClassroom(u));
 	    addToConnectedUsers(u);
 	    return u;
 	} else {

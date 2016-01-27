@@ -49,6 +49,13 @@
 				super.close(commit, data);
 			}
 			
+			override public function open(owner:DisplayObjectContainer, modal:Boolean=false):void
+			{
+				super.open(owner, modal);
+				arrangeList();
+			}
+			
+			
 			protected function addedToStageHandler(event:Event):void
 			{
 				stage.addEventListener(Event.RESIZE, resizeHandler);
@@ -58,12 +65,17 @@
 			{
 				this.close();
 			}
+
+			protected function arrangeList():void
+			{
+				if(this.y+list.height +100 > stage.height) {
+					this.y = owner.localToGlobal(new Point(0, owner.y)).y -list.height; 
+				}
+			}
 			
 			protected function list_resizeHandler(event:ResizeEvent):void
 			{
-				if(this.y+list.height > stage.height) {
-					this.y = owner.localToGlobal(new Point(0, owner.y)).y -list.height; 
-				}
+				arrangeList();
 			}
 			
 			protected function list_keyUpHandler(event:KeyboardEvent):void
@@ -89,12 +101,6 @@
 					itemSelected.dispatch(list.selectedItem);
 					this.close();
 				}
-			}
-			
-			protected function list_initializeHandler(event:FlexEvent):void
-			{
-				
-				
 			}
 			
 		]]>

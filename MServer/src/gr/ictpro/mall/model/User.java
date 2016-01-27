@@ -49,6 +49,7 @@ public class User implements java.io.Serializable, UserDetails {
     private String email;
     private boolean enabled;
     private Profile profile;
+    private Classroom currentClassroom;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
@@ -177,16 +178,14 @@ public class User implements java.io.Serializable, UserDetails {
 	this.roles = roles;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "classroom_user", joinColumns = {
 	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 	    @JoinColumn(name = "class_id", nullable = false, updatable = false) })
-    @AmfIgnore
     public Set<Classroom> getClassrooms() {
 	return this.classrooms;
     }
 
-    @AmfIgnore
     public void setClassrooms(Set<Classroom> classrooms) {
 	this.classrooms = classrooms;
     }
@@ -228,6 +227,16 @@ public class User implements java.io.Serializable, UserDetails {
 	return this.roles;
     }
 
+    @Transient
+    public Classroom getCurrentClassroom() {
+	return this.currentClassroom;
+    }
+
+    @Transient
+    public void setCurrentClassroom(Classroom currentClassroom) {
+	this.currentClassroom = currentClassroom;
+    }
+    
     @Override
     @Transient
     @AmfIgnore
@@ -281,8 +290,7 @@ public class User implements java.io.Serializable, UserDetails {
     }
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-    @AmfIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
     public Set<Classroom> getTeacherClassrooms() {
 	return this.teacherClassrooms;
     }

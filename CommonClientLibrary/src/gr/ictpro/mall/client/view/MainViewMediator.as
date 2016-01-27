@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.menu.MenuItem;
 	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.model.NotificationModel;
+	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.vo.Notification;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
@@ -26,7 +27,7 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var settings:RuntimeSettings;
-		
+
 		[Inject]
 		public var listSuccess:ListSuccessSignal;
 		
@@ -45,6 +46,15 @@ package gr.ictpro.mall.client.view
 			view.user = settings.user;
 			view.menu = settings.menu;
 			view.notifications = notificationsModel.list;
+			view.currentClassroomFormItem.visible = UserModel.isTeacher(settings.user) || UserModel.isStudent(settings.user);
+			if(UserModel.isTeacher(settings.user)) {
+				view.classrooms = settings.user.teacherClassrooms;
+				view.currentClassroom.selected = settings.user.currentClassroom;
+			} else if (UserModel.isStudent(settings.user)) {
+				view.classrooms = settings.user.classrooms;
+				view.currentClassroom.enabled = false;
+				view.currentClassroom.selected = settings.user.currentClassroom;
+			}  
 		}
 		
 		private function listSuccessHandler(classType:Class):void
