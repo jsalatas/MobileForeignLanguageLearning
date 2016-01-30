@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.web.context.ContextLoader;
 
 import flex.messaging.FlexContext;
@@ -44,9 +45,6 @@ public class AuthenticationRemoteService {
     @Autowired(required = true)
     private UserContext userContext;
     
-    
-    private List<User> connectedUsers = new ArrayList<User>(); 
-    
     public User login(ASObject authenticationDetails) {
 	User u = null;
 	try {
@@ -62,34 +60,21 @@ public class AuthenticationRemoteService {
 	    return null;
 	}
 	if(u!=null && u.isEnabled()) {
+	    userContext.addToConnectedUsers(u);
 	    u.setCurrentClassroom(userContext.getCurrentClassroom(u));
-	    addToConnectedUsers(u);
 	    return u;
 	} else {
 	    return null;
 	}
 
     }
-    public void logout(String userName) {
+    public void terminateSession() {
 	 HttpFlexSession flexSession = (HttpFlexSession) FlexContext.getFlexSession();
 	 flexSession.invalidate(true);
 	 SecurityContextHolder.clearContext();
-	 User u = userService.listByProperty("username", userName).get(0);
-	 removeFromConnectedUsers(u);
-	 
+	 userContext.removeFromConnectedUsers(userContext.getCurrentUser());
     }
     
-    private void removeFromConnectedUsers(User u) {
-	connectedUsers.remove(u);
-	//MessagingService.sendMessageToClients("user disconnected");
-    }
-
-    private void addToConnectedUsers(User u) {
-	connectedUsers.add(u);
-	//MessagingService.sendMessageToClients("user connected");
-    }
-
-
     public List<AuthenticationMethod> getAuthenticationModules() {
 	return authMethods;
     }

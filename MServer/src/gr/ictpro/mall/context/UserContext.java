@@ -3,12 +3,13 @@
  */
 package gr.ictpro.mall.context;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,14 +33,13 @@ public class UserContext {
     @Autowired(required = true)
     private GenericService<Classroom, Integer> classroomService;
 
-    @Autowired(required = true)
-    private UserService userService;
-
     private static SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm"); 
+    
+    private Map<Integer, User> connectedUsers = new LinkedHashMap<Integer, User>();
     
     public User getCurrentUser() {
 	User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	return userService.retrieveById(u.getId());	
+	return connectedUsers.get(u.getId());
     }
     
     public Language getUserLang(User u) {
@@ -65,7 +65,19 @@ public class UserContext {
 	
 	List<Classroom> classrooms = classroomService.listByCustomSQL(hql);
 	
-	return classrooms.size()>0? classrooms.get(0):null;
+	Classroom clasroom =classrooms.size()>0? classrooms.get(0):null;  
+	
+	connectedUsers.get(u.getId()).setCurrentClassroom(clasroom);
+	
+	return clasroom;
+    }
+    
+    public void addToConnectedUsers(User user) {
+	connectedUsers.put(user.getId(), user);
+    }
+
+    public void removeFromConnectedUsers(User user) {
+	connectedUsers.remove(user.getId());
     }
 
 }

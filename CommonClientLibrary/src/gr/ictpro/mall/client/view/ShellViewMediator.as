@@ -1,5 +1,8 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.desktop.NativeApplication;
+	import flash.events.Event;
+	
 	import mx.core.IVisualElement;
 	import mx.utils.ObjectProxy;
 	
@@ -8,9 +11,11 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.IDetailView;
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.model.ViewParameters;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
+	import gr.ictpro.mall.client.signal.LogoutSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
@@ -26,6 +31,12 @@ package gr.ictpro.mall.client.view
 		public var addView:AddViewSignal;
 
 		[Inject]
+		public var logoutSignal:LogoutSignal;
+		
+		[Inject]
+		public var settings:RuntimeSettings;
+
+		[Inject]
 		public var injector:IInjector;
 		
 		[Inject]
@@ -39,6 +50,16 @@ package gr.ictpro.mall.client.view
 			addToSignal(addView, handleAddView);
 			addToSignal(serverConnectError, handleConnectionError);
 			initialize.dispatch();
+			NativeApplication.nativeApplication.addEventListener(Event.EXITING, closeApplication);
+		}
+		
+		private function closeApplication(event:Event):void
+		{
+			NativeApplication.nativeApplication.removeEventListener(Event.EXITING, closeApplication);
+			if(settings.user != null) {
+				event.preventDefault();
+				logoutSignal.dispatch();
+			}
 		}
 		
 		private function handleAddView(module:IVisualElement, parameters:ViewParameters=null, backView:IVisualElement = null):void
