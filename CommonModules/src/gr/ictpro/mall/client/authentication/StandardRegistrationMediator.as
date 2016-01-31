@@ -102,13 +102,23 @@ package gr.ictpro.mall.client.authentication
 			var password:String = view.txtPassword.text;
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
-				UI.showError(Translation.getTranslation("Passwords do not Match."));
+				UI.showError(Translation.getTranslation("Passwords do not Match"));
 			} else {
 				var userName:String = view.txtUserName.text;
 				var name:String = view.txtName.text;
 				var email:String = view.txtEmail.text;
 				var role:int = view.role.selected.id;
-				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role));
+				var teacherName:String = view.txtTeachersName.text;
+				if(userName == null) {
+					UI.showError(Translation.getTranslation("Enter your Username"));
+				} else if(name==null) {
+					UI.showError(Translation.getTranslation("Enter your Name"));
+				} else if(email==null) {
+					UI.showError(Translation.getTranslation("Enter your Email"));
+				} else if(teacherName==null && role == 3) {
+					UI.showError(Translation.getTranslation("Enter your Teacher's Username. If you don't know it please ask your teacher."));
+				}					
+				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role, teacherName));
 			}
 		}
 		
