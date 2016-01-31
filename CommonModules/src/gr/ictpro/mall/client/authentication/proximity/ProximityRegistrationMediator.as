@@ -1,12 +1,7 @@
 package gr.ictpro.mall.client.authentication.proximity
 {
-	import gr.ictpro.mall.client.authentication.standard.StandardRegistration;
-	import gr.ictpro.mall.client.model.RoleModel;
-	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
-	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
-	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
@@ -16,7 +11,7 @@ package gr.ictpro.mall.client.authentication.proximity
 	public class ProximityRegistrationMediator extends SignalMediator
 	{
 		[Inject]
-		public var view:StandardRegistration;
+		public var view:ProximityRegistration;
 		
 		[Inject]
 		public var registrationFailed:RegisterFailedSignal;

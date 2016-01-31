@@ -15,7 +15,6 @@ package gr.ictpro.mall.client.authentication.proximity
 		public function set mediatorMap(mediatorMap:IMediatorMap):void {
 			mediatorMap.mapView(ProximityRegistration, ProximityRegistrationMediator);
 			mediatorMap.mapView(ProximityAuthentication, ProximityAuthenticationMediator);
-			var wifitags:WifiTags = new WifiTags();
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package gr.ictpro.mall.client.authentication.proximity
 {
-	import gr.ictpro.mall.client.authentication.standard.StandardAuthentication;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
@@ -13,7 +12,7 @@ package gr.ictpro.mall.client.authentication.proximity
 	public class ProximityAuthenticationMediator extends SignalMediator
 	{
 		[Inject]
-		public var view:StandardAuthentication;
+		public var view:ProximityAuthentication;
 		
 		[Inject]
 		public var login:LoginSignal;

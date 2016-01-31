@@ -5,6 +5,7 @@ package gr.ictpro.mall.flex;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import flex.messaging.FlexContext;
 import flex.messaging.HttpFlexSession;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.AuthenticationMethod;
+import gr.ictpro.mall.authentication.PrioritySortableComparator;
 import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Role;
@@ -76,10 +78,12 @@ public class AuthenticationRemoteService {
     }
     
     public List<AuthenticationMethod> getAuthenticationModules() {
+	Collections.sort(authMethods, new PrioritySortableComparator());
 	return authMethods;
     }
 
     public List<RegistrationMethod> getRegistrationModules() {
+	Collections.sort(registrationMethods, new PrioritySortableComparator());
 	return registrationMethods;
     }
 
