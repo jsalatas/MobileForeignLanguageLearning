@@ -36,7 +36,8 @@
     </application>
   </applications>
   <modules>
-    <module application="src/CommonClient.mxml" destPath="gr/ictpro/mall/client/authentication/Standard.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/standard/Initialize.as"/>
+    <module application="src/CommonClient.mxml" destPath="gr/ictpro/mall/client/authentication/standard/Standard.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/standard/Initialize.as"/>
+    <module application="src/CommonClient.mxml" destPath="gr/ictpro/mall/client/authentication/proximity/Proximity.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/proximity/Initialize.as"/>
   </modules>
   <workers/>
   <buildCSSFiles/>

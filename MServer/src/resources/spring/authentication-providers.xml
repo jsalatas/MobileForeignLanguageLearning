@@ -6,7 +6,7 @@
 
 	<bean id="standardAuthenticationProvider" class="gr.ictpro.mall.authentication.StandardAuthenticationProvider">
 		<property name="priority" value="1000" />
-		<property name="ui" value ="/gr/ictpro/mall/client/authentication/Standard"/>
-		<property name="clientClassName" value ="gr.ictpro.mall.client.authentication.StandardAuthentication"/>
+		<property name="ui" value ="/gr/ictpro/mall/client/authentication/standard/Standard"/>
+		<property name="clientClassName" value ="gr.ictpro.mall.client.authentication.standard.StandardAuthentication"/>
 	</bean>
 </beans>
