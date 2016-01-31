@@ -11,6 +11,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
+	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -30,6 +31,9 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var serverConnectError:ServerConnectErrorSignal;
+		
+		[Inject]
+		public var showAuthentication:ShowAuthenticationSignal;
 		
 		[Inject]
 		public var login:LoginSignal;
@@ -60,11 +64,12 @@ package gr.ictpro.mall.client.controller
 			var enabled:Boolean = Boolean(event.result);
 			registerSuccess.dispatch();
 			if(enabled) {
-				// If Acoounr is enabled then login automatically 
+				// If Acoount is enabled then login automatically 
 				login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password, true));
 			}				
 			else {
-				
+				//Return to login command
+				showAuthentication.dispatch();
 			}
 		}
 		
