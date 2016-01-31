@@ -7,7 +7,13 @@
 		  >
 	<fx:Declarations>
 		<signals:Signal id="okClicked"/>
+		<signals:Signal id="cancelClicked"/>
 	</fx:Declarations>
+	<s:states>
+		<mx:State name="Student" />
+		<mx:State name="Teacher" />
+		<mx:State name="Parent" />
+	</s:states>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -25,11 +31,22 @@
 			protected function btnOK_clickHandler(event:MouseEvent):void
 			{
 				okClicked.dispatch();
+			}
+
+			protected function btnCancel_clickHandler(event:MouseEvent):void
+			{
+				cancelClicked.dispatch();
 				
 			}
 			
 			[Bindable]
 			public var roles:ArrayCollection;
+			
+			protected function role_changeHandler(event:Event):void
+			{
+				currentState = role.selected.role; 
+				
+			}
 			
 		]]>
 	</fx:Script>
@@ -46,7 +63,7 @@
 					<s:TextInput id="txtEmail" softKeyboardType="email" textAlign="left" tabIndex="2"/>	
 				</s:FormItem>
 				<s:FormItem label="{Translation.getTranslation('I am')}"  >
-					<s:PopUpList id="role" dataList="{roles}" textAlign="left" tabIndex="3"/>
+					<s:PopUpList id="role" dataList="{roles}" textAlign="left" tabIndex="3" change="role_changeHandler(event)"/>
 				</s:FormItem>
 				<s:FormItem label="{Translation.getTranslation('User Name')}">
 					<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left" tabIndex="4"/>	
@@ -57,12 +74,16 @@
 				<s:FormItem label="{Translation.getTranslation('Confirm Password')}">
 					<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
 				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('Teacher\'s Name')}" visible="false" visible.Student="true">
+					<s:TextInput id="txtteachersName" displayAsPassword="true" textAlign="left" tabIndex="7"/>	
+				</s:FormItem>
 				<s:FormItem  width="100%">
 					<s:Group>
 						<s:layout>
 							<s:HorizontalLayout/>
 						</s:layout>
-						<s:Button id="btnOK" label="{Translation.getTranslation('OK')}" click="btnOK_clickHandler(event)" tabIndex="7"/>
+						<s:Button id="btnOK" label="{Translation.getTranslation('OK')}" click="btnOK_clickHandler(event)" tabIndex="8"/>
+						<s:Button id="btnCancel" label="{Translation.getTranslation('Cancel')}" click="btnCancel_clickHandler(event)" tabIndex="9"/>
 					</s:Group>
 				</s:FormItem>
 			</s:Group>

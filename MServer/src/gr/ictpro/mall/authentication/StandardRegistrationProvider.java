@@ -4,6 +4,7 @@
 package gr.ictpro.mall.authentication;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,16 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	String password = passwordEncoder.encode((String) registrationDetails.get("password"));
 	String email = (String) registrationDetails.get("email");
 	Integer roleId = (Integer) registrationDetails.get("role");
+	String teacherName = (String) registrationDetails.get("teacherName");
+
+	User informUser = null;
+	if(teacherName != null) {
+	    List<User> users = userService.listByProperty("username", teacherName);
+	    if(users.size() == 1) {
+		informUser = users.get(0);
+	    }
+	}
+	
 	HashSet<Role> r = new HashSet<Role>(); 
 	try {
 	    r.add(roleService.retrieveById(roleId.intValue()));
@@ -39,14 +50,14 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	 
 	User u = new User(userName, password, email, false);
 	u.setRoles(r);
-	userService.create(u);
+	userService.create(u, informUser);
 	Profile p = new Profile(u, name);
 	profileService.create(p);
 	u.setProfile(p);
-	// inform admin about the registration
+	// inform related users about the registration
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
 	MailService mail = (MailService) ctx.getBean("mailService");
-	mail.registrationMail(u);
+	mail.registrationMail(u, informUser);
 	
 	return u.isEnabled();
     }

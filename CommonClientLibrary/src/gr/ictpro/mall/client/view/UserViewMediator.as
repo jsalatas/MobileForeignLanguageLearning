@@ -4,6 +4,7 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
@@ -57,14 +58,16 @@ package gr.ictpro.mall.client.view
 				view.parameters.vo = settings.user;
 				view.invalidateChildren();
 				view.currentState = "profile";
-			} else if(view.parameters.initParams.hasOwnProperty("user_id")) {
+			} else if(view.parameters.initParams != null && view.parameters.initParams.hasOwnProperty("user_id")) {
 				view.currentState = "edit";
 				getUser(view.parameters.initParams.user_id);
 			} else if(view.parameters.vo != null) {
-				view.currentState = "view";
-				view.disableDelete();
-				view.disableOK();
-				view.disableCancel();
+				if(UserModel(model).idIsNull(view.parameters.vo)) {
+					view.currentState = "new";
+					view.disableDelete();
+				} else {
+					view.currentState = "edit";
+				}
 			} else {
 				throw new Error("Unknown User");
 			}

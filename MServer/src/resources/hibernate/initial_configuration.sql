@@ -43,7 +43,7 @@ BEGIN
 		INSERT IGNORE INTO `language` (`code`, `english_name`, `local_name`) VALUES ('en', 'English', 'English');
 		SET SESSION SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 		INSERT IGNORE INTO `classroom` (`id`, `name`, `notes`, `language_code`, `force_ui_language`) VALUES (0, 'Global', 'Global/Master Classroom', 'en', 0);
-		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (0, 'New Teacher Registration', '%fullname% was registered as teacher.\n\nPlease review and enable access after logging into the application');
+		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (0, 'New %role% Registration', '%fullname% was registered as %role%.\n\nPlease review and enable access after logging into the application');
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (1, 'Welcome', 'Dear %fullname%,\n\nyour account is created, but you will not be able to use it until it is enabled by an administrator or teacher.\n\nYou will be notified when it is done.');
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (2, 'Account Enabled', 'Dear %fullname%,\n\nyour account is enabled.\n\nYou can now login to the system.');
 		INSERT IGNORE INTO `email_translation` (`body`, `email_type`, `subject`, `classroom_id`, `language_code`) SELECT `body`, `email_type`, `subject`, 0 AS `classroom_id`, 'en' AS `language_code` FROM `english_email`;

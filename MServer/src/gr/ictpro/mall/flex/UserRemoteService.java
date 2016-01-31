@@ -9,6 +9,7 @@ import java.util.List;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.context.UserContext;
+import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.UserService;
 
@@ -56,6 +57,7 @@ public class UserRemoteService {
 		persistentUser.setEmail(user.getEmail());
 		persistentUser.setEnabled(user.isEnabled());
 		persistentUser.setRoles(user.getRoles());
+		persistentUser.setClassrooms(user.getClassrooms());
 		persistentUser.setUsername(user.getUsername());
 		persistentUser.getProfile().setColor(user.getProfile().getColor());
 		persistentUser.getProfile().setName(user.getProfile().getName());
@@ -88,9 +90,18 @@ public class UserRemoteService {
     public List<User> getUsers() {
 	List<User> res = null;
 	User currentUser = userContext.getCurrentUser();
-	if (currentUser.hasRole("Admin") || currentUser.hasRole("teacher")) {
+	if (currentUser.hasRole("Admin")) {
 	    res = userService.listAll();
-	} else {
+	} else if(currentUser.hasRole("Teacher")){
+	    // Get teacher's students
+	    res = new ArrayList<User>();
+	    for(Classroom classroom: currentUser.getTeacherClassrooms()) {
+		res.addAll(classroom.getStudents());
+	    }
+	    // Get unassigned students
+	    String hql = "SELECT u FROM User u JOIN u.roles r WHERE r.role = 'Student' AND u.classrooms IS EMPTY"; 
+	    res.addAll(userService.listByCustomSQL(hql));
+	} else{
 	    // TODO:
 	    // for students get their teachers, their parents and other students
 	    // in their classroom groups

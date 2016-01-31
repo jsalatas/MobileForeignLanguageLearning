@@ -8,9 +8,9 @@
 			   title.profile="{Translation.getTranslation('My Profile')}"
 			   width="100%" height="100%" xmlns:components="gr.ictpro.mall.client.view.components.*" >
 	<s:states>
-		<mx:State name="profile"/>
 		<mx:State name="edit"/>
 		<mx:State name="view"/>
+		<mx:State name="profile"/>
 	</s:states>
 	
 	<fx:Script>

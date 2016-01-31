@@ -33,13 +33,20 @@ public class UserContext {
     @Autowired(required = true)
     private GenericService<Classroom, Integer> classroomService;
 
+    @Autowired(required = true)
+    private UserService userService;
+
     private static SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm"); 
     
     private Map<Integer, User> connectedUsers = new LinkedHashMap<Integer, User>();
     
     public User getCurrentUser() {
-	User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	return connectedUsers.get(u.getId());
+	User u = userService.retrieveById(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+	if(connectedUsers.containsKey(u.getId())) {
+	    //return connectedUsers.get(u.getId());
+	    addToConnectedUsers(u);
+	}
+	return u;
     }
     
     public Language getUserLang(User u) {

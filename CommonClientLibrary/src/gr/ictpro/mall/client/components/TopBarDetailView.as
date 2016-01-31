@@ -77,7 +77,7 @@ package gr.ictpro.mall.client.components
 				editor.state = currentState;
 				mainGroup.addElement(editor);
 				
-				if(model.detailMapper.length >0) {
+				if(model.detailMapper.length >0 && (currentState == 'edit' || currentState == 'mew')) {
 					_detailTab = new DetailTab();
 					_detailTab.vo = parameters.vo;
 					_detailTab.state = currentState;
@@ -92,8 +92,14 @@ package gr.ictpro.mall.client.components
 			if(editor != null) {
 				editor.state = state;
 			}
-			if(_detailTab != null) {
+			if(_detailTab != null && (currentState == 'edit' || currentState == 'mew')) {
 				_detailTab.state = state;
+			} else {
+				if(_detailTab != null) {
+					_detailTab = null;
+					mxmlContentGroup.removeAllElements();
+					invalidateChildren();
+				}
 			}
 		}
 		

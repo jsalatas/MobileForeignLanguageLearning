@@ -32,9 +32,16 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
     @Autowired(required=true)
     private MailService mailService;
 
+
     @Transactional
     @Override
     public void create(User item) {
+	create(item, null);
+    }
+
+    @Transactional
+    @Override
+    public void create(User item, User informUser) {
 	super.create(item);
 	if(item.hasRole("Teacher")) {
 	    notificationService.createUserNotification(new Notification("Please setup your classes.", "gr.ictpro.mall.client.view.ClassroomsView", "Classes Setup", true), item);
@@ -46,6 +53,20 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 		notificationService.createRoleNotification(n, roleService.listByProperty("role", "Admin").get(0));
 	    }
 	}
+	if(item.hasRole("Student")) {
+	    if(!item.isEnabled()) {
+		Notification n = new Notification("A new student has registered. Please review and enable her account.", "gr.ictpro.mall.client.view.UserView", "New Student", true);
+		Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
+		parameters.put("user_id", item.getId());
+		n.setParameters(Serialize.serialize(parameters));
+		if(informUser == null) {
+		    notificationService.createRoleNotification(n, roleService.listByProperty("role", "Teacher").get(0));
+		} else {
+		    notificationService.createUserNotification(n, informUser);
+		}
+	    }
+	}
+
     }
     
     @Transactional

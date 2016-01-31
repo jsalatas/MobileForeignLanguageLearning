@@ -40,9 +40,11 @@ package gr.ictpro.mall.client.components
 		private var _masterView:IVisualElement;
 		private var _parameters:ViewParameters;
 		private var _groupDelete:Group;
+		private var _groupAdd:Group;
 		private var _groupOK:Group;
 		private var _groupCancel:Group;
 		private var _disableDelete:Boolean = false; 
+		private var _disableAdd:Boolean = false; 
 		private var _disableOK:Boolean = false; 
 		private var _disableCancel:Boolean = false; 
 
@@ -100,6 +102,9 @@ package gr.ictpro.mall.client.components
 			}
 			if(_disableDelete) {
 				disableDelete();
+			}
+			if(_disableAdd) {
+				disableAdd();
 			}
 			if(_disableOK) {
 				disableOK();
@@ -192,22 +197,22 @@ package gr.ictpro.mall.client.components
 				var fxgAdd:add = new add();
 				fxgAdd.width = Device.getScaledSize(15);
 				fxgAdd.height = Device.getScaledSize(15);
-				var groupAdd:Group = new Group();
+				_groupAdd = new Group();
 				
-				groupAdd.width = 30;
-				groupAdd.height = 30;
+				_groupAdd.width = 30;
+				_groupAdd.height = 30;
 				var layout2:HorizontalLayout =  new HorizontalLayout();
 				layout2.paddingTop = 7;
 				layout2.paddingLeft = 7; 
 				layout2.paddingBottom = 8;
 				layout2.paddingRight = 8; 
-				groupAdd.layout = layout2;
+				_groupAdd.layout = layout2;
 
 				
-				groupAdd.addElement(fxgAdd);
-				groupAdd.addEventListener(MouseEvent.CLICK, addClickedHandler);
+				_groupAdd.addElement(fxgAdd);
+				_groupAdd.addEventListener(MouseEvent.CLICK, addClickedHandler);
 				
-				ocgroup.addElement(groupAdd);
+				ocgroup.addElement(_groupAdd);
 			}
 			
 			if(deleteButton) {
@@ -329,7 +334,24 @@ package gr.ictpro.mall.client.components
 				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
 			}
 		}
+
+		public function disableAdd():void {
+			_disableAdd = true;
+			if(_groupAdd != null) {
+				_groupAdd.getChildAt(0).alpha = 0;
+				_groupAdd.removeEventListener(MouseEvent.CLICK, addClickedHandler);
+			}
+		}
 		
+		public function enableAdd():void {
+			_disableAdd = false;
+			if(_groupAdd != null) {
+				_groupAdd.getChildAt(0).alpha = 1.0;
+				_groupAdd.addEventListener(MouseEvent.CLICK, addClickedHandler);
+			}
+		}
+		
+
 		public function disableCancel():void {
 			_disableCancel = true;
 			if(_groupCancel != null) {

@@ -91,6 +91,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.ShellViewMediator;
 	import gr.ictpro.mall.client.view.UserView;
 	import gr.ictpro.mall.client.view.UserViewMediator;
+	import gr.ictpro.mall.client.view.UsersView;
+	import gr.ictpro.mall.client.view.UsersViewMediator;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
 	
@@ -160,6 +162,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(CalendarMonthView, CalendarMonthViewMediator, TopBarView);
 			mediatorMap.mapView(CalendarDayView, CalendarDayViewMediator, TopBarView);
 			mediatorMap.mapView(CalendarView, CalendarViewMediator, TopBarView);
+			mediatorMap.mapView(UsersView, UsersViewMediator, TopBarView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);

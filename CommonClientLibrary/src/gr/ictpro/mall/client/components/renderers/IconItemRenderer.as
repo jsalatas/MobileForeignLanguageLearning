@@ -343,7 +343,7 @@ package gr.ictpro.mall.client.components.renderers
 			labelChanged = true;
 			
 			//labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
-			if(value.hasOwnProperty("isGroup") && value.isGroup) {
+			if(value!= null && value.hasOwnProperty("isGroup") && value.isGroup) {
 				isGroup = true;
 				labelDisplay.setStyle("fontSize", _fontSize + Device.getScaledSize(2));
 				labelDisplay.setStyle("fontWeight", 'bold');

@@ -69,7 +69,7 @@ public class ClassroomRemoteService {
 
     public void updateClassroom(Classroom classroom) {
 	classroom.setLanguage(languageService.retrieveById(classroom.getLanguage().getCode()));
-	Set<User> students = new HashSet<User>();
+	//Set<User> students = c;
 
 	if (classroom.getId() == null) {
 	    classroomService.create(classroom);
@@ -79,7 +79,7 @@ public class ClassroomRemoteService {
 	    persistentClassroom.setNotes(classroom.getNotes());
 	    persistentClassroom.setLanguage(classroom.getLanguage());
 	    persistentClassroom.setForceUILanguage(classroom.isForceUILanguage());
-	    persistentClassroom.setStudents(students);
+	    persistentClassroom.setStudents(classroom.getStudents());
 
 
 	    User teacher;

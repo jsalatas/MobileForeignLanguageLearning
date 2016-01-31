@@ -5,10 +5,14 @@ package gr.ictpro.mall.service;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.EmailTranslation;
 import gr.ictpro.mall.model.EmailTranslationId;
 import gr.ictpro.mall.model.EmailType;
+import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,32 +39,46 @@ public class MailService {
     @Autowired(required = true)
     private UserService userService;
 
+    @Autowired(required = true)
+    private GenericService<Role, Integer> roleService;
+
     private void sendMail(String from, String to, EmailTranslation email, User u)
     {
 	SimpleMailMessage message = new SimpleMailMessage();
 	message.setFrom(from);
 	message.setTo(to);
-	message.setSubject(email.getSubject());
+	message.setSubject(fillInFields(email.getSubject(), u));
 	message.setText(fillInFields(email.getBody(), u));
 	mailSender.send(message);
     }
 
     private String fillInFields(String input, User u) {
 	String res = input.replace("%fullname%", u.getProfile().getName());
+	res = res.replace("%role%", new ArrayList<Role>(u.getRoles()).get(0).getRole());
 	return res;
     }
 
-    public void registrationMail(User u) {
+    public void registrationMail(User u, User informUser) {
 	User admin = userService.getUserByRole("Admin").get(0);
 
 	if (u.hasRole("Teacher")) {
 	    // Teacher registration. Inform admin
-	    EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_TEACHER);
+	    EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
 	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	    sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
 	} else if (u.hasRole("Student")) {
-	    // Student registration. Inform teacher
+	    // Student registration. Inform Teachers
+	    EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
+	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
+	    if(informUser != null) {
+		sendMail(admin.getEmail(), informUser.getEmail(), email, u);
+	    } else {
+		Role r = roleService.listByProperty("role", "Teacher").get(0);
+		for(User t:r.getUsers()) {
+		    sendMail(admin.getEmail(), t.getEmail(), email, u);
+		}
+	    }
 	} else if (u.hasRole("Parent")) {
 	    // Parent registration. Inform teacher and student
 	}

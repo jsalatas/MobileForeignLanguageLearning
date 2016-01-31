@@ -201,6 +201,8 @@
     <classEntry path="gr.ictpro.mall.client.components.DateTimePicker"/>
     <classEntry path="gr.ictpro.mall.client.view.CalendarDayView"/>
     <classEntry path="gr.ictpro.mall.client.view.CalendarDayViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.UsersViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.UsersView"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

@@ -17,6 +17,7 @@ package gr.ictpro.mall.client.components.menu
 	import gr.ictpro.mall.client.view.LanguagesView;
 	import gr.ictpro.mall.client.view.SettingsView;
 	import gr.ictpro.mall.client.view.UserView;
+	import gr.ictpro.mall.client.view.UsersView;
 
 	public class MainMenu
 	{
@@ -42,8 +43,11 @@ package gr.ictpro.mall.client.components.menu
 			if(UserModel.isAdmin(user) || UserModel.isTeacher(user)) {
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classrooms"), Icons.icon_classrooms, ClassroomsView)); 
 				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, ClassroomgroupsView)); 
+				res.addItem(new MenuItemInternalModule(Translation.getTranslation("Users"), Icons.icon_users, UsersView)); 
 			}
 			
+			res.addItem(new MenuItemGroup(""));
+
 			//Calendar View (common to all roles)
 			res.addItem(new MenuItemInternalModule(Translation.getTranslation("Calendar"), Icons.icon_calendar, CalendarMonthView)); 
 

@@ -16,5 +16,7 @@ public interface UserService extends GenericService<User, Integer> {
     public List<User> getUserByRole(Role role);
     public List<User> getUserByRole(String role);
     public void updateNotifyUser(User item, boolean notifyEnabled);
+    public void create(User item, User informUser);
+
 
 }

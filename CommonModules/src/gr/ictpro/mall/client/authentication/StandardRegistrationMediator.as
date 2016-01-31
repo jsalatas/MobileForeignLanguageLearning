@@ -8,6 +8,7 @@ package gr.ictpro.mall.client.authentication
 	import gr.ictpro.mall.client.model.vo.Role;
 	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.service.Channel;
+	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
@@ -39,6 +40,9 @@ package gr.ictpro.mall.client.authentication
 		public var listSignal:ListSignal;
 
 		[Inject]
+		public var addView:AddViewSignal;
+
+		[Inject]
 		public var listSuccessSignal:ListSuccessSignal;
 		
 		[Inject]
@@ -52,6 +56,7 @@ package gr.ictpro.mall.client.authentication
 			super.onRegister();
 	
 			addToSignal(view.okClicked, handleRegistration);
+			addToSignal(view.cancelClicked, back);
 			addToSignal(registrationFailed, handleRegisterFailed);
 			addToSignal(registrationSuccess, handleRegisterSuccess);
 			getRoles();
@@ -68,8 +73,12 @@ package gr.ictpro.mall.client.authentication
 		private function success(classType:Class):void
 		{
 			if(classType == Role) {
-				view.roles = new ArrayCollection(roleModel.list.source);
-				view.roles.removeItemAt(roleModel.getIndexByField("role", "Admin"));
+				view.roles = new ArrayCollection();
+				for each (var role:Role in roleModel.list.source) {
+					if(role.role != "Admin") {
+						view.roles.addItem(role);
+					}
+				}
 				
 				//Set default to student role
 				var studentRole:Role = Role(roleModel.getItemByField("role", "Student"));
@@ -81,6 +90,13 @@ package gr.ictpro.mall.client.authentication
 		{
 			
 		}
+
+		private function back():void
+		{
+			view.dispose();
+			addView.dispatch(new StandardAuthentication());
+		}
+		
 		private function handleRegistration():void
 		{
 			var password:String = view.txtPassword.text;

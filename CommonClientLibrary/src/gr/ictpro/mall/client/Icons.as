@@ -9,6 +9,7 @@ package gr.ictpro.mall.client
 	import assets.fxg.logout;
 	import assets.fxg.profile;
 	import assets.fxg.settings;
+	import assets.fxg.users;
 
 	public final class Icons
 	{
@@ -22,6 +23,7 @@ package gr.ictpro.mall.client
 		public static const icon_camera:camera = new camera();
 		public static const icon_folder:folder = new folder();
 		public static const icon_calendar:calendar = new calendar();
+		public static const icon_users:users = new users();
 		
 		public function Icons()
 		{

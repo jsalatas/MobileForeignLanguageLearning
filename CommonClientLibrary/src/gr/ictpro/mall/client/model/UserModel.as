@@ -1,6 +1,8 @@
 package gr.ictpro.mall.client.model
 {
+	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.User;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.utils.collections.ArrayUtils;
 	import gr.ictpro.mall.client.view.UserView;
 	import gr.ictpro.mall.client.view.components.UserComponent;
@@ -13,6 +15,7 @@ package gr.ictpro.mall.client.model
 		public function UserModel()
 		{
 			super(User, UserView, UserComponent);
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, false, null, null));
 		}
 		
 		public function get saveErrorMessage():String

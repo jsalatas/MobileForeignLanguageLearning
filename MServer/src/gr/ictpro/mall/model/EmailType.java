@@ -8,7 +8,7 @@ package gr.ictpro.mall.model;
  *
  */
 public enum EmailType {
-	NEW_TEACHER,
+	NEW_USER,
 	DISABLED_ACCOUNT_CREATED,
 	ACCOUNT_ENABLED
 }
