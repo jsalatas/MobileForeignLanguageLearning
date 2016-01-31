@@ -26,6 +26,7 @@
       <libraryPathEntry kind="3" linkType="1" path="libs/robotlegs-utilities-Modular-v0.5.3.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="libs/signals-extension-SignalsCommandMap-v0.4.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="libs/SwiftSuspenders-v1.6.0.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="5" linkType="2" path="libs/WifiTags.ane"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
@@ -35,7 +36,7 @@
     </application>
   </applications>
   <modules>
-    <module application="src/CommonClient.mxml" destPath="gr/ictpro/mall/client/authentication/Standard.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/Initialize.as"/>
+    <module application="src/CommonClient.mxml" destPath="gr/ictpro/mall/client/authentication/Standard.swf" optimize="false" sourcePath="src/gr/ictpro/mall/client/authentication/standard/Initialize.as"/>
   </modules>
   <workers/>
   <buildCSSFiles/>

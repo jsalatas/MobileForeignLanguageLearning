@@ -1,4 +1,4 @@
-package gr.ictpro.mall.client.authentication
+package gr.ictpro.mall.client.authentication.standard
 {
 	import spark.events.PopUpEvent;
 	
