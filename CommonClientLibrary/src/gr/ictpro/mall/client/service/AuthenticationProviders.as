@@ -66,7 +66,14 @@ package gr.ictpro.mall.client.service
 					provider = _authenticationProviders.getItemAt(0).ui.toString();
 					className = _authenticationProviders.getItemAt(0).clientClassName.toString();
 				} else {
-					var pos:int = _authenticationProviders.getItemIndex(previous);
+					var pos:int = -1;
+					for (var i:int = 0; i< _authenticationProviders.length; i++) {
+						if(_authenticationProviders.getItemAt(i).ui == previous) {
+							pos= i;
+							break;
+						}
+						
+					}
 					
 					if(pos == -1) {
 						provider = null;

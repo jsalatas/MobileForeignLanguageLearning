@@ -6,13 +6,14 @@ package gr.ictpro.mall.client.authentication.proximity
 	import gr.ictpro.mall.client.authentication.standard.StandardRegistration;
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.service.AuthenticationProvider;
+	import gr.ictpro.mall.client.service.AuthenticationProviders;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
-	import gr.ictpro.mall.client.utils.ui.UI;
+	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -28,10 +29,12 @@ package gr.ictpro.mall.client.authentication.proximity
 		public var addView:AddViewSignal;
 		
 		[Inject]
-		public var showRegistration:ShowRegistrationSignal;
-		
-		[Inject]
 		public var loginSuccess:LoginSuccessSignal;
+
+		[Inject]
+		public var authenticationProviders:AuthenticationProviders;
+		[Inject]
+		public var showAuthentication:ShowAuthenticationSignal;
 		
 		[Inject]
 		public var loginFailed:LoginFailedSignal;
@@ -51,7 +54,10 @@ package gr.ictpro.mall.client.authentication.proximity
 			
 			// Check if we can get context info
 			var contextInfo:Object = getContextInfo();
-			trace(contextInfo);
+			if(contextInfo.ssids.length ==0) {
+				notLoggedIn();
+			}
+				
 
 		}
 
@@ -70,7 +76,7 @@ package gr.ictpro.mall.client.authentication.proximity
 		}
 		private function handleRegistration():void
 		{
-			addView.dispatch(new StandardRegistration());
+			addView.dispatch(new ProximityRegistration());
 			view.dispose();
 		}
 		
@@ -82,7 +88,8 @@ package gr.ictpro.mall.client.authentication.proximity
 		
 		private function notLoggedIn():void 
 		{
-			// TODO: move to next provider
+			// move to next provider
+			showAuthentication.dispatch(authenticationProviders.getNextProvider("/gr/ictpro/mall/client/authentication/proximity/Proximity.swf"));
 			view.dispose();
 		}
 		

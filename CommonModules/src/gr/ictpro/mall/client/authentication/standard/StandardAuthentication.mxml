@@ -43,7 +43,7 @@
 				<s:layout>
 					<s:FormLayout/>
 				</s:layout>
-
+				<s:Label text="Standard" />
 				<s:FormItem label="{Translation.getTranslation('User Name')}">
 					<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left"/>	
 				</s:FormItem>

@@ -42,9 +42,6 @@ public class AuthenticationRemoteService {
     private List<AuthenticationMethod> authMethods;
 
     @Autowired(required = true)
-    private List<RegistrationMethod> registrationMethods;
-    
-    @Autowired(required = true)
     private UserContext userContext;
     
     public User login(ASObject authenticationDetails) {
@@ -80,11 +77,6 @@ public class AuthenticationRemoteService {
     public List<AuthenticationMethod> getAuthenticationModules() {
 	Collections.sort(authMethods, new PrioritySortableComparator());
 	return authMethods;
-    }
-
-    public List<RegistrationMethod> getRegistrationModules() {
-	Collections.sort(registrationMethods, new PrioritySortableComparator());
-	return registrationMethods;
     }
 
     public List<Role> getRoles() {

@@ -9,7 +9,6 @@ package gr.ictpro.mall.client.authentication.standard
 	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
-	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.SignalMediator;
@@ -25,9 +24,6 @@ package gr.ictpro.mall.client.authentication.standard
 		[Inject]
 		public var addView:AddViewSignal;
 
-		[Inject]
-		public var showRegistration:ShowRegistrationSignal;
-		
 		[Inject]
 		public var loginSuccess:LoginSuccessSignal;
 		
@@ -61,7 +57,6 @@ package gr.ictpro.mall.client.authentication.standard
 
 		private function handleRegistration():void
 		{
-			//showRegistration.dispatch(new RegistrationProvider(null, null, null));
 			addView.dispatch(new StandardRegistration());
 			disposeView();
 		}

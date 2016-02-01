@@ -15,7 +15,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.SaveCommand;
 	import gr.ictpro.mall.client.controller.ServerNotificationClickedCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
-	import gr.ictpro.mall.client.controller.ShowRegistrationCommand;
 	import gr.ictpro.mall.client.model.CalendarModel;
 	import gr.ictpro.mall.client.model.ClassroomModel;
 	import gr.ictpro.mall.client.model.ClassroomgroupModel;
@@ -34,7 +33,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.service.LoadedSWFs;
 	import gr.ictpro.mall.client.service.LocalDBStorage;
 	import gr.ictpro.mall.client.service.MessagingService;
-	import gr.ictpro.mall.client.service.RegistrationProviders;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.DeleteErrorSignal;
 	import gr.ictpro.mall.client.signal.DeleteSignal;
@@ -62,7 +60,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowErrorSignal;
-	import gr.ictpro.mall.client.signal.ShowRegistrationSignal;
 	import gr.ictpro.mall.client.view.CalendarDayView;
 	import gr.ictpro.mall.client.view.CalendarDayViewMediator;
 	import gr.ictpro.mall.client.view.CalendarMonthView;
@@ -131,7 +128,6 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(RuntimeSettings);
 			injector.mapSingleton(MainMenu);
 			injector.mapSingleton(AuthenticationProviders);
-			injector.mapSingleton(RegistrationProviders);
 			injector.mapSingleton(LoadedSWFs);
 			injector.mapSingleton(LocalDBStorage);
 			
@@ -173,7 +169,6 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(LoginSignal, LoginCommand);
 			signalCommandMap.mapSignalClass(LogoutSignal, LogoutCommand);
 			signalCommandMap.mapSignalClass(RegisterSignal, RegisterCommand);
-			signalCommandMap.mapSignalClass(ShowRegistrationSignal, ShowRegistrationCommand);
 			signalCommandMap.mapSignalClass(MenuClickedSignal, MenuClickedCommand);
 			signalCommandMap.mapSignalClass(ServerNotificationClickedSignal, ServerNotificationClickedCommand);
 			signalCommandMap.mapSignalClass(SaveSignal, SaveCommand);
