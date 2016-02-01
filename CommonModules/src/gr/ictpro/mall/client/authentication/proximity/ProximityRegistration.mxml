@@ -1,7 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%">
+				  xmlns:s="gr.ictpro.mall.client.components.*" 
+				  xmlns:signals="org.osflash.signals.*"
+				  xmlns:mx="library://ns.adobe.com/flex/mx"
+				  width="100%" height="100%">
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<signals:Signal id="okClicked"/>
+		<signals:Signal id="cancelClicked"/>
 	</fx:Declarations>
+	<s:states>
+		<mx:State name="Student" />
+		<mx:State name="Teacher" />
+		<mx:State name="Parent" />
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.IVisualElementContainer;
+			
+			import gr.ictpro.mall.client.runtime.Translation;
+			
+			public function dispose():void
+			{
+			if(parent && parent.contains(this)) {
+			IVisualElementContainer(parent).removeElement(this);
+			}
+			}
+			
+			protected function btnOK_clickHandler(event:MouseEvent):void
+			{
+			okClicked.dispatch();
+			}
+			
+			protected function btnCancel_clickHandler(event:MouseEvent):void
+			{
+			cancelClicked.dispatch();
+			
+			}
+			
+			[Bindable]
+			public var roles:ArrayCollection;
+			
+			protected function role_changeHandler(event:Event):void
+			{
+			currentState = role.selected.role; 
+			
+			}
+		]]>
+	</fx:Script>
+	<s:Scroller width="100%" height="100%">
+		<s:Group width="100%" height="100%">
+			<s:Group horizontalCenter="0" verticalCenter="0">
+				<s:layout>
+					<s:FormLayout />
+				</s:layout>
+				<s:FormItem id="formitem" label="{Translation.getTranslation('Name')}" >
+					<s:TextInput id="txtName" autoCapitalize="word" textAlign="left" tabIndex="1"/>
+				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('Email')}" >
+					<s:TextInput id="txtEmail" softKeyboardType="email" textAlign="left" tabIndex="2"/>	
+				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('I am')}"  >
+					<s:PopUpList id="role" dataList="{roles}" textAlign="left" tabIndex="3" change="role_changeHandler(event)"/>
+				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('User Name')}">
+					<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left" tabIndex="4"/>	
+				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('Password')}">
+					<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" tabIndex="5"/>	
+				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('Confirm Password')}">
+					<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
+				</s:FormItem>
+				<s:FormItem label="{Translation.getTranslation('Teacher\'s Name')}" visible="false" visible.Student="true">
+					<s:TextInput id="txtTeachersName" textAlign="left" tabIndex="7"/>	
+				</s:FormItem>
+				<s:FormItem  width="100%">
+					<s:Group>
+						<s:layout>
+							<s:HorizontalLayout/>
+						</s:layout>
+						<s:Button id="btnOK" label="{Translation.getTranslation('OK')}" click="btnOK_clickHandler(event)" tabIndex="8"/>
+						<s:Button id="btnCancel" label="{Translation.getTranslation('Cancel')}" click="btnCancel_clickHandler(event)" tabIndex="9"/>
+					</s:Group>
+				</s:FormItem>
+			</s:Group>
+		</s:Group>
+	</s:Scroller>
 </s:Group>

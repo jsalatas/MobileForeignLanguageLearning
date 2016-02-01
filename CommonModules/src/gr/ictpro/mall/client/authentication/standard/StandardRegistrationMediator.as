@@ -118,7 +118,7 @@ package gr.ictpro.mall.client.authentication.standard
 				} else if(teacherName==null && role == 3) {
 					UI.showError(Translation.getTranslation("Enter your Teacher's Username. If you don't know it please ask your teacher."));
 				}					
-				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role, teacherName));
+				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role, teacherName, null));
 			}
 		}
 		

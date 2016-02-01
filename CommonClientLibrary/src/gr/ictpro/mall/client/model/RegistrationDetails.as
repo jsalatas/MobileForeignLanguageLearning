@@ -10,8 +10,10 @@ package gr.ictpro.mall.client.model
 		private var _role:int;
 		private var _registrationMethod:String;
 		private var _teacherName:String;
+		private var _contextInfo:Object;
+
 		
-		public function RegistrationDetails(registrationMethod:String, userName:String, name:String, password:String, email:String, role:int, teacherName:String)
+		public function RegistrationDetails(registrationMethod:String, userName:String, name:String, password:String, email:String, role:int, teacherName:String, contextInfo:Object)
 		{
 			this._registrationMethod = registrationMethod;
 			this._userName = userName;
@@ -20,6 +22,7 @@ package gr.ictpro.mall.client.model
 			this._email = email;
 			this._role = role;
 			this._teacherName = teacherName;
+			this._contextInfo = contextInfo;
 		}
 	
 		public function get userName(): String
@@ -49,6 +52,10 @@ package gr.ictpro.mall.client.model
 		public function get teacherName():String
 		{
 			return this._teacherName;
+		}
+		public function get contextInfo():Object
+		{
+			return this._contextInfo;
 		}
 		
 	}

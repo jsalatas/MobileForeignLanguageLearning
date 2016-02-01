@@ -47,6 +47,7 @@ package gr.ictpro.mall.client.controller
 			arguments.email=registrationDetails.email;
 			arguments.role=registrationDetails.role;
 			arguments.teacherName=registrationDetails.teacherName;
+			arguments.contextInfo=registrationDetails.contextInfo;
 			arguments.registrationMethod=registrationDetails.registrationMethod;
 			
 			var ro:RemoteObject = new RemoteObject();

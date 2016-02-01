@@ -299,4 +299,7 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
+<extensions>
+        <extensionID>gr.ictpro.jsalatas.ane.wifitags</extensionID>
+    </extensions>
 </application>

@@ -264,5 +264,7 @@
 
 <extensions>
         <extensionID>gr.ictpro.jsalatas.ane.locale</extensionID>
+    
+    <extensionID>gr.ictpro.jsalatas.ane.wifitags</extensionID>
     </extensions>
 </application>

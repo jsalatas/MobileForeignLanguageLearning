@@ -1,6 +1,5 @@
 package gr.ictpro.mall.client.authentication.proximity
 {
-	import gr.ictpro.jsalatas.ane.wifitags.WifiTags;
 	import gr.ictpro.mall.client.components.Module;
 	
 	import org.robotlegs.core.IMediatorMap;
