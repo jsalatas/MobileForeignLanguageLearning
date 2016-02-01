@@ -49,6 +49,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.LoginSuccessSignal;
 	import gr.ictpro.mall.client.signal.LogoutSignal;
 	import gr.ictpro.mall.client.signal.MenuClickedSignal;
+	import gr.ictpro.mall.client.signal.MessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
@@ -121,6 +122,7 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(GenericCallErrorSignal);
 			injector.mapSingleton(GenericCallSuccessSignal);
 			injector.mapSingleton(ShowErrorSignal);
+			injector.mapSingleton(MessageReceivedSignal);
 
 			
 			injector.mapSingleton(MessagingService);

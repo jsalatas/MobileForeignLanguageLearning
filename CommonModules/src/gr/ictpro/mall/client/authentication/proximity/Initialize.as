@@ -1,7 +1,9 @@
 package gr.ictpro.mall.client.authentication.proximity
 {
 	import gr.ictpro.mall.client.components.Module;
+	import gr.ictpro.mall.client.model.ClassroomModel;
 	
+	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 
 	public class Initialize extends Module 
@@ -9,11 +11,18 @@ package gr.ictpro.mall.client.authentication.proximity
 		public function Initialize() 
 		{
 		}
-		
+
 		[Inject]
 		public function set mediatorMap(mediatorMap:IMediatorMap):void {
 			mediatorMap.mapView(ProximityRegistration, ProximityRegistrationMediator);
 			mediatorMap.mapView(ProximityAuthentication, ProximityAuthenticationMediator);
+		}
+		
+		[Inject]
+		public function set injector(injector:IInjector):void {
+			injector.mapSingleton(LocationUpdater);
+			//Initialize LocationUpdater
+			injector.getInstance(LocationUpdater);
 		}
 	}
 }

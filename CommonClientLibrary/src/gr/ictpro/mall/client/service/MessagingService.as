@@ -11,6 +11,7 @@ package gr.ictpro.mall.client.service
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.ListSignal;
+	import gr.ictpro.mall.client.signal.MessageReceivedSignal;
 
 	public class MessagingService
 	{
@@ -22,7 +23,10 @@ package gr.ictpro.mall.client.service
 		
 		[Inject]
 		public var listSignal:ListSignal;
-		
+
+		[Inject]
+		public var messageReceivedSignal:MessageReceivedSignal;
+
 		[Inject]
 		public var mapper:VOMapper;
 
@@ -49,6 +53,7 @@ package gr.ictpro.mall.client.service
 		private function receiveMessage(event:MessageEvent): void 
 		{
 			var subject:String = event.message.headers.Subject;
+			//Debug
 			switch(subject)
 			{
 				case "Refresh Data":
@@ -65,10 +70,9 @@ package gr.ictpro.mall.client.service
 					
 				default:
 				{
-					trace(subject);
+					messageReceivedSignal.dispatch(event);
 				}
 			}
-			trace(event.message.body);
 		}
 	}
 }

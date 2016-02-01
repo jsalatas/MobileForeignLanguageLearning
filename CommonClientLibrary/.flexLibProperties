@@ -201,6 +201,7 @@
     <classEntry path="gr.ictpro.mall.client.view.CalendarDayViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.UsersViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.UsersView"/>
+    <classEntry path="gr.ictpro.mall.client.signal.MessageReceivedSignal"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

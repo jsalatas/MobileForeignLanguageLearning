@@ -5,6 +5,7 @@ package gr.ictpro.mall.model;
 
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
 import gr.ictpro.mall.model.Classroom;
+import gr.ictpro.mall.model.hibernate.Location;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -57,6 +58,8 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<UserNotification> userNotifications = new HashSet<UserNotification>(0);
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
     private Set<Role> roles = new HashSet<Role>(0);
+    private Set<Location> locations = new HashSet<Location>(0);
+
 
     public User() {
     }
@@ -71,7 +74,7 @@ public class User implements java.io.Serializable, UserDetails {
     public User(String username, String password, String email, boolean enabled, Profile profile,
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications,
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, 
-	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms ) {
+	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations ) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -84,6 +87,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.calendars = calendars;
 	this.teacherClassrooms = teacherClassrooms;
 	this.schedules = schedules;
+	this.locations = locations;
     }
 
     @Id
@@ -297,6 +301,19 @@ public class User implements java.io.Serializable, UserDetails {
 
     public void setTeacherClassrooms(Set<Classroom> teacherClassrooms) {
 	this.teacherClassrooms = teacherClassrooms;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "location_user", joinColumns = {
+	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "location_id", nullable = false, updatable = false) })
+    @AmfIgnore
+    public Set<Location> getLocations() {
+	return this.locations;
+    }
+
+    public void setLocations(Set<Location> locations) {
+	this.locations = locations;
     }
 
 
