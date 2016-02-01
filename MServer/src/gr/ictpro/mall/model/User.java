@@ -5,7 +5,6 @@ package gr.ictpro.mall.model;
 
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
 import gr.ictpro.mall.model.Classroom;
-import gr.ictpro.mall.model.hibernate.Location;
 
 import java.util.Collection;
 import java.util.HashSet;

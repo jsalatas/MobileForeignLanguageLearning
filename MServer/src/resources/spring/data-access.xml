@@ -37,6 +37,8 @@
 				<value>gr.ictpro.mall.model.Translation</value>
 				<value>gr.ictpro.mall.model.Calendar</value>
 				<value>gr.ictpro.mall.model.Schedule</value>
+				<value>gr.ictpro.mall.model.Location</value>
+				<value>gr.ictpro.mall.model.WifiTag</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
