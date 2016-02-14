@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.MenuClickedSignal;
+	import gr.ictpro.mall.client.signal.SaveSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
@@ -21,6 +22,9 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var menuClickedSignal:MenuClickedSignal;
+
+		[Inject]
+		public var saveSignal:SaveSignal;
 
 		[Inject]
 		public var serverNotificationClickedSignal:ServerNotificationClickedSignal;
@@ -41,6 +45,7 @@ package gr.ictpro.mall.client.view
 		{
 			addToSignal(view.menuClicked, menuClicked);
 			addToSignal(view.notificationClicked, notificationClicked);
+			addToSignal(view.notificationOkClicked, notificationOkClicked);
 			addToSignal(listSuccess, listSuccessHandler);
 			addToSignal(listError, listErrorHandler);
 			view.user = settings.user;
@@ -82,6 +87,11 @@ package gr.ictpro.mall.client.view
 			serverNotificationClickedSignal.dispatch(notification);
 			view.dispose();
 		}
-		
+
+		private function notificationOkClicked(notification:Notification):void
+		{
+			saveSignal.dispatch(notification);
+		}
+
 	}
 }

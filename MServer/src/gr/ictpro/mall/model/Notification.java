@@ -41,20 +41,22 @@ public class Notification implements java.io.Serializable {
     private byte[] parameters;
     private String subject;
     private boolean internalModule;
+    private boolean actionNeeded;
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
     private Set<UserNotification> userNotifications = new HashSet<UserNotification>(0);
 
     public Notification() {
     }
 
-    public Notification(String message, String module, String subject, boolean internalModule) {
+    public Notification(String message, String module, String subject, boolean internalModule, boolean actionNeeded) {
 	this.message = message;
 	this.module = module;
 	this.subject = subject;
 	this.internalModule = internalModule;
+	this.actionNeeded = actionNeeded;
     }
 
-    public Notification(Date date, String message, String module, byte[] parameters, String subject,
+    public Notification(Date date, String message, String module, byte[] parameters, String subject, boolean actionNeeded, 
 	    boolean internalModule, Set<RoleNotification> roleNotifications, Set<UserNotification> userNotifications) {
 	this.date = date;
 	this.message = message;
@@ -62,6 +64,7 @@ public class Notification implements java.io.Serializable {
 	this.parameters = parameters;
 	this.subject = subject;
 	this.internalModule = internalModule;
+	this.actionNeeded = actionNeeded;
 	this.roleNotifications = roleNotifications;
 	this.userNotifications = userNotifications;
     }
@@ -121,6 +124,15 @@ public class Notification implements java.io.Serializable {
 
     public void setSubject(String subject) {
 	this.subject = subject;
+    }
+
+    @Column(name = "action_needed", nullable = false)
+    public boolean isActionNeeded() {
+	return this.actionNeeded;
+    }
+
+    public void setActionNeeded(boolean actionNeeded) {
+	this.actionNeeded = actionNeeded;
     }
 
     @Column(name = "internalModule", nullable = false)

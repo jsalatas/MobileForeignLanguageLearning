@@ -47,8 +47,8 @@ BEGIN
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (1, 'Welcome', 'Dear %fullname%,\n\nyour account is created, but you will not be able to use it until it is enabled by an administrator or teacher.\n\nYou will be notified when it is done.');
 		INSERT IGNORE INTO `english_email` (`email_type`, `subject`, `body`) VALUES (2, 'Account Enabled', 'Dear %fullname%,\n\nyour account is enabled.\n\nYou can now login to the system.');
 		INSERT IGNORE INTO `email_translation` (`body`, `email_type`, `subject`, `classroom_id`, `language_code`) SELECT `body`, `email_type`, `subject`, 0 AS `classroom_id`, 'en' AS `language_code` FROM `english_email`;
-		INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `internalModule`) VALUES (1, 'Please configure the server settings.', 'gr.ictpro.mall.client.view.SettingsView', 'Server Settings', 1);
-		INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `internalModule`) VALUES (2, 'Please change default admin''s password.', 'gr.ictpro.mall.client.view.UserView', 'Change Password', 1);
+		INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `internalModule`, `action_needed`) VALUES (1, 'Please configure the server settings.', 'gr.ictpro.mall.client.view.SettingsView', 'Server Settings', 1, 1);
+		INSERT IGNORE INTO `notification` (`id`, `message`, `module`, `subject`, `internalModule`, `action_needed`) VALUES (2, 'Please change default admin''s password.', 'gr.ictpro.mall.client.view.UserView', 'Change Password', 1, 1);
 		INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 1, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
 		INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 2, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Add');

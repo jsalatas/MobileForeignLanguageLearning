@@ -2,29 +2,47 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="gr.ictpro.mall.client.components.*" 
 				autoDrawBackground="false" xmlns:mx="library://ns.adobe.com/flex/mx" 
-				width="100%" height="100%" >
+				width="100%" height="100%" xmlns:fxg="assets.fxg.*" creationComplete="itemrenderer1_creationCompleteHandler(event)">
 	<s:states>
 		<mx:State name="hasdate"/>
 		<mx:State name="nodate"/>
 	</s:states>
+	<fx:Metadata>
+		[Event(name="okClicked",type="event.MouseEvent")]
+	</fx:Metadata>
 <fx:Script>
 	<![CDATA[
-		import mx.collections.ArrayCollection;
+		import mx.events.FlexEvent;
 		
 		import gr.ictpro.mall.client.runtime.Device;
-		import gr.ictpro.mall.client.runtime.Translation;
 		import gr.ictpro.mall.client.utils.date.DateUtils;
+		
+		[Bindable]
+		private var actionNeeded:Boolean = false; 
+		
 		
 		override public function set data(value:Object):void
 		{
 			//value._date = new Date(2015, 9, 23);
 			super.data = value;
 			
+			actionNeeded = value.actionNeeded;
 			if(value.date == null) {
 				currentState = "nodate";
 			} else {
 				currentState = "hasdate";
 			}
+		}
+		
+		protected function okHandler(event:MouseEvent):void
+		{
+			event.stopPropagation();
+			dispatchEvent(new MouseEvent("okClicked"));
+		}
+		
+		protected function itemrenderer1_creationCompleteHandler(event:FlexEvent):void
+		{
+			fxgok.transform.colorTransform = Device.getDefaultColorTransform();
 		}
 		
 	]]>
@@ -50,8 +68,15 @@
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left" />
 			</s:layout>
 			<s:Label id="subject" text="{data.subject}" fontWeight="bold" fontSize="{Device.getDefaultUnscaledFontSize()+2}"/>
-			<s:Label id="body" text="{data.message}" width="{Device.getUnScaledSize(width - Math.max(day.width, date.width, month.width)) - 40}" />
+			<s:Label id="body" text="{data.message}" width="{Device.getUnScaledSize(width - Math.max(day.width, date.width, month.width) -ok.width) - 40}" />
 		</s:Group>
+		
+		<s:Group width="30" id="ok" click="okHandler(event)">
+			<s:Group width="15" height="10" horizontalCenter="0" verticalCenter="0">
+				<fxg:ok id="fxgok" width="100%" height="100%" />
+			</s:Group>
+		</s:Group>
+
 	</s:Group>
 	
 </s:ItemRenderer>

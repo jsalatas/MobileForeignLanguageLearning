@@ -13,6 +13,7 @@ package gr.ictpro.mall.client.model.vo
 		public var parameters:ByteArray;
 		public var subject:String;
 		public var internalModule:Boolean;
+		public var actionNeeded:Boolean;
 		
 		public function Notification()
 		{
