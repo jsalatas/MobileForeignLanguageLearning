@@ -4,5 +4,10 @@ package gr.ictpro.mall.client.signal
 	
 	public class RegisterSuccessSignal extends Signal
 	{
+		public function RegisterSuccessSignal()
+		{
+			super(Boolean);
+		}
+
 	}
 }

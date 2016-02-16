@@ -46,7 +46,7 @@ package gr.ictpro.mall.client.controller
 			arguments.password=registrationDetails.password;
 			arguments.email=registrationDetails.email;
 			arguments.role=registrationDetails.role;
-			arguments.teacherName=registrationDetails.teacherName;
+			arguments.relatedUser=registrationDetails.relatedUser;
 			arguments.contextInfo=registrationDetails.contextInfo;
 			arguments.registrationMethod=registrationDetails.registrationMethod;
 			
@@ -63,15 +63,15 @@ package gr.ictpro.mall.client.controller
 		private function success(event:ResultEvent):void
 		{
 			var enabled:Boolean = Boolean(event.result);
-			registerSuccess.dispatch();
-			if(enabled) {
-				// If Acoount is enabled then login automatically 
-				login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password, true));
-			}				
-			else {
-				//Return to login command
-				showAuthentication.dispatch();
-			}
+			registerSuccess.dispatch(enabled);
+//			if(enabled) {
+//				// If Acoount is enabled then login automatically 
+//				login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", registrationDetails.userName, registrationDetails.password, true));
+//			}				
+//			else {
+//				//Return to login command
+//				showAuthentication.dispatch();
+//			}
 		}
 		
 		private function error(event:FaultEvent):void

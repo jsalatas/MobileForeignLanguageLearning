@@ -6,6 +6,7 @@ package gr.ictpro.mall.model;
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
 import gr.ictpro.mall.model.Classroom;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,6 +59,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
     private Set<Role> roles = new HashSet<Role>(0);
     private Set<Location> locations = new HashSet<Location>(0);
+    private Set<WifiTag> currentLocation = new HashSet<WifiTag>(0);
 
 
     public User() {
@@ -313,6 +315,17 @@ public class User implements java.io.Serializable, UserDetails {
 
     public void setLocations(Set<Location> locations) {
 	this.locations = locations;
+    }
+
+    @AmfIgnore
+    @Transient
+    public Set<WifiTag> getCurrentLocation() {
+	return this.currentLocation;
+    }
+
+    @Transient
+    public void setCurrentLocation(Set<WifiTag> currentLocation) {
+	this.currentLocation = currentLocation;
     }
 
 

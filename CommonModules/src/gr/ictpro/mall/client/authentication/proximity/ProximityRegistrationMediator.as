@@ -7,15 +7,21 @@ package gr.ictpro.mall.client.authentication.proximity
 	import gr.ictpro.mall.client.authentication.standard.StandardAuthentication;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
 	import gr.ictpro.mall.client.model.RoleModel;
+	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.model.vo.Role;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.service.AuthenticationProvider;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
+	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
+	import gr.ictpro.mall.client.signal.SaveSignal;
+	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
+	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.SignalMediator;
@@ -33,7 +39,7 @@ package gr.ictpro.mall.client.authentication.proximity
 		
 		[Inject]
 		public var register:RegisterSignal;
-		
+
 		[Inject]
 		public var listSignal:ListSignal;
 		
@@ -47,13 +53,25 @@ package gr.ictpro.mall.client.authentication.proximity
 		public var listErrorSignal:ListErrorSignal;
 
 		[Inject]
+		public var serverConnectError:ServerConnectErrorSignal;
+
+		[Inject]
 		public var roleModel:RoleModel;
 		
+		[Inject]
+		public var showAuthentication:ShowAuthenticationSignal;
+		
+		[Inject]
+		public var login:LoginSignal;
 
+		[Inject]
+		public var saveSignal:SaveSignal;
+		
 		override public function onRegister():void
 		{
 			super.onRegister();
 
+			addToSignal(serverConnectError, serverError);
 			addToSignal(view.okClicked, handleRegistration);
 			addToSignal(view.cancelClicked, back);
 			addToSignal(registrationFailed, handleRegisterFailed);
@@ -107,17 +125,17 @@ package gr.ictpro.mall.client.authentication.proximity
 				var name:String = view.txtName.text;
 				var email:String = view.txtEmail.text;
 				var role:int = view.role.selected.id;
-				var teacherName:String = view.txtTeachersName.text;
+				var relatedUser:String = view.txtRelatedUser.text;
 				if(userName == null) {
 					UI.showError(Translation.getTranslation("Enter your Username"));
 				} else if(name==null) {
 					UI.showError(Translation.getTranslation("Enter your Name"));
 				} else if(email==null) {
 					UI.showError(Translation.getTranslation("Enter your Email"));
-				} else if(teacherName==null && role == 3) {
+				} else if(relatedUser==null && role == 3) {
 					UI.showError(Translation.getTranslation("Enter your Teacher's Username. If you don't know it please ask your teacher."));
 				}					
-				register.dispatch(new RegistrationDetails("proximityRegistrationProvider",userName, name, password, email, role, teacherName, getContextInfo));
+				register.dispatch(new RegistrationDetails("proximityRegistrationProvider",userName, name, password, email, role, relatedUser, getContextInfo()));
 			}
 		}
 
@@ -133,7 +151,19 @@ package gr.ictpro.mall.client.authentication.proximity
 			UI.showError(Translation.getTranslation("Cannot Register."));
 		}
 
-		private function handleRegisterSuccess():void 
+		private function handleRegisterSuccess(enabled:Boolean):void 
+		{
+			// store username locally
+			var setting:ClientSetting = new ClientSetting();
+			setting.name = "lastUserName";
+			setting.value = view.txtUserName.text;
+			saveSignal.dispatch(setting);
+
+			view.dispose();
+			showAuthentication.dispatch(new AuthenticationProvider('/gr/ictpro/mall/client/authentication/proximity/Proximity.swf', 'gr.ictpro.mall.client.authentication.proximity.ProximityAuthentication'));
+		}
+		
+		private function serverError():void 
 		{
 			view.dispose();
 		}

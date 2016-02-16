@@ -73,7 +73,7 @@
 					<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
 				</s:FormItem>
 				<s:FormItem label="{Translation.getTranslation('Teacher\'s Name')}" visible="false" visible.Student="true">
-					<s:TextInput id="txtTeachersName" textAlign="left" tabIndex="7"/>	
+					<s:TextInput id="txtRelatedUser" textAlign="left" tabIndex="7"/>	
 				</s:FormItem>
 				<s:FormItem  width="100%">
 					<s:Group>

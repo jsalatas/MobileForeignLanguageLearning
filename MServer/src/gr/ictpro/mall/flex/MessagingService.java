@@ -61,6 +61,9 @@ public class MessagingService {
     // sendMessageToClients("New Notifications", params);
     // }
 
+    public static void sendUpdateLocationMessage() {
+	sendMessageToClients("Update Location", null);
+    }
     private static void sendMessageToClients(String subject, Map<String, Object> params) {
 	AsyncMessage msg = new AsyncMessage();
 	msg.setClientId("Java-Based-Producer-For-Messaging");

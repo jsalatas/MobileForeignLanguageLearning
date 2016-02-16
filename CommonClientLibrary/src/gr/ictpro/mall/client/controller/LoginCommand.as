@@ -14,7 +14,6 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
-	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
@@ -64,9 +63,6 @@ package gr.ictpro.mall.client.controller
 		[Inject]
 		public var listErrorSignal:ListErrorSignal;
 		
-		[Inject]
-		public var genericCallSignal:GenericCallSignal;
-
 		[Inject]
 		public var genericCallSuccessSignal:GenericCallSuccessSignal;
 		

@@ -9,11 +9,11 @@ package gr.ictpro.mall.client.model
 		private var _email:String;
 		private var _role:int;
 		private var _registrationMethod:String;
-		private var _teacherName:String;
+		private var _relatedUser:String;
 		private var _contextInfo:Object;
 
 		
-		public function RegistrationDetails(registrationMethod:String, userName:String, name:String, password:String, email:String, role:int, teacherName:String, contextInfo:Object)
+		public function RegistrationDetails(registrationMethod:String, userName:String, name:String, password:String, email:String, role:int, relatedUser:String, contextInfo:Object)
 		{
 			this._registrationMethod = registrationMethod;
 			this._userName = userName;
@@ -21,7 +21,7 @@ package gr.ictpro.mall.client.model
 			this._password = password;
 			this._email = email;
 			this._role = role;
-			this._teacherName = teacherName;
+			this._relatedUser = relatedUser;
 			this._contextInfo = contextInfo;
 		}
 	
@@ -49,9 +49,9 @@ package gr.ictpro.mall.client.model
 		{
 			return this._role;
 		}
-		public function get teacherName():String
+		public function get relatedUser():String
 		{
-			return this._teacherName;
+			return this._relatedUser;
 		}
 		public function get contextInfo():Object
 		{

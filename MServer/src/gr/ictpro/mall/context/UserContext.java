@@ -40,14 +40,23 @@ public class UserContext {
     
     private Map<Integer, User> connectedUsers = new LinkedHashMap<Integer, User>();
     
+    public void initUser(User u) {
+	if(connectedUsers.containsKey(u.getId())) {
+	    u.setCurrentLocation(connectedUsers.get(u.getId()).getCurrentLocation());
+	    u.setCurrentClassroom(connectedUsers.get(u.getId()).getCurrentClassroom());
+	}
+    }
+
     public User getCurrentUser() {
 	User u = userService.retrieveById(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
 	if(connectedUsers.containsKey(u.getId())) {
-	    //return connectedUsers.get(u.getId());
+	    u.setCurrentLocation(connectedUsers.get(u.getId()).getCurrentLocation());
+	    u.setCurrentClassroom(connectedUsers.get(u.getId()).getCurrentClassroom());
 	    addToConnectedUsers(u);
 	}
 	return u;
     }
+
     
     public Language getUserLang(User u) {
 	return languageService.listByProperty("code", "en").get(0); 

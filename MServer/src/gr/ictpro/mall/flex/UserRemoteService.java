@@ -4,13 +4,17 @@
 package gr.ictpro.mall.flex;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.RegistrationMethod;
+import gr.ictpro.mall.context.LocationContext;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.User;
+import gr.ictpro.mall.model.WifiTag;
 import gr.ictpro.mall.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,9 @@ public class UserRemoteService {
 
     @Autowired(required = true)
     private UserContext userContext;
+
+    @Autowired(required = true)
+    private LocationContext locationContext;
 
     public boolean register(ASObject registrationDetails) {
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
@@ -112,5 +119,10 @@ public class UserRemoteService {
 	}
 
 	return res;
+    }
+    
+    public void updateLocation(ASObject currentLocationObj) {
+	User currentUser = userContext.getCurrentUser();
+	currentUser.setCurrentLocation(locationContext.parseLocationTags(currentLocationObj));
     }
 }

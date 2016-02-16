@@ -3,18 +3,22 @@ package gr.ictpro.mall.client.authentication.standard
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	
+	import gr.ictpro.mall.client.model.AuthenticationDetails;
 	import gr.ictpro.mall.client.model.RegistrationDetails;
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.vo.Role;
 	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.service.AuthenticationProvider;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
+	import gr.ictpro.mall.client.signal.LoginSignal;
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
+	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.SignalMediator;
@@ -50,6 +54,12 @@ package gr.ictpro.mall.client.authentication.standard
 		
 		[Inject]
 		public var roleModel:RoleModel;
+
+		[Inject]
+		public var showAuthentication:ShowAuthenticationSignal;
+		
+		[Inject]
+		public var login:LoginSignal;
 
 		override public function onRegister():void
 		{
@@ -108,17 +118,17 @@ package gr.ictpro.mall.client.authentication.standard
 				var name:String = view.txtName.text;
 				var email:String = view.txtEmail.text;
 				var role:int = view.role.selected.id;
-				var teacherName:String = view.txtTeachersName.text;
+				var relatedUser:String = view.txtRelatedUser.text;
 				if(userName == null) {
 					UI.showError(Translation.getTranslation("Enter your Username"));
 				} else if(name==null) {
 					UI.showError(Translation.getTranslation("Enter your Name"));
 				} else if(email==null) {
 					UI.showError(Translation.getTranslation("Enter your Email"));
-				} else if(teacherName==null && role == 3) {
+				} else if(relatedUser==null && role == 3) {
 					UI.showError(Translation.getTranslation("Enter your Teacher's Username. If you don't know it please ask your teacher."));
 				}					
-				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role, teacherName, null));
+				register.dispatch(new RegistrationDetails("standardRegistrationProvider",userName, name, password, email, role, relatedUser, null));
 			}
 		}
 		
@@ -127,9 +137,20 @@ package gr.ictpro.mall.client.authentication.standard
 			UI.showError(Translation.getTranslation("Cannot Register."));
 		}
 
-		private function handleRegisterSuccess():void 
+		private function handleRegisterSuccess(enabled:Boolean):void 
 		{
 			view.dispose();
+			if(enabled) {
+				var password:String = view.txtPassword.text;
+				var userName:String = view.txtUserName.text;
+				// If Acoount is enabled then login automatically 
+				login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", userName, password, true));
+			}				
+			else {
+				//Return to login command
+				showAuthentication.dispatch(new AuthenticationProvider('/gr/ictpro/mall/client/authentication/standard/Standard.swf', 'gr.ictpro.mall.client.authentication.standard.StandardAuthentication'));
+			}
+
 		}
 	}
 }

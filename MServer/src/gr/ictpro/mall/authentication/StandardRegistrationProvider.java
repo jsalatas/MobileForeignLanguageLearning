@@ -31,11 +31,11 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	String password = passwordEncoder.encode((String) registrationDetails.get("password"));
 	String email = (String) registrationDetails.get("email");
 	Integer roleId = (Integer) registrationDetails.get("role");
-	String teacherName = (String) registrationDetails.get("teacherName");
+	String relatedUser = (String) registrationDetails.get("relatedUser");
 
 	User informUser = null;
-	if(teacherName != null) {
-	    List<User> users = userService.listByProperty("username", teacherName);
+	if(relatedUser != null) {
+	    List<User> users = userService.listByProperty("username", relatedUser);
 	    if(users.size() == 1) {
 		informUser = users.get(0);
 	    }

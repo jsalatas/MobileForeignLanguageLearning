@@ -3,8 +3,6 @@
  */
 package gr.ictpro.mall.service;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,31 +59,32 @@ public class MailService {
     public void registrationMail(User u, User informUser) {
 	User admin = userService.getUserByRole("Admin").get(0);
 
-	if (u.hasRole("Teacher")) {
-	    // Teacher registration. Inform admin
-	    EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
-	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
-	    sendMail(admin.getEmail(), admin.getEmail(), email, u);
-
-	} else if (u.hasRole("Student")) {
-	    // Student registration. Inform Teachers
-	    EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
-	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
-	    if(informUser != null) {
-		sendMail(admin.getEmail(), informUser.getEmail(), email, u);
-	    } else {
-		Role r = roleService.listByProperty("role", "Teacher").get(0);
-		for(User t:r.getUsers()) {
-		    sendMail(admin.getEmail(), t.getEmail(), email, u);
-		}
-	    }
-	} else if (u.hasRole("Parent")) {
-	    // Parent registration. Inform teacher and student
-	}
-
 	if (!u.isEnabled()) {
+	    if (u.hasRole("Teacher")) {
+		// Teacher registration. Inform admin
+		EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
+		EmailTranslation email = emailTranslationService.retrieveById(emailId);
+		sendMail(admin.getEmail(), admin.getEmail(), email, u);
+
+	    } else if (u.hasRole("Student")) {
+		// Student registration. Inform Teachers
+		EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
+		EmailTranslation email = emailTranslationService.retrieveById(emailId);
+		if (informUser != null) {
+		    sendMail(admin.getEmail(), informUser.getEmail(), email, u);
+		} else {
+		    Role r = roleService.listByProperty("role", "Teacher").get(0);
+		    for (User t : r.getUsers()) {
+			sendMail(admin.getEmail(), t.getEmail(), email, u);
+		    }
+		}
+	    } else if (u.hasRole("Parent")) {
+		// Parent registration. Inform teacher and student
+	    }
+
 	    // inform user that his account is created but is not yet enabled
-	    EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0, EmailType.DISABLED_ACCOUNT_CREATED);
+	    EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0,
+		    EmailType.DISABLED_ACCOUNT_CREATED);
 	    EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	    sendMail(admin.getEmail(), u.getEmail(), email, u);
 	}
@@ -95,7 +94,8 @@ public class MailService {
     public void accountEnabledMail(User u) {
 	User admin = userService.getUserByRole("Admin").get(0);
 
-	EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0, EmailType.ACCOUNT_ENABLED);
+	EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0,
+		EmailType.ACCOUNT_ENABLED);
 	EmailTranslation email = emailTranslationService.retrieveById(emailId);
 	sendMail(admin.getEmail(), admin.getEmail(), email, u);
 

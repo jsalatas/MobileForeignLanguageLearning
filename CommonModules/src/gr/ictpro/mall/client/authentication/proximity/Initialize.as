@@ -1,7 +1,6 @@
 package gr.ictpro.mall.client.authentication.proximity
 {
 	import gr.ictpro.mall.client.components.Module;
-	import gr.ictpro.mall.client.model.ClassroomModel;
 	
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
