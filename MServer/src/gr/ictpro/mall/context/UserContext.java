@@ -82,11 +82,28 @@ public class UserContext {
 	
 	List<Classroom> classrooms = classroomService.listByCustomSQL(hql);
 	
-	Classroom clasroom =classrooms.size()>0? classrooms.get(0):null;  
+	Classroom classroom = classrooms.size()>0? classrooms.get(0):null;  
 	
-	connectedUsers.get(u.getId()).setCurrentClassroom(clasroom);
-	
-	return clasroom;
+	if(classroom != null) {
+	    connectedUsers.get(u.getId()).setCurrentClassroom(classroom);
+	} else {
+	    initUser(u);
+	    classroom = u.getCurrentClassroom(); 
+
+	    if(classroom == null) {
+		if (u.hasRole("Teacher")) {
+		    if(u.getTeacherClassrooms().size() == 1) {
+			classroom = u.getTeacherClassrooms().iterator().next();
+		    }
+		} else if(u.hasRole("Student")) {
+		    if(u.getClassrooms().size() == 1) {
+			classroom = u.getClassrooms().iterator().next();
+		    }
+		}
+		connectedUsers.get(u.getId()).setCurrentClassroom(classroom);
+	    }
+	}
+	return classroom;
     }
     
     public void addToConnectedUsers(User user) {

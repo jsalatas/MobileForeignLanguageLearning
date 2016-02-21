@@ -1,5 +1,8 @@
 package gr.ictpro.mall.client.view
 {
+	import mx.collections.ArrayCollection;
+	import mx.rpc.events.FaultEvent;
+	
 	import gr.ictpro.mall.client.components.menu.MenuItem;
 	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.model.NotificationModel;
@@ -8,7 +11,10 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Notification;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.service.AuthenticationProvider;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.MenuClickedSignal;
@@ -47,6 +53,12 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var notificationsModel:NotificationModel;
 		
+		[Inject]
+		public var genericCallSuccess:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+
 		override public function onRegister():void
 		{
 			addToSignal(view.menuClicked, menuClicked);
@@ -108,9 +120,34 @@ package gr.ictpro.mall.client.view
 			args.destination = "userRemoteService";
 			args.method = "updateCurrentClassroom";
 			args.type = "updateCurrentClassroom";
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
 			genericCall.dispatch(args);
 
 		}
+
+		private function success(type:String, result:Object):void
+		{
+			if(type == "updateCurrentClassroom") {
+				removeSignals();
+				settings.user.currentClassroom = Classroom(view.currentClassroom.selected);
+			}
+		}
+		
+		private function error(type:String, event:FaultEvent):void
+		{
+			if(type == "updateCurrentClassroom") {
+				removeSignals();
+				settings.user.currentClassroom = null;
+			}
+		}
+		
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
+		}
+
 
 	}
 }
