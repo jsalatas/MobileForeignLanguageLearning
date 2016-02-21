@@ -68,17 +68,6 @@ public class ProximityRegistrationProvider extends AbstractRegistrationProvider 
 		userContext.initUser(informUser);
 		u.setEnabled(locationContext.isInProximity(new ArrayList<WifiTag>(informUser.getCurrentLocation()),
 			currentLocation));
-		if (u.isEnabled()) {
-		    locationContext.storeLocation(u, currentLocation);
-		}
-
-		// in case of students try to assign a classroom
-		if (informUser.getCurrentClassroom() != null) {
-		    Set<Classroom> cl = new HashSet<Classroom>();
-		    cl.add(informUser.getCurrentClassroom());
-		    u.setClassrooms(cl);
-		    userService.update(u);
-		}
 	    }
 	} else {
 	    // TODO: Parent registration
@@ -92,6 +81,14 @@ public class ProximityRegistrationProvider extends AbstractRegistrationProvider 
 	
 	if (u.isEnabled()) {
 	    locationContext.storeLocation(u, currentLocation);
+	}
+
+	// in case of students try to assign a classroom
+	if (u.hasRole("Student") && informUser.getCurrentClassroom() != null) {
+	    Set<Classroom> cl = new HashSet<Classroom>();
+	    cl.add(informUser.getCurrentClassroom());
+	    u.setClassrooms(cl);
+	    userService.update(u);
 	}
 
 

@@ -13,8 +13,10 @@ import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.context.LocationContext;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
+import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.model.WifiTag;
+import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,10 @@ public class UserRemoteService {
     private UserService userService;
 
     @Autowired(required = true)
+    protected GenericService<Profile, Integer> profileService;
+    
+
+    @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
 
     @Autowired(required = true)
@@ -45,6 +51,20 @@ public class UserRemoteService {
 	return reg.register(registrationDetails);
     }
 
+    public void deleteUser(User user) {
+	User currentUser = userContext.getCurrentUser();
+	User persistentUser = userService.retrieveById(user.getId());
+	if(currentUser.hasRole("Admin")) {
+	    userContext.removeFromConnectedUsers(persistentUser);
+	    profileService.delete(persistentUser.getProfile());
+	    userService.delete(persistentUser);
+	} else if(currentUser.hasRole("Teacher") && (persistentUser.hasRole("Student") || persistentUser.hasRole("Parent"))) {
+	    userContext.removeFromConnectedUsers(persistentUser);
+	    profileService.delete(persistentUser.getProfile());
+	    userService.delete(persistentUser);
+	}
+    }
+    
     public User save(User user) {
 	User currentUser = userContext.getCurrentUser();
 

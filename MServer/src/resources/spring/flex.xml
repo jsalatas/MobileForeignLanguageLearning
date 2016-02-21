@@ -24,6 +24,7 @@
 			<security:protect access="Admin, Teacher, Student, Parent" method="save" />
 			<security:protect access="Admin, Teacher" method="getUser" />
 			<security:protect access="Admin, Teacher" method="updateLocation" />
+			<security:protect access="Admin, Teacher" method="deleteUser" />
 		</security:intercept-methods>
 	</bean>
 	

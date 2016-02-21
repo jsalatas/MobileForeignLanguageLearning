@@ -138,7 +138,9 @@ public class NotificationServiceImpl  extends GenericServiceImpl<Notification, I
 	if (unList != null) {
 	    for (UserNotification un : unList) {
 		if(!un.getDone()) {
-		    res.add(un.getNotification());
+		    if(!res.contains(un.getNotification())) {
+			res.add(un.getNotification());
+		    }
 		}
 	    }
 	}
