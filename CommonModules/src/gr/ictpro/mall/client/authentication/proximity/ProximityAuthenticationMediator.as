@@ -66,11 +66,11 @@ package gr.ictpro.mall.client.authentication.proximity
 				// move to next provider
 				showAuthentication.dispatch(authenticationProviders.getNextProvider("/gr/ictpro/mall/client/authentication/proximity/Proximity.swf"));
 				view.dispose();
-			}
-				
-			var lastUserName:String = clientSettingsModel.getItemById("lastUserName") != null?clientSettingsModel.getItemById("lastUserName").value:null;
-			if(lastUserName != null) {
-				autoLogin(lastUserName, contextInfo);
+			} else {
+				var lastUserName:String = clientSettingsModel.getItemById("lastUserName") != null?clientSettingsModel.getItemById("lastUserName").value:null;
+				if(lastUserName != null) {
+					autoLogin(lastUserName, contextInfo);
+				}
 			}
 		}
 

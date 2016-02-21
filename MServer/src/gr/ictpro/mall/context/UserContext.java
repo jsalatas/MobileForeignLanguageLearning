@@ -49,7 +49,7 @@ public class UserContext {
 
     public User getCurrentUser() {
 	User u = userService.retrieveById(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
-	if(connectedUsers.containsKey(u.getId())) {
+	if(u!= null && connectedUsers.containsKey(u.getId())) {
 	    u.setCurrentLocation(connectedUsers.get(u.getId()).getCurrentLocation());
 	    u.setCurrentClassroom(connectedUsers.get(u.getId()).getCurrentClassroom());
 	    addToConnectedUsers(u);
