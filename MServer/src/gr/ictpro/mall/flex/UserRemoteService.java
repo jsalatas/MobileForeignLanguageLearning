@@ -140,6 +140,10 @@ public class UserRemoteService {
 
 	return res;
     }
+
+    public void updateCurrentClassroom(Classroom classroom) {
+	userContext.getCurrentUser().setCurrentClassroom(classroom);
+    }
     
     public void updateLocation(ASObject currentLocationObj) {
 	User currentUser = userContext.getCurrentUser();

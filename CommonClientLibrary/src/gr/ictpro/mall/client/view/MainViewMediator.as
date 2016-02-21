@@ -4,8 +4,11 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.menu.MenuItemSelected;
 	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.Classroom;
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Notification;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.MenuClickedSignal;
@@ -39,11 +42,15 @@ package gr.ictpro.mall.client.view
 		public var listError:ListErrorSignal;
 
 		[Inject]
+		public var genericCall:GenericCallSignal;
+
+		[Inject]
 		public var notificationsModel:NotificationModel;
 		
 		override public function onRegister():void
 		{
 			addToSignal(view.menuClicked, menuClicked);
+			addToSignal(view.classroomChanged, classroomChanged);
 			addToSignal(view.notificationClicked, notificationClicked);
 			addToSignal(view.notificationOkClicked, notificationOkClicked);
 			addToSignal(listSuccess, listSuccessHandler);
@@ -91,6 +98,18 @@ package gr.ictpro.mall.client.view
 		private function notificationOkClicked(notification:Notification):void
 		{
 			saveSignal.dispatch(notification);
+		}
+		
+		private function classroomChanged():void
+		{
+			var classroom:Classroom = Classroom(view.currentClassroom.selected);
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = classroom;
+			args.destination = "userRemoteService";
+			args.method = "updateCurrentClassroom";
+			args.type = "updateCurrentClassroom";
+			genericCall.dispatch(args);
+
 		}
 
 	}

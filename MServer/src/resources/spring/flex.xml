@@ -25,6 +25,7 @@
 			<security:protect access="Admin, Teacher" method="getUser" />
 			<security:protect access="Admin, Teacher" method="updateLocation" />
 			<security:protect access="Admin, Teacher" method="deleteUser" />
+			<security:protect access="Teacher, Student" method="updateCurrentClassroom" />
 		</security:intercept-methods>
 	</bean>
 	

@@ -16,6 +16,7 @@
 	</s:transitions>
 	<fx:Declarations>
 		<signals:Signal id="menuClicked"/>
+		<signals:Signal id="classroomChanged"/>
 		<signals:Signal id="notificationClicked"/>
 		<signals:Signal id="notificationOkClicked"/>
 	</fx:Declarations>
@@ -113,6 +114,12 @@
 				
 			}
 			
+			protected function currentClassroom_changeHandler(event:Event):void
+			{
+				classroomChanged.dispatch();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Group  width="100%" height="100%">
@@ -140,7 +147,7 @@
 				<s:FormLayout />
 			</s:layout>
 			<s:FormItem id="currentClassroomFormItem" width="100%" label="{Translation.getTranslation('Classroom')}">
-				<s:PopUpList width="100%" id="currentClassroom" dataList="{_classrooms}" selected="{_classroom}" /> 
+				<s:PopUpList width="100%" id="currentClassroom" dataList="{_classrooms}" selected="{_classroom}" change="currentClassroom_changeHandler(event)"/> 
 			</s:FormItem>
 		</s:Group>
 	</s:Group>
