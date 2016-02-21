@@ -3,6 +3,7 @@ package gr.ictpro.mall.authentication;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +12,7 @@ import org.springframework.web.context.ContextLoader;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.LocationContext;
 import gr.ictpro.mall.context.UserContext;
+import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
@@ -68,6 +70,14 @@ public class ProximityRegistrationProvider extends AbstractRegistrationProvider 
 			currentLocation));
 		if (u.isEnabled()) {
 		    locationContext.storeLocation(u, currentLocation);
+		}
+
+		// in case of students try to assign a classroom
+		if (informUser.getCurrentClassroom() != null) {
+		    Set<Classroom> cl = new HashSet<Classroom>();
+		    cl.add(informUser.getCurrentClassroom());
+		    u.setClassrooms(cl);
+		    userService.update(u);
 		}
 	    }
 	} else {

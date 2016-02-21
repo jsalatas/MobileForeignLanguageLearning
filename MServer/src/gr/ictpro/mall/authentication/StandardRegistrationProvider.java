@@ -5,12 +5,16 @@ package gr.ictpro.mall.authentication;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoader;
 
 import flex.messaging.io.amf.ASObject;
+import gr.ictpro.mall.context.UserContext;
+import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
@@ -22,6 +26,10 @@ import gr.ictpro.mall.service.MailService;
  */
 @Component
 public class StandardRegistrationProvider extends AbstractRegistrationProvider {
+
+    @Autowired(required = true)
+    private UserContext userContext;
+
 
     @Override
     public boolean register(ASObject registrationDetails) {
@@ -38,6 +46,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	    List<User> users = userService.listByProperty("username", relatedUser);
 	    if(users.size() == 1) {
 		informUser = users.get(0);
+		userContext.initUser(informUser);
 	    }
 	}
 	
@@ -54,6 +63,16 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	Profile p = new Profile(u, name);
 	profileService.create(p);
 	u.setProfile(p);
+	
+	// in case of students try to assign a classroom
+	if (u.hasRole("Student") && informUser != null && informUser.getCurrentClassroom() != null) {
+	    Set<Classroom> cl = new HashSet<Classroom>();
+	    cl.add(informUser.getCurrentClassroom());
+	    u.setClassrooms(cl);
+	    userService.update(u);
+	}
+	
+	
 	// inform related users about the registration
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
 	MailService mail = (MailService) ctx.getBean("mailService");

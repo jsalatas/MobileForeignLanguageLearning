@@ -69,9 +69,9 @@ public class AuthenticationRemoteService {
     }
     public void terminateSession() {
 	 HttpFlexSession flexSession = (HttpFlexSession) FlexContext.getFlexSession();
+	 userContext.removeFromConnectedUsers(userContext.getCurrentUser());
 	 flexSession.invalidate(true);
 	 SecurityContextHolder.clearContext();
-	 userContext.removeFromConnectedUsers(userContext.getCurrentUser());
     }
     
     public List<AuthenticationMethod> getAuthenticationModules() {

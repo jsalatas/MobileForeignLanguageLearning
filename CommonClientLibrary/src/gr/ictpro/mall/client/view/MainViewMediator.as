@@ -57,8 +57,8 @@ package gr.ictpro.mall.client.view
 				view.currentClassroom.selected = settings.user.currentClassroom;
 			} else if (UserModel.isStudent(settings.user)) {
 				view.classrooms = settings.user.classrooms;
-				view.currentClassroom.enabled = false;
 				view.currentClassroom.selected = settings.user.currentClassroom;
+				view.currentClassroom.enabled = settings.user.currentClassroom == null;
 			}  
 		}
 		

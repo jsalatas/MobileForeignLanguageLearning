@@ -74,10 +74,11 @@ public class UserContext {
 	if(u.hasRole("Teacher")) {
 	    hql = "SELECT cl FROM Classroom cl JOIN cl.calendars ca WHERE cl.teacher.id = " + u.getId() + " AND " + timeHQL;
 	} else if(u.hasRole("Student")) {
-	    hql = "SELECT cl FROM Classroom cl JOIN cl.calendars ca JOIN students st WHERE st.id = " + u.getId() + " AND " + timeHQL;
+	    hql = "SELECT cl FROM Classroom cl JOIN cl.calendars ca JOIN cl.students st WHERE st.id = " + u.getId() + " AND " + timeHQL;
 	} else {
 	    return null;
 	}
+	
 	
 	List<Classroom> classrooms = classroomService.listByCustomSQL(hql);
 	
