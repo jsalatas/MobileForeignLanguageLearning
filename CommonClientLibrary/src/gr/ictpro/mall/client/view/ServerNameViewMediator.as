@@ -4,6 +4,9 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
+	import gr.ictpro.mall.client.signal.ListErrorSignal;
+	import gr.ictpro.mall.client.signal.ListSignal;
+	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.SaveErrorSignal;
 	import gr.ictpro.mall.client.signal.SaveSignal;
 	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
@@ -24,18 +27,31 @@ package gr.ictpro.mall.client.view
 		
 		[Inject]
 		public var saveErrorSignal:SaveErrorSignal;
+
+//		[Inject]
+//		public var listSignal:ListSignal;
+//		
+//		[Inject]
+//		public var listSuccessSignal:ListSuccessSignal;
+//		
+//		[Inject]
+//		public var listErrorSignal:ListErrorSignal;
 		
 		[Inject]
 		public var model:ClientSettingsModel;
+
 		[Inject]
 		public var initialize:InitializeSignal;
 		
 		private var allDone:Boolean = false;
+		private var settingsReloaded:Boolean = false;
 
 		override public function onRegister():void
 		{
 			addToSignal(view.okClicked, handleOK);
 			addToSignal(saveErrorSignal, error);
+//			addToSignal(listErrorSignal, error);
+//			addToSignal(listSuccessSignal, success);
 		}
 		
 		protected function handleOK():void
@@ -63,7 +79,6 @@ package gr.ictpro.mall.client.view
 		{
 			if(classType == model.getVOClass() && allDone) {
 				view.dispose();
-					
 				initialize.dispatch();
 			}
 		}

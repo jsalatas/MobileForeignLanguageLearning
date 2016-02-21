@@ -85,9 +85,7 @@ package gr.ictpro.mall.client.controller
 		protected function success(event:ResultEvent):void
 		{
 			var model:IPersistent = IPersistent(mapper.getModelforVO(Class(getDefinitionByName(getQualifiedClassName(vo)))));
-			if(model is IClientPersistent) {
-				listSignal.dispatch(AbstractModel(model).getVOClass());
-			}
+			listSignal.dispatch(AbstractModel(model).getVOClass());
 			saveSuccess.dispatch(Class(getDefinitionByName(getQualifiedClassName(vo))));
 		}
 		

@@ -75,7 +75,7 @@ package gr.ictpro.mall.client.authentication.proximity
 		[Inject]
 		public var saveError:SaveErrorSignal;
 
-
+		private var allDone:Boolean=false;
 		override public function onRegister():void
 		{
 			super.onRegister();
@@ -85,6 +85,8 @@ package gr.ictpro.mall.client.authentication.proximity
 			addToSignal(view.cancelClicked, back);
 			addToSignal(saveSucess, clientSaveSuccess);
 			addToSignal(saveError, clientSaveError);
+			addToSignal(listSuccessSignal, clientSaveSuccess);
+			addToSignal(listErrorSignal, clientSaveError);
 			addToSignal(view.cancelClicked, back);
 			addToSignal(registrationFailed, handleRegisterFailed);
 			addToSignal(registrationSuccess, handleRegisterSuccess);
@@ -180,7 +182,13 @@ package gr.ictpro.mall.client.authentication.proximity
 		private function clientSaveSuccess(classType:Class):void
 		{
 			if(classType == ClientSetting) {
-				authenticate();
+				if(allDone) {
+					authenticate();
+				} else {
+					allDone = true;
+					//force refresh
+					listSignal.dispatch(ClientSetting);
+				}
 			}
 		}
 		
