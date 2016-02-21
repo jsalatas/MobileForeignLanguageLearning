@@ -19,7 +19,9 @@ package gr.ictpro.mall.client.authentication.proximity
 	import gr.ictpro.mall.client.signal.RegisterFailedSignal;
 	import gr.ictpro.mall.client.signal.RegisterSignal;
 	import gr.ictpro.mall.client.signal.RegisterSuccessSignal;
+	import gr.ictpro.mall.client.signal.SaveErrorSignal;
 	import gr.ictpro.mall.client.signal.SaveSignal;
+	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
@@ -66,13 +68,23 @@ package gr.ictpro.mall.client.authentication.proximity
 
 		[Inject]
 		public var saveSignal:SaveSignal;
-		
+
+		[Inject]
+		public var saveSucess:SaveSuccessSignal;
+
+		[Inject]
+		public var saveError:SaveErrorSignal;
+
+
 		override public function onRegister():void
 		{
 			super.onRegister();
 
 			addToSignal(serverConnectError, serverError);
 			addToSignal(view.okClicked, handleRegistration);
+			addToSignal(view.cancelClicked, back);
+			addToSignal(saveSucess, clientSaveSuccess);
+			addToSignal(saveError, clientSaveError);
 			addToSignal(view.cancelClicked, back);
 			addToSignal(registrationFailed, handleRegisterFailed);
 			addToSignal(registrationSuccess, handleRegisterSuccess);
@@ -158,9 +170,6 @@ package gr.ictpro.mall.client.authentication.proximity
 			setting.name = "lastUserName";
 			setting.value = view.txtUserName.text;
 			saveSignal.dispatch(setting);
-
-			view.dispose();
-			showAuthentication.dispatch(new AuthenticationProvider('/gr/ictpro/mall/client/authentication/proximity/Proximity.swf', 'gr.ictpro.mall.client.authentication.proximity.ProximityAuthentication'));
 		}
 		
 		private function serverError():void 
@@ -168,5 +177,24 @@ package gr.ictpro.mall.client.authentication.proximity
 			view.dispose();
 		}
 
+		private function clientSaveSuccess(classType:Class):void
+		{
+			if(classType == ClientSetting) {
+				authenticate();
+			}
+		}
+		
+		private function clientSaveError(classType:Class, errorMessage:String):void
+		{
+			if(classType == ClientSetting) {
+				authenticate();
+			}
+		}
+
+		private function authenticate():void
+		{
+			view.dispose();
+			showAuthentication.dispatch(new AuthenticationProvider('/gr/ictpro/mall/client/authentication/proximity/Proximity.swf', 'gr.ictpro.mall.client.authentication.proximity.ProximityAuthentication'));
+		}
 	}
 }
