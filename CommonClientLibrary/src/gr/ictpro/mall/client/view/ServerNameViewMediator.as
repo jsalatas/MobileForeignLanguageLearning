@@ -29,6 +29,8 @@ package gr.ictpro.mall.client.view
 		public var model:ClientSettingsModel;
 		[Inject]
 		public var initialize:InitializeSignal;
+		
+		private var allDone:Boolean = false;
 
 		override public function onRegister():void
 		{
@@ -53,14 +55,15 @@ package gr.ictpro.mall.client.view
 			setting.value = view.modulesPath.text;
 			addToSignal(saveSuccessSignal, success);
 
+			allDone = true;
 			saveSignal.dispatch(setting);
 		}
 		
 		private function success(classType:Class):void
 		{
-			if(classType == model.getVOClass()) {
+			if(classType == model.getVOClass() && allDone) {
 				view.dispose();
-				
+					
 				initialize.dispatch();
 			}
 		}
