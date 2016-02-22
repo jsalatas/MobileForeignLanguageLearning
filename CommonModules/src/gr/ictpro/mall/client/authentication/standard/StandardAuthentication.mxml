@@ -13,7 +13,7 @@
 		<![CDATA[
 			import mx.core.IVisualElementContainer;
 			
-			import gr.ictpro.mall.client.runtime.Translation;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			public function dispose():void
 			{
@@ -43,10 +43,10 @@
 				<s:layout>
 					<s:FormLayout/>
 				</s:layout>
-				<s:FormItem label="{Translation.getTranslation('User Name')}">
+				<s:FormItem label="{Device.tranlations.getTranslation('User Name')}">
 					<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left"/>	
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('Password')}">
+				<s:FormItem label="{Device.tranlations.getTranslation('Password')}">
 					<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left"/>	
 				</s:FormItem>
 				<s:FormItem width="100%">
@@ -55,9 +55,9 @@
 							<s:HorizontalLayout/>
 						</s:layout>
 						
-						<s:Button id="btnOK" label="{Translation.getTranslation('OK')}"
+						<s:Button id="btnOK" label="{Device.tranlations.getTranslation('OK')}"
 								  click="btnOK_clickHandler(event)"/>
-						<s:Button id="btnRegister" label="{Translation.getTranslation('Register')}"
+						<s:Button id="btnRegister" label="{Device.tranlations.getTranslation('Register')}"
 								  click="btnRegister_clickHandler(event)"/>
 					</s:Group>
 				</s:FormItem>

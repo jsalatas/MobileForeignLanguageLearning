@@ -4,7 +4,6 @@
 package gr.ictpro.mall.flex;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.web.context.ContextLoader;
 
 import flex.messaging.FlexContext;
@@ -20,7 +18,6 @@ import flex.messaging.HttpFlexSession;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.AuthenticationMethod;
 import gr.ictpro.mall.authentication.PrioritySortableComparator;
-import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;

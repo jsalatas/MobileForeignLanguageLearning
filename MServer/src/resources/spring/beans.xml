@@ -181,7 +181,7 @@
 	<bean id="englishEmailService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="englishEmailDAO"></property>
 	</bean>
-	<bean id="classroomService" class="gr.ictpro.mall.service.ClassroomServiceImpl">
+	<bean id="classroomService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="classroomDAO"></property>
 	</bean>
 	<bean id="classroomgroupService" class="gr.ictpro.mall.service.GenericServiceImpl">

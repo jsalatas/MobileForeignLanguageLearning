@@ -6,7 +6,6 @@ package gr.ictpro.mall.model;
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
 import gr.ictpro.mall.model.Classroom;
 
-import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

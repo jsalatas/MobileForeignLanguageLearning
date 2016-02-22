@@ -1,7 +1,7 @@
 package gr.ictpro.mall.client.model
 {
 	import gr.ictpro.mall.client.model.vo.Role;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 
 	public class RoleModel extends AbstractModel implements IServerPersistent
 	{
@@ -22,7 +22,7 @@ package gr.ictpro.mall.client.model
 		
 		public function get listErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Get Roles.");
+			return Device.tranlations.getTranslation("Cannot Get Roles.");
 		}
 		
 		public function get idField():String

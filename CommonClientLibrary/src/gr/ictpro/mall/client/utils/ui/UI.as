@@ -6,7 +6,6 @@ package gr.ictpro.mall.client.utils.ui
 	
 	import gr.ictpro.mall.client.components.PopupNotification;
 	import gr.ictpro.mall.client.runtime.Device;
-	import gr.ictpro.mall.client.runtime.Translation;
 
 	public class UI
 	{
@@ -34,7 +33,7 @@ package gr.ictpro.mall.client.utils.ui
 		{
 			var popup:PopupNotification = new PopupNotification();
 			popup.type = PopupNotification.TYPE_ERROR;
-			popup.message = Translation.getTranslation(message);
+			popup.message = Device.tranlations.getTranslation(message);
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}
@@ -45,7 +44,7 @@ package gr.ictpro.mall.client.utils.ui
 		{
 			var popup:PopupNotification = new PopupNotification();
 			popup.type = PopupNotification.TYPE_INFO;
-			popup.message = Translation.getTranslation(message);
+			popup.message = Device.tranlations.getTranslation(message);
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}

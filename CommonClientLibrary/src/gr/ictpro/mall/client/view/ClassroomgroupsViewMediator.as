@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.ClassroomgroupModel;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 
 	public class ClassroomgroupsViewMediator extends TopBarListViewMediator
 	{
@@ -16,7 +16,7 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			
-			view.title = Translation.getTranslation("Classroom Groups");
+			view.title = Device.tranlations.getTranslation("Classroom Groups");
 		}
 	}
 }

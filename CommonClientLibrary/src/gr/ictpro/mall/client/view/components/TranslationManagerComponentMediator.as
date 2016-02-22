@@ -8,14 +8,12 @@ package gr.ictpro.mall.client.view.components
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	import mx.core.UIComponent;
 	import mx.rpc.events.FaultEvent;
 	
-	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Language;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
@@ -83,10 +81,10 @@ package gr.ictpro.mall.client.view.components
 					
 				
 				var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + filename +".xml");
-				xmlFile.browseForSave(Translation.getTranslation("Save Transalations"));
+				xmlFile.browseForSave(Device.tranlations.getTranslation("Save Transalations"));
 				xmlFile.addEventListener(Event.SELECT, saveTranslationsXML);
 			} else if (type == UPDATE_TRANSLATIONS) {
-				UI.showInfo(Translation.getTranslation("Translations Successfully Uploaded"));
+				UI.showInfo(Device.tranlations.getTranslation("Translations Successfully Uploaded"));
 			}
 		}
 
@@ -103,16 +101,16 @@ package gr.ictpro.mall.client.view.components
 			if(type == GET_TRANSLATIONS) {
 				removeSignals();
 				
-				UI.showError(Translation.getTranslation('Cannot Get Translations'));
+				UI.showError(Device.tranlations.getTranslation('Cannot Get Translations'));
 			} else if (type == UPDATE_TRANSLATIONS) {
-				UI.showError(Translation.getTranslation('Cannot Update Translations.'));
+				UI.showError(Device.tranlations.getTranslation('Cannot Update Translations.'));
 			}
 		}
 
 		private function uploadTranslationsHandler():void 
 		{
 			var xmlFile:File = new File();
-			xmlFile.browseForOpen(Translation.getTranslation("Select Transalations"), [new FileFilter(Translation.getTranslation("Translation XML Files"), "*.xml")]);
+			xmlFile.browseForOpen(Device.tranlations.getTranslation("Select Transalations"), [new FileFilter(Device.tranlations.getTranslation("Translation XML Files"), "*.xml")]);
 			xmlFile.addEventListener(Event.SELECT, openTranslationsXML);
 		}
 

@@ -1,7 +1,6 @@
 package gr.ictpro.mall.flex;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -9,12 +8,10 @@ import java.util.List;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Calendar;
 import gr.ictpro.mall.model.Classroom;
-import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Schedule;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.GenericService;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CalendarRemoteService {

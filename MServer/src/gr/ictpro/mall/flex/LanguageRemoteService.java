@@ -26,8 +26,8 @@ import gr.ictpro.mall.model.EnglishText;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Translation;
 import gr.ictpro.mall.model.TranslationId;
+import gr.ictpro.mall.model.UITranslation;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.service.ClassroomService;
 import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.utils.TranslationsXMLUtils;
 
@@ -52,7 +52,7 @@ public class LanguageRemoteService {
     private GenericService<EnglishEmail, Integer> englishEmailService;
     
     @Autowired(required = true)
-    private ClassroomService classroomService;
+    private GenericService<Classroom, Integer> classroomService;
 
     @Autowired(required = true)
     private UserContext userContext;
@@ -191,6 +191,45 @@ public class LanguageRemoteService {
 	} catch (ParserConfigurationException | SAXException | IOException e) {
 	    e.printStackTrace();
 	}
+	
+    }
+    
+    public List<UITranslation> getTranslations(ASObject translObj) {
+	List<UITranslation> res = new ArrayList<UITranslation>();
+	
+	String languageCode = (String) translObj.get("language_code");
+	Integer classroomId = (Integer) translObj.get("classroom_id");
+	
+	if(classroomId == null) {
+	    classroomId = 0;
+	}
+	Classroom classroom = classroomService.retrieveById(classroomId);	
+	
+	if(languageCode == null) {
+	    languageCode = classroom.getLanguage().getCode();
+	}
+//	Language language = languageService.retrieveById(languageCode);
+
+	// Get specific classroom translations
+	String translationsHQL = "FROM Translation WHERE (language.code = '"+languageCode+"' AND classroom.id = "+classroomId+")";
+	List<Integer> translationIds = new ArrayList<Integer>();
+	List<Translation> allTanslations = translationService.listByCustomSQL(translationsHQL);
+	
+	for(Translation t: allTanslations) {
+	    res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));
+	    translationIds.add(t.getEnglishText().getId());
+	}
+	if(classroomId.intValue()!= 0) {
+	    // Get generic translations for language 
+	    translationsHQL = "FROM Translation t WHERE (language.code = '"+languageCode+"' AND classroom.id =0 AND t.englishText.id NOT IN ("+StringUtils.join(translationIds, ", ")+"))";
+	    allTanslations = translationService.listByCustomSQL(translationsHQL);
+	    for(Translation t: allTanslations) {
+		res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));
+	    }
+	}
+	
+	
+	return res;
 	
     }
 }

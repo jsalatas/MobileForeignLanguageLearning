@@ -4,7 +4,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.view.ClassroomgroupView;
 	import gr.ictpro.mall.client.view.components.ClassroomgroupComponent;
 
@@ -18,17 +18,17 @@ package gr.ictpro.mall.client.model
 		
 		public function get deleteErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Delete Classroom Group");
+			return Device.tranlations.getTranslation("Cannot Delete Classroom Group");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Get Classroom Groups");
+			return Device.tranlations.getTranslation("Cannot Get Classroom Groups");
 		}
 		
 		public function get saveErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Save Classroom Group");
+			return Device.tranlations.getTranslation("Cannot Save Classroom Group");
 		}
 		
 		public function get destination():String

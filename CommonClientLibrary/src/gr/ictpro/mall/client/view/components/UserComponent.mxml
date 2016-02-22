@@ -12,7 +12,7 @@
 			import mx.collections.ArrayCollection;
 			
 			import gr.ictpro.mall.client.runtime.Device;
-			import gr.ictpro.mall.client.runtime.Translation;
+
 			[Bindable]
 			private var colorList:ArrayCollection = new ArrayCollection([
 				0x000000, 
@@ -70,31 +70,31 @@
 			</s:Group>
 		</s:Group>
 	</s:FormItem>	
-		<s:FormItem visible="false" width="100%" label="{Translation.getTranslation('Enabled')}"
+		<s:FormItem visible="false" width="100%" label="{Device.tranlations.getTranslation('Enabled')}"
 					visible.edit="true">
 			<s:CheckBox id="chkEnabled" selected="@{vo.enabled}"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('New Password')}"
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('New Password')}"
 					visible.view="false">
 			<s:TextInput id="txtPassword" width="100%" autoCapitalize="word" displayAsPassword="true"
 						 text="" textAlign="left"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('Reenter New Password')}"
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Reenter New Password')}"
 					visible.view="false">
 			<s:TextInput id="txtPassword2" width="100%" autoCapitalize="word"
 						 displayAsPassword="true" text="" textAlign="left"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('Name')}">
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Name')}">
 			<s:TextInput id="txtName" width="100%" autoCapitalize="word"
 						 text="@{vo.profile.name}" textAlign="left"
 						 enabled.view="false"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('Email')}">
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Email')}">
 			<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
 						 text="@{vo.email}" textAlign="left"
 						 visible.view="false"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('Color')}"
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Color')}"
 					visible.view="false">
 			<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
 								  selected="{Device.getDefaultColor()}"/>

@@ -2,7 +2,13 @@
 <s:TopBarCustomView xmlns:fx="http://ns.adobe.com/mxml/2009" 
 						xmlns:s="gr.ictpro.mall.client.components.*"
 					   width="100%" height="100%"
-					   deleteButton="false">
+					   deleteButton="false"
+					   title="{Device.tranlations.getTranslation('Server Settings')}">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 
 	<s:Group id="settings" width="100%" horizontalCenter="0">
 		<s:layout>

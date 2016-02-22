@@ -4,13 +4,12 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
-	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.User;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
-	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
@@ -98,7 +97,7 @@ package gr.ictpro.mall.client.view
 					view.parameters.vo = result;
 					view.invalidateChildren();
 				} else {
-					UI.showError(Translation.getTranslation("Cannot get User"));
+					UI.showError(Device.tranlations.getTranslation("Cannot get User"));
 					back();
 				}
 			}
@@ -108,7 +107,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(type == GET_USER) {
 				removeSignals();
-				UI.showError(Translation.getTranslation("Cannot get User"));
+				UI.showError(Device.tranlations.getTranslation("Cannot get User"));
 				back();
 			}
 		}
@@ -138,7 +137,7 @@ package gr.ictpro.mall.client.view
 			var userView:UserComponent = UserComponent(TopBarDetailView(view).editor);
 			if(userView.txtPassword.text != "" || userView.txtPassword2.text != "") {
 				if(userView.txtPassword.text != userView.txtPassword2.text) {
-					UI.showError(Translation.getTranslation("Passwords do not Match"));
+					UI.showError(Device.tranlations.getTranslation("Passwords do not Match"));
 					return false;
 				} else {
 					User(view.parameters.vo).password = userView.txtPassword.text; 

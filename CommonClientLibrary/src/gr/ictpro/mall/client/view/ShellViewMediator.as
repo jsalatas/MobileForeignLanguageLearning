@@ -4,15 +4,14 @@ package gr.ictpro.mall.client.view
 	import flash.events.Event;
 	
 	import mx.core.IVisualElement;
-	import mx.utils.ObjectProxy;
 	
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.components.IDetailView;
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.model.ViewParameters;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
-	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.LogoutSignal;
@@ -77,7 +76,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleConnectionError():void 
 		{
-			UI.showError(Translation.getTranslation("Cannot Connect to Server."), connectionErrorPopup_close);
+			UI.showError(Device.tranlations.getTranslation("Cannot Connect to Server."), connectionErrorPopup_close);
 		}
 
 		private function connectionErrorPopup_close(evt:PopUpEvent):void

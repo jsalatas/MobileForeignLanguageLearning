@@ -13,7 +13,6 @@
 	<fx:Script>
 		<![CDATA[
 			import gr.ictpro.mall.client.runtime.Device;
-			import gr.ictpro.mall.client.runtime.Translation;
 
 			public var vo:Object;
 			
@@ -41,9 +40,9 @@
 		<s:layout>
 			<s:VerticalLayout gap="5"/>
 		</s:layout>	
-		<s:Button id="btnGetAllTranslations" label="{Translation.getTranslation('Get All Messages')}" click="button1_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
-		<s:Button id="btnGetUntranslated" label="{Translation.getTranslation('Get Untranslated Messages')}" click="button2_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
-		<s:Button id="btnUploadTranslations" label="{Translation.getTranslation('Upload Translations')}" click="button3_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
+		<s:Button id="btnGetAllTranslations" label="{Device.tranlations.getTranslation('Get All Messages')}" click="button1_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
+		<s:Button id="btnGetUntranslated" label="{Device.tranlations.getTranslation('Get Untranslated Messages')}" click="button2_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
+		<s:Button id="btnUploadTranslations" label="{Device.tranlations.getTranslation('Upload Translations')}" click="button3_clickHandler(event)" width="250" enabled.new="false" enabled.edit="true" />
 		
 	</s:Group>
 

@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.model
 	import flash.errors.IllegalOperationError;
 	
 	import gr.ictpro.mall.client.model.vo.Schedule;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 
 	public class ScheduleModel extends AbstractModel implements IServerPersistent
 	{
@@ -34,12 +34,12 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Save Schedule");
+			return Device.tranlations.getTranslation("Cannot Save Schedule");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Delete Schedule");
+			return Device.tranlations.getTranslation("Cannot Delete Schedule");
 		}
 		
 		public function get listErrorMessage():String

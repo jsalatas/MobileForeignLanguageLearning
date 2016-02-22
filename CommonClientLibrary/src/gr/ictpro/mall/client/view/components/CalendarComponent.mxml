@@ -9,7 +9,7 @@
 			import mx.events.FlexEvent;
 			
 			import gr.ictpro.mall.client.model.vo.Calendar;
-			import gr.ictpro.mall.client.runtime.Translation;
+			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.utils.date.DateUtils;
 
 			[Bindable]
@@ -35,7 +35,7 @@
 			}
 			
 			[Bindable]
-			private var calendarType:ArrayCollection = new ArrayCollection([Translation.getTranslation("One time"), Translation.getTranslation("Repeating")]);
+			private var calendarType:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation("One time"), Device.tranlations.getTranslation("Repeating")]);
 			
 			protected function type_changeHandler(event:Event):void
 			{
@@ -68,22 +68,22 @@
 	<s:layout>
 		<s:FormLayout/>
 	</s:layout>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Type')}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Type')}">
 		<s:PopUpList id="type" width="100%" change="type_changeHandler(event)" dataList="{calendarType}" selected="{Calendar(vo).schedule!=null?type.dataList.getItemAt(1):type.dataList.getItemAt(0)}" />  
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Description')}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Description')}">
 		<s:TextInput width="100%" id="description" text="{selectedCalendarType == 0?vo.description:vo.schedule.description}" />  
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Start at')}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Start at')}">
 		<s:DateTimePicker width="100%" id="startDate" date="{selectedCalendarType == 0?vo.startTime:vo.schedule.startTime}" /> 
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('End at')}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('End at')}">
 		<s:DateTimePicker width="100%" id="endDate" date="{selectedCalendarType == 0?vo.endTime:vo.schedule.endTime}" /> 
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Classroom')}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Classroom')}">
 		<s:PopUpList width="100%" id="classroom" dataList="{_classrooms}" initialize="classroom_initializeHandler(event)" /> 
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Repeat Every')}" visible="{selectedCalendarType == 1}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Repeat Every')}" visible="{selectedCalendarType == 1}">
 		<s:Group>
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle"/>
@@ -93,7 +93,7 @@
 			<s:PopUpList width="150" id="day" dataList="{DateUtils.dayNames}" selected="{selectedCalendarType == 1?DateUtils.dayNames.getItemAt(vo.schedule.day):null}" />
 		</s:Group>
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Translation.getTranslation('Repeat Until')}" visible="{selectedCalendarType == 1}">
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Repeat Until')}" visible="{selectedCalendarType == 1}">
 		<s:DatePicker id="repeatUntil" selectedDate="{vo.schedule.repeatUntil}" />
 	</s:FormItem>
 

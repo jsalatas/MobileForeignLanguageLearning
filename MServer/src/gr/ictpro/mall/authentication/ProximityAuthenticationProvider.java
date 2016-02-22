@@ -2,24 +2,18 @@ package gr.ictpro.mall.authentication;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.LocationContext;
-import gr.ictpro.mall.model.Language;
-import gr.ictpro.mall.model.Location;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.model.WifiTag;
-import gr.ictpro.mall.service.GenericService;
 
 public class ProximityAuthenticationProvider extends AbstractAuthenticationProvider {
 

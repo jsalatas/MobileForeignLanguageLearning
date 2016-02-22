@@ -2,8 +2,8 @@
 <s:TopBarDetailView xmlns:fx="http://ns.adobe.com/mxml/2009" 
 						xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
 						xmlns:signals="org.osflash.signals.*"
-						title.new="{Translation.getTranslation('New Language')}"
-						title.edit="{Translation.getTranslation('Edit Language')}"
+						title.new="{Device.tranlations.getTranslation('New Language')}"
+						title.edit="{Device.tranlations.getTranslation('Edit Language')}"
 						xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="gr.ictpro.mall.client.view.components.*" >
 	<s:states>
 		<mx:State name="new" />
@@ -11,9 +11,7 @@
 	</s:states>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.runtime.Translation;
-			
-			
+			import gr.ictpro.mall.client.runtime.Device;
 		]]>
 	</fx:Script>
 </s:TopBarDetailView>

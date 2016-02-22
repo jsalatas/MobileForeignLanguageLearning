@@ -18,7 +18,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.core.IVisualElementContainer;
 			
-			import gr.ictpro.mall.client.runtime.Translation;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			public function dispose():void
 			{
@@ -54,25 +54,25 @@
 				<s:layout>
 					<s:FormLayout />
 				</s:layout>
-				<s:FormItem id="formitem" label="{Translation.getTranslation('Name')}" >
+				<s:FormItem id="formitem" label="{Device.tranlations.getTranslation('Name')}" >
 					<s:TextInput id="txtName" autoCapitalize="word" textAlign="left" tabIndex="1"/>
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('Email')}" >
+				<s:FormItem label="{Device.tranlations.getTranslation('Email')}" >
 					<s:TextInput id="txtEmail" softKeyboardType="email" textAlign="left" tabIndex="2"/>	
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('I am')}"  >
+				<s:FormItem label="{Device.tranlations.getTranslation('I am')}"  >
 					<s:PopUpList id="role" dataList="{roles}" textAlign="left" tabIndex="3" change="role_changeHandler(event)"/>
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('User Name')}">
+				<s:FormItem label="{Device.tranlations.getTranslation('User Name')}">
 					<s:TextInput id="txtUserName" autoCorrect="false" textAlign="left" tabIndex="4"/>	
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('Password')}">
+				<s:FormItem label="{Device.tranlations.getTranslation('Password')}">
 					<s:TextInput id="txtPassword" displayAsPassword="true" textAlign="left" tabIndex="5"/>	
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('Confirm Password')}">
+				<s:FormItem label="{Device.tranlations.getTranslation('Confirm Password')}">
 					<s:TextInput id="txtConfirmPassword" displayAsPassword="true" textAlign="left" tabIndex="6"/>	
 				</s:FormItem>
-				<s:FormItem label="{Translation.getTranslation('Teacher\'s Name')}" visible="false" visible.Student="true">
+				<s:FormItem label="{Device.tranlations.getTranslation('Teacher\'s Name')}" visible="false" visible.Student="true">
 					<s:TextInput id="txtRelatedUser" textAlign="left" tabIndex="7"/>	
 				</s:FormItem>
 				<s:FormItem  width="100%">
@@ -80,8 +80,8 @@
 						<s:layout>
 							<s:HorizontalLayout/>
 						</s:layout>
-						<s:Button id="btnOK" label="{Translation.getTranslation('OK')}" click="btnOK_clickHandler(event)" tabIndex="8"/>
-						<s:Button id="btnCancel" label="{Translation.getTranslation('Cancel')}" click="btnCancel_clickHandler(event)" tabIndex="9"/>
+						<s:Button id="btnOK" label="{Device.tranlations.getTranslation('OK')}" click="btnOK_clickHandler(event)" tabIndex="8"/>
+						<s:Button id="btnCancel" label="{Device.tranlations.getTranslation('Cancel')}" click="btnCancel_clickHandler(event)" tabIndex="9"/>
 					</s:Group>
 				</s:FormItem>
 			</s:Group>

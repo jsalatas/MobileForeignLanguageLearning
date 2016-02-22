@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.model
 	import flash.errors.IllegalOperationError;
 	
 	import gr.ictpro.mall.client.model.vo.Notification;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	
 	public class NotificationModel extends AbstractModel implements IServerPersistent
 	{
@@ -20,12 +20,12 @@ package gr.ictpro.mall.client.model
 		
 		public function get listErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Get Notifications");
+			return Device.tranlations.getTranslation("Cannot Get Notifications");
 		}
 		
 		public function get saveErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Save Notification");
+			return Device.tranlations.getTranslation("Cannot Save Notification");
 		}
 		
 		public function get destination():String

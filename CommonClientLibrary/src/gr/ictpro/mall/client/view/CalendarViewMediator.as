@@ -1,16 +1,13 @@
 package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.components.TopBarDetailView;
-	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.CalendarModel;
 	import gr.ictpro.mall.client.model.ClassroomModel;
-	import gr.ictpro.mall.client.model.ViewParameters;
-	import gr.ictpro.mall.client.model.vo.Calendar;
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Schedule;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
-	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
@@ -107,13 +104,13 @@ package gr.ictpro.mall.client.view
 			if(calendarComponent.selectedCalendarType == 0) {
 				// one time
 				if(calendarComponent.vo.description == null || calendarComponent.vo.description == '') {
-					UI.showError(Translation.getTranslation("Please Enter a Description"));
+					UI.showError(Device.tranlations.getTranslation("Please Enter a Description"));
 					return false; 
 				}
 			} else {
 				// repeating
 				if(calendarComponent.vo.schedule.description == null || calendarComponent.vo.schedule.description == '') {
-					UI.showError(Translation.getTranslation("Please Enter a Description"));
+					UI.showError(Device.tranlations.getTranslation("Please Enter a Description"));
 					return false; 
 				}
 			}

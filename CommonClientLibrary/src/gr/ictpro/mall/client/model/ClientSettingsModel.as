@@ -1,12 +1,11 @@
 package gr.ictpro.mall.client.model
 {
-	import flash.data.SQLConnection;
 	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
 	import flash.errors.IllegalOperationError;
 	
 	import gr.ictpro.mall.client.model.vo.ClientSetting;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.service.LocalDBStorage;
 
 	public class ClientSettingsModel extends AbstractModel implements IClientPersistent
@@ -21,7 +20,7 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Save Client Settings");
+			return Device.tranlations.getTranslation("Cannot Save Client Settings");
 		}
 		
 		public function get deleteErrorMessage():String
@@ -31,7 +30,7 @@ package gr.ictpro.mall.client.model
 		
 		public function get listErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Get Client Settings");;
+			return Device.tranlations.getTranslation("Cannot Get Client Settings");;
 		}
 		
 		public function get idField():String

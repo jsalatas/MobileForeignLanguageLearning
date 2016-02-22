@@ -4,50 +4,48 @@ package gr.ictpro.mall.client.utils.date
 	
 	import mx.collections.ArrayCollection;
 	import mx.core.mx_internal;
-	import mx.formatters.DateBase;
 	
 	import spark.formatters.DateTimeFormatter;
 	
 	import gr.ictpro.mall.client.runtime.Device;
-	import gr.ictpro.mall.client.runtime.Translation;
 	
 	use namespace mx_internal;
 
 	public class DateUtils
 	{
 		[Bindable]
-		public static var dayNames:ArrayCollection = new ArrayCollection([Translation.getTranslation('Sunday'), 
-			Translation.getTranslation('Monday'), 
-			Translation.getTranslation('Tuesday'), 
-			Translation.getTranslation('Wednesday'), 
-			Translation.getTranslation('Thusrday'), 
-			Translation.getTranslation('Friday'), 
-			Translation.getTranslation('Saturday')]);
+		public static var dayNames:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sunday'), 
+			Device.tranlations.getTranslation('Monday'), 
+			Device.tranlations.getTranslation('Tuesday'), 
+			Device.tranlations.getTranslation('Wednesday'), 
+			Device.tranlations.getTranslation('Thusrday'), 
+			Device.tranlations.getTranslation('Friday'), 
+			Device.tranlations.getTranslation('Saturday')]);
 
 		[Bindable]
-		public static var shortDayNames:ArrayCollection = new ArrayCollection([Translation.getTranslation('Sunday'), 
-			Translation.getTranslation('Mon'), 
-			Translation.getTranslation('Tue'), 
-			Translation.getTranslation('Wed'), 
-			Translation.getTranslation('Thu'), 
-			Translation.getTranslation('Fri'), 
-			Translation.getTranslation('Sat')]);
+		public static var shortDayNames:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sunday'), 
+			Device.tranlations.getTranslation('Mon'), 
+			Device.tranlations.getTranslation('Tue'), 
+			Device.tranlations.getTranslation('Wed'), 
+			Device.tranlations.getTranslation('Thu'), 
+			Device.tranlations.getTranslation('Fri'), 
+			Device.tranlations.getTranslation('Sat')]);
 		
 
 		[Bindable]
 		public static var monthNames:ArrayCollection = new ArrayCollection([
-			Translation.getTranslation('January'), 
-			Translation.getTranslation('February'), 
-			Translation.getTranslation('March'), 
-			Translation.getTranslation('April'), 
-			Translation.getTranslation('May'), 
-			Translation.getTranslation('June'), 
-			Translation.getTranslation('July'), 
-			Translation.getTranslation('August'), 
-			Translation.getTranslation('September'), 
-			Translation.getTranslation('October'), 
-			Translation.getTranslation('November'), 
-			Translation.getTranslation('December')]);
+			Device.tranlations.getTranslation('January'), 
+			Device.tranlations.getTranslation('February'), 
+			Device.tranlations.getTranslation('March'), 
+			Device.tranlations.getTranslation('April'), 
+			Device.tranlations.getTranslation('May'), 
+			Device.tranlations.getTranslation('June'), 
+			Device.tranlations.getTranslation('July'), 
+			Device.tranlations.getTranslation('August'), 
+			Device.tranlations.getTranslation('September'), 
+			Device.tranlations.getTranslation('October'), 
+			Device.tranlations.getTranslation('November'), 
+			Device.tranlations.getTranslation('December')]);
 
 		private static var times:ArrayCollection = null;
 		

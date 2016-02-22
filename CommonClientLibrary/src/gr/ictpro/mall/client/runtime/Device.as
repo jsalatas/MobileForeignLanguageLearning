@@ -28,8 +28,15 @@ package gr.ictpro.mall.client.runtime
 		private static var _curAppDPI:Number = 160; 
 		
 		private static var _settings:RuntimeSettings; 
+
+		private static var _tranlations:Translation = new Translation();
 		
 		public static var shellView:ShellView; 
+
+		public static function get tranlations():Translation
+		{
+			return _tranlations;
+		}
 
 		public static function set device(device:IDevice):void
 		{

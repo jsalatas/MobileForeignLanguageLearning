@@ -10,19 +10,19 @@
 	</s:states>
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.runtime.Translation;
+			import gr.ictpro.mall.client.runtime.Device;
 		]]>
 	</fx:Script>
 		<s:layout>
 			<s:FormLayout/>
 		</s:layout>
-		<s:FormItem width="100%" label="{Translation.getTranslation('Language Code')}">
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Language Code')}">
 			<s:TextInput id="txtCode" width="100%" text="@{vo.code}" enabled.new="true" enabled.edit="false" textAlign="left"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('English Name')}">
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('English Name')}">
 			<s:TextInput id="txtEnglishName" width="100%" text="@{vo.englishName}" textAlign="left"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Translation.getTranslation('Local Name')}">
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Local Name')}">
 			<s:TextInput id="txtLocalName" width="100%" text="@{vo.localName}" textAlign="left"/>
 		</s:FormItem>
 

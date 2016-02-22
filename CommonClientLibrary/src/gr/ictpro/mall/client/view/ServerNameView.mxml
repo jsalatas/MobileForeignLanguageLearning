@@ -11,7 +11,7 @@
 		<![CDATA[
 			import mx.core.IVisualElementContainer;
 			
-			import gr.ictpro.mall.client.runtime.Translation;
+			import gr.ictpro.mall.client.runtime.Device;
 			
 			protected function ok_clickHandler(event:MouseEvent):void
 			{
@@ -30,17 +30,17 @@
 			<s:layout>
 				<s:FormLayout/>
 			</s:layout>
-			<s:FormItem label="{Translation.getTranslation('Server URL')}">
+			<s:FormItem label="{Device.tranlations.getTranslation('Server URL')}">
 				<s:TextInput id="serverName" autoCorrect="false" textAlign="left" />
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('Application Path')}">
+			<s:FormItem label="{Device.tranlations.getTranslation('Application Path')}">
 				<s:TextInput id="applicationPath" autoCorrect="false" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="{Translation.getTranslation('Modules Path')}" >
+			<s:FormItem label="{Device.tranlations.getTranslation('Modules Path')}" >
 				<s:TextInput id="modulesPath" autoCorrect="false" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem label="">
-				<s:Button id="ok" label="{Translation.getTranslation('OK')}"
+				<s:Button id="ok" label="{Device.tranlations.getTranslation('OK')}"
 						  click="ok_clickHandler(event)"/>		
 			</s:FormItem>
 		</s:Group>

@@ -2,7 +2,7 @@ package gr.ictpro.mall.client.model
 {
 	import gr.ictpro.mall.client.model.vo.Calendar;
 	import gr.ictpro.mall.client.model.vo.Schedule;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.view.CalendarView;
 	import gr.ictpro.mall.client.view.components.CalendarComponent;
 
@@ -35,17 +35,17 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Save Calendar");
+			return Device.tranlations.getTranslation("Cannot Save Calendar");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Delete Calendar");
+			return Device.tranlations.getTranslation("Cannot Delete Calendar");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Get Calendar");
+			return Device.tranlations.getTranslation("Cannot Get Calendar");
 		}
 		
 		public function get idField():String

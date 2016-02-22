@@ -4,16 +4,13 @@
 package gr.ictpro.mall.flex;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Classroomgroup;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.User;
-import gr.ictpro.mall.service.ClassroomService;
 import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.UserService;
 
@@ -26,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class ClassroomRemoteService {
     @Autowired(required = true)
-    private ClassroomService classroomService;
+    private GenericService<Classroom, Integer> classroomService;
 
     @Autowired(required = true)
     private GenericService<Classroomgroup, Integer> classroomgroupService;

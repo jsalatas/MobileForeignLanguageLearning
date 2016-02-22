@@ -2,12 +2,24 @@
 <s:TopBarDetailView xmlns:fx="http://ns.adobe.com/mxml/2009" 
 							 xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" 
 							 xmlns:mx="library://ns.adobe.com/flex/mx"
-							 title.new="{Translation.getTranslation('New '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event')}"
-							 title.edit="{Translation.getTranslation('Edit '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event')}">
+							 stateChangeComplete="topbardetailview1_stateChangeCompleteHandler(event)"
+							 >
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.runtime.Translation;
+			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.view.components.CalendarComponent;
+			
+			protected function topbardetailview1_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				if(currentState == "new") {
+					title=Device.tranlations.getTranslation('New '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
+				} else {
+					title=Device.tranlations.getTranslation('Edit '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

@@ -2,7 +2,6 @@ package gr.ictpro.mall.client.view
 {
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.ClassroomModel;
-	import gr.ictpro.mall.client.runtime.Translation;
 	
 	
 	public class ClassroomsViewMediator extends TopBarListViewMediator
@@ -16,8 +15,6 @@ package gr.ictpro.mall.client.view
 		override public function onRegister():void
 		{
 			super.onRegister();
-			
-			view.title = Translation.getTranslation("Classrooms");
 		}
 		
 

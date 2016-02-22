@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.view.LanguageView;
 	import gr.ictpro.mall.client.view.components.LanguageComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
@@ -19,17 +19,17 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Save Language");
+			return Device.tranlations.getTranslation("Cannot Save Language");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Delete Language");
+			return Device.tranlations.getTranslation("Cannot Delete Language");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Translation.getTranslation("Cannot Get Languages");
+			return Device.tranlations.getTranslation("Cannot Get Languages");
 		}
 		
 		public function get idField():String

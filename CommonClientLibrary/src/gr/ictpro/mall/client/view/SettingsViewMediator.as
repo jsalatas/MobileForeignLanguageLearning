@@ -8,12 +8,10 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.components.FormItem;
 	import gr.ictpro.mall.client.components.TextInput;
-	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.ConfigModel;
 	import gr.ictpro.mall.client.model.IServerPersistent;
 	import gr.ictpro.mall.client.model.vo.Config;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
-	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
@@ -62,7 +60,6 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 
-			view.title = Translation.getTranslation("Server Settings");
 			addToSignal(listSuccess, listChanged);
 			listConfigSignal.dispatch(Config);
 		}

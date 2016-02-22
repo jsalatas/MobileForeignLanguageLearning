@@ -1,12 +1,9 @@
 package gr.ictpro.mall.client.view
 {
-	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.ClassroomgroupModel;
-	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
-	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.utils.ui.UI;
 
 	public class ClassroomgroupViewMediator extends TopBarDetailViewMediator
@@ -34,7 +31,7 @@ package gr.ictpro.mall.client.view
 		{
 			var classroomgroup:Classroomgroup = Classroomgroup(view.parameters.vo); 
 			if(classroomgroup.name == null || classroomgroup.name == '') {
-				UI.showError(Translation.getTranslation("Please Enter Classroom Group's Name"));
+				UI.showError(Device.tranlations.getTranslation("Please Enter Classroom Group's Name"));
 				return false;
 			}
 			

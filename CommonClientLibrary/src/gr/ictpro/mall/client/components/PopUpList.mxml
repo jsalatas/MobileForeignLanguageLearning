@@ -18,7 +18,6 @@
 			import mx.events.FlexEvent;
 			
 			import gr.ictpro.mall.client.runtime.Device;
-			import gr.ictpro.mall.client.runtime.Translation;
 			
 			private var listClicked:Boolean = false;
 			
@@ -92,7 +91,7 @@
 			protected function initializeHandler(event:Event):void
 			{
 				if(selected == null) {
-					txt.label=Translation.getTranslation("Select Item");
+					txt.label=Device.tranlations.getTranslation("Select Item");
 				}
 			}
 

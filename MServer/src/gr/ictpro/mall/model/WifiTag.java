@@ -23,6 +23,11 @@ import org.springframework.flex.core.io.AmfIgnore;
 @Table(name = "wifi_tag")
 public class WifiTag implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8157013108857658652L;
+    
     private Integer id;
     private Location location;
     private String ssid;

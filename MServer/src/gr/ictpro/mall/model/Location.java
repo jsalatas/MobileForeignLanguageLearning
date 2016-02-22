@@ -23,6 +23,11 @@ import javax.persistence.Table;
 @Table(name = "location")
 public class Location implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5864544700675920739L;
+    
     private Integer id;
     private Set<User> users = new HashSet<User>(0);
     private Set<WifiTag> wifiTags = new HashSet<WifiTag>(0);

@@ -1,7 +1,5 @@
 package gr.ictpro.mall.client.view
 {
-	import mx.collections.ArrayCollection;
-	
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
@@ -12,8 +10,8 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.model.vo.User;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
-	import gr.ictpro.mall.client.runtime.Translation;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
@@ -88,17 +86,17 @@ package gr.ictpro.mall.client.view
 		override protected function validateSave():Boolean
 		{
 			if(Classroom(view.parameters.vo).name == null || Classroom(view.parameters.vo).name == '') {
-				UI.showError(Translation.getTranslation("Please Enter Classroom's Name"));
+				UI.showError(Device.tranlations.getTranslation("Please Enter Classroom's Name"));
 				return false;
 			}
 			
 			if(TopBarDetailView(view).editor["languagePopup"].selected == null) {
-				UI.showError(Translation.getTranslation("Please Assign a Language to the Classroom"));
+				UI.showError(Device.tranlations.getTranslation("Please Assign a Language to the Classroom"));
 				return false;
 			}
 			
 			if(Classroom(view.parameters.vo).teacher  == null) {
-				UI.showError(Translation.getTranslation("Please Assign a Teacher to the Classroom"));
+				UI.showError(Device.tranlations.getTranslation("Please Assign a Teacher to the Classroom"));
 				return false;
 			}
 			return true;

@@ -9,7 +9,7 @@ package gr.ictpro.mall.client.authentication.proximity
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.model.vo.Role;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.service.AuthenticationProvider;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
@@ -133,7 +133,7 @@ package gr.ictpro.mall.client.authentication.proximity
 			var password:String = view.txtPassword.text;
 			var confirmPassword:String = view.txtConfirmPassword.text;
 			if(password != confirmPassword) {
-				UI.showError(Translation.getTranslation("Passwords do not Match"));
+				UI.showError(Device.tranlations.getTranslation("Passwords do not Match"));
 			} else {
 				var userName:String = view.txtUserName.text;
 				var name:String = view.txtName.text;
@@ -141,13 +141,13 @@ package gr.ictpro.mall.client.authentication.proximity
 				var role:int = view.role.selected.id;
 				var relatedUser:String = view.txtRelatedUser.text;
 				if(userName == null) {
-					UI.showError(Translation.getTranslation("Enter your Username"));
+					UI.showError(Device.tranlations.getTranslation("Enter your Username"));
 				} else if(name==null) {
-					UI.showError(Translation.getTranslation("Enter your Name"));
+					UI.showError(Device.tranlations.getTranslation("Enter your Name"));
 				} else if(email==null) {
-					UI.showError(Translation.getTranslation("Enter your Email"));
+					UI.showError(Device.tranlations.getTranslation("Enter your Email"));
 				} else if(relatedUser==null && role == 3) {
-					UI.showError(Translation.getTranslation("Enter your Teacher's Username. If you don't know it please ask your teacher."));
+					UI.showError(Device.tranlations.getTranslation("Enter your Teacher's Username. If you don't know it please ask your teacher."));
 				}					
 				register.dispatch(new RegistrationDetails("proximityRegistrationProvider",userName, name, password, email, role, relatedUser, getContextInfo()));
 			}
@@ -162,7 +162,7 @@ package gr.ictpro.mall.client.authentication.proximity
 		
 		private function handleRegisterFailed():void 
 		{
-			UI.showError(Translation.getTranslation("Cannot Register."));
+			UI.showError(Device.tranlations.getTranslation("Cannot Register."));
 		}
 
 		private function handleRegisterSuccess(enabled:Boolean):void 

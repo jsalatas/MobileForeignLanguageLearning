@@ -3,9 +3,9 @@
 			   xmlns:s="gr.ictpro.mall.client.components.*"
 			   xmlns:signals="org.osflash.signals.*"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   title.view="{Translation.getTranslation('View User')}"
-			   title.edit="{Translation.getTranslation('Edit User')}"
-			   title.profile="{Translation.getTranslation('My Profile')}"
+			   title.view="{Device.tranlations.getTranslation('View User')}"
+			   title.edit="{Device.tranlations.getTranslation('Edit User')}"
+			   title.profile="{Device.tranlations.getTranslation('My Profile')}"
 			   width="100%" height="100%" xmlns:components="gr.ictpro.mall.client.view.components.*" >
 	<s:states>
 		<mx:State name="edit"/>
@@ -15,10 +15,7 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import gr.ictpro.mall.client.runtime.Translation;
-			
-			
-
+			import gr.ictpro.mall.client.runtime.Device;
 		]]>
 	</fx:Script>
 	

@@ -4,7 +4,6 @@
 package gr.ictpro.mall.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.EmailTranslation;

@@ -3,7 +3,7 @@ package gr.ictpro.mall.client.authentication.standard
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
-	import gr.ictpro.mall.client.runtime.Translation;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.LoginFailedSignal;
 	import gr.ictpro.mall.client.signal.LoginSignal;
@@ -68,7 +68,7 @@ package gr.ictpro.mall.client.authentication.standard
 
 		private function showFailedPopup():void 
 		{
-			UI.showError(Translation.getTranslation("Wrong User Name or Password."), loginFailedPopup_close);
+			UI.showError(Device.tranlations.getTranslation("Wrong User Name or Password."), loginFailedPopup_close);
 		}
 		
 		protected function loginFailedPopup_close(event:PopUpEvent):void {
