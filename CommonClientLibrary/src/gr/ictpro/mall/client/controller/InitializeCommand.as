@@ -13,6 +13,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.service.LocalDBStorage;
 	import gr.ictpro.mall.client.service.MessagingService;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
+	import gr.ictpro.mall.client.signal.GetTranslationsSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
@@ -58,6 +59,10 @@ package gr.ictpro.mall.client.controller
 		[Inject]
 		public var messagingService:MessagingService;
 
+		[Inject]
+		public var getTranslationsSignal:GetTranslationsSignal;
+		
+
 		override public function execute():void
 		{
 			listSuccessSignal.add(success);
@@ -73,6 +78,7 @@ package gr.ictpro.mall.client.controller
 					addView.dispatch(new ServerNameView());
 				} else {
 					channel.setupChannel(ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL)).value, ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.APP_PATH)).value);
+					getTranslationsSignal.dispatch();
 					showAuthentication.dispatch(new AuthenticationProvider(null, null));
 				}
 			}

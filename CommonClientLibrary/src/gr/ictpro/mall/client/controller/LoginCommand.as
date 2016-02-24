@@ -15,6 +15,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.GetTranslationsSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
@@ -41,6 +42,9 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var loginFailed:LoginFailedSignal;
+		
+		[Inject]
+		public var getTranslationsSignal:GetTranslationsSignal;
 		
 		[Inject]
 		public var settings:RuntimeSettings;
@@ -98,6 +102,9 @@ package gr.ictpro.mall.client.controller
 			} else {
 				messagingService.init();
 				settings.user = user;
+				if(user.currentClassroom != null) {
+					getTranslationsSignal.dispatch();
+				}
 				listSuccessSignal.add(listSuccess);
 				listErrorSignal.add(listError);
 				listSignal.dispatch(Role);

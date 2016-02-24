@@ -202,6 +202,8 @@
     <classEntry path="gr.ictpro.mall.client.view.UsersViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.UsersView"/>
     <classEntry path="gr.ictpro.mall.client.signal.MessageReceivedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.GetTranslationsSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.GetTranslationsCommand"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>
