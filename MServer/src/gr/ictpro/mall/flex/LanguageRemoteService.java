@@ -210,18 +210,27 @@ public class LanguageRemoteService {
 	}
 //	Language language = languageService.retrieveById(languageCode);
 
-	// Get specific classroom translations
-	String translationsHQL = "FROM Translation WHERE (language.code = '"+languageCode+"' AND classroom.id = "+classroomId+")";
+	List<Translation> allTanslations = null;
+	String translationsHQL;
 	List<Integer> translationIds = new ArrayList<Integer>();
-	List<Translation> allTanslations = translationService.listByCustomSQL(translationsHQL);
-	
-	for(Translation t: allTanslations) {
-	    res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));
-	    translationIds.add(t.getEnglishText().getId());
-	}
-	if(classroomId.intValue()!= 0) {
+	// Get specific classroom translations
+	if (classroom.isForceUILanguage()) {
+	    translationsHQL = "FROM Translation WHERE (language.code = '" + classroom.getLanguage().getCode() + "' AND classroom.id = " + classroomId + ")";
+	    allTanslations = translationService.listByCustomSQL(translationsHQL);
+
+	    for (Translation t : allTanslations) {
+		res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));
+		translationIds.add(t.getEnglishText().getId());
+	    }
 	    // Get generic translations for language 
 	    translationsHQL = "FROM Translation t WHERE (language.code = '"+languageCode+"' AND classroom.id =0 AND t.englishText.id NOT IN ("+StringUtils.join(translationIds, ", ")+"))";
+	    allTanslations = translationService.listByCustomSQL(translationsHQL);
+	    for(Translation t: allTanslations) {
+		res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));
+	    }
+	} else {
+	    // Get generic translations for language 
+	    translationsHQL = "FROM Translation t WHERE (language.code = '"+languageCode+"' AND classroom.id =0";
 	    allTanslations = translationService.listByCustomSQL(translationsHQL);
 	    for(Translation t: allTanslations) {
 		res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));

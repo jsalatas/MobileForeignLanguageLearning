@@ -77,7 +77,7 @@ package gr.ictpro.mall.client.components
 				editor.state = currentState;
 				mainGroup.addElement(editor);
 				
-				if(model.detailMapper.length >0 && (currentState == 'edit' || currentState == 'mew')) {
+				if(model.detailMapper.length >0 && (currentState == 'edit' || currentState == 'new')) {
 					_detailTab = new DetailTab();
 					_detailTab.vo = parameters.vo;
 					_detailTab.state = currentState;
