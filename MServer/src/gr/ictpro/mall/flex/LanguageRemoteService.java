@@ -208,8 +208,11 @@ public class LanguageRemoteService {
 	}
 	Classroom classroom = classroomService.retrieveById(classroomId);	
 	
-//	Language language = languageService.retrieveById(languageCode);
-
+	User currentUser = userContext.getCurrentUser();
+	if(currentUser != null) {
+	    languageCode = currentUser.getProfile().getLanguage().getCode();
+	}
+	
 	List<Translation> allTanslations = null;
 	String translationsHQL;
 	List<Integer> translationIds = new ArrayList<Integer>();
@@ -223,7 +226,11 @@ public class LanguageRemoteService {
 		translationIds.add(t.getEnglishText().getId());
 	    }
 	    // Get generic translations for language 
-	    translationsHQL = "FROM Translation t WHERE (language.code = '"+languageCode+"' AND classroom.id =0 AND t.englishText.id NOT IN ("+StringUtils.join(translationIds, ", ")+"))";
+	    if(translationIds.size() > 0) {
+    	    	translationsHQL = "FROM Translation t WHERE (language.code = '"+classroom.getLanguage().getCode()+"' AND classroom.id =0 AND t.englishText.id NOT IN ("+StringUtils.join(translationIds, ", ")+"))";
+	    } else {
+    	    	translationsHQL = "FROM Translation t WHERE (language.code = '"+classroom.getLanguage().getCode()+"' AND classroom.id =0)";
+	    }
 	    allTanslations = translationService.listByCustomSQL(translationsHQL);
 	    for(Translation t: allTanslations) {
 		res.add(new UITranslation(t.getEnglishText().getEnglishText(), t.getTranslatedText()));
@@ -242,3 +249,4 @@ public class LanguageRemoteService {
 	
     }
 }
+ 

@@ -35,17 +35,17 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Calendar");
+			return Device.tranlations.getTranslation("Cannot Save Calendar.");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Delete Calendar");
+			return Device.tranlations.getTranslation("Cannot Delete Calendar.");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Calendar");
+			return Device.tranlations.getTranslation("Cannot Get Calendar.");
 		}
 		
 		public function get idField():String

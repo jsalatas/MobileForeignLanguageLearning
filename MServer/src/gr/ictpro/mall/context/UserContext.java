@@ -47,7 +47,12 @@ public class UserContext {
     }
 
     public User getCurrentUser() {
-	User u = userService.retrieveById(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	if(principal instanceof String) {
+	    // anonymous user
+	    return null;
+	}
+	User u = userService.retrieveById(((User) principal).getId());
 	if(u!= null && connectedUsers.containsKey(u.getId())) {
 	    u.setCurrentLocation(connectedUsers.get(u.getId()).getCurrentLocation());
 	    u.setCurrentClassroom(connectedUsers.get(u.getId()).getCurrentClassroom());

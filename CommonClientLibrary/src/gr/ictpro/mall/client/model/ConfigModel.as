@@ -21,12 +21,12 @@ package gr.ictpro.mall.client.model
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Server Configuration");
+			return Device.tranlations.getTranslation("Cannot Get Server Configuration.");
 		}
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Server Configuration");
+			return Device.tranlations.getTranslation("Cannot Save Server Configuration.");
 		}
 		
 		public function get destination():String

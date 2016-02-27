@@ -76,7 +76,7 @@ package gr.ictpro.mall.client.view
 		
 		private function handleConnectionError():void 
 		{
-			UI.showError(Device.tranlations.getTranslation("Cannot Connect to Server."), connectionErrorPopup_close);
+			UI.showError("Cannot Connect to Server.", connectionErrorPopup_close);
 		}
 
 		private function connectionErrorPopup_close(evt:PopUpEvent):void

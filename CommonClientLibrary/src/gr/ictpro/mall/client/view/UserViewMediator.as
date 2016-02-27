@@ -2,17 +2,23 @@ package gr.ictpro.mall.client.view
 {
 	import mx.rpc.events.FaultEvent;
 	
+	import spark.collections.SortField;
+	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.LanguageModel;
 	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
+	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.ListSignal;
+	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	import gr.ictpro.mall.client.view.components.UserComponent;
@@ -37,6 +43,15 @@ package gr.ictpro.mall.client.view
 		public var saveSuccess:SaveSuccessSignal;
 
 		[Inject]
+		public var languageModel:LanguageModel;
+		
+		[Inject]
+		public var listSuccessSignal:ListSuccessSignal;
+
+		[Inject]
+		public var listSignal:ListSignal;
+		
+		[Inject]
 		public function set userModel(model:UserModel):void
 		{
 			super.model = model as AbstractModel;
@@ -48,6 +63,7 @@ package gr.ictpro.mall.client.view
 			super.onRegister();
 			
 			addToSignal(saveSuccess, saveSuccessHandler);
+			addToSignal(listSuccessSignal, listSuccess);
 			
 			if(view.parameters == null || (view.parameters != null && view.parameters.initParams == null && view.parameters.vo == null)) {
 				view.disableDelete(); // user cannot delete her own profile
@@ -70,11 +86,17 @@ package gr.ictpro.mall.client.view
 			} else {
 				throw new Error("Unknown User");
 			}
-			
+			listSignal.dispatch(Language);
+
 //			addToSignal(UserView(view).editor.choosePhoto, choosePhotoHandler);
 		}
 		
-		
+		private function listSuccess(classType:Class):void {
+			if(classType == Language) {
+				TopBarDetailView(view).editor["languages"] = languageModel.getSortedListByFields([new SortField("englishName")]);
+			}
+		}
+
 		private function getUser(id:int):void
 		{
 			var args:GenericServiceArguments = new GenericServiceArguments();
@@ -97,7 +119,7 @@ package gr.ictpro.mall.client.view
 					view.parameters.vo = result;
 					view.invalidateChildren();
 				} else {
-					UI.showError(Device.tranlations.getTranslation("Cannot get User"));
+					UI.showError("Cannot get User.");
 					back();
 				}
 			}
@@ -107,7 +129,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(type == GET_USER) {
 				removeSignals();
-				UI.showError(Device.tranlations.getTranslation("Cannot get User"));
+				UI.showError("Cannot get User.");
 				back();
 			}
 		}
@@ -121,15 +143,10 @@ package gr.ictpro.mall.client.view
 		override protected function beforeSaveHandler():void
 		{
 			var user:User = User(view.parameters.vo);
-//			var userView:UserComponent = UserComponent(TopBarDetailView(view).editor);
-//			user.email = userView.txtEmail.text;
-//			user.profile.name = userView.txtName.text;
-			//user.profile.photo = ByteArray(userView.imgPhoto.source);
 			user.profile.image = UserComponent(TopBarDetailView(view).editor).imgPhoto;
 			user.profile.color = UserComponent(TopBarDetailView(view).editor).popupColor.selected;
-//			if(view.currentState == "edit") {
-//				user.enabled = userView.chkEnabled.selected;
-//			}
+			user.profile.language =  Language(TopBarDetailView(view).editor["languagePopup"].selected);
+
 		}
 		
 		override protected function validateSave():Boolean
@@ -137,7 +154,7 @@ package gr.ictpro.mall.client.view
 			var userView:UserComponent = UserComponent(TopBarDetailView(view).editor);
 			if(userView.txtPassword.text != "" || userView.txtPassword2.text != "") {
 				if(userView.txtPassword.text != userView.txtPassword2.text) {
-					UI.showError(Device.tranlations.getTranslation("Passwords do not Match"));
+					UI.showError("Passwords do not Match.");
 					return false;
 				} else {
 					User(view.parameters.vo).password = userView.txtPassword.text; 

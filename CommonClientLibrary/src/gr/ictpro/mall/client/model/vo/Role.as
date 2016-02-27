@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client.model.vo
 {
+	import gr.ictpro.mall.client.runtime.Device;
+
 	[Bindable]
 	[RemoteClass(alias="gr.ictpro.mall.model.Role")]
 	public class Role
@@ -13,7 +15,7 @@ package gr.ictpro.mall.client.model.vo
 		
 		public function toString():String
 		{
-			return role;
+			return Device.tranlations.getTranslation(role);
 		}
 
 	}

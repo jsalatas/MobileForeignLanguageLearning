@@ -47,6 +47,7 @@ package gr.ictpro.mall.client.controller
 			arguments.email=registrationDetails.email;
 			arguments.role=registrationDetails.role;
 			arguments.relatedUser=registrationDetails.relatedUser;
+			arguments.languageCode=registrationDetails.language;
 			arguments.contextInfo=registrationDetails.contextInfo;
 			arguments.registrationMethod=registrationDetails.registrationMethod;
 			

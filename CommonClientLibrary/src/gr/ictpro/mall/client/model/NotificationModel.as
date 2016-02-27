@@ -20,12 +20,12 @@ package gr.ictpro.mall.client.model
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Notifications");
+			return Device.tranlations.getTranslation("Cannot Get Notifications.");
 		}
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Notification");
+			return Device.tranlations.getTranslation("Cannot Save Notification.");
 		}
 		
 		public function get destination():String

@@ -3,15 +3,14 @@ package gr.ictpro.mall.client.controller
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	
-	import gr.ictpro.mall.client.model.ConfigModel;
-	import gr.ictpro.mall.client.model.IServerPersistent;
+	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
-	import gr.ictpro.mall.client.model.vo.UITranslation;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.utils.date.DateUtils;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	import org.robotlegs.mvcs.SignalCommand;
@@ -20,6 +19,10 @@ package gr.ictpro.mall.client.controller
 	{
 		[Inject]
 		public var runtimeSettings:RuntimeSettings;
+
+		[Inject]
+		public var mainMenu:MainMenu;
+		
 
 		[Inject]
 		public var genericCallSignal:GenericCallSignal;
@@ -55,13 +58,17 @@ package gr.ictpro.mall.client.controller
 		{
 			if(type == "getTranslations") {
 				Device.tranlations.translations = ArrayCollection(result);
+				if(runtimeSettings.user != null) {
+					runtimeSettings.menu = mainMenu.getMenu(runtimeSettings.user);
+				}
+				DateUtils.reload();
 			}
 		}
 		
 		private function error(type:String, event:FaultEvent):void
 		{
 			if(type == "getTranslations") {
-				UI.showError(Device.tranlations.getTranslation("Cannot Connect to Server"));
+				UI.showError("Cannot Connect to Server.");
 			}
 		}
 

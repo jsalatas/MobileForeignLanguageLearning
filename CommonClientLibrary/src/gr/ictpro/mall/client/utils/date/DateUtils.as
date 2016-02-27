@@ -14,26 +14,45 @@ package gr.ictpro.mall.client.utils.date
 	public class DateUtils
 	{
 		[Bindable]
-		public static var dayNames:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sunday'), 
+		public static var dayNames:ArrayCollection = getDayNames(); 
+			
+			
+		private static function getDayNames():ArrayCollection
+		{
+			var res:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sunday'), 
 			Device.tranlations.getTranslation('Monday'), 
 			Device.tranlations.getTranslation('Tuesday'), 
 			Device.tranlations.getTranslation('Wednesday'), 
 			Device.tranlations.getTranslation('Thusrday'), 
 			Device.tranlations.getTranslation('Friday'), 
 			Device.tranlations.getTranslation('Saturday')]);
+			
+			return res;
+		}
 
 		[Bindable]
-		public static var shortDayNames:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sunday'), 
+		public static var shortDayNames:ArrayCollection = getShortDayNames(); 
+			
+			
+		private static function getShortDayNames():ArrayCollection
+		{
+			var res:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sun'), 
 			Device.tranlations.getTranslation('Mon'), 
 			Device.tranlations.getTranslation('Tue'), 
 			Device.tranlations.getTranslation('Wed'), 
 			Device.tranlations.getTranslation('Thu'), 
 			Device.tranlations.getTranslation('Fri'), 
 			Device.tranlations.getTranslation('Sat')]);
-		
+			
+			return res;
+		}
 
 		[Bindable]
-		public static var monthNames:ArrayCollection = new ArrayCollection([
+		public static var monthNames:ArrayCollection = getMonthNames(); 
+			
+		private static function getMonthNames():ArrayCollection
+		{
+			var res:ArrayCollection = new ArrayCollection([
 			Device.tranlations.getTranslation('January'), 
 			Device.tranlations.getTranslation('February'), 
 			Device.tranlations.getTranslation('March'), 
@@ -46,7 +65,16 @@ package gr.ictpro.mall.client.utils.date
 			Device.tranlations.getTranslation('October'), 
 			Device.tranlations.getTranslation('November'), 
 			Device.tranlations.getTranslation('December')]);
+			return res;
+		}
 
+		public static function reload():void
+		{
+			dayNames= getDayNames();
+			shortDayNames = getShortDayNames();
+			monthNames = getMonthNames();
+		}
+		
 		private static var times:ArrayCollection = null;
 		
 		public static function compareNoTime(date1:Date, date2:Date):int

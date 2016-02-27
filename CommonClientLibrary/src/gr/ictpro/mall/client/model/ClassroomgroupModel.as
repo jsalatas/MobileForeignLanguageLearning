@@ -18,17 +18,17 @@ package gr.ictpro.mall.client.model
 		
 		public function get deleteErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Delete Classroom Group");
+			return Device.tranlations.getTranslation("Cannot Delete Classroom Group.");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Classroom Groups");
+			return Device.tranlations.getTranslation("Cannot Get Classroom Groups.");
 		}
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Classroom Group");
+			return Device.tranlations.getTranslation("Cannot Save Classroom Group.");
 		}
 		
 		public function get destination():String

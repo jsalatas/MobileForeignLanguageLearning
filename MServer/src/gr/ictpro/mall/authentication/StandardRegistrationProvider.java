@@ -15,9 +15,11 @@ import org.springframework.web.context.ContextLoader;
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
+import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.Role;
 import gr.ictpro.mall.model.User;
+import gr.ictpro.mall.service.GenericService;
 import gr.ictpro.mall.service.MailService;
 
 /**
@@ -30,6 +32,8 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
     @Autowired(required = true)
     private UserContext userContext;
 
+    @Autowired(required = true)
+    private GenericService<Language, String> languageService;
 
     @Override
     public boolean register(ASObject registrationDetails) {
@@ -38,6 +42,10 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	String name = (String) registrationDetails.get("name");
 	String password = passwordEncoder.encode((String) registrationDetails.get("password"));
 	String email = (String) registrationDetails.get("email");
+	String languageCode = (String) registrationDetails.get("languageCode");
+	if(languageCode.indexOf("-") > -1) {
+	    languageCode = languageCode.substring(0, languageCode.indexOf("-")); 
+	}
 	Integer roleId = (Integer) registrationDetails.get("role");
 	String relatedUser = (String) registrationDetails.get("relatedUser");
 
@@ -60,7 +68,8 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	User u = new User(userName, password, email, false);
 	u.setRoles(r);
 	userService.create(u, informUser);
-	Profile p = new Profile(u, name);
+	Language language = languageService.retrieveById(languageCode);
+	Profile p = new Profile(u, language, name);
 	profileService.create(p);
 	u.setProfile(p);
 	

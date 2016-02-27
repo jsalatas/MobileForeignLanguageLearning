@@ -86,17 +86,17 @@ package gr.ictpro.mall.client.view
 		override protected function validateSave():Boolean
 		{
 			if(Classroom(view.parameters.vo).name == null || Classroom(view.parameters.vo).name == '') {
-				UI.showError(Device.tranlations.getTranslation("Please Enter Classroom's Name"));
+				UI.showError("Please Enter Classroom's Name.");
 				return false;
 			}
 			
 			if(TopBarDetailView(view).editor["languagePopup"].selected == null) {
-				UI.showError(Device.tranlations.getTranslation("Please Assign a Language to the Classroom"));
+				UI.showError("Please Assign a Language to the Classroom.");
 				return false;
 			}
 			
 			if(Classroom(view.parameters.vo).teacher  == null) {
-				UI.showError(Device.tranlations.getTranslation("Please Assign a Teacher to the Classroom"));
+				UI.showError("Please Assign a Teacher to the Classroom.");
 				return false;
 			}
 			return true;

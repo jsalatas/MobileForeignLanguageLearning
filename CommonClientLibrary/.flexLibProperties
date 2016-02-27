@@ -204,6 +204,7 @@
     <classEntry path="gr.ictpro.mall.client.signal.MessageReceivedSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.GetTranslationsSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.GetTranslationsCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.MenuChangedSignal"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

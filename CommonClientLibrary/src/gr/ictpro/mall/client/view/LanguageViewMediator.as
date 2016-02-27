@@ -37,15 +37,15 @@ package gr.ictpro.mall.client.view
 		{
 			var language:Language = Language(view.parameters.vo);
 			if(language.code == null || language.code == '') {
-				UI.showError(Device.tranlations.getTranslation("Language Code Cannot be Empty"));
+				UI.showError("Language Code Cannot be Empty.");
 				return false;
 			}
 			if(language.englishName == null || language.englishName == '') {
-				UI.showError(Device.tranlations.getTranslation("English Name Cannot be Empty"));
+				UI.showError("English Name Cannot be Empty.");
 				return false;
 			}
 			if(language.localName == null || language.localName == '') {
-				UI.showError(Device.tranlations.getTranslation("Local Name Cannot be Empty"));
+				UI.showError("Local Name Cannot be Empty.");
 				return false;
 			}
 			return true;

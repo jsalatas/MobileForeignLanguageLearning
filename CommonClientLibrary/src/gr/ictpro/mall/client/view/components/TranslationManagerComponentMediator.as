@@ -23,7 +23,7 @@ package gr.ictpro.mall.client.view.components
 	
 	public class TranslationManagerComponentMediator extends SignalMediator
 	{
-		private static var GET_TRANSLATIONS:String = "getTranslations";
+		private static var GET_TRANSLATIONS:String = "getTranslationsXML";
 		private static var UPDATE_TRANSLATIONS:String = "updateTranslations";
 
 		private var translationsXml:String;
@@ -101,9 +101,9 @@ package gr.ictpro.mall.client.view.components
 			if(type == GET_TRANSLATIONS) {
 				removeSignals();
 				
-				UI.showError(Device.tranlations.getTranslation('Cannot Get Translations'));
+				UI.showError('Cannot Get Translations');
 			} else if (type == UPDATE_TRANSLATIONS) {
-				UI.showError(Device.tranlations.getTranslation('Cannot Update Translations.'));
+				UI.showError('Cannot Update Translations.');
 			}
 		}
 

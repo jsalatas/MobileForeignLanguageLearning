@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -35,20 +37,23 @@ public class Profile implements java.io.Serializable {
     private String name;
     private byte[] photo;
     private Integer color;
+    private Language language;
 
     public Profile() {
     }
 
-    public Profile(User user, String name) {
+    public Profile(User user, Language language, String name) {
 	this.user = user;
 	this.name = name;
+	this.language = language;
     }
 
-    public Profile(User user, String name, byte[] photo, Integer color) {
+    public Profile(User user, Language language, String name, byte[] photo, Integer color) {
 	this.user = user;
 	this.name = name;
 	this.photo = photo;
 	this.color = color;
+	this.language = language;
     }
 
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "user"))
@@ -101,4 +106,16 @@ public class Profile implements java.io.Serializable {
     public void setColor(Integer color) {
 	this.color = color;
     }
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "language_code", nullable = false)
+    public Language getLanguage() {
+	return this.language;
+    }
+
+    public void setLanguage(Language language) {
+	this.language = language;
+    }
+
+
 }

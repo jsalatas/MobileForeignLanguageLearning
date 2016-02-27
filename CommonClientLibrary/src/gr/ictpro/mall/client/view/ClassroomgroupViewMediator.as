@@ -31,7 +31,7 @@ package gr.ictpro.mall.client.view
 		{
 			var classroomgroup:Classroomgroup = Classroomgroup(view.parameters.vo); 
 			if(classroomgroup.name == null || classroomgroup.name == '') {
-				UI.showError(Device.tranlations.getTranslation("Please Enter Classroom Group's Name"));
+				UI.showError("Please Enter Classroom Group's Name.");
 				return false;
 			}
 			

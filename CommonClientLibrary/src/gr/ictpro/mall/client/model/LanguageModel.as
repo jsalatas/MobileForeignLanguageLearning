@@ -19,17 +19,17 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Language");
+			return Device.tranlations.getTranslation("Cannot Save Language.");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Delete Language");
+			return Device.tranlations.getTranslation("Cannot Delete Language.");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Languages");
+			return Device.tranlations.getTranslation("Cannot Get Languages.");
 		}
 		
 		public function get idField():String

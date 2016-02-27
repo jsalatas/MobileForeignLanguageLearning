@@ -85,6 +85,7 @@ public class UserRemoteService {
 		persistentUser.getProfile().setColor(user.getProfile().getColor());
 		persistentUser.getProfile().setName(user.getProfile().getName());
 		persistentUser.getProfile().setPhoto(user.getProfile().getPhoto());
+		persistentUser.getProfile().setLanguage(user.getProfile().getLanguage());
 
 		// user.getProfile().setUserId(user.getId());
 		if (sendAccountReadyNotification) {

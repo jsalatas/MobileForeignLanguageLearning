@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.components.menu
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.signal.MenuChangedSignal;
 	import gr.ictpro.mall.client.view.CalendarMonthView;
 	import gr.ictpro.mall.client.view.ClassroomgroupsView;
 	import gr.ictpro.mall.client.view.ClassroomsView;
@@ -19,6 +20,9 @@ package gr.ictpro.mall.client.components.menu
 	{
 		[Inject]
 		public var runtimeSettings:RuntimeSettings;
+		
+		[Inject]
+		public var menuChangedSignal:MenuChangedSignal;
 		
 		
 		public function MainMenu()
@@ -55,6 +59,8 @@ package gr.ictpro.mall.client.components.menu
 			res.addItem(new MenuItemGroup(""));
 			res.addItem(new MenuItemCommand(Device.tranlations.getTranslation("Exit"), Icons.icon_logout, runtimeSettings.terminate));
 			
+			menuChangedSignal.dispatch();
+
 			return res;
 		}
 		

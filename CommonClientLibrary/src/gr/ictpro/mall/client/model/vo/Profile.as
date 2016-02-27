@@ -19,6 +19,8 @@ package gr.ictpro.mall.client.model.vo
 		public var name:String;
 		public var photo:ByteArray;
 		public var color:int;
+		public var language:Language;
+
 		[Transient]
 		private var _image:Image;
 		

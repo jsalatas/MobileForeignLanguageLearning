@@ -102,9 +102,9 @@ package gr.ictpro.mall.client.controller
 			} else {
 				messagingService.init();
 				settings.user = user;
-				if(user.currentClassroom != null) {
-					getTranslationsSignal.dispatch();
-				}
+				//if(user.currentClassroom != null) {
+				getTranslationsSignal.dispatch();
+				//}
 				listSuccessSignal.add(listSuccess);
 				listErrorSignal.add(listError);
 				listSignal.dispatch(Role);

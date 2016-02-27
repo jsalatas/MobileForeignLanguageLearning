@@ -104,13 +104,13 @@ package gr.ictpro.mall.client.view
 			if(calendarComponent.selectedCalendarType == 0) {
 				// one time
 				if(calendarComponent.vo.description == null || calendarComponent.vo.description == '') {
-					UI.showError(Device.tranlations.getTranslation("Please Enter a Description"));
+					UI.showError("Please Enter a Description.");
 					return false; 
 				}
 			} else {
 				// repeating
 				if(calendarComponent.vo.schedule.description == null || calendarComponent.vo.schedule.description == '') {
-					UI.showError(Device.tranlations.getTranslation("Please Enter a Description"));
+					UI.showError("Please Enter a Description.");
 					return false; 
 				}
 			}

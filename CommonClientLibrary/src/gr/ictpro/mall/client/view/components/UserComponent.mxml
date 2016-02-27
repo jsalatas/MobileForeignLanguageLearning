@@ -10,8 +10,31 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
 			
 			import gr.ictpro.mall.client.runtime.Device;
+
+			[Bindable]
+			public var _languages:ArrayCollection;
+
+			public function set languages(languages:ArrayCollection):void
+			{
+				this._languages = languages;
+			}
+			
+			protected function languagePopup_initializeHandler(event:FlexEvent):void
+			{
+				selectLanguage();
+				
+			}
+			
+			// set initial selected language
+			private function selectLanguage():void {
+				if( vo != null && vo.profile != null && vo.profile.language != null && languagePopup != null) {
+					languagePopup.selected = vo.profile.language;
+				}
+			}
+			
 
 			[Bindable]
 			private var colorList:ArrayCollection = new ArrayCollection([
@@ -93,6 +116,9 @@
 			<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
 						 text="@{vo.email}" textAlign="left"
 						 visible.view="false"/>
+		</s:FormItem>
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Language')}">
+			<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />
 		</s:FormItem>
 		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Color')}"
 					visible.view="false">

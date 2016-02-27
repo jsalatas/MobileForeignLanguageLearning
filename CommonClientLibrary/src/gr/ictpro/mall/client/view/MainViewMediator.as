@@ -1,6 +1,5 @@
 package gr.ictpro.mall.client.view
 {
-	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	
 	import gr.ictpro.mall.client.components.menu.MenuItem;
@@ -11,12 +10,13 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Notification;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
-	import gr.ictpro.mall.client.service.AuthenticationProvider;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.GetTranslationsSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
+	import gr.ictpro.mall.client.signal.MenuChangedSignal;
 	import gr.ictpro.mall.client.signal.MenuClickedSignal;
 	import gr.ictpro.mall.client.signal.SaveSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
@@ -58,6 +58,12 @@ package gr.ictpro.mall.client.view
 		
 		[Inject]
 		public var genericCallError:GenericCallErrorSignal;
+		
+		[Inject]
+		public var getTranslationsSignal:GetTranslationsSignal;
+		
+		[Inject]
+		public var menuChangedSignal:MenuChangedSignal;
 
 		override public function onRegister():void
 		{
@@ -67,6 +73,7 @@ package gr.ictpro.mall.client.view
 			addToSignal(view.notificationOkClicked, notificationOkClicked);
 			addToSignal(listSuccess, listSuccessHandler);
 			addToSignal(listError, listErrorHandler);
+			addToSignal(menuChangedSignal, menuChanged);
 			view.user = settings.user;
 			view.menu = settings.menu;
 			view.notifications = notificationsModel.list;
@@ -95,6 +102,10 @@ package gr.ictpro.mall.client.view
 			}
 		}
 
+		private function menuChanged():void
+		{
+			view.menu = settings.menu;
+		}
 		private function menuClicked(menuItem:MenuItem):void
 		{
 			menuClickedSignal.dispatch(new MenuItemSelected(menuItem));
@@ -131,6 +142,7 @@ package gr.ictpro.mall.client.view
 			if(type == "updateCurrentClassroom") {
 				removeSignals();
 				settings.user.currentClassroom = Classroom(view.currentClassroom.selected);
+				getTranslationsSignal.dispatch();
 			}
 		}
 		
