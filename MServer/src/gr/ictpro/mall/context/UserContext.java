@@ -45,6 +45,10 @@ public class UserContext {
 	    u.setCurrentClassroom(connectedUsers.get(u.getId()).getCurrentClassroom());
 	}
     }
+    
+    public boolean userIsOnline(User u) {
+	return connectedUsers.containsKey(u.getId());
+    }
 
     public User getCurrentUser() {
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
