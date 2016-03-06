@@ -92,6 +92,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Classrooms');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Code');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Color');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Communications');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Confirm Password');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('December');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Delete');
@@ -161,6 +162,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Repeating');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Sat');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Saturday');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Scheduled Meetings');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Select Item');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Select Transalations');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('September');
@@ -174,6 +176,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Take New Photo');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Teacher''s Name');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Teacher');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Text Chat');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Thu');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Thusrday');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Translation XML Files');
@@ -184,9 +187,11 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Upload Translations');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('User Name');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Users');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Video Chat');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('View User');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Wed');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Wednesday');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Whiteboard');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Wrong User Name or Password.');
 		INSERT IGNORE INTO `translation` (`english_text_id`, `language_code`, `translated_text`, `classroom_id`) SELECT `id` AS `english_text_id`, 'en' AS `language_code`, `english_text` AS `translated_text`, 0 AS `classroom_id` FROM english_text;
 		INSERT INTO `status` (`name`, `value`) VALUES('initialized', '1');

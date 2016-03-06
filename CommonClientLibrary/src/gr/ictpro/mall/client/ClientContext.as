@@ -84,16 +84,24 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.LanguagesViewMediator;
 	import gr.ictpro.mall.client.view.MainView;
 	import gr.ictpro.mall.client.view.MainViewMediator;
+	import gr.ictpro.mall.client.view.ScheduledMeetingsView;
+	import gr.ictpro.mall.client.view.ScheduledMeetingsViewMediator;
 	import gr.ictpro.mall.client.view.ServerNameView;
 	import gr.ictpro.mall.client.view.ServerNameViewMediator;
 	import gr.ictpro.mall.client.view.SettingsView;
 	import gr.ictpro.mall.client.view.SettingsViewMediator;
 	import gr.ictpro.mall.client.view.ShellView;
 	import gr.ictpro.mall.client.view.ShellViewMediator;
+	import gr.ictpro.mall.client.view.TextChatView;
+	import gr.ictpro.mall.client.view.TextChatViewMediator;
 	import gr.ictpro.mall.client.view.UserView;
 	import gr.ictpro.mall.client.view.UserViewMediator;
 	import gr.ictpro.mall.client.view.UsersView;
 	import gr.ictpro.mall.client.view.UsersViewMediator;
+	import gr.ictpro.mall.client.view.VideoChatView;
+	import gr.ictpro.mall.client.view.VideoChatViewMediator;
+	import gr.ictpro.mall.client.view.WhiteBoardView;
+	import gr.ictpro.mall.client.view.WhiteBoardViewMediator;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
 	
@@ -165,6 +173,10 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(CalendarDayView, CalendarDayViewMediator, TopBarView);
 			mediatorMap.mapView(CalendarView, CalendarViewMediator, TopBarView);
 			mediatorMap.mapView(UsersView, UsersViewMediator, TopBarView);
+			mediatorMap.mapView(ScheduledMeetingsView, ScheduledMeetingsViewMediator, TopBarView);
+			mediatorMap.mapView(VideoChatView, VideoChatViewMediator, TopBarView);
+			mediatorMap.mapView(TextChatView, TextChatViewMediator, TopBarView);
+			mediatorMap.mapView(WhiteBoardView, WhiteBoardViewMediator, TopBarView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);

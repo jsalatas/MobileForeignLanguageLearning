@@ -205,6 +205,11 @@
     <classEntry path="gr.ictpro.mall.client.signal.GetTranslationsSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.GetTranslationsCommand"/>
     <classEntry path="gr.ictpro.mall.client.signal.MenuChangedSignal"/>
+    <classEntry path="gr.ictpro.mall.client.view.VideoChatView"/>
+    <classEntry path="gr.ictpro.mall.client.view.VideoChatViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.WhiteBoardViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.TextChatViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.ScheduledMeetingsViewMediator"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>
