@@ -10,7 +10,6 @@ public class LocationUpdaterScheduler {
     
     @Scheduled(fixedRate=300000)
     public void sendUpdateLocationMessage() {
-	System.err.println("update location " + (new Date()));
 	MessagingService.sendUpdateLocationMessage();
     }
 
