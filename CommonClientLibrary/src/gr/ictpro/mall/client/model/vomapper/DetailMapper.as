@@ -13,11 +13,12 @@ package gr.ictpro.mall.client.model.vomapper
 		public var viewComponent:Class;
 		public var filter:Function;
 		public var addFilter:Function;
-		[Bindable]
-		public var list:ArrayCollection;
+		private var _list:ArrayCollection;
 		public var readOnly:Boolean;
 		public var beforeDelete:Function;
 		public var afterAdd:Function;
+
+		public var initialized:Boolean = false;
 		
 		public function DetailMapper(label:String, propertyName:String, propertyClass:Class, viewComponent:Class, filter:Function, addFilter:Function, readOnly:Boolean, beforeDelete:Function, afterAdd:Function)
 		{
@@ -43,5 +44,19 @@ package gr.ictpro.mall.client.model.vomapper
 			this.afterAdd = afterAdd;
 			
 		}
+		
+		[Bindable]
+		public function get list():ArrayCollection
+		{
+			return _list;
+		}
+		
+		public function set list(value:ArrayCollection):void
+		{
+			_list = value;
+			initialized = true;
+		}
+		
+
 	}
 }

@@ -80,7 +80,7 @@ package gr.ictpro.mall.client.view
 		{
 			beforeSaveHandler();
 			for each(var dm:DetailMapper in model.detailMapper) {
-				if(dm.propertyName != null && !dm.readOnly) {
+				if(dm.propertyName != null && !dm.readOnly && dm.initialized) {
 					view.parameters.vo[dm.propertyName] = dm.list;
 				}
 			}

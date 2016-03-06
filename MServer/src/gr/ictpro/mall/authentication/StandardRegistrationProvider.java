@@ -65,7 +65,7 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 	    e.printStackTrace();
 	}                                 
 	 
-	User u = new User(userName, password, email, false);
+	User u = new User(userName, password, email, false, false);
 	u.setRoles(r);
 	userService.create(u, informUser);
 	Language language = languageService.retrieveById(languageCode);

@@ -16,6 +16,7 @@ package gr.ictpro.mall.client.model.vo
 		public var calendars:ArrayCollection;
 		public var teacherClassrooms:ArrayCollection;
 		public var classrooms:ArrayCollection;
+		public var disallowUnattendedMeetings:Boolean;
 		[Transient]
 		public var currentClassroom:Classroom;
 

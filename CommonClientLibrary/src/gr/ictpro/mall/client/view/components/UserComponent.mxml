@@ -12,6 +12,8 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import gr.ictpro.mall.client.model.UserModel;
+			import gr.ictpro.mall.client.model.vo.User;
 			import gr.ictpro.mall.client.runtime.Device;
 
 			[Bindable]
@@ -112,10 +114,9 @@
 						 text="@{vo.profile.name}" textAlign="left"
 						 enabled.view="false"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Email')}">
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Email')}" visible.view="false" >
 			<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
-						 text="@{vo.email}" textAlign="left"
-						 visible.view="false"/>
+						 text="@{vo.email}" textAlign="left"/>
 		</s:FormItem>
 		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Language')}">
 			<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />
@@ -125,5 +126,9 @@
 			<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
 								  selected="{Device.getDefaultColor()}"/>
 		</s:FormItem>
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Disallow Unattended Meetings')}"
+				visible.view="false" visible.edit="{UserModel.isStudent(User(vo))}" visible.profile="false">
+		<s:CheckBox id="chkAllowUnattendedMeeting" selected="@{vo.disallowUnattendedMeetings}"/>
+	</s:FormItem>
 
 </s:VOEditor>

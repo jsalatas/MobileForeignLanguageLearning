@@ -82,6 +82,7 @@ public class UserRemoteService {
 		persistentUser.setRoles(user.getRoles());
 		persistentUser.setClassrooms(user.getClassrooms());
 		persistentUser.setUsername(user.getUsername());
+		persistentUser.setDisallowUnattendedMeetings(user.isDisallowUnattendedMeetings());
 		persistentUser.getProfile().setColor(user.getProfile().getColor());
 		persistentUser.getProfile().setName(user.getProfile().getName());
 		persistentUser.getProfile().setPhoto(user.getProfile().getPhoto());

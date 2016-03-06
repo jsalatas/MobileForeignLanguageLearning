@@ -33,6 +33,7 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (6,'mail.smtp_auth','true');
 		INSERT IGNORE INTO `config` VALUES (7,'mail.smtp_starttls_enable','true');
 		INSERT IGNORE INTO `config` VALUES (8,'mail.debug','false');
+		INSERT IGNORE INTO `config` VALUES (9,'allow_unattended_meetings','true');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');
@@ -52,6 +53,7 @@ BEGIN
 		INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 1, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
 		INSERT IGNORE INTO `role_notification` (`notification_id`, `role_id`) SELECT 2, `id` from `role` WHERE `role` = 'Admin' LIMIT 1;
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Add');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Allow Unattended Meetings');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Application Path');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('April');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('August');
@@ -74,7 +76,6 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Server Configuration.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get User.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Register.');
-		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Register.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Calendar.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Classroom Group.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Save Classroom.');
@@ -95,6 +96,8 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('December');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Delete');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Description');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Disallow Unattended Meetings');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Edit Classroom');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Edit Classrooms Group');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Edit Language');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Edit User');
@@ -109,6 +112,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Enter your Username.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Exit');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('February');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Force Interface Language');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Fri');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Friday');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Get All Messages');
@@ -131,6 +135,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Monday');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('My Profile');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Name');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('New Classroom');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('New Classrooms Group');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('New Language');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('New Password');

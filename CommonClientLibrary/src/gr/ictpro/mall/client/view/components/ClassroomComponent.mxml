@@ -81,6 +81,9 @@
 	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Force Interface Language')}">
 		<s:CheckBox id="chkForceUILanguage" selected="@{vo.forceUILanguage}"/>
 	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Allow Unattended Meetings')}">
+		<s:CheckBox id="chkAllowUnattendedMeeting" selected="@{vo.allowUnattendedMeetings}"/>
+	</s:FormItem>
 	<s:FormItem id="teacher" width="100%" label="{Device.tranlations.getTranslation('Teacher')}">
 		<s:PopUpList id="teacherPopup" width="100%" dataList="{_teachers}" textAlign="left" initialize="teacherPopup_initializeHandler(event)" />
 	</s:FormItem>

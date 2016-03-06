@@ -50,6 +50,7 @@ public class User implements java.io.Serializable, UserDetails {
     private boolean enabled;
     private Profile profile;
     private Classroom currentClassroom;
+    private boolean disallowUnattendedMeetings;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
@@ -64,17 +65,18 @@ public class User implements java.io.Serializable, UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String email, boolean enabled) {
+    public User(String username, String password, String email, boolean enabled, boolean disallowUnattendedMeetings) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
 	this.enabled = enabled;
+	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
     }
 
     public User(String username, String password, String email, boolean enabled, Profile profile,
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications,
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, 
-	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations ) {
+	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings ) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -88,6 +90,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.teacherClassrooms = teacherClassrooms;
 	this.schedules = schedules;
 	this.locations = locations;
+	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
     }
 
     @Id
@@ -314,6 +317,15 @@ public class User implements java.io.Serializable, UserDetails {
 
     public void setLocations(Set<Location> locations) {
 	this.locations = locations;
+    }
+
+    @Column(name = "disallow_unattended_meetings", nullable = false)
+    public boolean isDisallowUnattendedMeetings() {
+	return this.disallowUnattendedMeetings;
+    }
+
+    public void setDisallowUnattendedMeetings(boolean disallowUnattendedMeetings) {
+	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
     }
 
     @AmfIgnore
