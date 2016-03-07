@@ -1,6 +1,6 @@
 package gr.ictpro.mall.client.view
 {
-	public class TextChatViewMediator extends TopBarCustomViewMediator
+	public class TextChatViewMediator extends TopBarCommunicationViewMediator
 	{
 		public function TextChatViewMediator()
 		{
