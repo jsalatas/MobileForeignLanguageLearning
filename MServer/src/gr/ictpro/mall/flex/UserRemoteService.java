@@ -112,6 +112,20 @@ public class UserRemoteService {
 	return u;
     }
 
+    public List<User> getOnlineUsers() {
+	List<User> allUsers = getUsers();
+	List<User> res = new ArrayList<User>();
+	
+	for(User u: allUsers) {
+	    if(userContext.userIsOnline(u)) {
+		res.add(u);
+	    }
+	}
+	
+	return res;
+    }
+    
+    
     public List<User> getUsers() {
 	List<User> res = null;
 	User currentUser = userContext.getCurrentUser();
