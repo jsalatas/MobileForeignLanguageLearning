@@ -10,7 +10,7 @@
 		<mx:State name="readonly" />
 	</s:states>
 	<fx:Declarations>
-		<signals:Signal id="fillChoices" valueClasses="{[MultiselectList]}" />
+		<signals:Signal id="fillChoices" valueClasses="{[MultiselectDetailList]}" />
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
@@ -63,7 +63,7 @@
 					selectPopup = new MultiSelectPopup();
 					selectPopup.detailsAdded.add(detailsAdded);
 				}
-				var ml:MultiselectList = new MultiselectList();
+				var ml:MultiselectDetailList = new MultiselectDetailList();
 				fillChoices.dispatch(ml);
 				selectPopup.list = ml;
 				selectPopup.open(Device.shellView, true);

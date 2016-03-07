@@ -177,7 +177,7 @@
     <classEntry path="gr.ictpro.mall.client.model.vomapper.DetailMapper"/>
     <classEntry path="gr.ictpro.mall.client.components.DetailTab"/>
     <classEntry path="gr.ictpro.mall.client.components.VOViewerPopup"/>
-    <classEntry path="gr.ictpro.mall.client.components.MultiselectList"/>
+    <classEntry path="gr.ictpro.mall.client.components.MultiselectDetailList"/>
     <classEntry path="gr.ictpro.mall.client.components.MultiSelectPopup"/>
     <classEntry path="gr.ictpro.mall.client.components.DetailTabMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.TopBarCustomView"/>
@@ -210,6 +210,7 @@
     <classEntry path="gr.ictpro.mall.client.view.WhiteBoardViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.TextChatViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.ScheduledMeetingsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.components.MultipleSelectionsList"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

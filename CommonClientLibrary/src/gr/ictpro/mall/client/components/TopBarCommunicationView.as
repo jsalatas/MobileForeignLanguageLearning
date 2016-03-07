@@ -16,7 +16,7 @@ package gr.ictpro.mall.client.components
 	
 	public class TopBarCommunicationView extends TopBarView
 	{
-		private var _list:List = new List();
+		private var _list:MultipleSelectionsList = new MultipleSelectionsList();
 		
 		private var timer:Timer = new Timer(1000);
 		
@@ -43,7 +43,6 @@ package gr.ictpro.mall.client.components
 		{
 			super.createChildren();
 			
-			_list.allowMultipleSelection = true;
 			_list.percentWidth = 100;
 			_list.percentHeight = 100;
 			_list.left = 10;

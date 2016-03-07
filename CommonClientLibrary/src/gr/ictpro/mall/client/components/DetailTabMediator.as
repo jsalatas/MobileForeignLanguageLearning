@@ -36,7 +36,7 @@ package gr.ictpro.mall.client.components
 		
 		private var model:AbstractModel;
 		
-		private var list:MultiselectList;
+		private var list:MultiselectDetailList;
 		
 		override public function onRegister():void
 		{
@@ -76,7 +76,7 @@ package gr.ictpro.mall.client.components
 			}
 		}
 
-		private function fillPopupList(list:MultiselectList):void
+		private function fillPopupList(list:MultiselectDetailList):void
 		{
 			var dm:DetailMapper = view.tabs.selectedItem;
 			this.list=list;

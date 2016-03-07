@@ -16,7 +16,7 @@
 			
 			import gr.ictpro.mall.client.runtime.Device;
 			[Bindable]
-			public var list:MultiselectList;
+			public var list:MultiselectDetailList;
 			
 			override public function open(owner:DisplayObjectContainer, modal:Boolean=false):void
 			{
