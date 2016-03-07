@@ -1,6 +1,9 @@
 package gr.ictpro.mall.client.components
 {
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	import mx.collections.IList;
 	import mx.core.ClassFactory;
@@ -15,6 +18,10 @@ package gr.ictpro.mall.client.components
 	{
 		private var _list:List = new List();
 		
+		private var timer:Timer = new Timer(1000);
+		
+		private var inLongPress:Boolean = false;
+		
 		public function TopBarCommunicationView()
 		{
 			super();
@@ -22,6 +29,7 @@ package gr.ictpro.mall.client.components
 			deleteButton = false;
 			okButton = false;
 			cancelButton = false;
+			timer.addEventListener(TimerEvent.TIMER, timerCompleteHandler);
 		}
 		
 		private var _listItemHeight:int = 25;
@@ -58,16 +66,33 @@ package gr.ictpro.mall.client.components
 //			mxmlContentGroup.percentWidth = 100;
 //			mxmlContentGroup.mxmlContent = [_list];
 			addElement(listGroup);
-			_list.addEventListener(Event.CHANGE, changeHandler);
+			_list.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 		}
 		
 
-		
-		private function changeHandler(event:Event):void 
+		private function mouseDown(e:MouseEvent):void
 		{
-			var e:Event = new Event("showDetailClicked", event.bubbles, event.cancelable);
-			dispatchEvent(e);
+			inLongPress = false;
+			timer.start();
+		}
 
+		private function mouseUp(e:MouseEvent):void
+		{
+			timer.reset();
+			
+			_list.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
+			if(inLongPress) {
+				var event:Event = new Event("showDetailClicked", e.bubbles, e.cancelable);
+				dispatchEvent(event);
+			}
+			inLongPress = false;
+		}
+		
+		private function timerCompleteHandler(e:TimerEvent):void
+		{
+			timer.reset();
+			_list.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
+			inLongPress = true;
 		}
 		
 		override public function set mxmlContent(value:Array):void

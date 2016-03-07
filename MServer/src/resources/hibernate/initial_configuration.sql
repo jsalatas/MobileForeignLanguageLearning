@@ -72,6 +72,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Client Settings.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Languages.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Notifications.');
+		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Online Users.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Roles.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get Server Configuration.');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Cannot Get User.');

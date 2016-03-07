@@ -86,6 +86,7 @@ package gr.ictpro.mall.client.view
 		
 		private function showDetailClicked(event:Event):void
 		{
+			trace("show details");
 			// Use a copy of the object and not the one in the list
 			// TODO:
 			//showDetail(buildParameters(ObjectUtil.copy(event.target.selectedItem)));
