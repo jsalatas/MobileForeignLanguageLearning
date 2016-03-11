@@ -53,8 +53,14 @@
 			{
 				var unscaledWidth:int = Device.getUnScaledSize(owner.width); 
 				var unscaledHeight:int = Device.getUnScaledSize(owner.height); 
-				x= Device.getScaledSize(unscaledWidth-voeditor.width>15?(unscaledWidth-voeditor.width)/2-30:30);
-				y=Device.getScaledSize(30);
+				x= Device.getScaledSize((unscaledWidth-voeditor.width)/2-30);
+				if(x<30) {
+					x=30;
+				}
+				y=Device.getScaledSize((unscaledHeight-voeditor.height)/2-30);
+				if(y<30) {
+					y=30;
+				}
 				this.width = unscaledWidth - Device.getUnScaledSize(x)*2;
 				this.height = unscaledHeight - Device.getUnScaledSize(y)*2;
 				this.graphics.lineStyle(2,Device.getDefaultColor(),1);

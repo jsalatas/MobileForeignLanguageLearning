@@ -211,6 +211,8 @@
     <classEntry path="gr.ictpro.mall.client.view.TextChatViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.ScheduledMeetingsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.MultipleSelectionsList"/>
+    <classEntry path="gr.ictpro.mall.client.components.renderers.LongPressIconItemRenderer"/>
+    <classEntry path="gr.ictpro.mall.client.components.LongPressEvent"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

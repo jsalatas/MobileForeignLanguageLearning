@@ -1,26 +1,17 @@
 package gr.ictpro.mall.client.components
 {
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	
 	import mx.collections.IList;
 	import mx.core.ClassFactory;
 	
-	import gr.ictpro.mall.client.components.renderers.IconItemRenderer;
+	
+	import gr.ictpro.mall.client.components.renderers.LongPressIconItemRenderer;
 	import gr.ictpro.mall.client.runtime.Device;
 
 	[Event(name="addClicked", type="flash.events.MouseEvent")]
-	[Event(name="showDetailClicked", type="flash.events.MouseEvent")]
 	
 	public class TopBarCommunicationView extends TopBarView
 	{
 		private var _list:MultipleSelectionsList = new MultipleSelectionsList();
-		
-		private var timer:Timer = new Timer(1000);
-		
-		private var inLongPress:Boolean = false;
 		
 		public function TopBarCommunicationView()
 		{
@@ -29,7 +20,6 @@ package gr.ictpro.mall.client.components
 			deleteButton = false;
 			okButton = false;
 			cancelButton = false;
-			timer.addEventListener(TimerEvent.TIMER, timerCompleteHandler);
 		}
 		
 		private var _listItemHeight:int = 25;
@@ -52,7 +42,7 @@ package gr.ictpro.mall.client.components
 			_list.setStyle("borderAlpha", 0);
 			_list.setStyle("contentBackgroundColor", "#ffffff");
 			
-			var itemRenderer:ClassFactory = new ClassFactory(IconItemRenderer);
+			var itemRenderer:ClassFactory = new ClassFactory(LongPressIconItemRenderer);
 			itemRenderer.properties= {height: _listItemHeight, bottomSeparatorColor: Device.getDefaultColor(0.5), styles:{verticalAlign: "middle", paddingLeft: 2, paddingRight: 2}};
 	
 			_list.itemRenderer =itemRenderer;
@@ -61,38 +51,9 @@ package gr.ictpro.mall.client.components
 			listGroup.percentHeight=100;
 			listGroup.percentWidth=100;
 			listGroup.addElement(_list);
-//			mxmlContentGroup.percentHeight = 100;
-//			mxmlContentGroup.percentWidth = 100;
-//			mxmlContentGroup.mxmlContent = [_list];
 			addElement(listGroup);
-			_list.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
 		}
 		
-
-		private function mouseDown(e:MouseEvent):void
-		{
-			inLongPress = false;
-			timer.start();
-		}
-
-		private function mouseUp(e:MouseEvent):void
-		{
-			timer.reset();
-			
-			_list.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
-			if(inLongPress) {
-				var event:Event = new Event("showDetailClicked", e.bubbles, e.cancelable);
-				dispatchEvent(event);
-			}
-			inLongPress = false;
-		}
-		
-		private function timerCompleteHandler(e:TimerEvent):void
-		{
-			timer.reset();
-			_list.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
-			inLongPress = true;
-		}
 		
 		override public function set mxmlContent(value:Array):void
 		{
