@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.flex.core.io.AmfIgnore;
 
@@ -42,6 +43,7 @@ public class Notification implements java.io.Serializable {
     private String subject;
     private boolean internalModule;
     private boolean actionNeeded;
+    private boolean isDynamic;
     private Set<RoleNotification> roleNotifications = new HashSet<RoleNotification>(0);
     private Set<UserNotification> userNotifications = new HashSet<UserNotification>(0);
 
@@ -166,4 +168,16 @@ public class Notification implements java.io.Serializable {
 	this.userNotifications = userNotifications;
     }
 
+    
+    @Transient
+    public boolean isDynamic() {
+        return isDynamic;
+    }
+
+    @Transient
+    public void setDynamic(boolean isDynamic) {
+        this.isDynamic = isDynamic;
+    }
+
+    
 }

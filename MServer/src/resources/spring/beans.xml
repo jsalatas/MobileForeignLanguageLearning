@@ -151,6 +151,30 @@
 			<value>java.lang.Integer</value>
         </constructor-arg>
 	</bean>
+	<bean id="meetingTypeDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.MeetingType</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
+	<bean id="meetingDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Meeting</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
+	<bean id="meetingUserDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.MeetingUser</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>gr.ictpro.mall.model.MeetingUserId</value>
+        </constructor-arg>
+	</bean>
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="dao" ref="userDAO"></property>
 	</bean>
@@ -198,5 +222,14 @@
 	</bean>
 	<bean id="wifiTagService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="wifiTagDAO"></property>
+	</bean>
+	<bean id="meetingTypeService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="meetingTypeDAO"></property>
+	</bean>
+		<bean id="meetingService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="meetingDAO"></property>
+	</bean>
+		<bean id="meetingUserService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="meetingUserDAO"></property>
 	</bean>
 </beans>

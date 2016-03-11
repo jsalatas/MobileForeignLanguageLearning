@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -51,9 +52,10 @@ public class StandardRegistrationProvider extends AbstractRegistrationProvider {
 
 	User informUser = null;
 	if(relatedUser != null) {
-	    List<User> users = userService.listByProperty("username", relatedUser);
-	    if(users.size() == 1) {
-		informUser = users.get(0);
+	    List<Profile> profiles = profileService.listByProperty("name", relatedUser);
+	    if(profiles.size() == 1) {
+		Hibernate.initialize(profiles.get(0).getUser());
+		informUser = profiles.get(0).getUser();
 		userContext.initUser(informUser);
 	    }
 	}

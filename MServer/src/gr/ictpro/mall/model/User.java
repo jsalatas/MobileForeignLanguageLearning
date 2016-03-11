@@ -4,7 +4,6 @@ package gr.ictpro.mall.model;
 
 
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
-import gr.ictpro.mall.model.Classroom;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -52,6 +51,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Classroom currentClassroom;
     private boolean disallowUnattendedMeetings;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
+    private Set<Meeting> meetings = new HashSet<Meeting>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
     private Set<Classroom> teacherClassrooms = new HashSet<Classroom>(0);
@@ -60,6 +60,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<Role> roles = new HashSet<Role>(0);
     private Set<Location> locations = new HashSet<Location>(0);
     private Set<WifiTag> currentLocation = new HashSet<WifiTag>(0);
+    private Set<MeetingUser> meetingUsersForUserId = new HashSet<MeetingUser>(0);
 
 
     public User() {
@@ -74,8 +75,8 @@ public class User implements java.io.Serializable, UserDetails {
     }
 
     public User(String username, String password, String email, boolean enabled, Profile profile,
-	    Set<Classroom> classrooms, Set<UserNotification> userNotifications,
-	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, 
+	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> meetings, 
+	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsersForUserId, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings ) {
 	this.username = username;
 	this.password = password;
@@ -91,6 +92,8 @@ public class User implements java.io.Serializable, UserDetails {
 	this.schedules = schedules;
 	this.locations = locations;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+	this.meetings = meetings;
+	this.meetingUsersForUserId = meetingUsersForUserId;
     }
 
     @Id
@@ -338,6 +341,29 @@ public class User implements java.io.Serializable, UserDetails {
     public void setCurrentLocation(Set<WifiTag> currentLocation) {
 	this.currentLocation = currentLocation;
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @AmfIgnore
+    public Set<Meeting> getMeetings() {
+	return this.meetings;
+    }
+
+    @AmfIgnore
+    public void setMeetings(Set<Meeting> meetings) {
+	this.meetings = meetings;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @AmfIgnore
+    public Set<MeetingUser> getMeetingUsersForUserId() {
+	return this.meetingUsersForUserId;
+    }
+
+    @AmfIgnore
+    public void setMeetingUsersForUserId(Set<MeetingUser> meetingUsersForUserId) {
+	this.meetingUsersForUserId = meetingUsersForUserId;
+    }
+
 
 
 }

@@ -29,10 +29,11 @@ public class NotificationRemoteService {
     public List<Notification> getNotifications() {
 	User currentUser = userContext.getCurrentUser();
 	List<Notification> res =notificationService.retrieveByUser(currentUser);
-//	for(Notification n:res) {
-//	    Hibernate.initialize(n.getRoleNotifications());
-//	    Hibernate.initialize(n.getUserNotifications());
-//	}
+	
+	// TODO: Create dynamic notifications from meetings and schedules
+	
+	
+	
 	return res;
     }
     

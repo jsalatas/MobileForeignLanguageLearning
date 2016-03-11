@@ -39,6 +39,9 @@
 				<value>gr.ictpro.mall.model.Schedule</value>
 				<value>gr.ictpro.mall.model.Location</value>
 				<value>gr.ictpro.mall.model.WifiTag</value>
+				<value>gr.ictpro.mall.model.MeetingType</value>
+				<value>gr.ictpro.mall.model.Meeting</value>
+				<value>gr.ictpro.mall.model.MeetingUser</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
