@@ -127,7 +127,7 @@
 								  selected="{Device.getDefaultColor()}"/>
 		</s:FormItem>
 	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Disallow Unattended Meetings')}"
-				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit, profile" >
+				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit" >
 		<s:CheckBox id="chkAllowUnattendedMeeting" selected="@{vo.disallowUnattendedMeetings}"/>
 	</s:FormItem>
 

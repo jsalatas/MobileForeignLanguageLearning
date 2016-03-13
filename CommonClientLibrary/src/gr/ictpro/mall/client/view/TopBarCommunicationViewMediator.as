@@ -46,7 +46,7 @@ package gr.ictpro.mall.client.view
 			var args:GenericServiceArguments = new GenericServiceArguments;
 			args.type = "getOnlineUsers";
 			args.destination = "userRemoteService";
-			args.method = "getUsers"
+			args.method = "getOnlineUsers"
 			args.arguments = null;
 
 			
