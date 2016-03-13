@@ -23,6 +23,17 @@ import org.springframework.stereotype.Service;
  */
 @Service("mailService")
 public class MailService {
+    public class SendMailThread implements Runnable {
+	private SimpleMailMessage message;
+
+	public SendMailThread(SimpleMailMessage message) {
+	    this.message = message;
+	}
+
+	public void run() {
+	    mailSender.send(message);
+	}
+    }
 
     @Autowired(required = true)
     private UserContext userContext;
@@ -39,6 +50,7 @@ public class MailService {
     @Autowired(required = true)
     private GenericService<Role, Integer> roleService;
 
+    
     private void sendMail(String from, String to, EmailTranslation email, User u)
     {
 	SimpleMailMessage message = new SimpleMailMessage();
@@ -46,7 +58,8 @@ public class MailService {
 	message.setTo(to);
 	message.setSubject(fillInFields(email.getSubject(), u));
 	message.setText(fillInFields(email.getBody(), u));
-	mailSender.send(message);
+	Runnable sendMailThread = new SendMailThread(message);
+	new Thread(sendMailThread).start();
     }
 
     private String fillInFields(String input, User u) {
@@ -99,4 +112,5 @@ public class MailService {
 	sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
     }
+
 }
