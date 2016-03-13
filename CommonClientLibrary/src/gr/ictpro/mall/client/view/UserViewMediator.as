@@ -93,7 +93,9 @@ package gr.ictpro.mall.client.view
 		
 		private function listSuccess(classType:Class):void {
 			if(classType == Language) {
-				TopBarDetailView(view).editor["languages"] = languageModel.getSortedListByFields([new SortField("englishName")]);
+				if(TopBarDetailView(view).editor != null) {
+					TopBarDetailView(view).editor["languages"] = languageModel.getSortedListByFields([new SortField("englishName")]);
+				}
 			}
 		}
 

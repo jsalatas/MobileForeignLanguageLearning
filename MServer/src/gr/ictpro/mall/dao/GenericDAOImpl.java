@@ -57,10 +57,10 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     public void update(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.update(item);
-	if(item instanceof DatabaseGeneratedValues) {
+	//if(item instanceof DatabaseGeneratedValues) {
 	    session.flush(); // make sure session is flushed before reloading
 	    session.refresh(item);
-	}
+	//}
     }
 
     /* (non-Javadoc)

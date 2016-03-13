@@ -13,8 +13,8 @@ package gr.ictpro.mall.client.model
 		public function LanguageModel()
 		{
 			super(Language, LanguageView, LanguageComponent);
-			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null));
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, true, null, null));
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, true, null, null, null));
 		}
 		
 		public function get saveErrorMessage():String

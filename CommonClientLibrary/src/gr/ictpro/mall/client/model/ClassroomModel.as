@@ -15,20 +15,13 @@ package gr.ictpro.mall.client.model
 		public function ClassroomModel()
 		{
 			super(Classroom, ClassroomView, ClassroomComponent);
-			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null));
-			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, false, null, null));
-			addDetail(new DetailMapper("Students", "students", User, null, filterStudents, null, false, null, null));
-			addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, true, null, null));
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null, null));
+			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, false, null, null, null));
+			addDetail(new DetailMapper("Students", "students", User, null, null, UserModel.isStudent, false, null, null, null));
+			addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, true, null, null, null));
 
 		}
 
-		private function filterStudents(item:Object):Boolean
-		{
-			var userModel:UserModel = UserModel(mapper.getModelforVO(User));
-			var user:User = User(item);
-			return UserModel.isStudent(user);
-		}
-		
 		public function get saveErrorMessage():String
 		{
 			return Device.tranlations.getTranslation("Cannot Save Classroom.");

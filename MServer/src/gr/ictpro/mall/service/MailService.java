@@ -78,7 +78,7 @@ public class MailService {
 		EmailTranslation email = emailTranslationService.retrieveById(emailId);
 		sendMail(admin.getEmail(), admin.getEmail(), email, u);
 
-	    } else if (u.hasRole("Student")) {
+	    } else if (u.hasRole("Student") || u.hasRole("Parent")) {
 		// Student registration. Inform Teachers
 		EmailTranslationId emailId = new EmailTranslationId("en", 0, EmailType.NEW_USER);
 		EmailTranslation email = emailTranslationService.retrieveById(emailId);
@@ -90,10 +90,8 @@ public class MailService {
 			sendMail(admin.getEmail(), t.getEmail(), email, u);
 		    }
 		}
-	    } else if (u.hasRole("Parent")) {
-		// Parent registration. Inform teacher and student
 	    }
-
+	    
 	    // inform user that his account is created but is not yet enabled
 	    EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0,
 		    EmailType.DISABLED_ACCOUNT_CREATED);

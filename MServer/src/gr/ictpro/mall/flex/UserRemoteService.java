@@ -4,13 +4,16 @@
 package gr.ictpro.mall.flex;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.authentication.RegistrationMethod;
 import gr.ictpro.mall.context.LocationContext;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
+import gr.ictpro.mall.model.Classroomgroup;
 import gr.ictpro.mall.model.Profile;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.GenericService;
@@ -64,7 +67,7 @@ public class UserRemoteService {
     
     public User save(User user) {
 	User currentUser = userContext.getCurrentUser();
-
+	
 	if (user.getId() == 0) {
 	    userService.create(user);
 	} else {
@@ -82,6 +85,8 @@ public class UserRemoteService {
 		persistentUser.setRoles(user.getRoles());
 		persistentUser.setClassrooms(user.getClassrooms());
 		persistentUser.setUsername(user.getUsername());
+		persistentUser.setParents(user.getParents());
+		persistentUser.setChildren(user.getChildren());
 		persistentUser.setDisallowUnattendedMeetings(user.isDisallowUnattendedMeetings());
 		persistentUser.getProfile().setColor(user.getProfile().getColor());
 		persistentUser.getProfile().setName(user.getProfile().getName());
@@ -94,8 +99,10 @@ public class UserRemoteService {
 		} else {
 		    userService.update(persistentUser);
 		}
+		user = persistentUser;
 	    }
 	}
+
 	return user;
     }
 
@@ -140,11 +147,35 @@ public class UserRemoteService {
 	    // Get unassigned students
 	    String hql = "SELECT u FROM User u JOIN u.roles r WHERE r.role = 'Student' AND u.classrooms IS EMPTY"; 
 	    res.addAll(userService.listByCustomSQL(hql));
-	} else{
-	    // TODO:
-	    // for students get their teachers, their parents and other students
-	    // in their classroom groups
-	    // for parents get their children and their children's teachers
+	} else if(currentUser.hasRole("Student")){
+	    Set<User> uniqueUsers = new HashSet<User>(); 
+	    for(Classroom classroom: currentUser.getClassrooms()) {
+		if(classroom.getClassroomgroups().size() == 0) {
+		    uniqueUsers.addAll(classroom.getStudents());
+		    uniqueUsers.add(classroom.getTeacher());
+		} else {
+		    for(Classroomgroup group: classroom.getClassroomgroups()) {
+			for(Classroom classroomInGroup: group.getClassrooms()) {
+			    uniqueUsers.addAll(classroomInGroup.getStudents());
+			    uniqueUsers.add(classroomInGroup.getTeacher());
+			}
+		    }
+		}
+	    }
+	    res = new ArrayList<User>();
+	    res.addAll(uniqueUsers);
+	} else if(currentUser.hasRole("Parent")){
+	    Set<User> uniqueUsers = new HashSet<User>(); 
+	    for(User u: currentUser.getChildren()) {
+		uniqueUsers.add(u);
+		for(Classroom c: u.getClassrooms()) {
+		    uniqueUsers.add(c.getTeacher());
+		}
+	    }
+	    
+	    res = new ArrayList<User>();
+	    res.addAll(uniqueUsers);
+
 	}
 
 	if (res == null) {

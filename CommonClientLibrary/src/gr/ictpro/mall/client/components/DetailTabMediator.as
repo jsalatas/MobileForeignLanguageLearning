@@ -109,6 +109,9 @@ package gr.ictpro.mall.client.components
 
 		private function filterList(list:ArrayCollection, filter:Function):ArrayCollection 
 		{
+			if(list == null) {
+				return new ArrayCollection();
+			}
 			var filteredList:ArrayCollection = new ArrayCollection(list.source);
 			filteredList.filterFunction = filter;
 			filteredList.refresh();

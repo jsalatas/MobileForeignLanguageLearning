@@ -13,7 +13,12 @@ package gr.ictpro.mall.client.model
 		public function ClassroomgroupModel()
 		{
 			super(Classroomgroup, ClassroomgroupView, ClassroomgroupComponent);
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, false, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, excludeGlobal, false, null, null, null));
+		}
+		
+		public function excludeGlobal(item:Classroom):Boolean
+		{
+			return item.id != 0;
 		}
 		
 		public function get deleteErrorMessage():String

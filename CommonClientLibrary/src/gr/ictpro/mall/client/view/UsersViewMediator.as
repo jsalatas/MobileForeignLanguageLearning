@@ -46,7 +46,7 @@ package gr.ictpro.mall.client.view
 		private function getLabel(item:Object):String
 		{
 			var u:User = User(item);
-			var label:String = item.profile.name + " (" + item.username + ")";
+			var label:String = u.toString();
 			if(UserModel.isStudent(u) && (u.classrooms == null || u.classrooms.length==0) && (UserModel.isAdmin(runtimeSettings.user) ||  UserModel.isTeacher(runtimeSettings.user))) {
 				label = label + " - " + Device.tranlations.getTranslation("Unassigned");
 			}

@@ -80,7 +80,8 @@ public class ProximityRegistrationProvider extends AbstractRegistrationProvider 
 			currentLocation));
 	    }
 	} else {
-	    // TODO: Parent registration
+	    // Parents are always manually enabled
+	    u.setEnabled(false);
 	}		
 	
 	

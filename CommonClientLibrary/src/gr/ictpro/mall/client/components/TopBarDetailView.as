@@ -113,23 +113,5 @@ package gr.ictpro.mall.client.components
 		{
 			this._editor = editor; 
 		}
-		
-		
-//		override public function set layout(value:LayoutBase):void
-//		{
-////			if(model == null) {
-//				mxmlContentGroup.layout = layout;
-////			}
-//		}
-//		
-//		override public function set mxmlContent(value:Array):void
-//		{
-////			if(model == null) {
-//				mxmlContentGroup.mxmlContent = value;
-//				invalidateDisplayList();
-////			}
-//		}
-		
-		
 	}
 }

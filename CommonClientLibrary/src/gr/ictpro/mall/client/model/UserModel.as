@@ -15,7 +15,9 @@ package gr.ictpro.mall.client.model
 		public function UserModel()
 		{
 			super(User, UserView, UserComponent);
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, false, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, false, null, null, null));
+			addDetail(new DetailMapper("Children", "children", User, null, null, UserModel.isStudent, false, null, null, UserModel.isParent));
+			addDetail(new DetailMapper("Parents", "parents", User, null, null, UserModel.isParent, false, null, null, UserModel.isStudent));
 		}
 		
 		public function get saveErrorMessage():String

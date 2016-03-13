@@ -45,16 +45,12 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	super.create(item);
 	if(item.hasRole("Teacher")) {
 	    notificationService.createUserNotification(new Notification("Please setup your classes.", "gr.ictpro.mall.client.view.ClassroomsView", "Classes Setup", true, true), item);
-	    //if(!item.isEnabled()) {
 	    Notification n = new Notification("A new teacher has registered. Please review " +(item.isEnabled()?"":"and enable") + " her account.", "gr.ictpro.mall.client.view.UserView", "New Teacher", true, !item.isEnabled());
 	    Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
 	    parameters.put("user_id", item.getId());
 	    n.setParameters(Serialize.serialize(parameters));
 	    notificationService.createRoleNotification(n, roleService.listByProperty("role", "Admin").get(0));
-	    //}
-	}
-	if(item.hasRole("Student")) {
-	    //if(!item.isEnabled()) {
+	} else if(item.hasRole("Student")) {
 	    Notification n = new Notification("A new student has registered. Please review " +(item.isEnabled()?"":"and enable") + " her account.", "gr.ictpro.mall.client.view.UserView", "New Student", true, !item.isEnabled());
 	    Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
 	    parameters.put("user_id", item.getId());
@@ -64,7 +60,16 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	    } else {
 		notificationService.createUserNotification(n, informUser);
 	    }
-	    //}
+	} else if(item.hasRole("Parent")) {
+	    Notification n = new Notification("A new parent has registered. Please review " +(item.isEnabled()?"":"and enable") + " her account.", "gr.ictpro.mall.client.view.UserView", "New Parent", true, !item.isEnabled());
+	    Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
+	    parameters.put("user_id", item.getId());
+	    n.setParameters(Serialize.serialize(parameters));
+	    if(informUser == null) {
+		notificationService.createRoleNotification(n, roleService.listByProperty("role", "Teacher").get(0));
+	    } else {
+		notificationService.createUserNotification(n, informUser);
+	    }
 	}
 
     }
@@ -94,7 +99,5 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	if(notifyEnabled) {
 	    mailService.accountEnabledMail(item);
 	}
-
-	
     }
 }

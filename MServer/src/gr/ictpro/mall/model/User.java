@@ -60,7 +60,9 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<Role> roles = new HashSet<Role>(0);
     private Set<Location> locations = new HashSet<Location>(0);
     private Set<WifiTag> currentLocation = new HashSet<WifiTag>(0);
-    private Set<MeetingUser> meetingUsersForUserId = new HashSet<MeetingUser>(0);
+    private Set<MeetingUser> meetingUsers = new HashSet<MeetingUser>(0);
+    private Set<User> children = new HashSet<User>(0);
+    private Set<User> parents = new HashSet<User>(0);
 
 
     public User() {
@@ -76,8 +78,9 @@ public class User implements java.io.Serializable, UserDetails {
 
     public User(String username, String password, String email, boolean enabled, Profile profile,
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> meetings, 
-	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsersForUserId, 
-	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings ) {
+	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
+	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
+	    Set<User> children, Set<User> parents) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -93,7 +96,9 @@ public class User implements java.io.Serializable, UserDetails {
 	this.locations = locations;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
 	this.meetings = meetings;
-	this.meetingUsersForUserId = meetingUsersForUserId;
+	this.meetingUsers = meetingUsers;
+	this.parents = parents;
+	this.children = children;
     }
 
     @Id
@@ -355,15 +360,40 @@ public class User implements java.io.Serializable, UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @AmfIgnore
-    public Set<MeetingUser> getMeetingUsersForUserId() {
-	return this.meetingUsersForUserId;
+    public Set<MeetingUser> getMeetingUsers() {
+	return this.meetingUsers;
     }
 
     @AmfIgnore
-    public void setMeetingUsersForUserId(Set<MeetingUser> meetingUsersForUserId) {
-	this.meetingUsersForUserId = meetingUsersForUserId;
+    public void setMeetingUsers(Set<MeetingUser> meetingUsers) {
+	this.meetingUsers = meetingUsers;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "student_parent", joinColumns = {
+	    @JoinColumn(name = "parent_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "student_id", nullable = false, updatable = false) })
+    public Set<User> getChildren() {
+	return this.children;
+    }
 
+    public void setChildren(Set<User> children) {
+	this.children = children;
+    }
+
+	
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "student_parent", joinColumns = {
+	    @JoinColumn(name = "student_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "parent_id", nullable = false, updatable = false) })
+    public Set<User> getParents() {
+	return this.parents;
+    }
+
+    public void setParents(Set<User> parents) {
+	this.parents = parents;
+    }
+
+	
 
 }

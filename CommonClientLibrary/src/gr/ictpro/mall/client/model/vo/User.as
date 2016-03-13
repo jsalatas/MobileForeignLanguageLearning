@@ -1,6 +1,8 @@
 package gr.ictpro.mall.client.model.vo
 {
 	import mx.collections.ArrayCollection;
+	
+	import gr.ictpro.mall.client.runtime.Device;
 
 	[Bindable]
 	[RemoteClass(alias="gr.ictpro.mall.model.User")]
@@ -17,6 +19,8 @@ package gr.ictpro.mall.client.model.vo
 		public var teacherClassrooms:ArrayCollection;
 		public var classrooms:ArrayCollection;
 		public var disallowUnattendedMeetings:Boolean;
+		public var parents:ArrayCollection;
+		public var children:ArrayCollection;
 		[Transient]
 		public var currentClassroom:Classroom;
 
@@ -27,7 +31,15 @@ package gr.ictpro.mall.client.model.vo
 		
 		public function toString():String
 		{
-			return profile +" ("+username+")";
+			var allRoles:String = "";
+			for each(var role:Role in roles) {
+				if(allRoles != "") {
+					allRoles = allRoles + ", ";
+				}
+				allRoles = allRoles + Device.tranlations.getTranslation(role.role);
+			}
+			
+			return profile +" ("+allRoles+")";
 		}
 
 	}

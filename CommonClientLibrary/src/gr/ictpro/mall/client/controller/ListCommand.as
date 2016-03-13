@@ -13,6 +13,8 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.IClientPersistent;
 	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.IServerPersistent;
+	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.LocalDBStorage;
