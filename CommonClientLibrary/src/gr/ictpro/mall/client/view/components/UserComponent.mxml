@@ -6,6 +6,7 @@
 		<mx:State name="edit"/>
 		<mx:State name="view"/>
 		<mx:State name="profile"/>
+		<mx:State name="parentedit"/>
 	</s:states>
 	<fx:Script>
 		<![CDATA[
@@ -90,7 +91,7 @@
 					<s:VerticalLayout gap="0" horizontalAlign="center" paddingBottom="2"
 									  paddingTop="2"/>
 				</s:layout>
-				<s:ImageAttacher id="imgPhoto" width="150" height="200"
+				<s:ImageAttacher id="imgPhoto" width="150" height="200" enabled.parentedit="false" enabled.view="false"
 						 source="{vo.profile.image.source}"/>	
 			</s:Group>
 		</s:Group>
@@ -112,14 +113,14 @@
 		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Name')}">
 			<s:TextInput id="txtName" width="100%" autoCapitalize="word"
 						 text="@{vo.profile.name}" textAlign="left"
-						 enabled.view="false"/>
+						 enabled.view="false" enabled.parentedit="false" />
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Email')}" includeIn="edit, profile"  >
+		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Email')}" includeIn="edit, profile, parentedit"  >
 			<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
-						 text="@{vo.email}" textAlign="left"/>
+						 text="@{vo.email}" textAlign="left" enabled.parentedit="false" />
 		</s:FormItem>
 		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Language')}" includeIn="edit, profile" >
-			<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)" />
+			<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)"  enabled.parentedit="false"  />
 		</s:FormItem>
 		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Color')}"
 					includeIn="edit, profile" >
@@ -127,7 +128,7 @@
 								  selected="{Device.getDefaultColor()}"/>
 		</s:FormItem>
 	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Disallow Unattended Meetings')}"
-				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit" >
+				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit, parentedit" >
 		<s:CheckBox id="chkAllowUnattendedMeeting" selected="@{vo.disallowUnattendedMeetings}"/>
 	</s:FormItem>
 

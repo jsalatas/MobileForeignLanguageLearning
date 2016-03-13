@@ -57,7 +57,9 @@ package gr.ictpro.mall.client.components.menu
 			if(UserModel.isAdmin(user) || UserModel.isTeacher(user)) {
 				res.addItem(new MenuItemInternalModule(Device.tranlations.getTranslation("Classrooms"), Icons.icon_classrooms, ClassroomsView)); 
 				res.addItem(new MenuItemInternalModule(Device.tranlations.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, ClassroomgroupsView)); 
-				res.addItem(new MenuItemInternalModule(Device.tranlations.getTranslation("Users"), Icons.icon_users, UsersView)); 
+			}
+			if(UserModel.isAdmin(user) || UserModel.isTeacher(user) || UserModel.isParent(user)) {
+				res.addItem(new MenuItemInternalModule(Device.tranlations.getTranslation("Users"), Icons.icon_users, UsersView));
 			}
 			
 			res.addItem(new MenuItemGroup(""));

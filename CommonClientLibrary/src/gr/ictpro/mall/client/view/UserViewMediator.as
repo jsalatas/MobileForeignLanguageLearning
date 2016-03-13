@@ -74,19 +74,29 @@ package gr.ictpro.mall.client.view
 				view.invalidateChildren();
 				view.currentState = "profile";
 			} else if(view.parameters.initParams != null && view.parameters.initParams.hasOwnProperty("user_id")) {
-				view.currentState = "edit";
+				if(UserModel.isParent(settings.user)) {
+					view.currentState = "parentedit";
+				} else {
+					view.currentState = "edit";
+				}
 				getUser(view.parameters.initParams.user_id);
 			} else if(view.parameters.vo != null) {
 				if(UserModel(model).idIsNull(view.parameters.vo)) {
 					view.currentState = "new";
 					view.disableDelete();
 				} else {
-					view.currentState = "edit";
+					if(UserModel.isParent(settings.user)) {
+						view.currentState = "parentedit";
+					} else {
+						view.currentState = "edit";
+					}
 				}
 			} else {
 				throw new Error("Unknown User");
 			}
-			listSignal.dispatch(Language);
+			if(view.currentState != "parentedit") {
+				listSignal.dispatch(Language);
+			}
 
 //			addToSignal(UserView(view).editor.choosePhoto, choosePhotoHandler);
 		}
@@ -145,21 +155,25 @@ package gr.ictpro.mall.client.view
 		override protected function beforeSaveHandler():void
 		{
 			var user:User = User(view.parameters.vo);
-			user.profile.image = UserComponent(TopBarDetailView(view).editor).imgPhoto;
-			user.profile.color = UserComponent(TopBarDetailView(view).editor).popupColor.selected;
-			user.profile.language =  Language(TopBarDetailView(view).editor["languagePopup"].selected);
+			if(!UserModel.isParent(settings.user)) {
+				user.profile.image = UserComponent(TopBarDetailView(view).editor).imgPhoto;
+				user.profile.color = UserComponent(TopBarDetailView(view).editor).popupColor.selected;
+				user.profile.language =  Language(TopBarDetailView(view).editor["languagePopup"].selected);
+			}
 
 		}
 		
 		override protected function validateSave():Boolean
 		{
-			var userView:UserComponent = UserComponent(TopBarDetailView(view).editor);
-			if(userView.txtPassword.text != "" || userView.txtPassword2.text != "") {
-				if(userView.txtPassword.text != userView.txtPassword2.text) {
-					UI.showError("Passwords do not Match.");
-					return false;
-				} else {
-					User(view.parameters.vo).password = userView.txtPassword.text; 
+			if(!UserModel.isParent(settings.user)) {
+				var userView:UserComponent = UserComponent(TopBarDetailView(view).editor);
+				if(userView.txtPassword.text != "" || userView.txtPassword2.text != "") {
+					if(userView.txtPassword.text != userView.txtPassword2.text) {
+						UI.showError("Passwords do not Match.");
+						return false;
+					} else {
+						User(view.parameters.vo).password = userView.txtPassword.text; 
+					}
 				}
 			}
 			return true;

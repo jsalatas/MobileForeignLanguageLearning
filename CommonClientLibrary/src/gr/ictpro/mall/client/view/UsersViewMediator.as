@@ -1,5 +1,9 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.utils.flash_proxy;
+	
+	import mx.collections.ArrayCollection;
+	
 	import gr.ictpro.mall.client.components.TopBarListView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.UserModel;
@@ -52,6 +56,26 @@ package gr.ictpro.mall.client.view
 			}
 			return label;
 		}
+
+		override protected function listSuccess(classType:Class):void
+		{
+			if(classType == model.getVOClass()) {
+				super.listSuccess(classType);
+				
+				if(UserModel.isParent(runtimeSettings.user)) {
+					;
+					
+					var filteredList:ArrayCollection = new ArrayCollection(ArrayCollection(TopBarListView(view).data).source);
+					filteredList.filterFunction = UserModel.isStudent;
+					filteredList.refresh();
+					
+					TopBarListView(view).data = filteredList;
+
+				}
+				
+			}
+		}
+		
 
 	}
 }

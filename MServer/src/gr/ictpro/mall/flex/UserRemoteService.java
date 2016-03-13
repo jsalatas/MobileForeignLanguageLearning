@@ -71,7 +71,8 @@ public class UserRemoteService {
 	if (user.getId() == 0) {
 	    userService.create(user);
 	} else {
-	    // Only Admins and Teacher can modify other users' profiles
+	    // Admins and Teacher can modify other users' profiles
+	    // Parents can only change their children's allowance in unattended meetings
 	    if (user.getId() == currentUser.getId() || currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
 		User persistentUser = userService.retrieveById(user.getId());
 		boolean sendAccountReadyNotification = !persistentUser.isEnabled() && user.isEnabled();
@@ -100,6 +101,14 @@ public class UserRemoteService {
 		    userService.update(persistentUser);
 		}
 		user = persistentUser;
+	    } else if (currentUser.hasRole("Parent")) {
+		for(User persistentUser: currentUser.getChildren()) {
+		    if(persistentUser.getId().intValue() == user.getId().intValue()) {
+			persistentUser.setDisallowUnattendedMeetings(user.isDisallowUnattendedMeetings());
+			userService.update(persistentUser);
+			break;
+		    }
+		}
 	    }
 	}
 

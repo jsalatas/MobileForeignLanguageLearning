@@ -11,6 +11,7 @@
 		<mx:State name="edit"/>
 		<mx:State name="view"/>
 		<mx:State name="profile"/>
+		<mx:State name="parentedit"/>
 	</s:states>
 	
 	<fx:Script>
