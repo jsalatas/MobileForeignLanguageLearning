@@ -50,6 +50,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Profile profile;
     private Classroom currentClassroom;
     private boolean disallowUnattendedMeetings;
+    private boolean available;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Meeting> meetings = new HashSet<Meeting>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
@@ -68,19 +69,20 @@ public class User implements java.io.Serializable, UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String email, boolean enabled, boolean disallowUnattendedMeetings) {
+    public User(String username, String password, String email, boolean enabled, boolean disallowUnattendedMeetings, boolean available) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
 	this.enabled = enabled;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+	this.available = available;
     }
 
     public User(String username, String password, String email, boolean enabled, Profile profile,
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> meetings, 
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
-	    Set<User> children, Set<User> parents) {
+	    boolean available, Set<User> children, Set<User> parents) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -95,6 +97,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.schedules = schedules;
 	this.locations = locations;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+	this.available = available;
 	this.meetings = meetings;
 	this.meetingUsers = meetingUsers;
 	this.parents = parents;
@@ -334,6 +337,15 @@ public class User implements java.io.Serializable, UserDetails {
 
     public void setDisallowUnattendedMeetings(boolean disallowUnattendedMeetings) {
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+    }
+
+    @Column(name = "available", nullable = false)
+    public boolean isAvailable() {
+	return this.available;
+    }
+
+    public void setAvailable(boolean available) {
+	this.available = available;
     }
 
     @AmfIgnore

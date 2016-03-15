@@ -71,6 +71,7 @@ package gr.ictpro.mall.client.view
 			addToSignal(view.classroomChanged, classroomChanged);
 			addToSignal(view.notificationClicked, notificationClicked);
 			addToSignal(view.notificationOkClicked, notificationOkClicked);
+			addToSignal(view.switchAvailabilityClicked, switchAvailability);
 			addToSignal(listSuccess, listSuccessHandler);
 			addToSignal(listError, listErrorHandler);
 			addToSignal(menuChangedSignal, menuChanged);
@@ -122,7 +123,20 @@ package gr.ictpro.mall.client.view
 		{
 			saveSignal.dispatch(notification);
 		}
-		
+
+		private function switchAvailability():void
+		{
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = null;
+			args.destination = "userRemoteService";
+			args.method = "switchAvailability";
+			args.type = "switchAvailability";
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
+			
+		}
+
 		private function classroomChanged():void
 		{
 			var classroom:Classroom = Classroom(view.currentClassroom.selected);
@@ -143,6 +157,9 @@ package gr.ictpro.mall.client.view
 				removeSignals();
 				settings.user.currentClassroom = Classroom(view.currentClassroom.selected);
 				getTranslationsSignal.dispatch();
+			} else if(type == "switchAvailability") {
+				removeSignals();
+				settings.user.available = !settings.user.available; 
 			}
 		}
 		
@@ -151,6 +168,8 @@ package gr.ictpro.mall.client.view
 			if(type == "updateCurrentClassroom") {
 				removeSignals();
 				settings.user.currentClassroom = null;
+			} else if(type == "switchAvailability") {
+				removeSignals();
 			}
 		}
 		

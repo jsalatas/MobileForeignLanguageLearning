@@ -133,7 +133,7 @@ public class UserRemoteService {
 	List<User> res = new ArrayList<User>();
 	
 	for(User u: allUsers) {
-	    if(userContext.userIsOnline(u)) {
+	    if(u.isAvailable() && userContext.userIsOnline(u)) {
 		res.add(u);
 	    }
 	}
@@ -201,5 +201,11 @@ public class UserRemoteService {
     public void updateLocation(ASObject currentLocationObj) {
 	User currentUser = userContext.getCurrentUser();
 	currentUser.setCurrentLocation(locationContext.parseLocationTags(currentLocationObj));
+    }
+    
+    public void switchAvailability() {
+	User currentUser = userContext.getCurrentUser();
+	currentUser.setAvailable(!currentUser.isAvailable());
+	userService.update(currentUser);
     }
 }
