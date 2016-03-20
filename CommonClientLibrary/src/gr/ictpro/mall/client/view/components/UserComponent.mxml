@@ -96,40 +96,44 @@
 			</s:Group>
 		</s:Group>
 	</s:FormItem>	
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Enabled')}"
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('Enabled')}"
 					includeIn="edit">
 			<s:CheckBox id="chkEnabled" selected="@{vo.enabled}"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('New Password')}"
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('New Password')}"
 					includeIn="edit, profile" >
 			<s:TextInput id="txtPassword" width="100%" autoCapitalize="word" displayAsPassword="true"
 						 text="" textAlign="left"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Reenter New Password')}"
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('Reenter New Password')}"
 					includeIn="edit, profile" >
 			<s:TextInput id="txtPassword2" width="100%" autoCapitalize="word"
 						 displayAsPassword="true" text="" textAlign="left"/>
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Name')}">
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
 			<s:TextInput id="txtName" width="100%" autoCapitalize="word"
 						 text="@{vo.profile.name}" textAlign="left"
 						 enabled.view="false" enabled.parentedit="false" />
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Email')}" includeIn="edit, profile, parentedit"  >
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('Email')}" includeIn="edit, profile, parentedit"  >
 			<s:TextInput id="txtEmail" width="100%" autoCorrect="false" softKeyboardType="email"
 						 text="@{vo.email}" textAlign="left" enabled.parentedit="false" />
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Language')}" includeIn="edit, profile" >
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('Language')}" includeIn="edit, profile" >
 			<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)"  enabled.parentedit="false"  />
 		</s:FormItem>
-		<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Color')}"
+		<s:FormItem width="100%" label="{Device.translations.getTranslation('Color')}"
 					includeIn="edit, profile" >
 			<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
 								  selected="{Device.getDefaultColor()}"/>
 		</s:FormItem>
-	<s:FormItem width="100%" label="{Device.tranlations.getTranslation('Disallow Unattended Meetings')}"
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Disallow Unattended Meetings')}"
 				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit, parentedit" >
 		<s:CheckBox id="chkAllowUnattendedMeeting" selected="@{vo.disallowUnattendedMeetings}"/>
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Auto-approve Unattended Meetings')}"
+				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit, parentedit" >
+		<s:CheckBox id="chkAutoApproveUnattendedMeetings" selected="@{vo.autoApproveUnattendedMeetings}"/>
 	</s:FormItem>
 
 </s:VOEditor>

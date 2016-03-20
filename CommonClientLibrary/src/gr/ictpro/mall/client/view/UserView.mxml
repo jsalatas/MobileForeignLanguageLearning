@@ -3,9 +3,9 @@
 			   xmlns:s="gr.ictpro.mall.client.components.*"
 			   xmlns:signals="org.osflash.signals.*"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   title.view="{Device.tranlations.getTranslation('View User')}"
-			   title.edit="{Device.tranlations.getTranslation('Edit User')}"
-			   title.profile="{Device.tranlations.getTranslation('My Profile')}"
+			   title.view="{Device.translations.getTranslation('View User')}"
+			   title.edit="{Device.translations.getTranslation('Edit User')}"
+			   title.profile="{Device.translations.getTranslation('My Profile')}"
 			   width="100%" height="100%" xmlns:components="gr.ictpro.mall.client.view.components.*" >
 	<s:states>
 		<mx:State name="edit"/>

@@ -14,14 +14,14 @@ package gr.ictpro.mall.client.model.vomapper
 		public var filter:Function;
 		public var addFilter:Function;
 		private var _list:ArrayCollection;
-		public var readOnly:Boolean;
+		public var readOnly:Function;
 		public var beforeDelete:Function;
 		public var afterAdd:Function;
 		public var showCondition:Function;
 
 		public var initialized:Boolean = false;
 		
-		public function DetailMapper(label:String, propertyName:String, propertyClass:Class, viewComponent:Class, filter:Function, addFilter:Function, readOnly:Boolean, beforeDelete:Function, afterAdd:Function, showCondition:Function)
+		public function DetailMapper(label:String, propertyName:String, propertyClass:Class, viewComponent:Class, filter:Function, addFilter:Function, readOnly:Function, beforeDelete:Function, afterAdd:Function, showCondition:Function)
 		{
 			if(propertyClass != null && viewComponent != null) {
 				throw new IllegalOperationError("You cannot supply both voClass and viewComponent");

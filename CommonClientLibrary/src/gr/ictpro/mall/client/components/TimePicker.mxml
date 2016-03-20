@@ -72,6 +72,6 @@
 		]]>
 	</fx:Script>
 	<s:Button skinClass="{Device.dropDownSkin}"  
-				 label="{DateUtils.toShortTime(selectedTime)}" id="txt" width="100%" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
+				 label="{selectedTime!=null?DateUtils.toShortTime(selectedTime):''}" id="txt" width="100%" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
 
 </s:Group>

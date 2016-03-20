@@ -19,13 +19,13 @@ package gr.ictpro.mall.client.utils.date
 			
 		private static function getDayNames():ArrayCollection
 		{
-			var res:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sunday'), 
-			Device.tranlations.getTranslation('Monday'), 
-			Device.tranlations.getTranslation('Tuesday'), 
-			Device.tranlations.getTranslation('Wednesday'), 
-			Device.tranlations.getTranslation('Thusrday'), 
-			Device.tranlations.getTranslation('Friday'), 
-			Device.tranlations.getTranslation('Saturday')]);
+			var res:ArrayCollection = new ArrayCollection([Device.translations.getTranslation('Sunday'), 
+			Device.translations.getTranslation('Monday'), 
+			Device.translations.getTranslation('Tuesday'), 
+			Device.translations.getTranslation('Wednesday'), 
+			Device.translations.getTranslation('Thusrday'), 
+			Device.translations.getTranslation('Friday'), 
+			Device.translations.getTranslation('Saturday')]);
 			
 			return res;
 		}
@@ -36,13 +36,13 @@ package gr.ictpro.mall.client.utils.date
 			
 		private static function getShortDayNames():ArrayCollection
 		{
-			var res:ArrayCollection = new ArrayCollection([Device.tranlations.getTranslation('Sun'), 
-			Device.tranlations.getTranslation('Mon'), 
-			Device.tranlations.getTranslation('Tue'), 
-			Device.tranlations.getTranslation('Wed'), 
-			Device.tranlations.getTranslation('Thu'), 
-			Device.tranlations.getTranslation('Fri'), 
-			Device.tranlations.getTranslation('Sat')]);
+			var res:ArrayCollection = new ArrayCollection([Device.translations.getTranslation('Sun'), 
+			Device.translations.getTranslation('Mon'), 
+			Device.translations.getTranslation('Tue'), 
+			Device.translations.getTranslation('Wed'), 
+			Device.translations.getTranslation('Thu'), 
+			Device.translations.getTranslation('Fri'), 
+			Device.translations.getTranslation('Sat')]);
 			
 			return res;
 		}
@@ -53,18 +53,18 @@ package gr.ictpro.mall.client.utils.date
 		private static function getMonthNames():ArrayCollection
 		{
 			var res:ArrayCollection = new ArrayCollection([
-			Device.tranlations.getTranslation('January'), 
-			Device.tranlations.getTranslation('February'), 
-			Device.tranlations.getTranslation('March'), 
-			Device.tranlations.getTranslation('April'), 
-			Device.tranlations.getTranslation('May'), 
-			Device.tranlations.getTranslation('June'), 
-			Device.tranlations.getTranslation('July'), 
-			Device.tranlations.getTranslation('August'), 
-			Device.tranlations.getTranslation('September'), 
-			Device.tranlations.getTranslation('October'), 
-			Device.tranlations.getTranslation('November'), 
-			Device.tranlations.getTranslation('December')]);
+			Device.translations.getTranslation('January'), 
+			Device.translations.getTranslation('February'), 
+			Device.translations.getTranslation('March'), 
+			Device.translations.getTranslation('April'), 
+			Device.translations.getTranslation('May'), 
+			Device.translations.getTranslation('June'), 
+			Device.translations.getTranslation('July'), 
+			Device.translations.getTranslation('August'), 
+			Device.translations.getTranslation('September'), 
+			Device.translations.getTranslation('October'), 
+			Device.translations.getTranslation('November'), 
+			Device.translations.getTranslation('December')]);
 			return res;
 		}
 

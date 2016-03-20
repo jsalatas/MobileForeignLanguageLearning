@@ -63,7 +63,7 @@ public class ProximityRegistrationProvider extends AbstractRegistrationProvider 
 	    e.printStackTrace();
 	}                                 
 	 
-	User u = new User(userName, password, email, false, false, true);
+	User u = new User(userName, password, email, false, false, false, true);
 	u.setRoles(r);
 	
 	// check if we should enable

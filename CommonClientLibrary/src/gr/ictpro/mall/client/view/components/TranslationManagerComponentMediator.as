@@ -81,10 +81,10 @@ package gr.ictpro.mall.client.view.components
 					
 				
 				var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + filename +".xml");
-				xmlFile.browseForSave(Device.tranlations.getTranslation("Save Transalations"));
+				xmlFile.browseForSave(Device.translations.getTranslation("Save Transalations"));
 				xmlFile.addEventListener(Event.SELECT, saveTranslationsXML);
 			} else if (type == UPDATE_TRANSLATIONS) {
-				UI.showInfo(Device.tranlations.getTranslation("Translations Successfully Uploaded"));
+				UI.showInfo(Device.translations.getTranslation("Translations Successfully Uploaded"));
 			}
 		}
 
@@ -110,7 +110,7 @@ package gr.ictpro.mall.client.view.components
 		private function uploadTranslationsHandler():void 
 		{
 			var xmlFile:File = new File();
-			xmlFile.browseForOpen(Device.tranlations.getTranslation("Select Transalations"), [new FileFilter(Device.tranlations.getTranslation("Translation XML Files"), "*.xml")]);
+			xmlFile.browseForOpen(Device.translations.getTranslation("Select Transalations"), [new FileFilter(Device.translations.getTranslation("Translation XML Files"), "*.xml")]);
 			xmlFile.addEventListener(Event.SELECT, openTranslationsXML);
 		}
 

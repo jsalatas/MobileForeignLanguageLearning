@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VOEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					 xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:signals="org.osflash.signals.*">
+	<s:states>
+		<mx:State name="new" />
+		<mx:State name="edit" />
+	</s:states>
+
+	<fx:Declarations>
+		<signals:Signal id="timeChangedSignal" /> 
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			[Bindable]
+			public var _meetingTypes:ArrayCollection;
+
+			[Bindable]
+			public var currentUserIsStudent:Boolean; 
+			
+			public function set meetingTypes(meetingTypes:ArrayCollection):void
+			{
+				this._meetingTypes = meetingTypes;
+			}
+			
+			override public function set vo(vo:Object):void
+			{
+				super.vo = vo;
+				selectMeetingType();
+			}
+
+			protected function meetingTypePopup_initializeHandler(event:FlexEvent):void
+			{
+				selectMeetingType();
+			}
+
+			// set initial selected meeting type
+			private function selectMeetingType():void {
+				if( vo != null && vo.meetingType != null && meetingTypePopup != null) {
+					meetingTypePopup.selected = vo.meetingType;
+				}
+			}
+			
+			protected function chkNow_clickHandler(event:MouseEvent):void
+			{
+				if(chkNow.selected) {
+					time.enabled = false;
+					time.date = null;
+				} else {
+					time.enabled = true;
+					time.date = vo.time;
+				}
+				timeChangedSignal.dispatch();
+			}
+			
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
+		<s:TextInput id="txtName" width="100%" text="{vo.name.substr(0, vo.name.indexOf('---'))}" textAlign="left"/>
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Meeting Type')}">
+		<s:PopUpList id="meetingTypePopup" width="100%" dataList="{_meetingTypes}" textAlign="left" initialize="meetingTypePopup_initializeHandler(event)" />
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Start at')}">
+		<s:DateTimePicker width="100%" id="time" date="{vo.time}" /> 
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Now')}">
+		<s:CheckBox id="chkNow" click="chkNow_clickHandler(event)" /> 
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Approve')}" includeIn="edit" visible="{!currentUserIsStudent}">
+		<s:CheckBox id="chkApprove" selected="@{vo.approve}" />
+	</s:FormItem>
+
+</s:VOEditor>

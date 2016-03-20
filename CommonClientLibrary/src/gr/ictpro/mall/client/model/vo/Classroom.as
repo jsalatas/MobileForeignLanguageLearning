@@ -17,7 +17,8 @@ package gr.ictpro.mall.client.model.vo
 		public var teacher:User;
 		public var calendars:ArrayCollection;
 		public var forceUILanguage:Boolean;
-		public var allowUnattendedMeetings:Boolean;
+		public var disallowUnattendedMeetings:Boolean;
+		public var autoApproveUnattendedMeetings:Boolean;
 		
 		public function Classroom()
 		{

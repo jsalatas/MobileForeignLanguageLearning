@@ -30,17 +30,17 @@
 			<s:layout>
 				<s:FormLayout/>
 			</s:layout>
-			<s:FormItem label="{Device.tranlations.getTranslation('Server URL')}">
+			<s:FormItem label="{Device.translations.getTranslation('Server URL')}">
 				<s:TextInput id="serverName" autoCorrect="false" textAlign="left" />
 			</s:FormItem>
-			<s:FormItem label="{Device.tranlations.getTranslation('Application Path')}">
+			<s:FormItem label="{Device.translations.getTranslation('Application Path')}">
 				<s:TextInput id="applicationPath" autoCorrect="false" textAlign="left"/>
 			</s:FormItem>
-			<s:FormItem label="{Device.tranlations.getTranslation('Modules Path')}" >
+			<s:FormItem label="{Device.translations.getTranslation('Modules Path')}" >
 				<s:TextInput id="modulesPath" autoCorrect="false" textAlign="left"/>
 			</s:FormItem>
 			<s:FormItem label="">
-				<s:Button id="ok" label="{Device.tranlations.getTranslation('OK')}"
+				<s:Button id="ok" label="{Device.translations.getTranslation('OK')}"
 						  click="ok_clickHandler(event)"/>		
 			</s:FormItem>
 		</s:Group>

@@ -29,13 +29,13 @@ package gr.ictpro.mall.client.runtime
 		
 		private static var _settings:RuntimeSettings; 
 
-		private static var _tranlations:Translation = new Translation();
+		private static var _translations:Translation = new Translation();
 		
 		public static var shellView:ShellView; 
 
-		public static function get tranlations():Translation
+		public static function get translations():Translation
 		{
-			return _tranlations;
+			return _translations;
 		}
 
 		public static function set device(device:IDevice):void

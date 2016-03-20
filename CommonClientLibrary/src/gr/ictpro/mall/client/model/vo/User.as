@@ -19,6 +19,7 @@ package gr.ictpro.mall.client.model.vo
 		public var teacherClassrooms:ArrayCollection;
 		public var classrooms:ArrayCollection;
 		public var disallowUnattendedMeetings:Boolean;
+		public var autoApproveUnattendedMeetings:Boolean;
 		public var available:Boolean;
 		public var parents:ArrayCollection;
 		public var children:ArrayCollection;
@@ -37,7 +38,7 @@ package gr.ictpro.mall.client.model.vo
 				if(allRoles != "") {
 					allRoles = allRoles + ", ";
 				}
-				allRoles = allRoles + Device.tranlations.getTranslation(role.role);
+				allRoles = allRoles + Device.translations.getTranslation(role.role);
 			}
 			
 			return profile +" ("+allRoles+")";

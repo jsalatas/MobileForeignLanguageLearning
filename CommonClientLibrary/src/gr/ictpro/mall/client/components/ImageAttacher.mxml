@@ -56,17 +56,17 @@
 			{
 				var res:ArrayCollection = new ArrayCollection();
 				if(CameraRoll.supportsBrowseForImage) {
-					res.addItem(new MenuItemCommand(Device.tranlations.getTranslation("Choose Photo"), Icons.icon_folder, openGallery));
+					res.addItem(new MenuItemCommand(Device.translations.getTranslation("Choose Photo"), Icons.icon_folder, openGallery));
 				}
 				
 				if(CameraUI.isSupported) {
-					res.addItem(new MenuItemCommand(Device.tranlations.getTranslation("Take New Photo"), Icons.icon_camera, capturePhoto));
+					res.addItem(new MenuItemCommand(Device.translations.getTranslation("Take New Photo"), Icons.icon_camera, capturePhoto));
 				}
 				
 				if(res.length == 0) {
 					// We assume that ther application is running on the desktop. 
 					// Show the open file dialog in order to select photo from disk
-					res.addItem(new MenuItemCommand(Device.tranlations.getTranslation("Choose Photo"), Icons.icon_folder, chooseFile));
+					res.addItem(new MenuItemCommand(Device.translations.getTranslation("Choose Photo"), Icons.icon_folder, chooseFile));
 				}
 				
 				return res;

@@ -22,10 +22,13 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.model.ConfigModel;
 	import gr.ictpro.mall.client.model.LanguageModel;
+	import gr.ictpro.mall.client.model.MeetingModel;
+	import gr.ictpro.mall.client.model.MeetingTypeModel;
 	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.ScheduleModel;
 	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.Meeting;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
@@ -84,24 +87,20 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.LanguagesViewMediator;
 	import gr.ictpro.mall.client.view.MainView;
 	import gr.ictpro.mall.client.view.MainViewMediator;
-	import gr.ictpro.mall.client.view.ScheduledMeetingsView;
-	import gr.ictpro.mall.client.view.ScheduledMeetingsViewMediator;
+	import gr.ictpro.mall.client.view.MeetingView;
+	import gr.ictpro.mall.client.view.MeetingViewMediator;
+	import gr.ictpro.mall.client.view.MeetingsView;
+	import gr.ictpro.mall.client.view.MeetingsViewMediator;
 	import gr.ictpro.mall.client.view.ServerNameView;
 	import gr.ictpro.mall.client.view.ServerNameViewMediator;
 	import gr.ictpro.mall.client.view.SettingsView;
 	import gr.ictpro.mall.client.view.SettingsViewMediator;
 	import gr.ictpro.mall.client.view.ShellView;
 	import gr.ictpro.mall.client.view.ShellViewMediator;
-	import gr.ictpro.mall.client.view.TextChatView;
-	import gr.ictpro.mall.client.view.TextChatViewMediator;
 	import gr.ictpro.mall.client.view.UserView;
 	import gr.ictpro.mall.client.view.UserViewMediator;
 	import gr.ictpro.mall.client.view.UsersView;
 	import gr.ictpro.mall.client.view.UsersViewMediator;
-	import gr.ictpro.mall.client.view.VideoChatView;
-	import gr.ictpro.mall.client.view.VideoChatViewMediator;
-	import gr.ictpro.mall.client.view.WhiteBoardView;
-	import gr.ictpro.mall.client.view.WhiteBoardViewMediator;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
 	
@@ -156,6 +155,8 @@ package gr.ictpro.mall.client
 			injector.mapSingleton(ClientSettingsModel);
 			injector.mapSingleton(CalendarModel);
 			injector.mapSingleton(ScheduleModel);
+			injector.mapSingleton(MeetingModel);
+			injector.mapSingleton(MeetingTypeModel);
 
 			
 			mediatorMap.mapView(ShellView, ShellViewMediator);
@@ -173,10 +174,8 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(CalendarDayView, CalendarDayViewMediator, TopBarView);
 			mediatorMap.mapView(CalendarView, CalendarViewMediator, TopBarView);
 			mediatorMap.mapView(UsersView, UsersViewMediator, TopBarView);
-			mediatorMap.mapView(ScheduledMeetingsView, ScheduledMeetingsViewMediator, TopBarView);
-			mediatorMap.mapView(VideoChatView, VideoChatViewMediator, TopBarView);
-			mediatorMap.mapView(TextChatView, TextChatViewMediator, TopBarView);
-			mediatorMap.mapView(WhiteBoardView, WhiteBoardViewMediator, TopBarView);
+			mediatorMap.mapView(MeetingView, MeetingViewMediator, TopBarView);
+			mediatorMap.mapView(MeetingsView, MeetingsViewMediator, TopBarView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);
@@ -208,6 +207,8 @@ package gr.ictpro.mall.client
 			injector.getInstance(ClientSettingsModel);
 			injector.getInstance(CalendarModel);
 			injector.getInstance(ScheduleModel);
+			injector.getInstance(MeetingModel);
+			injector.getInstance(MeetingTypeModel);
 
 		}
 	}

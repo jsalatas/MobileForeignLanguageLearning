@@ -50,9 +50,10 @@ public class User implements java.io.Serializable, UserDetails {
     private Profile profile;
     private Classroom currentClassroom;
     private boolean disallowUnattendedMeetings;
+    private boolean autoApproveUnattendedMeetings;
     private boolean available;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
-    private Set<Meeting> meetings = new HashSet<Meeting>(0);
+    private Set<Meeting> approvedMeetings = new HashSet<Meeting>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
     private Set<Classroom> teacherClassrooms = new HashSet<Classroom>(0);
@@ -69,20 +70,21 @@ public class User implements java.io.Serializable, UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String email, boolean enabled, boolean disallowUnattendedMeetings, boolean available) {
+    public User(String username, String password, String email, boolean enabled, boolean disallowUnattendedMeetings, boolean autoApproveUnattendedMeetings, boolean available) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
 	this.enabled = enabled;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
 	this.available = available;
     }
 
     public User(String username, String password, String email, boolean enabled, Profile profile,
-	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> meetings, 
+	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> approvedMeetings, 
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
-	    boolean available, Set<User> children, Set<User> parents) {
+	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -98,7 +100,8 @@ public class User implements java.io.Serializable, UserDetails {
 	this.locations = locations;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
 	this.available = available;
-	this.meetings = meetings;
+	this.approvedMeetings = approvedMeetings;
+	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
 	this.meetingUsers = meetingUsers;
 	this.parents = parents;
 	this.children = children;
@@ -339,6 +342,15 @@ public class User implements java.io.Serializable, UserDetails {
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
     }
 
+    @Column(name = "auto_approve_unattended_meetings", nullable = false)
+    public boolean isAutoApproveUnattendedMeetings() {
+	return this.autoApproveUnattendedMeetings;
+    }
+
+    public void setAutoApproveUnattendedMeetings(boolean autoApproveUnattendedMeetings) {
+	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
+    }
+
     @Column(name = "available", nullable = false)
     public boolean isAvailable() {
 	return this.available;
@@ -359,15 +371,15 @@ public class User implements java.io.Serializable, UserDetails {
 	this.currentLocation = currentLocation;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "approvedBy")
     @AmfIgnore
-    public Set<Meeting> getMeetings() {
-	return this.meetings;
+    public Set<Meeting> getApprovedMeetings() {
+	return this.approvedMeetings;
     }
 
     @AmfIgnore
-    public void setMeetings(Set<Meeting> meetings) {
-	this.meetings = meetings;
+    public void setApprovedMeetings(Set<Meeting> approvedMeetings) {
+	this.approvedMeetings = approvedMeetings;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

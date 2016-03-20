@@ -15,7 +15,7 @@ package gr.ictpro.mall.client.model.vo
 		
 		public function toString():String
 		{
-			return Device.tranlations.getTranslation(role);
+			return Device.translations.getTranslation(role);
 		}
 
 	}

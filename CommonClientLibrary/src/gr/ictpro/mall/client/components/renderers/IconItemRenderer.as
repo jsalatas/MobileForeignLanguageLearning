@@ -7,7 +7,6 @@ package gr.ictpro.mall.client.components.renderers
 	import flash.events.TimerEvent;
 	import flash.net.URLRequest;
 	import flash.utils.Timer;
-	import flash.utils.flash_proxy;
 	
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.utils.string.IntoToHexString;
@@ -21,8 +20,6 @@ package gr.ictpro.mall.client.components.renderers
 	import mx.utils.DensityUtil;
 	
 	import spark.components.LabelItemRenderer;
-	import spark.components.supportClasses.InteractionState;
-	import spark.components.supportClasses.StyleableTextField;
 	import spark.core.ContentCache;
 	import spark.core.DisplayObjectSharingMode;
 	import spark.core.IContentLoader;
@@ -342,8 +339,8 @@ package gr.ictpro.mall.client.components.renderers
 			iconChanged = true;
 			labelChanged = true;
 			
-			//labelDisplay.setStyle("color", (selected || down)?"0xffffff":IntoToHexString.convertToHex(Device.getDefaultColor()));
 			if(value!= null && value.hasOwnProperty("isGroup") && value.isGroup) {
+				labelDisplay.setStyle("color", IntoToHexString.convertToHex(Device.getDefaultColor()));
 				isGroup = true;
 				labelDisplay.setStyle("fontSize", _fontSize + Device.getScaledSize(2));
 				labelDisplay.setStyle("fontWeight", 'bold');

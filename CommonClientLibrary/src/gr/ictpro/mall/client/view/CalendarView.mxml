@@ -14,9 +14,9 @@
 			protected function topbardetailview1_stateChangeCompleteHandler(event:FlexEvent):void
 			{
 				if(currentState == "new") {
-					title=Device.tranlations.getTranslation('New '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
+					title=Device.translations.getTranslation('New '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
 				} else {
-					title=Device.tranlations.getTranslation('Edit '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
+					title=Device.translations.getTranslation('Edit '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
 				}
 			}
 			

@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
+	import gr.ictpro.mall.client.utils.boolean.Answer;
 	import gr.ictpro.mall.client.utils.collections.ArrayUtils;
 	import gr.ictpro.mall.client.view.UserView;
 	import gr.ictpro.mall.client.view.components.UserComponent;
@@ -15,9 +16,9 @@ package gr.ictpro.mall.client.model
 		public function UserModel()
 		{
 			super(User, UserView, UserComponent);
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, false, null, null, null));
-			addDetail(new DetailMapper("Children", "children", User, null, null, UserModel.isStudent, false, null, null, UserModel.isParent));
-			addDetail(new DetailMapper("Parents", "parents", User, null, null, UserModel.isParent, false, null, null, UserModel.isStudent));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, Answer.falseValue, null, null, null));
+			addDetail(new DetailMapper("Children", "children", User, null, null, UserModel.isStudent, Answer.falseValue, null, null, UserModel.isParent));
+			addDetail(new DetailMapper("Parents", "parents", User, null, null, UserModel.isParent, Answer.falseValue, null, null, UserModel.isStudent));
 		}
 		
 		public function get saveErrorMessage():String

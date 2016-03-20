@@ -1,28 +1,28 @@
 package gr.ictpro.mall.client.model
 {
-	import gr.ictpro.mall.client.model.vo.Role;
+	import gr.ictpro.mall.client.model.vo.MeetingType;
 	import gr.ictpro.mall.client.runtime.Device;
 
-	public class RoleModel extends AbstractModel implements IServerPersistent
+	public class MeetingTypeModel extends AbstractModel implements IServerPersistent
 	{
-		public function RoleModel()
+		public function MeetingTypeModel()
 		{
-			super(Role, null, null);
+			super(MeetingType, null, null);
 		}
 		
 		public function get saveErrorMessage():String
 		{
-			throw new Error("Save operation not permitted in Role objects");
+			throw new Error("Save operation not permitted in MeetingType objects");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			throw new Error("Delete operation not permitted in Role objects");
+			throw new Error("Delete operation not permitted in MeetingType objects");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Device.translations.getTranslation("Cannot Get Roles.");
+			return Device.translations.getTranslation("Cannot Get Meeting Types.");
 		}
 		
 		public function get idField():String
@@ -37,22 +37,22 @@ package gr.ictpro.mall.client.model
 		
 		public function get destination():String
 		{
-			return "authenticationRemoteService";
+			return "meetingRemoteService";
 		}
 		
 		public function get saveMethod():String
 		{
-			throw new Error("Save operation not permitted in Role objects");
+			throw new Error("Save operation not permitted in MeetingType objects");
 		}
 		
 		public function get deleteMethod():String
 		{
-			throw new Error("Delete operation not permitted in Role objects");
+			throw new Error("Delete operation not permitted in MeetingType objects");
 		}
 		
 		public function get listMethod():String
 		{
-			return "getRoles";
+			return "getMeetingTypes";
 		}
 	}
 }

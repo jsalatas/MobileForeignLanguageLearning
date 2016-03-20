@@ -59,7 +59,7 @@ package gr.ictpro.mall.client.components
 				} else {
 					var tabbedList:TabbedList = new TabbedList();
 					addToSignal(tabbedList.fillChoices, fillPopupList);
-					tabbedList.setCurrentState(selectedTab.readOnly?"readonly":"default");
+					tabbedList.setCurrentState(selectedTab.readOnly()?"readonly":"default");
 					selectedTab.list = selectedTab.filter == null? view.vo[selectedTab.propertyName]: filterList(view.vo[selectedTab.propertyName], selectedTab.filter);
 					if(selectedTab.list == null) {
 						selectedTab.list = new ArrayCollection();

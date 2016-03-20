@@ -66,7 +66,7 @@
 	
 	
 	
-	<s:Button skinClass="{Device.dropDownSkin}" label="{DateUtils.toShortDate(selectedDate)}" 
+	<s:Button skinClass="{Device.dropDownSkin}" label="{selectedDate != null?DateUtils.toShortDate(selectedDate):''}" 
 			id="txt" width="100%" click="txt_clickHandler(event)" mouseDown="txt_mouseDownHandler(event)" />
 
 </s:Group>

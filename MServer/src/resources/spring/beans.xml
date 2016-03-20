@@ -6,7 +6,7 @@
 
 	<!-- Auto register annotated components as Spring Beans -->
 	<context:component-scan base-package="gr.ictpro.mall" />
-
+	
 	<bean id="userDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
 		<constructor-arg>
         	<value>gr.ictpro.mall.model.User</value>

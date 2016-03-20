@@ -5,6 +5,7 @@ package gr.ictpro.mall.client.view
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
+	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.LanguageModel;
 	import gr.ictpro.mall.client.model.UserModel;
@@ -27,6 +28,9 @@ package gr.ictpro.mall.client.view
 	{
 		private static var GET_USER:String = "getUser";
 
+		[Inject]
+		public var mainMenu:MainMenu;
+		
 		[Inject]
 		public var settings:RuntimeSettings;
 
@@ -183,9 +187,10 @@ package gr.ictpro.mall.client.view
 		private function saveSuccessHandler(classType:Class):void
 		{
 			if(classType == User) {
-				if(view.parameters == null) {
+				if(view.parameters.vo.id == settings.user.id) {
 					// user edited his own profile
 					settings.user = User(view.parameters.vo);
+					settings.menu = mainMenu.getMenu(settings.user);
 				}
 			}
 		}

@@ -12,8 +12,13 @@
 		
 		public function set date(date:Date):void 
 		{
-			selectedDate = new Date(date);	
-			selectedTime = new Date(date);
+			if(date != null) {
+				selectedDate = new Date(date);	
+				selectedTime = new Date(date);
+			} else {
+				selectedDate = null;	
+				selectedTime = null;
+			}
 		}
 		
 		public function get date():Date

@@ -34,6 +34,8 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (7,'mail.smtp_starttls_enable','true');
 		INSERT IGNORE INTO `config` VALUES (8,'mail.debug','false');
 		INSERT IGNORE INTO `config` VALUES (9,'allow_unattended_meetings','true');
+		INSERT IGNORE INTO `config` VALUES (10,'bigbluebutton.secret','secret');
+		INSERT IGNORE INTO `config` VALUES (11,'bigbluebutton.servername','servername');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');

@@ -38,8 +38,10 @@
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
 				fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
-				fxgAddDetail.transform.colorTransform = Device.getDefaultColorTransform();
-				fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+				if(currentState == "default") {
+					fxgAddDetail.transform.colorTransform = Device.getDefaultColorTransform();
+					fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+				}
 			}
 			
 			protected function viewDetailHandler(event:MouseEvent):void
@@ -97,11 +99,19 @@
 			protected function list_changeHandler(event:IndexChangeEvent):void
 			{
 				if(list.selectedItem == null) {
-					fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
-					fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+					if(fxgViewDetail != null) {
+						fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+					}
+					if(fxgRemoveDetail != null) {
+						fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform(0.2);
+					}
 				} else {
-					fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform();
-					fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform();
+					if(fxgViewDetail != null) {
+						fxgViewDetail.transform.colorTransform = Device.getDefaultColorTransform();
+					}
+					if(fxgRemoveDetail != null) {
+						fxgRemoveDetail.transform.colorTransform = Device.getDefaultColorTransform();
+					}
 				}
 			}
 		]]>

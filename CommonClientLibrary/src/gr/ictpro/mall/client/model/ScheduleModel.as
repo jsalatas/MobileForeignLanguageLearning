@@ -34,12 +34,12 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Schedule.");
+			return Device.translations.getTranslation("Cannot Save Schedule.");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Delete Schedule.");
+			return Device.translations.getTranslation("Cannot Delete Schedule.");
 		}
 		
 		public function get listErrorMessage():String

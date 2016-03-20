@@ -16,7 +16,7 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			
-			view.title = Device.tranlations.getTranslation("Classroom Groups");
+			view.title = Device.translations.getTranslation("Classroom Groups");
 		}
 	}
 }

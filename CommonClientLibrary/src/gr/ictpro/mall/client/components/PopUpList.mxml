@@ -91,7 +91,7 @@
 			protected function initializeHandler(event:Event):void
 			{
 				if(selected == null) {
-					txt.label=Device.tranlations.getTranslation("Select Item");
+					txt.label=Device.translations.getTranslation("Select Item");
 				}
 			}
 

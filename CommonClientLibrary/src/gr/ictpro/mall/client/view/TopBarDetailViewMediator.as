@@ -1,12 +1,7 @@
 package gr.ictpro.mall.client.view
 {
 	import flash.events.MouseEvent;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
 	
-	import mx.states.State;
-	
-	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
@@ -78,12 +73,12 @@ package gr.ictpro.mall.client.view
 		
 		private function okClicked(event:MouseEvent):void
 		{
-			beforeSaveHandler();
 			for each(var dm:DetailMapper in model.detailMapper) {
-				if(dm.propertyName != null && !dm.readOnly && dm.initialized) {
+				if(dm.propertyName != null && !dm.readOnly() && dm.initialized) {
 					view.parameters.vo[dm.propertyName] = dm.list;
 				}
 			}
+			beforeSaveHandler();
 
 			if(validateSave()) {
 				saveHandler();

@@ -20,7 +20,7 @@ package gr.ictpro.mall.client.model
 		
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Client Settings.");
+			return Device.translations.getTranslation("Cannot Save Client Settings.");
 		}
 		
 		public function get deleteErrorMessage():String
@@ -30,7 +30,7 @@ package gr.ictpro.mall.client.model
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Client Settings.");
+			return Device.translations.getTranslation("Cannot Get Client Settings.");
 		}
 		
 		public function get idField():String

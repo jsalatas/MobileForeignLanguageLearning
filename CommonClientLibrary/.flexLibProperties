@@ -205,14 +205,18 @@
     <classEntry path="gr.ictpro.mall.client.signal.GetTranslationsSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.GetTranslationsCommand"/>
     <classEntry path="gr.ictpro.mall.client.signal.MenuChangedSignal"/>
-    <classEntry path="gr.ictpro.mall.client.view.VideoChatView"/>
     <classEntry path="gr.ictpro.mall.client.view.VideoChatViewMediator"/>
-    <classEntry path="gr.ictpro.mall.client.view.WhiteBoardViewMediator"/>
-    <classEntry path="gr.ictpro.mall.client.view.TextChatViewMediator"/>
-    <classEntry path="gr.ictpro.mall.client.view.ScheduledMeetingsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.MeetingViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.components.MultipleSelectionsList"/>
     <classEntry path="gr.ictpro.mall.client.components.renderers.LongPressIconItemRenderer"/>
     <classEntry path="gr.ictpro.mall.client.components.LongPressEvent"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.Meeting"/>
+    <classEntry path="gr.ictpro.mall.client.model.MeetingModel"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.MeetingComponent"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.MeetingType"/>
+    <classEntry path="gr.ictpro.mall.client.view.MeetingsView"/>
+    <classEntry path="gr.ictpro.mall.client.view.MeetingsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.utils.boolean.Answer"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

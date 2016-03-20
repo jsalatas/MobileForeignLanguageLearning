@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailSender;
 
+import gr.ictpro.mall.bbb.ApiCall;
 import gr.ictpro.mall.helper.DatabaseBasedMailSender;
 import gr.ictpro.mall.model.Config;
 import gr.ictpro.mall.service.GenericService;
@@ -13,6 +14,10 @@ import gr.ictpro.mall.service.GenericService;
 public class ConfigRemoteService {
     @Autowired(required = true)
     private GenericService<Config, Integer> configService;
+
+    @Autowired(required = true)
+    private ApiCall checkSum;
+
     private MailSender mailSender;
 
     @Autowired(required = true)
@@ -33,6 +38,7 @@ public class ConfigRemoteService {
 	    configService.update(persistentConfig);
 	}
 	((DatabaseBasedMailSender)mailSender).init();
+	checkSum.init();
     }
 
 }

@@ -7,13 +7,11 @@ package gr.ictpro.mall.client
 	import assets.fxg.languages;
 	import assets.fxg.link;
 	import assets.fxg.logout;
+	import assets.fxg.meeting;
 	import assets.fxg.profile;
 	import assets.fxg.settings;
-	import assets.fxg.textchat;
 	import assets.fxg.users;
-	import assets.fxg.videochat;
-	import assets.fxg.whiteboard;
-
+	
 	public final class Icons
 	{
 		public static const icon_defaultProfile:profile = new profile();
@@ -27,9 +25,7 @@ package gr.ictpro.mall.client
 		public static const icon_folder:folder = new folder();
 		public static const icon_calendar:calendar = new calendar();
 		public static const icon_users:users = new users();
-		public static const icon_textchat:textchat = new textchat();
-		public static const icon_videochat:videochat = new videochat();
-		public static const icon_whiteboard:whiteboard = new whiteboard();
+		public static const icon_meeting:meeting = new meeting();
 		
 		public function Icons()
 		{

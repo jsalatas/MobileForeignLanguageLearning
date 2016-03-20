@@ -6,6 +6,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.utils.boolean.Answer;
 	import gr.ictpro.mall.client.view.ClassroomView;
 	import gr.ictpro.mall.client.view.components.ClassroomComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
@@ -15,26 +16,26 @@ package gr.ictpro.mall.client.model
 		public function ClassroomModel()
 		{
 			super(Classroom, ClassroomView, ClassroomComponent);
-			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, false, null, null, null));
-			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, false, null, null, null));
-			addDetail(new DetailMapper("Students", "students", User, null, null, UserModel.isStudent, false, null, null, null));
-			addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, true, null, null, null));
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, Answer.falseValue, null, null, null));
+			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, Answer.falseValue, null, null, null));
+			addDetail(new DetailMapper("Students", "students", User, null, null, UserModel.isStudent, Answer.falseValue, null, null, null));
+			addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, Answer.trueValue, null, null, null));
 
 		}
 
 		public function get saveErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Save Classroom.");
+			return Device.translations.getTranslation("Cannot Save Classroom.");
 		}
 		
 		public function get deleteErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Delete Classroom.");
+			return Device.translations.getTranslation("Cannot Delete Classroom.");
 		}
 		
 		public function get listErrorMessage():String
 		{
-			return Device.tranlations.getTranslation("Cannot Get Classrooms.");
+			return Device.translations.getTranslation("Cannot Get Classrooms.");
 		}
 		
 		public function get idField():String

@@ -28,13 +28,13 @@ package gr.ictpro.mall.client.view
 			var title:String;
 
 			if(UserModel.isAdmin(runtimeSettings.user)) {
-				title = Device.tranlations.getTranslation("Users");
+				title = Device.translations.getTranslation("Users");
 			} else if(UserModel.isAdmin(runtimeSettings.user)) {
-				title = Device.tranlations.getTranslation("Students");
+				title = Device.translations.getTranslation("Students");
 			} else if(UserModel.isStudent(runtimeSettings.user)) {
-				title = Device.tranlations.getTranslation("Contacts");
+				title = Device.translations.getTranslation("Contacts");
 			} else if(UserModel.isParent(runtimeSettings.user)) {
-				title = Device.tranlations.getTranslation("Children");
+				title = Device.translations.getTranslation("Children");
 			}
 				
 			
@@ -52,7 +52,7 @@ package gr.ictpro.mall.client.view
 			var u:User = User(item);
 			var label:String = u.toString();
 			if(UserModel.isStudent(u) && (u.classrooms == null || u.classrooms.length==0) && (UserModel.isAdmin(runtimeSettings.user) ||  UserModel.isTeacher(runtimeSettings.user))) {
-				label = label + " - " + Device.tranlations.getTranslation("Unassigned");
+				label = label + " - " + Device.translations.getTranslation("Unassigned");
 			}
 			return label;
 		}

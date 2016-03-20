@@ -33,7 +33,7 @@ package gr.ictpro.mall.client.utils.ui
 		{
 			var popup:PopupNotification = new PopupNotification();
 			popup.type = PopupNotification.TYPE_ERROR;
-			popup.message = Device.tranlations.getTranslation(message);
+			popup.message = Device.translations.getTranslation(message);
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}
@@ -44,7 +44,7 @@ package gr.ictpro.mall.client.utils.ui
 		{
 			var popup:PopupNotification = new PopupNotification();
 			popup.type = PopupNotification.TYPE_INFO;
-			popup.message = Device.tranlations.getTranslation(message);
+			popup.message = Device.translations.getTranslation(message);
 			if(closeHandler != null) {
 				popup.addEventListener(PopUpEvent.CLOSE, closeHandler);
 			}

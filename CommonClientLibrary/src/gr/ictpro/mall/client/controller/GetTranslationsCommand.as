@@ -57,7 +57,7 @@ package gr.ictpro.mall.client.controller
 		private function success(type:String, result:Object):void
 		{
 			if(type == "getTranslations") {
-				Device.tranlations.translations = ArrayCollection(result);
+				Device.translations.translations = ArrayCollection(result);
 				if(runtimeSettings.user != null) {
 					runtimeSettings.menu = mainMenu.getMenu(runtimeSettings.user);
 				}

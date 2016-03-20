@@ -41,7 +41,8 @@ public class Classroom implements java.io.Serializable {
     private String name;
     private String notes;
     private boolean forceUILanguage;
-    private boolean allowUnattendedMeetings;
+    private boolean disallowUnattendedMeetings;
+    private boolean autoApproveUnattendedMeetings;
     private Set<Translation> translations = new HashSet<Translation>(0);
     private Set<Classroomgroup> classroomgroups = new HashSet<Classroomgroup>(0);
     private Set<EmailTranslation> emailTranslations = new HashSet<EmailTranslation>(0);
@@ -53,15 +54,16 @@ public class Classroom implements java.io.Serializable {
     public Classroom() {
     }
 
-    public Classroom(String name, boolean forceUILanguage, boolean allowUnattendedMeetings) {
+    public Classroom(String name, boolean forceUILanguage, boolean autoApproveUnattendedMeetings, boolean disallowUnattendedMeetings) {
 	this.name = name;
 	this.forceUILanguage = forceUILanguage;
-	this.allowUnattendedMeetings = allowUnattendedMeetings;
+	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
     }
 
     public Classroom(Language language, String name, String notes, boolean forceUILanguage, Set<Translation> translations,
 	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> students, User teacher, 
-	    Set<Calendar> calendars, Set<Schedule> schedules, boolean allowUnattendedMeetings) {
+	    Set<Calendar> calendars, Set<Schedule> schedules, boolean autoApproveUnattendedMeetings, boolean disallowUnattendedMeetings) {
 	this.language = language;
 	this.name = name;
 	this.notes = notes;
@@ -72,7 +74,8 @@ public class Classroom implements java.io.Serializable {
 	this.students = students;
 	this.calendars = calendars;
 	this.schedules = schedules;
-	this.allowUnattendedMeetings = allowUnattendedMeetings;
+	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
+	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
     }
 
     @Id
@@ -114,13 +117,13 @@ public class Classroom implements java.io.Serializable {
 	this.notes = notes;
     }
     
-    @Column(name = "allow_unattended_meetings", nullable = false)
-    public boolean isAllowUnattendedMeetings() {
-	return this.allowUnattendedMeetings;
+    @Column(name = "disallow_unattended_meetings", nullable = false)
+    public boolean isDisallowUnattendedMeetings() {
+	return this.disallowUnattendedMeetings;
     }
 
-    public void setAllowUnattendedMeetings(boolean allowUnattendedMeetings) {
-	this.allowUnattendedMeetings = allowUnattendedMeetings;
+    public void setDisallowUnattendedMeetings(boolean disallowUnattendedMeetings) {
+	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
     }
 
     @Column(name = "force_ui_language", nullable = false)
@@ -208,4 +211,12 @@ public class Classroom implements java.io.Serializable {
 	this.calendars = calendars;
     }
 
+    @Column(name = "auto_approve_unattended_meetings", nullable = false)
+    public boolean isAutoApproveUnattendedMeetings() {
+	return this.autoApproveUnattendedMeetings;
+    }
+
+    public void setAutoApproveUnattendedMeetings(boolean autoApproveUnattendedMeetings) {
+	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
+    }
 }
