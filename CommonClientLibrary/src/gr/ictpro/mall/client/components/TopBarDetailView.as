@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.components
 	import mx.core.mx_internal;
 	
 	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 
 	use namespace mx_internal;	
@@ -39,6 +40,15 @@ package gr.ictpro.mall.client.components
 			cancelButton = true;
 			okButton = true;
 			
+		}
+		
+		public function getDetail(propertyName:String):DetailMapper {
+			for each (var dm:DetailMapper in _detailTab.tabs.dataProvider) {
+				if(dm.propertyName == propertyName) {
+					return dm;
+				}
+			}
+			return null;
 		}
 		
 		override protected function createChildren():void

@@ -39,7 +39,8 @@
 	<bean id="configRemoteService" class="gr.ictpro.mall.flex.ConfigRemoteService">
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
-			<security:protect access="Admin" method="*" />
+			<security:protect access="Admin" method="updateConfig" />
+			<security:protect access="Admin, Teacher, Student, Parent" method="getConfig" />
 		</security:intercept-methods>
 	</bean>
 	

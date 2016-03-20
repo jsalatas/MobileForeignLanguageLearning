@@ -79,6 +79,7 @@ public class MeetingRemoteService {
 	}
 	String nameSalt = UUID.randomUUID().toString().replace("-", "");
 	if(meeting.getId() == null) {
+	    meeting.setCreatedBy(currentUser);
 	    String password = UUID.randomUUID().toString().replace("-", "");
 	    meeting.setName(meeting.getName()+ "---"+nameSalt);
 	    meeting.setPassword(password);

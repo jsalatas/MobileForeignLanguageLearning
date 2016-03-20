@@ -6,6 +6,7 @@ package gr.ictpro.mall.client.controller
 	
 	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.model.AuthenticationDetails;
+	import gr.ictpro.mall.client.model.vo.Config;
 	import gr.ictpro.mall.client.model.vo.Notification;
 	import gr.ictpro.mall.client.model.vo.Role;
 	import gr.ictpro.mall.client.model.vo.User;
@@ -102,19 +103,18 @@ package gr.ictpro.mall.client.controller
 			} else {
 				messagingService.init();
 				settings.user = user;
-				//if(user.currentClassroom != null) {
 				getTranslationsSignal.dispatch();
-				//}
 				listSuccessSignal.add(listSuccess);
 				listErrorSignal.add(listError);
 				listSignal.dispatch(Role);
+				listSignal.dispatch(Config);
 			}
 		}
 		
 		private function listSuccess(classType:Class):void
 		{
 			if(classType == Role) {
-				settings.menu = mainMenu.getMenu(settings.user);
+				//settings.menu = mainMenu.getMenu(settings.user);
 				listSignal.dispatch(Notification);
 			}
 			if(classType == Notification) {

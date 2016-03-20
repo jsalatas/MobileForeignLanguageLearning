@@ -12,7 +12,6 @@ package gr.ictpro.mall.client.components.menu
 	import gr.ictpro.mall.client.view.ClassroomgroupsView;
 	import gr.ictpro.mall.client.view.ClassroomsView;
 	import gr.ictpro.mall.client.view.LanguagesView;
-	import gr.ictpro.mall.client.view.MeetingView;
 	import gr.ictpro.mall.client.view.MeetingsView;
 	import gr.ictpro.mall.client.view.SettingsView;
 	import gr.ictpro.mall.client.view.UserView;
@@ -37,9 +36,7 @@ package gr.ictpro.mall.client.components.menu
 
 			// Communications (common to all users)
 			res.addItem(new MenuItemGroup(Device.translations.getTranslation("Communications")));
-			if(!UserModel.isStudent(user) || !user.disallowUnattendedMeetings) {
-				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Meetings"), Icons.icon_meeting, MeetingsView));
-			}
+			res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Meetings"), Icons.icon_meeting, MeetingsView));
 
 			res.addItem(new MenuItemGroup(Device.translations.getTranslation("Manage")));
 			// System Settings (admin) 
@@ -57,8 +54,6 @@ package gr.ictpro.mall.client.components.menu
 				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Users"), Icons.icon_users, UsersView));
 			}
 			
-			res.addItem(new MenuItemGroup(""));
-
 			//Calendar View (common to all roles)
 			res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Calendar"), Icons.icon_calendar, CalendarMonthView)); 
 

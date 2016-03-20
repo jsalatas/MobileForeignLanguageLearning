@@ -2,6 +2,7 @@ package gr.ictpro.mall.model;
 
 // Generated Mar 10, 2016 8:58:08 PM by Hibernate Tools 4.0.0
 
+
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Meeting implements java.io.Serializable {
 
     private Integer id;
     private User approvedBy;
+    private User createdBy;
     private MeetingType meetingType;
     private String name;
     private String password;
@@ -46,21 +48,23 @@ public class Meeting implements java.io.Serializable {
     public Meeting() {
     }
 
-    public Meeting(MeetingType meetingType, String name, String password, Date time) {
+    public Meeting(MeetingType meetingType, String name, String password, Date time, User createdBy) {
 	this.meetingType = meetingType;
 	this.name = name;
 	this.password = password;
 	this.time = time;
+	this.createdBy = createdBy;
     }
 
     public Meeting(User approvedBy, MeetingType meetingType, String name, String password, Date time,
-	    Set<MeetingUser> meetingUsers) {
+	    Set<MeetingUser> meetingUsers, User createdBy) {
 	this.approvedBy = approvedBy;
 	this.meetingType = meetingType;
 	this.name = name;
 	this.password = password;
 	this.time = time;
 	this.meetingUsers = meetingUsers;
+	this.createdBy = createdBy;
     }
 
     @Id
@@ -162,4 +166,15 @@ public class Meeting implements java.io.Serializable {
     public void setApprove(boolean approve) {
         this.approve = approve;
     }
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "created_by", nullable = false)
+    public User getCreatedBy() {
+	return this.createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+	this.createdBy = createdBy;
+    }
+
 }

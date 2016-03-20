@@ -8,6 +8,7 @@ package gr.ictpro.mall.client.model.vo
 	{
 		public var id:Number;
 		public var approvedBy:User;
+		public var createdBy:User;
 		public var approve:Boolean;
 		public var meetingType:MeetingType;
 		public var name:String;

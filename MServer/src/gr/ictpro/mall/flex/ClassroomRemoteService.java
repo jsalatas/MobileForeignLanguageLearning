@@ -78,7 +78,7 @@ public class ClassroomRemoteService {
 	    persistentClassroom.setForceUILanguage(classroom.isForceUILanguage());
 	    persistentClassroom.setStudents(classroom.getStudents());
 	    persistentClassroom.setDisallowUnattendedMeetings(classroom.isDisallowUnattendedMeetings());
-
+	    persistentClassroom.setAutoApproveUnattendedMeetings(classroom.isAutoApproveUnattendedMeetings());
 
 	    User teacher;
 	    User currentUser = userContext.getCurrentUser();

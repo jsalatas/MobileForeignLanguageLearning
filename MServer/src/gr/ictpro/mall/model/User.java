@@ -54,6 +54,7 @@ public class User implements java.io.Serializable, UserDetails {
     private boolean available;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Meeting> approvedMeetings = new HashSet<Meeting>(0);
+    private Set<Meeting> createdMeetings = new HashSet<Meeting>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
     private Set<Classroom> teacherClassrooms = new HashSet<Classroom>(0);
@@ -65,6 +66,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<MeetingUser> meetingUsers = new HashSet<MeetingUser>(0);
     private Set<User> children = new HashSet<User>(0);
     private Set<User> parents = new HashSet<User>(0);
+    private boolean online = false;
 
 
     public User() {
@@ -84,7 +86,7 @@ public class User implements java.io.Serializable, UserDetails {
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> approvedMeetings, 
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
-	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents) {
+	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents, Set<Meeting> createdMeetings) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -105,6 +107,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.meetingUsers = meetingUsers;
 	this.parents = parents;
 	this.children = children;
+	this.createdMeetings = createdMeetings;
     }
 
     @Id
@@ -418,6 +421,27 @@ public class User implements java.io.Serializable, UserDetails {
 	this.parents = parents;
     }
 
-	
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
+    @AmfIgnore
+    public Set<Meeting> getCreatedMeetings() {
+	return this.createdMeetings;
+    }
+
+    @AmfIgnore
+    public void setCreatedMeetings(Set<Meeting> createdMeetings) {
+	this.createdMeetings = createdMeetings;
+    }
+
+    @Transient
+    public boolean isOnline() {
+        return online;
+    }
+
+    @Transient
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
+    
 
 }

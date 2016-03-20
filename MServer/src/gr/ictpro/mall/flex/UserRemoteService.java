@@ -89,6 +89,7 @@ public class UserRemoteService {
 		persistentUser.setParents(user.getParents());
 		persistentUser.setChildren(user.getChildren());
 		persistentUser.setDisallowUnattendedMeetings(user.isDisallowUnattendedMeetings());
+		persistentUser.setAutoApproveUnattendedMeetings(user.isAutoApproveUnattendedMeetings());
 		persistentUser.getProfile().setColor(user.getProfile().getColor());
 		persistentUser.getProfile().setName(user.getProfile().getName());
 		persistentUser.getProfile().setPhoto(user.getProfile().getPhoto());
@@ -105,6 +106,7 @@ public class UserRemoteService {
 		for(User persistentUser: currentUser.getChildren()) {
 		    if(persistentUser.getId().intValue() == user.getId().intValue()) {
 			persistentUser.setDisallowUnattendedMeetings(user.isDisallowUnattendedMeetings());
+			persistentUser.setAutoApproveUnattendedMeetings(user.isAutoApproveUnattendedMeetings());
 			userService.update(persistentUser);
 			break;
 		    }

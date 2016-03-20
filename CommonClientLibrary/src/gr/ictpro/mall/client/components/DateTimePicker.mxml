@@ -23,6 +23,9 @@
 		
 		public function get date():Date
 		{
+			if(selectedDate == null || selectedTime == null) {
+				return null;
+			}
 			var date:Date = new Date(selectedDate);
 			date.setHours(selectedTime.hours, selectedTime.minutes, selectedTime.seconds, selectedTime.milliseconds);
 			

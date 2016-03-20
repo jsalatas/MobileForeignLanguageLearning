@@ -115,11 +115,13 @@ public class UserContext {
     }
     
     public void addToConnectedUsers(User user) {
+	user.setOnline(true);
 	connectedUsers.put(user.getId(), user);
     }
 
     public void removeFromConnectedUsers(User user) {
 	connectedUsers.remove(user.getId());
+	user.setOnline(false);
     }
 
 }

@@ -1,5 +1,7 @@
 package gr.ictpro.mall.client.view
 {
+	import mx.collections.ArrayCollection;
+	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.MeetingModel;
@@ -43,30 +45,55 @@ package gr.ictpro.mall.client.view
 			}
 			var yesterday:Date = new Date(); 
 			yesterday.date -= 1;
-			if (MeetingComponent(TopBarDetailView(view).editor).vo.time != null && MeetingComponent(TopBarDetailView(view).editor).vo.time<yesterday) {
+			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
+			if (meetingComponent.vo.time != null && meetingComponent.vo.time<yesterday) {
 				TopBarDetailView(view).disableOK();
 				TopBarDetailView(view).disableDelete();
 			}
-			
+			if (meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
+				meetingComponent.enabled = false;
+			}
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			listSignal.dispatch(MeetingType);
 		}
 		
 		public function filterAvailableUsers(item:User):Boolean {
+			if(UserModel.isStudent(runtimeSettings.user)) {
+				if(item.disallowUnattendedMeetings) {
+					return false;
+				}
+				if(!UserModel.isStudent(item)) {
+					return false;
+				}
+			}
+			
 			if(item.id == runtimeSettings.user.id) {
 				return false;
 			}
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
 			if(meetingComponent.time.date == null) {
 				//now 
-				return item.available;
+				return item.available && item.online;
 			} 
 			return true;
 		}	
 		
 		public function removeUnavailableUsers():void {
-			trace("hello");
+			var currentUsers:ArrayCollection = TopBarDetailView(view).getDetail("users").list;
+			var toRemove:ArrayCollection = new ArrayCollection();
+			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
+			if(meetingComponent.chkNow.selected) {
+				for each (var user:User in currentUsers) {
+					if(!filterAvailableUsers(user)) {
+						toRemove.addItem(user);
+					}
+				}
+				
+				for each (var user1:User in toRemove) {
+					currentUsers.removeItemAt(currentUsers.getItemIndex(user1));
+				}
+			}
 		}
 		
 		override protected function validateSave():Boolean {

@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.model.vo
 {
 	import mx.collections.ArrayCollection;
 	
+	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.runtime.Device;
 
 	[Bindable]
@@ -21,6 +22,7 @@ package gr.ictpro.mall.client.model.vo
 		public var disallowUnattendedMeetings:Boolean;
 		public var autoApproveUnattendedMeetings:Boolean;
 		public var available:Boolean;
+		public var online:Boolean;
 		public var parents:ArrayCollection;
 		public var children:ArrayCollection;
 		[Transient]
@@ -43,6 +45,25 @@ package gr.ictpro.mall.client.model.vo
 			
 			return profile +" ("+allRoles+")";
 		}
-
+		
+		public function allowNewMeetings():Boolean {
+			if(UserModel.isTeacher(this)) {
+				return true;
+			} else if(UserModel.isAdmin(this) || UserModel.isParent(this)) {
+				return false;		
+			} 
+			// Else if Student
+			if(disallowUnattendedMeetings) {
+				return false;
+			}
+			
+			for each (var c:Classroom in this.classrooms) {
+				if(c.disallowUnattendedMeetings) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 }
