@@ -50,8 +50,9 @@ package gr.ictpro.mall.client.view
 				TopBarDetailView(view).disableOK();
 				TopBarDetailView(view).disableDelete();
 			}
-			if (meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
+			if (!UserModel.isAdmin(runtimeSettings.user) && !UserModel.isTeacher(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
 				meetingComponent.enabled = false;
+				view.disableDelete();
 			}
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
@@ -130,7 +131,9 @@ package gr.ictpro.mall.client.view
 			}
 			meetingComponent.vo.name = meetingComponent.txtName.text;
 			
-			meetingComponent.vo.users.addItem(runtimeSettings.user);
+			if(view.currentState == "new") {
+				meetingComponent.vo.users.addItem(runtimeSettings.user);
+			}
 			meetingComponent.vo.meetingType = meetingComponent.meetingTypePopup.selected;
 			
 		}

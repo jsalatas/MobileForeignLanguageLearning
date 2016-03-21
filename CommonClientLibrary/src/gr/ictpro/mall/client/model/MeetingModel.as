@@ -33,13 +33,16 @@ package gr.ictpro.mall.client.model
 		}
 		
 		public function beforeDelete(selectedUser:User, meeting:Meeting):Boolean {
-			if(!UserModel.isStudent(runtimeSettings.user)) {
-				return true;
+			if(UserModel.isParent(runtimeSettings.user)) {
+				return false;
+			} else if(UserModel.isStudent(runtimeSettings.user)) {
+				if(meeting.createdBy.id == runtimeSettings.user.id) {
+					return true;
+				} else {
+					return selectedUser.id == runtimeSettings.user.id;
+				}
 			}
-			
-			// A student can only remove himself from a meeting
-			return selectedUser.id == runtimeSettings.user.id;
-			
+			return true;
 		}
 		
 		public function get destination():String

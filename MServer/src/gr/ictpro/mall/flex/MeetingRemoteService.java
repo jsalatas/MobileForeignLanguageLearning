@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MeetingRemoteService {
@@ -44,11 +45,27 @@ public class MeetingRemoteService {
 	if(currentUser.hasRole("Admin")) {
 	    res = meetingService.listAll();
 	    
-	} else if(currentUser.hasRole("Teacher") || currentUser.hasRole("Student")) {
-	    String hql = "Select m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id = " + currentUser.getId();
+	} else if(currentUser.hasRole("Student")) {
+	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id = " + currentUser.getId();
 	    res = meetingService.listByCustomSQL(hql);
-
+	}else if(currentUser.hasRole("Teacher")) {
+	    List<Integer> userIds = new ArrayList<Integer>();
+	    for(Classroom classroom: currentUser.getTeacherClassrooms()) {
+		for(User u:classroom.getStudents()) {
+		    userIds.add(u.getId());
+		}
+	    }
+	    
+	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("+StringUtils.join(userIds, ", ")+")";
+	    res = meetingService.listByCustomSQL(hql);
 	} else if(currentUser.hasRole("Parent")) {
+	    List<Integer> userIds = new ArrayList<Integer>();
+	    for(User u: currentUser.getChildren()) {
+		userIds.add(u.getId());
+	    }
+	    
+	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("+StringUtils.join(userIds, ", ")+")";
+	    res = meetingService.listByCustomSQL(hql);
 	    
 	}
 	
@@ -78,12 +95,13 @@ public class MeetingRemoteService {
 	    }
 	}
 	String nameSalt = UUID.randomUUID().toString().replace("-", "");
+	Set<User> pendingUsers = new HashSet<User>(meeting.getUsers());
+	
 	if(meeting.getId() == null) {
 	    meeting.setCreatedBy(currentUser);
 	    String password = UUID.randomUUID().toString().replace("-", "");
 	    meeting.setName(meeting.getName()+ "---"+nameSalt);
 	    meeting.setPassword(password);
-	    Set<User> pendingUsers = new HashSet<User>(meeting.getUsers());
 	    meetingService.create(meeting);
 	    for(User u:pendingUsers) {
 		MeetingUser mu = new MeetingUser(new MeetingUserId(meeting.getId(), u.getId()), meeting, u);
@@ -105,7 +123,7 @@ public class MeetingRemoteService {
 	    Set<User> usersToAdd = new HashSet<User>();
 
 	    // find new users
-	    for (User u : meeting.getUsers()) {
+	    for (User u : pendingUsers) {
 		boolean found = false;
 		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
 		    if (mu.getUser().getId().intValue() == u.getId().intValue()) {
@@ -121,7 +139,7 @@ public class MeetingRemoteService {
 	    // find users to remove
 	    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
 		boolean found = false;
-		for (User u : meeting.getUsers()) {
+		for (User u : pendingUsers) {
 		    if (mu.getUser().getId().intValue() == u.getId().intValue()) {
 			found = true;
 			break;

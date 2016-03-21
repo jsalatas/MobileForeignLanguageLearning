@@ -139,8 +139,8 @@ public class Meeting implements java.io.Serializable {
     
     @Transient
     public Set<User> getUsers() {
-	if(this.id == null) {
-	return pendingUsers;
+	if(this.pendingUsers != null && this.pendingUsers.size()>0) {
+	    return pendingUsers;
 	}
 	
 	Set<User> res = new HashSet<User>();
