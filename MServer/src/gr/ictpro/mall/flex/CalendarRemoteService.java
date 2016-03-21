@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Calendar;
 import gr.ictpro.mall.model.Classroom;
@@ -31,6 +32,12 @@ public class CalendarRemoteService {
     @Autowired(required = true)
     private UserContext userContext;
 
+    public Calendar getCalendar(ASObject userObject) {
+	int id = (Integer) userObject.get("id");
+	Calendar c = calendarService.retrieveById(id);
+
+	return c;
+    }
 
     public List<Calendar> getCalendars() {
 	User currentUser = userContext.getCurrentUser();

@@ -1,18 +1,26 @@
 package gr.ictpro.mall.client.view
 {
+	import mx.rpc.events.FaultEvent;
+	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.CalendarModel;
 	import gr.ictpro.mall.client.model.ClassroomModel;
+	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.vo.Classroom;
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Schedule;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	import gr.ictpro.mall.client.view.components.CalendarComponent;
+	import gr.ictpro.mall.client.view.components.MeetingComponent;
 
 	public class CalendarViewMediator extends TopBarDetailViewMediator
 	{
@@ -32,6 +40,18 @@ package gr.ictpro.mall.client.view
 		public var listErrorSignal:ListErrorSignal;
 		
 		[Inject]
+		public var genericCall:GenericCallSignal;
+		
+		[Inject]
+		public var genericCallSuccess:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+
+		[Inject]
+		public var runtimeSettings:RuntimeSettings;
+
+		[Inject]
 		public function set calendarModel(model:CalendarModel):void
 		{
 			super.model = model as AbstractModel;
@@ -40,16 +60,76 @@ package gr.ictpro.mall.client.view
 		override public function onRegister():void
 		{
 			super.onRegister();
-					
+			
+			if(view.parameters != null && view.parameters.initParams != null && view.parameters.initParams.calendar_id != null) {
+				getCalendar(view.parameters.initParams.calendar_id);
+			} else {
+				init();
+			}
+		}
+
+		private function init():void {
+			var calendarComponent:CalendarComponent = CalendarComponent(TopBarDetailView(view).editor);
+			if(calendarComponent.vo.classroom != null && (UserModel.isTeacher(runtimeSettings.user) || UserModel.isAdmin(runtimeSettings.user))) {  
+				listSignal.dispatch(Classroom);
+			}
+			if(calendarComponent.vo.classroom != null && (UserModel.isStudent(runtimeSettings.user) || UserModel.isParent(runtimeSettings.user))) {
+				calendarComponent.enabled = false;
+				view.disableDelete();
+				view.disableOK();
+			}
 			addToSignal(listSuccessSignal, success);
 			addToSignal(listErrorSignal, error);
-			listSignal.dispatch(Classroom);
 			addToSignal(saveSuccessSignal, saveSuccess);
 			addToSignal(saveErrorSignal, saveError);
 			addToSignal(deleteSuccessSignal, deleteSuccess);
 			addToSignal(deleteErrorSignal, deleteError);
 		}
 		
+		private function getCalendar(id:int):void
+		{
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.id = id;
+			args.destination = "calendarRemoteService";
+			args.method = "getCalendar";
+			args.type = "get_calendar";
+			genericCallSuccess.add(genericSuccess);
+			genericCallError.add(genericError);
+			genericCall.dispatch(args);
+		}
+		
+		private function genericSuccess(type:String, result:Object):void
+		{
+			if(type == "get_calendar") {
+				removeSignals();
+				if(result != null) {
+					view.parameters.vo = result;
+					view.invalidateChildren();
+					init();
+					CalendarView(view).init();
+				} else {
+					UI.showError("Cannot get Calendar.");
+					back();
+				}
+			}
+		}
+		
+		private function genericError(type:String, event:FaultEvent):void
+		{
+			if(type == "get_calendar") {
+				removeSignals();
+				UI.showError("Cannot get Calendar.");
+				back();
+			}
+		}
+		
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
+		}
+
 		private function success(classType:Class):void
 		{
 			if(classType == Classroom) {

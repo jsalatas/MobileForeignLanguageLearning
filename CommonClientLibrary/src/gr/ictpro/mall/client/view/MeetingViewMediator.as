@@ -1,15 +1,20 @@
 package gr.ictpro.mall.client.view
 {
 	import mx.collections.ArrayCollection;
+	import mx.rpc.events.FaultEvent;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.MeetingModel;
 	import gr.ictpro.mall.client.model.MeetingTypeModel;
 	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.MeetingType;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
@@ -30,6 +35,15 @@ package gr.ictpro.mall.client.view
 		public var meetingTypeModel:MeetingTypeModel;
 
 		[Inject]
+		public var genericCall:GenericCallSignal;
+		
+		[Inject]
+		public var genericCallSuccess:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+		
+		[Inject]
 		public function set meetingModel(model:MeetingModel):void
 		{
 			super.model = model as AbstractModel;
@@ -39,9 +53,17 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			MeetingModel(model).addFilter = filterAvailableUsers;
+			if(view.parameters != null && view.parameters.initParams != null && view.parameters.initParams.meeting_id != null) {
+				getMeeting(view.parameters.initParams.meeting_id);
+			} else{
+				init();
+			}
+		}
+		
+		private function init():void {
 			TopBarDetailView(view).editor["currentUserIsStudent"] = UserModel.isStudent(runtimeSettings.user);
 			if(view.currentState == "new") {
-				TopBarDetailView(view).editor.vo.approve =UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
+				TopBarDetailView(view).editor.vo.approve = UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
 			}
 			var yesterday:Date = new Date(); 
 			yesterday.date -= 1;
@@ -58,7 +80,49 @@ package gr.ictpro.mall.client.view
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			listSignal.dispatch(MeetingType);
 		}
+		private function getMeeting(id:int):void
+		{
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.id = id;
+			args.destination = "meetingRemoteService";
+			args.method = "getMeeting";
+			args.type = "get_meeting";
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
+		}
 		
+		private function success(type:String, result:Object):void
+		{
+			if(type == "get_meeting") {
+				removeSignals();
+				if(result != null) {
+					view.parameters.vo = result;
+					view.invalidateChildren();
+					init();
+				} else {
+					UI.showError("Cannot get Meeting.");
+					back();
+				}
+			}
+		}
+		
+		private function error(type:String, event:FaultEvent):void
+		{
+			if(type == "get_meeting") {
+				removeSignals();
+				UI.showError("Cannot get Meeting.");
+				back();
+			}
+		}
+
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
+		}
+
 		public function filterAvailableUsers(item:User):Boolean {
 			if(UserModel.isStudent(runtimeSettings.user)) {
 				if(item.disallowUnattendedMeetings) {

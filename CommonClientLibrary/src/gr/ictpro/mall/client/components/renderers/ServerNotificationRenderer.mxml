@@ -20,6 +20,9 @@
 		[Bindable]
 		private var actionNeeded:Boolean = false; 
 		
+		[Bindable]
+		private var dynamic:Boolean = false; 
+		
 		
 		override public function set data(value:Object):void
 		{
@@ -27,6 +30,7 @@
 			super.data = value;
 			
 			actionNeeded = value.actionNeeded;
+			dynamic = value.dynamic;
 			if(value.date == null) {
 				currentState = "nodate";
 			} else {
@@ -52,7 +56,7 @@
 			<s:HorizontalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" verticalAlign="middle"/>
 		</s:layout>
 		<!-- Date -->
-		<s:Group includeIn="hasdate">
+		<s:Group includeIn="hasdate" width="100">
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
 			</s:layout>
@@ -63,15 +67,15 @@
 		
 		
 		<!-- Text -->
-		<s:Group>
+		<s:Group width="100%">
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left" />
 			</s:layout>
-			<s:Label id="subject" text="{data.subject}" fontWeight="bold" fontSize="{Device.getDefaultUnscaledFontSize()+2}"/>
-			<s:Label id="body" text="{data.message}" width="{Device.getUnScaledSize(width - Math.max(day.width, date.width, month.width) -ok.width) - 40}" />
+			<s:Label id="subject" text="{Device.translations.getTranslation(data.subject)}" fontWeight="bold" fontSize="{Device.getDefaultUnscaledFontSize()+2}"/>
+			<s:Label id="body" text="{Device.translations.getTranslation(data.message)}" width="{Device.getUnScaledSize(width - Math.max(day.width, date.width, month.width) -ok.width) - 40}" />
 		</s:Group>
 		
-		<s:Group width="30" id="ok" click="okHandler(event)" visible="{!actionNeeded}">
+		<s:Group width="30" id="ok" click="okHandler(event)" visible="{!actionNeeded &amp;&amp; !dynamic}">
 			<s:Group width="15" height="10" horizontalCenter="0" verticalCenter="0">
 				<fxg:ok id="fxgok" width="100%" height="100%" />
 			</s:Group>

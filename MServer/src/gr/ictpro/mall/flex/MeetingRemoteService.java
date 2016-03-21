@@ -1,5 +1,6 @@
 package gr.ictpro.mall.flex;
 
+import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Language;
@@ -37,7 +38,14 @@ public class MeetingRemoteService {
     public List<MeetingType> getMeetingTypes() {
 	return meetingTypeService.listAll();
     }
-    
+
+    public Meeting getMeeting(ASObject userObject) {
+	int id = (Integer) userObject.get("id");
+	Meeting m = meetingService.retrieveById(id);
+
+	return m;
+    }
+
     public List<Meeting> getMeetings() {
 	User currentUser = userContext.getCurrentUser();
 	List<Meeting> res = new ArrayList<Meeting>();

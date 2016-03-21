@@ -14,6 +14,7 @@ package gr.ictpro.mall.client.model.vo
 		public var subject:String;
 		public var internalModule:Boolean;
 		public var actionNeeded:Boolean;
+		public var dynamic:Boolean;
 		
 		public function Notification()
 		{

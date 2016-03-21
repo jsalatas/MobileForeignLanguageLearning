@@ -11,13 +11,19 @@
 			import gr.ictpro.mall.client.runtime.Device;
 			import gr.ictpro.mall.client.view.components.CalendarComponent;
 			
+			public function init():void {
+				if(editor != null) {
+					if(currentState == "new") {
+						title=Device.translations.getTranslation('New '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
+					} else {
+						title=Device.translations.getTranslation('Edit '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
+					}
+				}
+			}
+			
 			protected function topbardetailview1_stateChangeCompleteHandler(event:FlexEvent):void
 			{
-				if(currentState == "new") {
-					title=Device.translations.getTranslation('New '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
-				} else {
-					title=Device.translations.getTranslation('Edit '+(CalendarComponent(editor).selectedCalendarType==0?'One Time':'Recurring')+' Event');
-				}
+				init();
 			}
 			
 		]]>
