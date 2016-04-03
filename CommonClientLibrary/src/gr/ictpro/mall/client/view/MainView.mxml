@@ -28,6 +28,8 @@
 			import mx.core.IVisualElementContainer;
 			import mx.events.FlexEvent;
 			
+			import assets.fxg.butons.upload;
+			
 			import gr.ictpro.mall.client.model.vo.Classroom;
 			import gr.ictpro.mall.client.model.vo.Notification;
 			import gr.ictpro.mall.client.model.vo.User;

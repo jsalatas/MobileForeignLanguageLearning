@@ -28,7 +28,6 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.model.RoleModel;
 	import gr.ictpro.mall.client.model.ScheduleModel;
 	import gr.ictpro.mall.client.model.UserModel;
-	import gr.ictpro.mall.client.model.vo.Meeting;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;

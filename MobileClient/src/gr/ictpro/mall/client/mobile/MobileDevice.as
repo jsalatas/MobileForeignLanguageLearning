@@ -15,6 +15,7 @@ package gr.ictpro.mall.client.mobile
 	import gr.ictpro.mall.client.mobile.skins.SkinnablePopUpContainerSkin;
 	import gr.ictpro.mall.client.mobile.skins.TextAreaSkin;
 	import gr.ictpro.mall.client.mobile.skins.TextInputSkin;
+	import gr.ictpro.mall.client.mobile.skins.ToggleButtonSkin;
 	import gr.ictpro.mall.client.mobile.skins.VScrollBarSkin;
 	import gr.ictpro.mall.client.runtime.IDevice;
 	
@@ -47,6 +48,11 @@ package gr.ictpro.mall.client.mobile
 		public function get buttonSkin():Class
 		{
 			return ButtonSkin;
+		}
+		
+		public function get toggleButtonSkin():Class
+		{
+			return ToggleButtonSkin;
 		}
 		
 		public function get buttonBarSkin():Class

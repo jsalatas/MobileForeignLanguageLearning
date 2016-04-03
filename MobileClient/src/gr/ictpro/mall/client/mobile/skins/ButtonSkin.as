@@ -6,8 +6,6 @@ package gr.ictpro.mall.client.mobile.skins
 	import flash.display.LineScaleMode;
 	import flash.text.TextLineMetrics;
 	
-	import gr.ictpro.mall.client.runtime.Device;
-	
 	import mx.core.DPIClassification;
 	import mx.core.mx_internal;
 	
@@ -15,12 +13,16 @@ package gr.ictpro.mall.client.mobile.skins
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.skins.mobile.ButtonSkin;
 	
+	import gr.ictpro.mall.client.components.BitmapImage;
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	use namespace mx_internal;
 	
 	public class ButtonSkin extends spark.skins.mobile.ButtonSkin
 	{
 		protected var borderClass:Class;
 		protected var iconDefaultHeight: Number;
+		protected var iconDefaultWidth: Number;
 		protected var lineWidthUp: Number;
 		protected var lineWidthDown: Number;
 		protected var dpiScale: Number;
@@ -47,6 +49,7 @@ package gr.ictpro.mall.client.mobile.skins
 					measuredDefaultHeight = 44; //Device.getScaledSize(22);
 					minWidth= 200; //Device.getScaledSize(100);
 					minHeight = 44; //Device.getScaledSize(22);
+					iconDefaultWidth = 30;
 					iconDefaultHeight = 30;
 					lineWidthUp = 2;
 					lineWidthDown = 4;
@@ -66,7 +69,7 @@ package gr.ictpro.mall.client.mobile.skins
 					measuredDefaultHeight = 33; //Device.getScaledSize(22);
 					minWidth= 150; //Device.getScaledSize(100);
 					minHeight = 33; //Device.getScaledSize(22);			
-					iconDefaultHeight = 30;
+					iconDefaultWidth = 23;
 					iconDefaultHeight = 23;
 					lineWidthUp = 2;
 					lineWidthDown = 3;
@@ -87,6 +90,7 @@ package gr.ictpro.mall.client.mobile.skins
 					measuredDefaultHeight = 22; //Device.getScaledSize(22);
 					minWidth= 100; //Device.getScaledSize(100);
 					minHeight = 22; //Device.getScaledSize(22);			
+					iconDefaultWidth = 15;
 					iconDefaultHeight = 15;
 					lineWidthUp = 1;
 					lineWidthDown = 2;
@@ -249,6 +253,7 @@ package gr.ictpro.mall.client.mobile.skins
 			
 			if (iconDisplay)
 			{
+				getElementPreferredWidth(iconDisplay);
 				unscaledIconWidth = getElementPreferredWidth(iconDisplay);
 				unscaledIconHeight = getElementPreferredHeight(iconDisplay);
 				adjustableGap = (hasLabel) ? layoutGap : 0;
@@ -274,7 +279,17 @@ package gr.ictpro.mall.client.mobile.skins
 			var iconViewHeight:Number = Math.min(unscaledIconHeight, viewHeight);
 			
 			if(iconDisplay) {
-				iconViewWidth = iconViewHeight/iconDisplay.height==1?iconDisplay.width:iconViewWidth *iconViewHeight/iconDisplay.height;
+				//iconViewWidth = iconViewHeight/iconDisplay.height==1?iconDisplay.width:iconViewWidth *iconViewHeight/iconDisplay.height;
+				var heightRatio:Number=iconDefaultHeight/ iconViewHeight;
+				var widthRatio:Number=iconDefaultWidth/ iconViewWidth;
+				if(widthRatio > heightRatio) {
+					iconViewWidth = iconDefaultWidth;
+					iconViewHeight = iconViewHeight * widthRatio;
+				} else {
+					iconViewHeight = iconDefaultHeight;
+					iconViewWidth = iconViewWidth * heightRatio;
+					
+				}
 			}
 			
 			// snap label to left and right bounds
@@ -409,6 +424,7 @@ package gr.ictpro.mall.client.mobile.skins
 			
 			if (iconDisplay)
 			{
+				iconDisplay.transform.colorTransform = Device.getDefaultColorTransform();
 				// scale icon based on height
 				setElementSize(iconDisplay, iconViewWidth, iconViewHeight);
 				setElementPosition(iconDisplay, iconX, iconY);

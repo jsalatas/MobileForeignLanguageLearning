@@ -16,6 +16,7 @@ package gr.ictpro.mall.client.runtime
 	import spark.skins.spark.SkinnablePopUpContainerSkin;
 	import spark.skins.spark.TextAreaSkin;
 	import spark.skins.spark.TextInputSkin;
+	import spark.skins.spark.ToggleButtonSkin;
 	import spark.skins.spark.VScrollBarSkin;
 	
 	import gr.ictpro.mall.client.view.ShellView;
@@ -161,7 +162,15 @@ package gr.ictpro.mall.client.runtime
 			}
 			return ButtonSkin;
 		}
-		
+
+		public static function get toggleButtonSkin():Class
+		{
+			if(_device != null) {
+				return _device.toggleButtonSkin;
+			}
+			return ToggleButtonSkin;
+		}
+
 		public static function get buttonBarSkin():Class
 		{
 			if(_device != null) {

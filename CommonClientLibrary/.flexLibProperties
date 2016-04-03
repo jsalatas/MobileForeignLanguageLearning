@@ -217,6 +217,7 @@
     <classEntry path="gr.ictpro.mall.client.view.MeetingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.MeetingsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.utils.boolean.Answer"/>
+    <classEntry path="gr.ictpro.mall.client.components.ToggleButton"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>
