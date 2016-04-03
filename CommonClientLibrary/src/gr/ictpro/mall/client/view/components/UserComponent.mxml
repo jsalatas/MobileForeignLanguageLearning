@@ -123,9 +123,9 @@
 			<s:PopUpList id="languagePopup" width="100%" dataList="{_languages}" textAlign="left" initialize="languagePopup_initializeHandler(event)"  enabled.parentedit="false"  />
 		</s:FormItem>
 		<s:FormItem width="100%" label="{Device.translations.getTranslation('Color')}"
-					includeIn="edit, profile" >
-			<s:ColorSelectorPopUp id="popupColor" width="100%" dataList="{colorList}"
-								  selected="{Device.getDefaultColor()}"/>
+					includeIn="edit, profile">
+			<s:ColorPicker id="popupColor" width="22" height="22" colorList="{colorList}"
+								  color="{Device.getDefaultColor()}"/>
 		</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Disallow Unattended Meetings')}"
 				visible.edit="{UserModel.isStudent(User(vo))}" includeIn="edit, parentedit" >

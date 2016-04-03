@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="gr.ictpro.mall.client.components.*"
+		 width="22" height="22" click="group1_clickHandler(event)"  >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
+			[Bindable]
+			public var color:uint = 0x000000;
+			
+			public var colorList:ArrayCollection;
+			
+			protected function group1_clickHandler(event:MouseEvent):void
+			{
+				var popUp:ColorPickerPopup = new ColorPickerPopup();
+				popUp.data = colorList;
+				popUp.colorPickedSignal.add(colorChanged);
+				var point:Point = localToGlobal(new Point(0, 0));
+				var curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
+				var curAppDPI:Number = FlexGlobals.topLevelApplication.applicationDPI; 
+				popUp.x = point.x*curAppDPI/curDensity;
+				popUp.y = point.y*curAppDPI/curDensity;
+				popUp.open(this);
+			}
+			
+			
+			private function colorChanged(color:int):void
+			{
+				this.color = color;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:Rect left="0" top="0" bottom="0" right="0">
+		<s:stroke>
+			<s:SolidColorStroke color="{Device.getDefaultColor()}" weight="{Device.getScaledSize(1)}" />
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="{color}" />
+		</s:fill>
+	</s:Rect>
+			
+</s:Group>

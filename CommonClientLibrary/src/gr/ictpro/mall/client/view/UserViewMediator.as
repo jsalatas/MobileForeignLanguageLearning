@@ -161,7 +161,7 @@ package gr.ictpro.mall.client.view
 			var user:User = User(view.parameters.vo);
 			if(!UserModel.isParent(settings.user)) {
 				user.profile.image = UserComponent(TopBarDetailView(view).editor).imgPhoto;
-				user.profile.color = UserComponent(TopBarDetailView(view).editor).popupColor.selected;
+				user.profile.color = UserComponent(TopBarDetailView(view).editor).popupColor.color;
 				user.profile.language =  Language(TopBarDetailView(view).editor["languagePopup"].selected);
 			}
 

@@ -223,6 +223,8 @@
     <classEntry path="gr.ictpro.mall.client.components.DataRenderer"/>
     <classEntry path="gr.ictpro.mall.client.components.skins.HSliderTrackSkin"/>
     <classEntry path="gr.ictpro.mall.client.components.skins.HSliderThumbSkin"/>
+    <classEntry path="gr.ictpro.mall.client.components.ColorPicker"/>
+    <classEntry path="gr.ictpro.mall.client.components.TileLayout"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

@@ -152,5 +152,6 @@ package gr.ictpro.mall.client.components
 		{
 			return Device.getUnScaledSize(super.y);	
 		}
+		
 	}
 }
