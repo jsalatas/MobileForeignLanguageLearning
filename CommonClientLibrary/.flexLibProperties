@@ -218,6 +218,11 @@
     <classEntry path="gr.ictpro.mall.client.view.MeetingsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.utils.boolean.Answer"/>
     <classEntry path="gr.ictpro.mall.client.components.ToggleButton"/>
+    <classEntry path="gr.ictpro.mall.client.components.HSlider"/>
+    <classEntry path="gr.ictpro.mall.client.components.Ellipse"/>
+    <classEntry path="gr.ictpro.mall.client.components.DataRenderer"/>
+    <classEntry path="gr.ictpro.mall.client.components.skins.HSliderTrackSkin"/>
+    <classEntry path="gr.ictpro.mall.client.components.skins.HSliderThumbSkin"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

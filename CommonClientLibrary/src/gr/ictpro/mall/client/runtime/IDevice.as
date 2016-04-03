@@ -14,6 +14,7 @@ package gr.ictpro.mall.client.runtime
 		function get skinnablePopUpContainerSkin():Class;
 		function get vScrollBarSkin():Class;
 		function get hScrollBarSkin():Class;
+		function get hSliderSkin():Class;
 		function get dropDownSkin():Class;
 		function get colorDropDownSkin():Class;
 		function get checkBoxSkin():Class;

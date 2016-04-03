@@ -10,6 +10,7 @@ package gr.ictpro.mall.client.runtime
 	import spark.skins.spark.DropDownListSkin;
 	import spark.skins.spark.FormItemSkin;
 	import spark.skins.spark.HScrollBarSkin;
+	import spark.skins.spark.HSliderSkin;
 	import spark.skins.spark.ImageSkin;
 	import spark.skins.spark.ListSkin;
 	import spark.skins.spark.SkinnableContainerSkin;
@@ -217,6 +218,14 @@ package gr.ictpro.mall.client.runtime
 				return _device.hScrollBarSkin;
 			}
 			return HScrollBarSkin;
+		}
+
+		public static function get hSliderSkin():Class
+		{
+			if(_device != null) {
+				return _device.hSliderSkin;
+			}
+			return HSliderSkin;
 		}
 
 		public static function get dropDownSkin():Class
