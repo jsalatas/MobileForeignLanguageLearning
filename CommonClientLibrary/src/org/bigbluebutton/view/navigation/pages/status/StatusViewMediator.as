@@ -9,10 +9,12 @@ package org.bigbluebutton.view.navigation.pages.status {
 	
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.MoodSignal;
+	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.UserUISession;
-	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -37,7 +39,7 @@ package org.bigbluebutton.view.navigation.pages.status {
 			view.moodList.addEventListener(IndexChangeEvent.CHANGE, onMoodChange);
 			userSession.userList.userChangeSignal.add(userChanged);
 			FlexGlobals.topLevelApplication.stage.addEventListener(ResizeEvent.RESIZE, stageOrientationChangingHandler);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'profile.status');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Change status');
 			FlexGlobals.topLevelApplication.profileBtn.visible = false;
 			FlexGlobals.topLevelApplication.backBtn.visible = true;
 			selectMood(userMe.status);

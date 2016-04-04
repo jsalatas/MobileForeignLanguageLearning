@@ -6,6 +6,8 @@ package org.bigbluebutton.view.navigation.pages.deskshare {
 	import mx.events.ResizeEvent;
 	import mx.resources.ResourceManager;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.UserUISession;
@@ -31,7 +33,7 @@ package org.bigbluebutton.view.navigation.pages.deskshare {
 			userSession.deskshareConnection.isStreamingSignal.add(onDeskshareStreamChange);
 			FlexGlobals.topLevelApplication.stage.addEventListener(ResizeEvent.RESIZE, stageOrientationChangingHandler);
 			userSession.deskshareConnection.mouseLocationChangedSignal.add(onMouseLocationChanged);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'deskshare.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Desktop Sharing');
 			FlexGlobals.topLevelApplication.backBtn.visible = false;
 			FlexGlobals.topLevelApplication.profileBtn.visible = true;
 		}

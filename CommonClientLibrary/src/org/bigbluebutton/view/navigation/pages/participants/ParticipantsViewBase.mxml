@@ -4,8 +4,12 @@
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*"
 				xmlns:participants="org.bigbluebutton.view.navigation.pages.participants.*"
-				xmlns:guests="org.bigbluebutton.view.navigation.pages.participants.guests.*"
-				styleName="participantsViewStyle">
+				xmlns:guests="org.bigbluebutton.view.navigation.pages.participants.guests.*">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 	<s:Group width="100%"
 			 height="100%">
 		<s:layout>
@@ -20,7 +24,6 @@
 							  id="allguests"
 							  width="100%"
 							  height="{getStyle('toolBarHeight')}"
-							  styleName="topToolBarStyle"
 							  verticalCenter="0">
 			<s:Group width="100%"
 					  height="100%"
@@ -38,19 +41,16 @@
 						<s:VerticalLayout />
 					</s:layout>
 					<s:Label id="guestsLabel"
-							 text="{resourceManager.getString('resources', 'participants.guests')}"
+							 text="{Device.translations.getTranslation('Guests')}"
 							 width="100%"
-							 height="100%"
-							 styleName="pageNameStyle" />
+							 height="100%" />
 				</s:Group>
 
 				<s:Button id="allowAllButton0"
-						  width="20%"
-						  styleName="allowButtonStyle guestResponseButtonStyle" />
+						  width="20%" />
 				<mx:Spacer width="3%" />
 				<s:Button id="denyAllButton0"
-						  width="20%"
-						  styleName="denyButtonStyle guestResponseButtonStyle" />
+						  width="20%" />
 			</s:Group>
 		</s:SkinnableContainer>
 

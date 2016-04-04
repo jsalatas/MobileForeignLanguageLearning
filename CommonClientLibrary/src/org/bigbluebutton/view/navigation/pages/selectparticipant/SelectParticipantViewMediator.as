@@ -15,12 +15,13 @@ package org.bigbluebutton.view.navigation.pages.selectparticipant {
 	import spark.events.IndexChangeEvent;
 	import spark.events.ListEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
+	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.UserUISession;
-	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitsettings.SplitViewEvent;
 	import org.osflash.signals.ISignal;
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -58,7 +59,7 @@ package org.bigbluebutton.view.navigation.pages.selectparticipant {
 			userSession.userList.userAddedSignal.add(userAdded);
 			userSession.userList.userRemovedSignal.add(userRemoved);
 			FlexGlobals.topLevelApplication.stage.addEventListener(ResizeEvent.RESIZE, stageOrientationChangingHandler);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'selectParticipant.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Select a Participant');
 			FlexGlobals.topLevelApplication.backBtn.visible = false;
 			FlexGlobals.topLevelApplication.profileBtn.visible = true;
 			adjustForScreenRotation();

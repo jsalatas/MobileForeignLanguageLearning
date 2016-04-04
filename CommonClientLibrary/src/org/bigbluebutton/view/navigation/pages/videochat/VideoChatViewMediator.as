@@ -16,11 +16,13 @@ package org.bigbluebutton.view.navigation.pages.videochat {
 	
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.core.VideoProfile;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserList;
 	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.osmf.events.TimeEvent;
 	import org.robotlegs.mvcs.SignalMediator;
@@ -52,7 +54,7 @@ package org.bigbluebutton.view.navigation.pages.videochat {
 			userSession.globalVideoSignal.add(globalVideoStreamNameHandler);
 			view.streamlist.addEventListener(MouseEvent.CLICK, onSelectStream);
 			FlexGlobals.topLevelApplication.stage.addEventListener(ResizeEvent.RESIZE, stageOrientationChangingHandler);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'video.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Video');
 			FlexGlobals.topLevelApplication.backBtn.visible = false;
 			FlexGlobals.topLevelApplication.profileBtn.visible = true;
 			dataProvider = new ArrayCollection();
@@ -131,7 +133,7 @@ package org.bigbluebutton.view.navigation.pages.videochat {
 		private function globalVideoStreamNameHandler() {
 			if (userSession.globalVideoStreamName != "") {
 				speaker = new User();
-				speaker.name = ResourceManager.getInstance().getString('resources', 'videoChat.speaker');
+				speaker.name = Device.translations.getTranslation('Videoconference');
 				speaker.userID = "sipVideoUser";
 				speaker.streamName = userSession.globalVideoStreamName;
 				speaker.hasStream = true;

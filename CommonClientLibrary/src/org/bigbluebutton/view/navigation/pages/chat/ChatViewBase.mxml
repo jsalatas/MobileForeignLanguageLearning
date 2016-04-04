@@ -3,8 +3,12 @@
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*"
-				xmlns:chat="org.bigbluebutton.view.navigation.pages.chat.*"
-				styleName="chatViewStyle">
+				xmlns:chat="org.bigbluebutton.view.navigation.pages.chat.*">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 
 	<s:Group width="100%"
 			 height="100%">
@@ -32,14 +36,12 @@
 			<s:TextInput id="inputMessage0"
 						 width="100%"
 						 height="100%"
-						 prompt="{resourceManager.getString('resources','chat.textInput.text')}"
-						 styleName="contentFontSize msgInputBoxStyle" />
+						 prompt="{Device.translations.getTranslation('Type message here')}"/>
 			<s:Button id="sendButton0"
 					  width="{getStyle('btnWidth')}"
 					  height="100%"
 					  right="0"
-					  enabled="{inputMessage0.text!=''}"
-					  styleName="sendButtonStyle" />
+					  enabled="{inputMessage0.text!=''}" />
 		</s:Group>
 	</s:Group>
 </view:NoTabView>

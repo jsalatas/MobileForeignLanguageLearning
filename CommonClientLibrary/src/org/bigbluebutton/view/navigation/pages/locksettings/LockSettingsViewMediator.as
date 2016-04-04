@@ -9,13 +9,15 @@ package org.bigbluebutton.view.navigation.pages.locksettings {
 	import mx.events.ResizeEvent;
 	import mx.resources.ResourceManager;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.ShareMicrophoneSignal;
 	import org.bigbluebutton.core.UsersService;
-	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.LockSettings;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserList;
+	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -46,7 +48,7 @@ package org.bigbluebutton.view.navigation.pages.locksettings {
 		override public function onRegister():void {
 			loadLockSettings();
 			view.applyButton.addEventListener(MouseEvent.CLICK, onApply);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'lockSettings.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Lock Viewers');
 			FlexGlobals.topLevelApplication.stage.addEventListener(ResizeEvent.RESIZE, stageOrientationChangingHandler);
 			FlexGlobals.topLevelApplication.backBtn.visible = true;
 			FlexGlobals.topLevelApplication.profileBtn.visible = false;

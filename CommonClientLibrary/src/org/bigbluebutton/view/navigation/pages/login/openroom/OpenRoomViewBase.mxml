@@ -7,6 +7,8 @@
 				xmlns:ui="org.bigbluebutton.view.ui.*">
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			import org.bigbluebutton.view.navigation.pages.PagesENUM;
 			import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
 		]]>
@@ -21,7 +23,7 @@
 				<s:VerticalLayout horizontalAlign="center"
 								  verticalAlign="middle" />
 			</s:layout>
-			<s:Image styleName="bigbbbLogoStyle" />
+			<s:Image />
 		</s:Group>
 
 		<s:Group width="100%"
@@ -31,9 +33,8 @@
 								  horizontalAlign="center" />
 			</s:layout>
 
-			<s:Label text="{resourceManager.getString('resources', 'openRoom.urlLabel')}"
-					 width="90%"
-					 styleName="contentFontSize userSettingsStyle" />
+			<s:Label text="{Device.translations.getTranslation('Room address:')}"
+					 width="90%" />
 
 			<s:Group width="90%"
 					 height="{getStyle('chatInputTextHeight')}">
@@ -41,21 +42,18 @@
 				<s:TextInput id="inputRoom0"
 							 width="100%"
 							 height="100%"
-							 prompt="{resourceManager.getString('resources','openRoom.roomAddress')}"
-							 styleName="contentFontSize msgInputBoxStyle" />
+							 prompt="{Device.translations.getTranslation('Insert room address')}"  />
 				<s:Button id="goButton0"
 						  height="100%"
 						  right="0"
-						  enabled="{inputRoom0.text!=''}"
-						  styleName="sendButtonStyle" />
+						  enabled="{inputRoom0.text!=''}" />
 			</s:Group>
 			<s:Spacer height="5%" />
 
 			<ui:NavigationButton id="recentRoomsBtn"
 								 width="90%"
-								 label="{resourceManager.getString('resources', 'openRoom.showRecentRooms')}"
+								 label="{Device.translations.getTranslation('Show recent rooms')}"
 								 navigateTo="{[PagesENUM.RECENTROOMS]}"
-								 styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize"
 								 transitionAnimation="{TransitionAnimationENUM.SLIDE_LEFT}" />
 		</s:Group>
 	</s:Group>

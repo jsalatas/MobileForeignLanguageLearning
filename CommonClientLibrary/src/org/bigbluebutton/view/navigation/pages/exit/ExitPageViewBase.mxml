@@ -3,6 +3,11 @@
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 
 	<view:states>
 		<mx:State name="MEETING_ENDED" />
@@ -21,16 +26,13 @@
 		<s:Label id="messageText0"
 				 width="100%"
 				 textAlign="center"
-				 styleName="contentFontSize disconnectMsgStyle"
-				 text="{resourceManager.getString('resources', 'exit.message')}" />
+				 text="{Device.translations.getTranslation('Exit?')}" />
 		<s:Button id="yesButton0"
 				  width="90%"
-				  label="{resourceManager.getString('resources', 'exit.yes')}"
-				  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+				  label="{Device.translations.getTranslation('Yes')}" />
 		<s:Button id="noButton0"
 				  width="90%"
-				  label="{resourceManager.getString('resources', 'exit.no')}"
-				  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+				  label="{Device.translations.getTranslation('No')}" />
 	</s:Group>
 
 </view:NoTabView>

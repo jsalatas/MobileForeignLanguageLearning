@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:s="gr.ictpro.mall.client.components.*"
-				xmlns:mx="library://ns.adobe.com/flex/mx"
-				styleName="cameraProfileItemStyle">
+				xmlns:mx="library://ns.adobe.com/flex/mx">
 
 	<fx:Script>
 		<![CDATA[
@@ -22,7 +21,6 @@
 	<s:Group width="100%"
 			 height="{getStyle('itemHeight')}">
 		<s:Label id="quality"
-				 styleName="contentFontSize selectQualityLabelStyle"
 				 width="100%"
 				 height="100%" />
 	</s:Group>

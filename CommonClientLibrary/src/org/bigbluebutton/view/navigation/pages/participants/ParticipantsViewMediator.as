@@ -17,15 +17,16 @@ package org.bigbluebutton.view.navigation.pages.participants {
 	import spark.components.Button;
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.core.UsersService;
-	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserList;
+	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
 	import org.bigbluebutton.view.navigation.pages.participants.guests.GuestResponseEvent;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitsettings.SplitViewEvent;
 	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 	import org.robotlegs.mvcs.SignalMediator;
@@ -205,7 +206,7 @@ package org.bigbluebutton.view.navigation.pages.participants {
 		 **/
 		private function setPageTitle():void {
 			if (dataProvider != null) {
-				FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'participants.title') + " (" + dataProvider.length + ")";
+				FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Participants') + " (" + dataProvider.length + ")";
 			}
 		}
 		

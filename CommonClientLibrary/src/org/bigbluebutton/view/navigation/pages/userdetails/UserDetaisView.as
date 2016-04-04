@@ -1,9 +1,13 @@
 package org.bigbluebutton.view.navigation.pages.userdetails {
 	
 	import mx.core.FlexGlobals;
+	
+	import spark.components.Button;
+	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.User;
-	import spark.components.Button;
 	
 	public class UserDetaisView extends UserDetaisViewBase  {
 		public function UserDetaisView():void {
@@ -40,17 +44,17 @@ package org.bigbluebutton.view.navigation.pages.userdetails {
 		public function update():void {
 			if (user != null && FlexGlobals.topLevelApplication.mainshell != null && userMe != null) {
 				if (_user.me) {
-					userNameText.text = _user.name + " " + resourceManager.getString('resources', 'userDetail.you');
+					userNameText.text = _user.name + " " + Device.translations.getTranslation('(you)');
 				} else {
 					userNameText.text = _user.name;
 				}
 				if (_user.presenter) {
-					roleText.text = resourceManager.getString('resources', 'participants.status.presenter');
+					roleText.text = Device.translations.getTranslation('Presenter');
 					if (_user.role == User.MODERATOR) {
-						roleText.text += "/" + resourceManager.getString('resources', 'participants.status.moderator');
+						roleText.text += "/" + Device.translations.getTranslation('Moderator');
 					}
 				} else if (_user.role == User.MODERATOR) {
-					roleText.text = resourceManager.getString('resources', 'participants.status.moderator');
+					roleText.text = Device.translations.getTranslation('Moderator');
 				} else {
 					roleText.text = "";
 				}
@@ -72,16 +76,16 @@ package org.bigbluebutton.view.navigation.pages.userdetails {
 					promoteButton.includeInLayout = true;
 					promoteButton.visible = true;
 					if (_user.role == User.MODERATOR) {
-						promoteButton.label = resourceManager.getString('resources', 'userDetail.promoteBtn.demoteText');
+						promoteButton.label = Device.translations.getTranslation('Demote');
 					} else {
-						promoteButton.label = resourceManager.getString('resources', 'userDetail.promoteBtn.promoteText');
+						promoteButton.label = Device.translations.getTranslation('Ppromote');
 					}
 				} else {
 					promoteButton.includeInLayout = false;
 					promoteButton.visible = false;
 				}
 				if (!_conferenceParameters.serverIsMconf) {
-					clearStatusButton.label = resourceManager.getString('resources', 'profile.settings.handLower');
+					clearStatusButton.label = Device.translations.getTranslation('Lower hand');
 				}
 				cameraIcon.visible = cameraIcon.includeInLayout = _user.hasStream;
 				micIcon.visible = micIcon.includeInLayout = (_user.voiceJoined && !_user.muted);

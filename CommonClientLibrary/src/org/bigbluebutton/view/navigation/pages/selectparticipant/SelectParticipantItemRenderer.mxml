@@ -18,7 +18,6 @@
 		]]>
 	</fx:Script>
 	<s:Label id="labelDisplay"
-			 width="100%"
-			 styleName="contentFontSize selectParticipantLabelStyle" />
+			 width="100%" />
 
 </s:ItemRenderer>

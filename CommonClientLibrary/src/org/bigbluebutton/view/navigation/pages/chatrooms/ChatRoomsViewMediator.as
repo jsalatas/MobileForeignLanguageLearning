@@ -14,14 +14,15 @@ package org.bigbluebutton.view.navigation.pages.chatrooms {
 	import spark.components.List;
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
+	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.UserUISession;
-	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.chat.ChatMessagesSession;
 	import org.bigbluebutton.model.chat.PrivateChatMessage;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitsettings.SplitViewEvent;
 	import org.osflash.signals.ISignal;
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -58,7 +59,7 @@ package org.bigbluebutton.view.navigation.pages.chatrooms {
 		override public function onRegister():void {
 			dicUsertoChat = new Dictionary();
 			dataProvider = new ArrayCollection();
-			dataProvider.addItem({name: ResourceManager.getInstance().getString('resources', 'chat.item.publicChat'), publicChat: true, user: null, chatMessages: chatMessagesSession.publicChat});
+			dataProvider.addItem({name: Device.translations.getTranslation('Public chat'), publicChat: true, user: null, chatMessages: chatMessagesSession.publicChat});
 			for each (var chatObject:PrivateChatMessage in chatMessagesSession.privateChats) {
 				chatObject.userOnline = userSession.userList.hasUser(chatObject.userID);
 				chatObject.privateChat.chatMessageChangeSignal.add(populateList);
@@ -183,7 +184,7 @@ package org.bigbluebutton.view.navigation.pages.chatrooms {
 		 **/
 		public function setPageTitle():void {
 			if (dataProvider != null) {
-				FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'chat.title') + " (" + (dataProvider.length - 1) + ")";
+				FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Chat Rooms') + " (" + (dataProvider.length - 1) + ")";
 			}
 		}
 		

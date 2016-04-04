@@ -2,12 +2,14 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
-				styleName="roomItemStyle"
 				autoDrawBackground="false">
 
 	<fx:Script>
 		<![CDATA[
 			import mx.formatters.DateFormatter;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			import org.bigbluebutton.model.User;
 			
 			override public function set data(obj:Object):void {
@@ -29,7 +31,7 @@
 						if (obj.url) {
 							url.text = obj.url;
 						} else {
-							url.text = resourceManager.getString('resources', 'recentRooms.noURL');
+							url.text = Device.translations.getTranslation('URL not available');
 						}
 					}
 				}
@@ -51,12 +53,10 @@
 			</s:layout>
 			<s:Label id="roomName"
 					 maxDisplayedLines="1"
-					 width="100%"
-					 styleName="contentFontSize" />
+					 width="100%" />
 			<s:Label id="url"
 					 maxDisplayedLines="1"
-					 width="100%"
-					 styleName="subContentFontSize roomUrlStyle" />
+					 width="100%" />
 		</s:Group>
 
 		<s:Group width="10%">
@@ -66,12 +66,10 @@
 
 			<s:Label id="time"
 					 visible="false"
-					 includeInLayout="false"
-					 styleName="dateAndTimeFontSize" />
+					 includeInLayout="false" />
 			<s:Label id="date"
 					 visible="false"
-					 includeInLayout="false"
-					 styleName="dateAndTimeFontSize" />
+					 includeInLayout="false" />
 		</s:Group>
 	</s:Group>
 

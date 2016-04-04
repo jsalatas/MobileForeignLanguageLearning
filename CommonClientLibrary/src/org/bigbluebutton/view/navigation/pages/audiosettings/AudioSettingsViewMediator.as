@@ -11,12 +11,14 @@ package org.bigbluebutton.view.navigation.pages.audiosettings {
 	import mx.events.ResizeEvent;
 	import mx.resources.ResourceManager;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.ShareMicrophoneSignal;
 	import org.bigbluebutton.core.SaveData;
-	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserList;
+	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -43,7 +45,7 @@ package org.bigbluebutton.view.navigation.pages.audiosettings {
 		
 		override public function onRegister():void {
 			userSession.userList.userChangeSignal.add(userChangeHandler);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'audioSettings.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Audio Settings');
 			var userMe:User = userSession.userList.me;
 			view.continueBtn.addEventListener(MouseEvent.CLICK, onContinueClick);
 			view.enableAudio.addEventListener(Event.CHANGE, onEnableAudioClick);

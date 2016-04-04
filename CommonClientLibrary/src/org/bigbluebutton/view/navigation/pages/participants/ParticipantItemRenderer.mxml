@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:s="gr.ictpro.mall.client.components.*"
-				xmlns:mx="library://ns.adobe.com/flex/mx"
-				styleName="participantItemStyle">
+				xmlns:mx="library://ns.adobe.com/flex/mx">
 
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			import org.bigbluebutton.model.User;
 			
 			override public function set data(obj:Object):void {
@@ -23,7 +25,7 @@
 					listenOnlyIcon.visible = (!obj.voiceJoined && obj.listenOnly);
 					micIcon.styleName = (obj.talking) ? "iconStyle speakingMicIconStyle" : "iconStyle micIconStyle";
 					if (obj.me) {
-						labelDisplay.text = obj.name + " " + resourceManager.getString('resources', 'userDetail.you');
+						labelDisplay.text = obj.name + " " + Device.translations.getTranslation('(you)');
 					} else {
 						labelDisplay.text = obj.name;
 					}
@@ -39,13 +41,13 @@
 					sadIcon.visible = sadIcon.includeInLayout = obj.status == User.SAD;
 					if (obj.presenter) {
 						subLabelDisplay.visible = subLabelDisplay.includeInLayout = true;
-						subLabelDisplay.text = resourceManager.getString('resources', 'participants.status.presenter');
+						subLabelDisplay.text = Device.translations.getTranslation('Presenter');
 						if (obj.role == User.MODERATOR) {
-							subLabelDisplay.text += "/" + resourceManager.getString('resources', 'participants.status.moderator');
+							subLabelDisplay.text += "/" + Device.translations.getTranslation('Moderator');
 						}
 					} else if (obj.role == User.MODERATOR) {
 						subLabelDisplay.visible = subLabelDisplay.includeInLayout = true;
-						subLabelDisplay.text = resourceManager.getString('resources', 'participants.status.moderator');
+						subLabelDisplay.text = Device.translations.getTranslation('Moderator');
 					} else {
 						subLabelDisplay.visible = subLabelDisplay.includeInLayout = false;
 					}
@@ -61,40 +63,28 @@
 								paddingRight="{getStyle('itemPaddingRight')}" />
 		</s:layout>
 		<s:Image id="profileIcon"
-				 styleName="iconStyle moderatorIconStyle"
 				 height="100%" />
 		<s:Image id="presentationIcon"
-				 styleName="iconStyle presentationIconStyle"
 				 height="100%" />
 		<s:Image id="handIcon"
-				 styleName="iconStyle handIconStyle"
 				 height="100%" />
 		<s:Image id="agreeIcon"
-				 styleName="iconStyle agreeIconStyle"
 				 height="100%" />
 		<s:Image id="disagreeIcon"
-				 styleName="iconStyle disagreeIconStyle"
 				 height="100%" />
 		<s:Image id="speakLouderIcon"
-				 styleName="iconStyle speakLouderIconStyle"
 				 height="100%" />
 		<s:Image id="speakSofterIcon"
-				 styleName="iconStyle speakSofterIconStyle"
 				 height="100%" />
 		<s:Image id="speakFasterIcon"
-				 styleName="iconStyle speakFasterIconStyle"
 				 height="100%" />
 		<s:Image id="speakSlowerIcon"
-				 styleName="iconStyle speakSlowerIconStyle"
 				 height="100%" />
 		<s:Image id="beRightBackIcon"
-				 styleName="iconStyle beRightBackIconStyle"
 				 height="100%" />
 		<s:Image id="laughterIcon"
-				 styleName="iconStyle laughterIconStyle"
 				 height="100%" />
 		<s:Image id="sadIcon"
-				 styleName="iconStyle sadIconStyle"
 				 height="100%" />
 
 		<s:Group width="70%">
@@ -103,27 +93,20 @@
 			</s:layout>
 			<s:Label id="labelDisplay"
 					 width="100%"
-					 height="100%"
-					 styleName="participantNameStyle contentFontSize" />
+					 height="100%" />
 			<s:Label id="subLabelDisplay"
 					 width="100%"
-					 height="100%"
-					 styleName="participantStatusStyle subContentFontSize" />
+					 height="100%" />
 		</s:Group>
 		<s:Image id="cameraIcon"
-				 styleName="iconStyle cameraIconStyle"
 				 height="100%" />
 		<s:Image id="micIcon"
-				 styleName="iconStyle micIconStyle"
 				 height="100%" />
 		<s:Image id="micOffIcon"
-				 styleName="iconStyle micOffIconStyle"
 				 height="100%" />
 		<s:Image id="listenOnlyIcon"
-				 styleName="iconStyle listenOnlyIconStyle"
 				 height="100%" />
 		<s:Image id="lockIcon"
-				 styleName="iconStyle lockIconStyle"
 				 height="100%" />
 
 	</s:Group>

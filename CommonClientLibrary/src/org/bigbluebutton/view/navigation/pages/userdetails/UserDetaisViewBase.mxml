@@ -3,8 +3,12 @@
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*"
-				xmlns:userdetails="org.bigbluebutton.view.navigation.pages.userdetails.*"
-				styleName="userDetailViewStyle">
+				xmlns:userdetails="org.bigbluebutton.view.navigation.pages.userdetails.*">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 
 
 	<s:Scroller width="100%"
@@ -33,16 +37,13 @@
 						<s:VerticalLayout verticalAlign="middle"
 										  horizontalAlign="center" />
 					</s:layout>
-					<s:Image id="userDetailIcon"
-							 styleName="iconStyle userDetailIconStyle" />
+					<s:Image id="userDetailIcon" />
 					<s:Label id="userNameText"
 							 width="100%"
-							 textAlign="center"
-							 styleName="userDetailsNameStyle contentFontSize" />
+							 textAlign="center" />
 					<s:Label id="roleText"
 							 width="100%"
-							 textAlign="center"
-							 styleName="userDetailsStatusStyle subContentFontSize" />
+							 textAlign="center" />
 				</s:Group>
 			</s:Group>
 			<s:Group width="100%"
@@ -53,26 +54,21 @@
 				</s:layout>
 				<s:Label width="50%"
 						 textAlign="center"
-						 styleName="userDetailsStatusStyle contentFontSize"
-						 text="{resourceManager.getString('resources', 'userDetail.media')}" />
+						 text="{Device.translations.getTranslation('Media')}" />
 				<s:Group>
 					<s:layout>
 						<s:HorizontalLayout horizontalAlign="center" />
 					</s:layout>
-					<s:Image id="cameraIcon"
-							 styleName="iconStyle cameraIconStyle" />
-					<s:Image id="micIcon"
-							 styleName="iconStyle micIconStyle" />
+					<s:Image id="cameraIcon" />
+					<s:Image id="micIcon" />
 					<s:Image id="micOffIcon"
-							 styleName="iconStyle micOffIconStyle"
 							 visible="false"
 							 includeInLayout="false" />
 					<s:Label id="noMediaText"
 							 width="100%"
-							 styleName="userDetailsStatusStyle subContentFontSize"
 							 visible="false"
 							 includeInLayout="false"
-							 text="{resourceManager.getString('resources', 'userDetail.media.noMedia')}" />
+							 text="{Device.translations.getTranslation('No Media Available')}" />
 				</s:Group>
 			</s:Group>
 			<s:Group width="100%"
@@ -82,41 +78,34 @@
 				</s:layout>
 				<s:Button id="showCameraButton0"
 						  width="90%"
-						  label="{resourceManager.getString('resources', 'userDetail.cameraBtn.text')}"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  label="{Device.translations.getTranslation('Show camera')}" />
 				<s:Button id="showPrivateChat0"
 						  width="90%"
-						  label="{resourceManager.getString('resources', 'userDetail.privateChatBtn.text')}"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  label="{Device.translations.getTranslation('Private chat')}" />
 				<s:Button includeInLayout="false"
 						  visible="false"
 						  width="90%"
-						  label="{resourceManager.getString('resources', 'userDetail.clearStatus')}"
-						  id="clearStatusButton0"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  label="{Device.translations.getTranslation('Clear Status')}"
+						  id="clearStatusButton0" />
 				<s:Button includeInLayout="false"
 						  visible="false"
 						  id="makePresenterButton0"
 						  width="90%"
-						  label="{resourceManager.getString('resources', 'userDetail.presenterBtn.text')}"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  label="{Device.translations.getTranslation('Make presenter')}" />
 				<s:Button includeInLayout="false"
 						  visible="false"
 						  width="90%"
-						  id="promoteButton0"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  id="promoteButton0" />
 				<s:Button includeInLayout="false"
 						  visible="false"
 						  width="90%"
 						  id="lockButton0"
-						  label="{resourceManager.getString('resources', 'userDetail.lockButton.text')}"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  label="{Device.translations.getTranslation('Lock')}" />
 				<s:Button includeInLayout="false"
 						  visible="false"
 						  width="90%"
 						  id="unlockButton0"
-						  label="{resourceManager.getString('resources', 'userDetail.unlockButton.text')}"
-						  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+						  label="{Device.translations.getTranslation('Unlock')}" />
 			</s:Group>
 
 		</s:Group>

@@ -12,16 +12,17 @@ package org.bigbluebutton.view.navigation.pages.profile {
 	import spark.components.Button;
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.ClearUserStatusSignal;
 	import org.bigbluebutton.command.MoodSignal;
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.model.ConferenceParameters;
-	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserList;
+	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitsettings.SplitViewEvent;
 	import org.osflash.signals.Signal;
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -72,14 +73,14 @@ package org.bigbluebutton.view.navigation.pages.profile {
 				view.muteAllExceptPresenterButton.addEventListener(MouseEvent.CLICK, onMuteAllExceptPresenterButton);
 			}
 			if (!conferenceParameters.serverIsMconf) {
-				view.clearAllStatusButton.label = ResourceManager.getInstance().getString('resources', 'management.lowerAllHands');
+				view.clearAllStatusButton.label = Device.translations.getTranslation('Lower all hands');
 				view.clearAllStatusButton.styleName = "lowerAllHandsButtonStyle videoAudioSettingStyle contentFontSize";
 			}
 			userSession.userList.userChangeSignal.add(userChanged);
 			view.logoutButton.addEventListener(MouseEvent.CLICK, logoutClick);
 			view.handButton.addEventListener(MouseEvent.CLICK, raiseHandClick);
 			FlexGlobals.topLevelApplication.stage.addEventListener(ResizeEvent.RESIZE, stageOrientationChangingHandler);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'profile.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('User Settings');
 			FlexGlobals.topLevelApplication.profileBtn.visible = false;
 			FlexGlobals.topLevelApplication.backBtn.visible = true;
 			addNavigationListeners();
@@ -97,7 +98,7 @@ package org.bigbluebutton.view.navigation.pages.profile {
 			switch (status) {
 				case User.RAISE_HAND:
 					view.statusButton.styleName = "handStatusButtonStyle videoAudioSettingStyle contentFontSize";
-					view.handButton.label = ResourceManager.getInstance().getString('resources', 'profile.settings.handLower');
+					view.handButton.label = Device.translations.getTranslation('Lower hand');
 					break;
 				case User.AGREE:
 					view.statusButton.styleName = "agreeStatusButtonStyle";

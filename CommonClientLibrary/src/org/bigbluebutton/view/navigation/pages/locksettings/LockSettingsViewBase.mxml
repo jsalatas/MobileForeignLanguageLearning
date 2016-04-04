@@ -2,11 +2,12 @@
 <view:NoTabView xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
-				xmlns:view="org.bigbluebutton.core.view.*"
-				styleName="lockSettingsStyle">
+				xmlns:view="org.bigbluebutton.core.view.*">
 
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			import org.bigbluebutton.view.navigation.pages.PagesENUM;
 			import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
 		]]>
@@ -37,7 +38,7 @@
 				</s:layout>
 
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'lockSettings.cam')}" />
+						 text="{Device.translations.getTranslation('Webcam')}" />
 				<s:CheckBox id="cam" />
 			</s:Group>
 			<s:Line width="90%">
@@ -55,7 +56,7 @@
 				</s:layout>
 
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'lockSettings.mic')}" />
+						 text="{Device.translations.getTranslation('Microphone')}" />
 				<s:CheckBox id="mic" />
 			</s:Group>
 			<s:Line width="190%">
@@ -73,7 +74,7 @@
 				</s:layout>
 
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'lockSettings.publicChat')}" />
+						 text="{Device.translations.getTranslation('Public chat')}" />
 				<s:CheckBox id="publicChat" />
 			</s:Group>
 			<s:Line width="90%">
@@ -91,7 +92,7 @@
 				</s:layout>
 
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'lockSettings.privateChat')}" />
+						 text="{Device.translations.getTranslation('Private chat')}" />
 				<s:CheckBox id="privateChat" />
 			</s:Group>
 			<s:Line width="90%">
@@ -108,7 +109,7 @@
 										horizontalAlign="right"/>
 				</s:layout>
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'lockSettings.layout')}" />
+						 text="{Device.translations.getTranslation('Web layout')}" />
 				<s:CheckBox id="layout0" />
 			</s:Group>
 			<s:Line width="90%">
@@ -120,8 +121,7 @@
 			<s:Spacer height="10%" />
 			<s:Button id="apply"
 					  width="90%"
-					  label="{resourceManager.getString('resources', 'lockSettings.apply')}"
-					  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Apply')}" />
 
 
 		</s:Group>

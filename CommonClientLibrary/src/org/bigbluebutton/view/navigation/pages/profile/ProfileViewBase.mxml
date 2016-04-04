@@ -3,8 +3,7 @@
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*"
-				xmlns:ui="org.bigbluebutton.view.ui.*"
-				styleName="audioSettingsStyle">
+				xmlns:ui="org.bigbluebutton.view.ui.*">
 	<view:states>
 		<mx:State name="bbb" />
 		<mx:State name="mconf" />
@@ -13,6 +12,9 @@
 		<![CDATA[
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			import org.bigbluebutton.view.navigation.pages.PagesENUM;
 			import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
 		]]>
@@ -31,49 +33,39 @@
 					  visible.bbb="false"
 					  includeInLayout.bbb="false"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'profile.status.title')}"
-					  styleName="videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Change status')}" />
 
 			<s:Button id="handBtn0"
 					  visible.mconf="false"
 					  includeInLayout.mconf="false"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'profile.settings.handRaise')}"
-					  styleName="raiseHandButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Raise hand')}" />
 
 			<s:Button id="shareCameraBtn0"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'cameraSettings.title')}"
-					  styleName="cameraSettingsButtonStyle profileSettingsButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Camera Settings')}" />
 			<s:Button id="shareMicBtn0"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'audioSettings.title')}"
-					  styleName="audioSettingsButtonStyle profileSettingsButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Audio Settings')}" />
 			<s:Button id="lockViewersBtn"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'management.lockViewers')}"
-					  styleName="lockParticipantsButtonStyle profileSettingsButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Lock viewers')}" />
 			<s:Button id="clearAllStatusBtn"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'management.clearAllStatus')}"
-					  styleName="clearButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Clear all status')}" />
 			<s:Button id="unmuteAllBtn"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'management.unmuteAll')}"
-					  styleName="audioSettingsShareMicButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Unmute all users')}" />
 			<s:Button id="muteAllBtn"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'management.muteAll')}"
-					  styleName="MuteButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Mute all users except presenter')}" />
 			<s:Button id="muteAllExceptPresenterBtn"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'management.muteAllExceptPresenter')}"
-					  styleName="MuteButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Mute all users except presenter')}" />
 
 			<s:Button id="logoutButton0"
 					  width="100%"
-					  label="{resourceManager.getString('resources', 'profile.logout')}"
-					  styleName="QuitButtonStyle videoAudioSettingStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Log out')}" />
 		</s:Group>
 	</s:Scroller>
 </view:NoTabView>

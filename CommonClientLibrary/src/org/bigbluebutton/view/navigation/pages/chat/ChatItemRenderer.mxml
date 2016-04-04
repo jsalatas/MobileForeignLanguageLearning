@@ -63,19 +63,16 @@
 				<s:HorizontalLayout />
 			</s:layout>
 			<s:Label id="username"
-					 width="50%"
-					 styleName="chatNameTimeStyle subContentFontSize" />
+					 width="50%" />
 			<s:Label id="time"
 					 width="50%"
-					 textAlign="right"
-					 styleName="chatTimeColor chatNameTimeStyle subContentFontSize" />
+					 textAlign="right" />
 		</s:Group>
 		<s:Group width="100%">
 			<s:RichEditableText editable="false"
 								selectable="false"
 								id="message"
-								width="100%"
-								styleName="msgTextStyle contentFontSize" />
+								width="100%" />
 		</s:Group>
 	</s:Group>
 </s:ItemRenderer>

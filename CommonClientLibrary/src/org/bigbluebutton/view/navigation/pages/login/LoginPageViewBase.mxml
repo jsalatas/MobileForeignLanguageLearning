@@ -5,6 +5,7 @@
 				xmlns:view="org.bigbluebutton.core.view.*">
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
 			public static const STATE_BASE:String = "Base";
 			
 			public static const STATE_NO_REDIRECT:String = "NoRedirect";
@@ -42,29 +43,27 @@
 			<s:VerticalLayout horizontalAlign="center"
 							  verticalAlign="middle" />
 		</s:layout>
-		<s:Image styleName="bbbLogoStyle"
-				 includeIn="ChecksumError,GenericError,InvalidMeetingIdentifier,InvalidPassword,NoRedirect,InvalidURL,AuthTokenTimedOut,AuthTokenInvalid" />
+		<s:Image includeIn="ChecksumError,GenericError,InvalidMeetingIdentifier,InvalidPassword,NoRedirect,InvalidURL,AuthTokenTimedOut,AuthTokenInvalid" />
 		<s:Label id="messageText0"
 				 width="90%"
 				 textAlign="center"
 				 includeIn="AccessDenied,ChecksumError,GenericError,InvalidMeetingIdentifier,InvalidPassword,NoRedirect,InvalidURL,AuthTokenTimedOut,AuthTokenInvalid"
-				 text.AccessDenied="{resourceManager.getString('resources', 'login.error.accessDenied')}"
-				 text.ChecksumError="{resourceManager.getString('resources', 'login.error.checksumError')}"
-				 text.GenericError="{resourceManager.getString('resources', 'login.error.genericError')}"
-				 text.InvalidMeetingIdentifier="{resourceManager.getString('resources', 'login.error.invalidMeetingIdentifier')}"
-				 text.InvalidPassword="{resourceManager.getString('resources', 'login.error.invalidPassword')}"
-				 text.NoRedirect="{resourceManager.getString('resources', 'login.error.noRedirect')}"
-				 text.InvalidURL="{resourceManager.getString('resources', 'login.error.invalidURL')}"
-				 text.AuthTokenTimedOut="{resourceManager.getString('resources', 'login.error.authTokenTimedOut')}"
-				 text.AuthTokenInvalid="{resourceManager.getString('resources', 'login.error.authTokenInvalid')}" />
+				 text.AccessDenied="{Device.translations.getTranslation('Access Denied')}"
+				 text.ChecksumError="{Device.translations.getTranslation('Unauthorized access.\\nPlease try again.')}"
+				 text.GenericError="{Device.translations.getTranslation('It was not possible to join this meeting, please try again later.')}"
+				 text.InvalidMeetingIdentifier="{Device.translations.getTranslation('Meeting not found.\\nPlease make sure that the meeting is running.')}"
+				 text.InvalidPassword="{Device.translations.getTranslation('Unauthorized access.\\nThe provided password for this meeting is invalid.')}"
+				 text.NoRedirect="{Device.translations.getTranslation('Please use the web browser to access a meeting.')}"
+				 text.InvalidURL="{Device.translations.getTranslation('Invalid join URL.\\nPlease contact your administrator.')}"
+				 text.AuthTokenTimedOut="{Device.translations.getTranslation('Authentication timed out.')}"
+				 text.AuthTokenInvalid="{Device.translations.getTranslation('Authentication token is incorrect.')}" />
 		<s:Button id="tryAgainButton0"
-				  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize"
 				  width="90%"
 				  visible="false"
 				  includeInLayout="false"
 				  visible.GenericError="true"
 				  includeInLayout.GenericError="true"
-				  label="{resourceManager.getString('resources', 'login.button.tryAgain')}" />
+				  label="{Device.translations.getTranslation('Try again')}" />
 
 	</s:Group>
 </view:NoTabView>

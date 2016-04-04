@@ -3,8 +3,7 @@
 		  xmlns:s="gr.ictpro.mall.client.components.*" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  width="30" height="30" 
-		  implements="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.IDrawingButton"
-		  styleName="annotationControlsToggleButtonStyle">
+		  implements="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.IDrawingButton">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

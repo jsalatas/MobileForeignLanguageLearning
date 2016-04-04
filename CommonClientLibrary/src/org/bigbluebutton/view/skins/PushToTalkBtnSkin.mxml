@@ -41,7 +41,6 @@
 		</s:fill>
 	</s:Ellipse>
 	<s:Image id="micIcon"
-			 styleName="iconStyle speakingMicIconStyle"
 			 styleName.disabled="iconStyle micOffIconStyle"
 			 x="{getStyle('EllipseWidth')/2 + ellipse.x - micIcon.width/2}"
 			 y="{getStyle('EllipseHeight')/2 + ellipse.y - micIcon.height/2 +micIcon.height/16}">

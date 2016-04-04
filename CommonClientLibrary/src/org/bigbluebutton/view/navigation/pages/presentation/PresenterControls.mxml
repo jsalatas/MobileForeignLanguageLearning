@@ -98,7 +98,7 @@
 		<s:layout>
 			<s:HorizontalLayout verticalAlign="middle" />
 		</s:layout>
-		<s:Button id="uploadPres" styleName="presentationControlsButtonStyle presentationControlsUploadButtonStyle" click="uploadPres_clickHandler(event)"/>
+		<s:Button id="uploadPres" click="uploadPres_clickHandler(event)"/>
 		<s:Spacer width="{zoomSlider.width}" />
 	</s:Group>
 	<s:Group width="100%">
@@ -107,8 +107,8 @@
 				<s:HorizontalLayout verticalAlign="middle"/>
 			</s:layout>
 		
-			<s:Button id="backButton" styleName="presentationControlsButtonStyle presentationControlsBackButtonStyle" click="backButton_clickHandler(event)"/>
-			<s:Button id="forwardButton" styleName="presentationControlsButtonStyle presentationControlsForwardButtonStyle" click="forwardButton_clickHandler(event)"/>
+			<s:Button id="backButton" click="backButton_clickHandler(event)"/>
+			<s:Button id="forwardButton" click="forwardButton_clickHandler(event)"/>
 		</s:Group>
 	</s:Group>
 	<s:Group>
@@ -116,7 +116,7 @@
 			<s:HorizontalLayout verticalAlign="middle"/>
 		</s:layout>
 		<s:HSlider id="zoomSlider" minimum="100" maximum="400" skinClass="spark.skins.spark.HSliderSkin" change="zoomSlider_changeHandler(event)" />
-		<s:Button id="fitPageButton" styleName="presentationControlsButtonStyle presentationControlsFitPageButtonStyle" click="fitPageButton_clickHandler(event)"/>
+		<s:Button id="fitPageButton"  click="fitPageButton_clickHandler(event)"/>
 	</s:Group>
 	
 </s:Group>

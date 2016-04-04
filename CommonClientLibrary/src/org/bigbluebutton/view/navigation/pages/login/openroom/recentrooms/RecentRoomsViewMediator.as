@@ -11,6 +11,8 @@ package org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms {
 	
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.core.SaveData;
 	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.UserUISession;
@@ -40,7 +42,7 @@ package org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms {
 			view.roomsList.addEventListener(MouseEvent.CLICK, selectRoom);
 			FlexGlobals.topLevelApplication.profileBtn.visible = false;
 			FlexGlobals.topLevelApplication.backBtn.visible = false;
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'recentRooms.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Recent Rooms');
 			FlexGlobals.topLevelApplication.topActionBar.visible = true;
 			FlexGlobals.topLevelApplication.bottomMenu.includeInLayout = false;
 			FlexGlobals.topLevelApplication.backBtn.includeInLayout = true;

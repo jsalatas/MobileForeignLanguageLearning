@@ -1,4 +1,5 @@
-package org.bigbluebutton.view.ui {
+package org.bigbluebutton.view.ui 
+{
 	
 	import flash.events.MouseEvent;
 	import mx.events.FlexEvent;

@@ -2,11 +2,12 @@
 <view:NoTabView xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
-				xmlns:view="org.bigbluebutton.core.view.*"
-				styleName="audioSettingsStyle">
+				xmlns:view="org.bigbluebutton.core.view.*">
 
 	<fx:Script>
 		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+			
 			import org.bigbluebutton.view.navigation.pages.PagesENUM;
 			import org.bigbluebutton.view.navigation.pages.TransitionAnimationENUM;
 		]]>
@@ -34,7 +35,7 @@
 					<s:HorizontalLayout verticalAlign="middle" horizontalAlign="right" />
 				</s:layout>
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'audioSettings.enableAudio')}" />
+						 text="{Device.translations.getTranslation('Enable audio')}" />
 				<s:CheckBox id="enableAudio0" />
 			</s:Group>
 			<s:Line width="90%">
@@ -50,7 +51,7 @@
 					<s:HorizontalLayout verticalAlign="middle" horizontalAlign="right" /> 
 				</s:layout>
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'audioSettings.enableMic')}" />
+						 text="{Device.translations.getTranslation('Enable microphone')}" />
 				<s:CheckBox id="enableMic0" />
 			</s:Group>
 			<s:Line width="90%">
@@ -66,7 +67,7 @@
 					<s:HorizontalLayout verticalAlign="middle" horizontalAlign="right" />
 				</s:layout>
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'audioSettings.pushToTalk')}" />
+						 text="{Device.translations.getTranslation('Push to talk')}" />
 				<s:CheckBox id="enablePushToTalk0" />
 			</s:Group>
 			<s:Line width="90%">
@@ -84,7 +85,7 @@
 					<s:HorizontalLayout verticalAlign="middle" horizontalAlign="right" />
 				</s:layout>
 				<s:Label width="100%"
-						 text="{resourceManager.getString('resources', 'audioSettings.micGain')}" />
+						 text="{Device.translations.getTranslation('Microphone level')}" />
 
 				<s:Rect id="micActivity0"
 						height="{gainSlider0.height/2}"
@@ -134,8 +135,7 @@
 
 			<s:Button id="continueToMeeting"
 					  width="90%"
-					  label="{resourceManager.getString('resources', 'audioSettings.continue')}"
-					  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+					  label="{Device.translations.getTranslation('Continue to meeting')}"/>
 
 		</s:Group>
 	</s:Scroller>

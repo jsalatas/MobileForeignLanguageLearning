@@ -19,11 +19,12 @@ package org.bigbluebutton.view.navigation.pages.chat {
 	import spark.components.View;
 	import spark.events.ViewNavigatorEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.core.ChatMessageService;
-	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.chat.ChatMessage;
 	import org.bigbluebutton.model.chat.ChatMessageVO;
 	import org.bigbluebutton.model.chat.ChatMessages;
@@ -142,7 +143,7 @@ package org.bigbluebutton.view.navigation.pages.chat {
 		protected function userRemoved(userID:String):void {
 			if (view != null && user && user.userID == userID) {
 				view.inputMessage.enabled = false;
-				view.pageName.text = user.name + ResourceManager.getInstance().getString('resources', 'userDetail.userOffline');
+				view.pageName.text = user.name + Device.translations.getTranslation('[Offline]');
 			}
 		}
 		
@@ -174,8 +175,8 @@ package org.bigbluebutton.view.navigation.pages.chat {
 			if (!publicChat) {
 				view.inputMessage.enabled = currentPageDetails.online;
 				// if user went offline, and 'OFFLINE' marker is not already part of the string, add OFFLINE to the username
-				if ((currentPageDetails.online == false) && (view.pageName.text.indexOf(ResourceManager.getInstance().getString('resources', 'userDetail.userOffline')) == -1)) {
-					view.pageName.text += ResourceManager.getInstance().getString('resources', 'userDetail.userOffline');
+				if ((currentPageDetails.online == false) && (view.pageName.text.indexOf(Device.translations.getTranslation('[Offline]')) == -1)) {
+					view.pageName.text += Device.translations.getTranslation('[Offline]');
 				}
 			}
 			var chatMessages:ChatMessages = currentPageDetails.chatMessages as ChatMessages;

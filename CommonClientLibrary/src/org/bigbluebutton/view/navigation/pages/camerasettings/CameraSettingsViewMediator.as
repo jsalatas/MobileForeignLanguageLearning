@@ -18,16 +18,18 @@ package org.bigbluebutton.view.navigation.pages.camerasettings {
 	
 	import spark.events.IndexChangeEvent;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.CameraQualitySignal;
 	import org.bigbluebutton.command.ShareCameraSignal;
 	import org.bigbluebutton.core.SaveData;
 	import org.bigbluebutton.core.VideoConnection;
 	import org.bigbluebutton.core.VideoProfile;
 	import org.bigbluebutton.model.ConferenceParameters;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserList;
 	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.bigbluebutton.view.ui.SwapCameraButton;
 	import org.robotlegs.mvcs.SignalMediator;
@@ -65,10 +67,10 @@ package org.bigbluebutton.view.navigation.pages.camerasettings {
 			userSession.userList.userChangeSignal.add(userChangeHandler);
 			var userMe:User = userSession.userList.me;
 			if (Camera.getCamera() == null) {
-				view.startCameraButton.label = ResourceManager.getInstance().getString('resources', 'profile.settings.camera.unavailable');
+				view.startCameraButton.label = Device.translations.getTranslation('Start camera [Unavailable]');
 				view.startCameraButton.enabled = false;
 			} else {
-				view.startCameraButton.label = ResourceManager.getInstance().getString('resources', userMe.hasStream ? 'profile.settings.camera.on' : 'profile.settings.camera.off');
+				view.startCameraButton.label = userMe.hasStream ? Device.translations.getTranslation('Stop camera') : Device.translations.getTranslation('Start camera');
 				view.startCameraButton.enabled = true;
 			}
 			if (Camera.names.length <= 1) {
@@ -85,7 +87,7 @@ package org.bigbluebutton.view.navigation.pages.camerasettings {
 			view.startCameraButton.addEventListener(MouseEvent.CLICK, onShareCameraClick);
 			view.rotateCameraButton.addEventListener(MouseEvent.CLICK, onRotateCameraClick);
 			view.cameraProfilesList.addEventListener(IndexChangeEvent.CHANGE, onCameraQualitySelected);
-			FlexGlobals.topLevelApplication.pageName.text = ResourceManager.getInstance().getString('resources', 'cameraSettings.title');
+			FlexGlobals.topLevelApplication.pageName.text = Device.translations.getTranslation('Camera Settings');
 			displayPreviewCamera();
 		}
 		
@@ -121,7 +123,7 @@ package org.bigbluebutton.view.navigation.pages.camerasettings {
 		private function userChangeHandler(user:User, type:int):void {
 			if (user.me) {
 				if (type == UserList.HAS_STREAM) {
-					view.startCameraButton.label = ResourceManager.getInstance().getString('resources', user.hasStream ? 'profile.settings.camera.on' : 'profile.settings.camera.off');
+					view.startCameraButton.label = user.hasStream ? Device.translations.getTranslation('Stop camera') : Device.translations.getTranslation('Start camera');
 					if (Camera.names.length > 1) {
 						setSwapCameraButtonEnable(true)
 					}

@@ -3,6 +3,11 @@
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 
 	<s:Group width="100%"
 			 height="100%">
@@ -10,17 +15,15 @@
 			<s:VerticalLayout verticalAlign="middle"
 							  horizontalAlign="center" />
 		</s:layout>
-		<s:Image styleName="bbbLogoStyle" />
+		<s:Image  />
 		<s:Label id="messageText0"
 				 width="100%"
 				 textAlign="center"
-				 styleName="contentFontSize disconnectMsgStyle"
-				 text="{resourceManager.getString('resources', 'guest.waitMessage')}">
+				 text="{Device.translations.getTranslation('You are a guest, please wait moderator approval.')}">
 		</s:Label>
 		<s:Button id="exitButton0"
 				  width="90%"
-				  label="{resourceManager.getString('resources', 'disconnect.reason.userExit')}"
-				  styleName="userSettingsButtonStyle logoutButtonStyle contentFontSize" />
+				  label="{Device.translations.getTranslation('Exit')}" />
 	</s:Group>
 
 </view:NoTabView>

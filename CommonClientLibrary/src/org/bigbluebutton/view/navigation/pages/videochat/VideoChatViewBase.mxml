@@ -3,12 +3,16 @@
 				xmlns:s="gr.ictpro.mall.client.components.*"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:view="org.bigbluebutton.core.view.*">
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+		]]>
+	</fx:Script>
 	<s:Label id="noVideoMessage0"
-			 styleName="noVideoMsgStyle contentFontSize"
 			 textAlign="center"
 			 width="100%"
 			 height="100%"
-			 text="{resourceManager.getString('resources', 'video.noVideo')}" />
+			 text="{Device.translations.getTranslation('No video to display')}" />
 
 	<s:Scroller id="streamListScroller0"
 				width="100%"
@@ -21,8 +25,7 @@
 			<s:Group id="videoGroup0"
 					 width="100%">
 				<s:VideoDisplay id="videostream"
-								width="100%"
-								styleName="videoTextFieldStyle" />
+								width="100%" />
 			</s:Group>
 
 			<s:List id="videoStreamsList"
