@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="gr.ictpro.mall.client.components.*" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="30" bottom="2" xmlns:signals="org.osflash.signals.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.SWFLoader;
+			import mx.events.PropertyChangeEvent;
+			
+			import org.bigbluebutton.view.navigation.pages.whiteboard.WhiteboardCanvas;
+			
+			[Bindable]
+			private var _whiteBoard:WhiteboardCanvas = null;
+			
+			public var content:Group = null;
+
+			private var _slideLoader:SWFLoader = null;
+			
+			[Bindable]
+			public var slideModel:SlideModel;
+			
+			public function set slideLoader(slideLoader:SWFLoader):void
+			{
+				_slideLoader = slideLoader;
+			}
+			
+			public function get slideLoader():SWFLoader
+			{
+				return _slideLoader;
+			}
+
+			public var viewport:Group = null;
+
+			public function get whiteBoard():WhiteboardCanvas 
+			{
+				return _whiteBoard;
+			}
+			public function set whiteBoard(whiteBoard:WhiteboardCanvas):void {
+				if(_whiteBoard != null) {
+					_whiteBoard.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, zoomChanged);
+				}
+				_whiteBoard = whiteBoard;
+				_whiteBoard.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, zoomChanged);
+				zoomSlider.value = whiteBoard.zoom * 100; 
+			}
+			
+			private function zoomChanged(event:PropertyChangeEvent):void
+			{
+				if(event.type == PropertyChangeEvent.PROPERTY_CHANGE && event.property == "zoom") {
+					zoomSlider.value = _whiteBoard.zoom * 100;
+				}
+			}
+			
+			protected function uploadPres_clickHandler(event:MouseEvent):void
+			{
+				uploadPresSignal.dispatch();
+				
+			}
+			
+			protected function backButton_clickHandler(event:MouseEvent):void
+			{
+				backSignal.dispatch();
+				
+			}
+			
+			protected function zoomSlider_changeHandler(event:Event):void
+			{
+				zoomSignal.dispatch(zoomSlider.value);
+			}
+			
+			protected function forwardButton_clickHandler(event:MouseEvent):void
+			{
+				forwardSignal.dispatch();
+				
+			}
+			
+			protected function fitPageButton_clickHandler(event:MouseEvent):void
+			{
+				fitPageSignal.dispatch();				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<signals:Signal id="uploadPresSignal" />
+		<signals:Signal id="backSignal" />
+		<signals:Signal id="forwardSignal" />
+		<signals:Signal id="zoomSignal" valueClasses="{[Number]}" />
+		<signals:Signal id="fitPageSignal" />
+		
+	</fx:Declarations>
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="middle" />
+	</s:layout>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle" />
+		</s:layout>
+		<s:Button id="uploadPres" styleName="presentationControlsButtonStyle presentationControlsUploadButtonStyle" click="uploadPres_clickHandler(event)"/>
+		<s:Spacer width="{zoomSlider.width}" />
+	</s:Group>
+	<s:Group width="100%">
+		<s:Group horizontalCenter="0">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle"/>
+			</s:layout>
+		
+			<s:Button id="backButton" styleName="presentationControlsButtonStyle presentationControlsBackButtonStyle" click="backButton_clickHandler(event)"/>
+			<s:Button id="forwardButton" styleName="presentationControlsButtonStyle presentationControlsForwardButtonStyle" click="forwardButton_clickHandler(event)"/>
+		</s:Group>
+	</s:Group>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle"/>
+		</s:layout>
+		<s:HSlider id="zoomSlider" minimum="100" maximum="400" skinClass="spark.skins.spark.HSliderSkin" change="zoomSlider_changeHandler(event)" />
+		<s:Button id="fitPageButton" styleName="presentationControlsButtonStyle presentationControlsFitPageButtonStyle" click="fitPageButton_clickHandler(event)"/>
+	</s:Group>
+	
+</s:Group>

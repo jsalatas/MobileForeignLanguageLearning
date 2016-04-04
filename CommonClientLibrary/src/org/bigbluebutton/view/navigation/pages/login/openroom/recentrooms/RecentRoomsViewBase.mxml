@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:NoTabView xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="gr.ictpro.mall.client.components.*"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:view="org.bigbluebutton.core.view.*"
+				styleName="roomsViewStyle">
+	<s:Group width="100%"
+			  height="100%" >
+		
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center" />
+		</s:layout>
+
+		<s:Scroller width="100%"
+					height="100%">
+			<s:Group width="100%"
+					  height="100%"
+					  >
+				<s:layout>
+					<s:VerticalLayout horizontalAlign="center" />
+				</s:layout>
+
+				<s:List id="roomsList0"
+						width="100%"
+						height="100%"
+						itemRenderer="org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RoomItemRenderer" />
+			</s:Group>
+		</s:Scroller>
+	</s:Group>
+</view:NoTabView>

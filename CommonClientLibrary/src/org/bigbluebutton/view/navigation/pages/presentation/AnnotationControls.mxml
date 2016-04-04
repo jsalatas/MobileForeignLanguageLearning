@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="gr.ictpro.mall.client.components.*" 
+		 xmlns:buttons="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.*" 
+		 xmlns:signals="org.osflash.signals.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" height="30" width="100%" bottom="2"  >
+	<fx:Script>
+		
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.controls.SWFLoader;
+			
+			import spark.components.Group;
+			import spark.components.ToggleButton;
+			import spark.skins.spark.HSliderSkin;
+			
+			import org.bigbluebutton.view.navigation.pages.whiteboard.WhiteboardCanvas;
+			
+			
+			public var selectedTool:ToggleButton = null;
+			[Bindable]
+			public var thickness:Number = 3;
+
+			public var slideModel:SlideModel;
+			
+			[Bindable]
+			public var color:uint = 0xff0000;
+
+			public var slide:SWFLoader = null;
+			public var viewport:Group = null;
+			public var whiteboard:WhiteboardCanvas = null;
+
+			[Bindable] private var colorPickerColours:ArrayList = new ArrayList(['0x000000', '0xFFFFFF' , '0xFF0000', '0xFF8800',
+				'0xCCFF00', '0x00FF00', '0x00FF88', '0x00FFFF', '0x0088FF', '0x0000FF', '0x8800FF', '0xFF00FF', '0xC0C0C0']);
+			
+
+			protected function changeColor(event:Event):void
+			{
+				// TODO Auto-generated method stub
+			}
+
+			protected function changeThickness(e:Event):void {
+				thickness = thickSlider.value;
+			}
+			
+			protected function toggleButtonSelect(event:MouseEvent):void
+			{
+				var selectedButton:ToggleButton = ToggleButton(event.currentTarget);
+				if(selectedButton == undoButton) {
+					selectedButton.selected = false;
+					undoSignal.dispatch();
+				} else if(selectedButton == clearButton) {
+					selectedButton.selected = false;
+					clearSignal.dispatch();
+				}  else {
+					if(selectedTool != null) {
+						selectedTool.selected = false;
+					}
+					if(selectedTool == selectedButton) {
+						selectedTool = null;
+					} else {
+						selectedTool = selectedButton;
+					}
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<signals:Signal id="clearSignal" />
+		<signals:Signal id="undoSignal" />
+	</fx:Declarations>
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="middle" />
+	</s:layout>
+	<buttons:PanZoomButton id="panZoomButton" click="toggleButtonSelect(event)" />
+	<s:Spacer width="10" />
+	<buttons:ScribbleButton id="scribbleButton" click="toggleButtonSelect(event)" />
+	<buttons:RectangleButton id="rectangleButton" click="toggleButtonSelect(event)" />
+	<buttons:CircleButton id="circleButton" click="toggleButtonSelect(event)" />
+	<buttons:TriangleButton id="triangleButton" click="toggleButtonSelect(event)" />
+	<buttons:LineButton id="lineButton" click="toggleButtonSelect(event)" />
+	<!--
+	<buttons:TextButton id="textButton" click="toggleButtonSelect(event)" />
+	-->
+	<s:Spacer width="5" />
+	<buttons:ClearButton id="clearButton" click="toggleButtonSelect(event)" />
+	<buttons:UndoButton id="undoButton" click="toggleButtonSelect(event)" />
+	<s:Spacer height="5" />
+	<!-- SparkColorPicker -->
+	<s:Spacer width="3" />
+	<s:HSlider id="thickSlider" skinClass="spark.skins.spark.HSliderSkin" width="50" change="changeThickness(event)" value="3" minimum="1" maximum="10"  />
+	<s:Group width="30" height="30">
+		<s:Line xFrom="2" xTo="28" yFrom="15" yTo="15">
+			<s:stroke>
+				<s:SolidColorStroke color="{color}" weight="{thickness}"/>
+			</s:stroke>
+		</s:Line> 
+	</s:Group>
+
+</s:Group>

@@ -103,18 +103,18 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
 	
-	import org.robotlegs.core.IInjector;
-	import org.robotlegs.utilities.modular.mvcs.ModuleContext;
+	import org.bigbluebutton.Context;
 	
-	public class ClientContext extends ModuleContext
+	public class ClientContext extends Context
 	{
-		public function getInjector():IInjector
-		{
-			return injector;
-		}
+//		public function getInjector():IInjector
+//		{
+//			return injector;
+//		}
 			
 		override public function startup():void
 		{
+			super.startup();
 			injector.mapSingleton(AddViewSignal);
 			injector.mapSingleton(LoginFailedSignal);
 			injector.mapSingleton(LoginSuccessSignal);
