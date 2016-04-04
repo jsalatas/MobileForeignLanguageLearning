@@ -8,6 +8,7 @@
 
 	<fx:Declarations>
 		<signals:Signal id="timeChangedSignal" /> 
+		<signals:Signal id="btnJoinClickedSignal" />
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
@@ -56,6 +57,12 @@
 				timeChangedSignal.dispatch();
 			}
 			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				btnJoinClickedSignal.dispatch();
+				
+			}
+			
 		]]>
 	</fx:Script>
 
@@ -76,6 +83,10 @@
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Approve')}" includeIn="edit" visible="{!currentUserIsStudent}">
 		<s:CheckBox id="chkApprove" selected="@{vo.approve}" />
+	</s:FormItem>
+
+	<s:FormItem width="100%" >
+		<s:Button label="{Device.translations.getTranslation('Join Meeting')}" click="button1_clickHandler(event)" />
 	</s:FormItem>
 
 </s:VOEditor>

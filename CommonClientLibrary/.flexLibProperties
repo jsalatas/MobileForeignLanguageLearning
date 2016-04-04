@@ -227,6 +227,8 @@
     <classEntry path="gr.ictpro.mall.client.components.TileLayout"/>
     <classEntry path="gr.ictpro.mall.client.components.Line"/>
     <classEntry path="gr.ictpro.mall.client.components.VideoDisplay"/>
+    <classEntry path="gr.ictpro.mall.client.view.BBBMeetingView"/>
+    <classEntry path="gr.ictpro.mall.client.view.BBBMeetingViewMediator"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

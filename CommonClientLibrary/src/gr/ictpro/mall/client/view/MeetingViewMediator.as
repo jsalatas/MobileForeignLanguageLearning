@@ -8,6 +8,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.MeetingModel;
 	import gr.ictpro.mall.client.model.MeetingTypeModel;
 	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.MeetingType;
 	import gr.ictpro.mall.client.model.vo.User;
@@ -78,6 +79,7 @@ package gr.ictpro.mall.client.view
 			}
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
+			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnJoinClickedSignal, joinMeetingHandler);
 			listSignal.dispatch(MeetingType);
 		}
 		private function getMeeting(id:int):void
@@ -143,6 +145,17 @@ package gr.ictpro.mall.client.view
 			} 
 			return true;
 		}	
+		
+		private function joinMeetingHandler():void
+		{
+			var bbbMeetingView:BBBMeetingView = new BBBMeetingView();
+			var parameters:ViewParameters = new ViewParameters();
+			parameters.vo = MeetingComponent(TopBarDetailView(view).editor).vo;
+			addView.dispatch(bbbMeetingView, parameters, view);
+			view.dispose();
+
+			
+		}
 		
 		public function removeUnavailableUsers():void {
 			var currentUsers:ArrayCollection = TopBarDetailView(view).getDetail("users").list;

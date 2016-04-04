@@ -2,6 +2,7 @@ package gr.ictpro.mall.client
 {
 	import gr.ictpro.mall.client.components.DetailTab;
 	import gr.ictpro.mall.client.components.DetailTabMediator;
+	import gr.ictpro.mall.client.components.TopBarCollaborationView;
 	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.controller.DeleteCommand;
@@ -66,6 +67,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
 	import gr.ictpro.mall.client.signal.ShowAuthenticationSignal;
 	import gr.ictpro.mall.client.signal.ShowErrorSignal;
+	import gr.ictpro.mall.client.view.BBBMeetingView;
+	import gr.ictpro.mall.client.view.BBBMeetingViewMediator;
 	import gr.ictpro.mall.client.view.CalendarDayView;
 	import gr.ictpro.mall.client.view.CalendarDayViewMediator;
 	import gr.ictpro.mall.client.view.CalendarMonthView;
@@ -175,6 +178,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(UsersView, UsersViewMediator, TopBarView);
 			mediatorMap.mapView(MeetingView, MeetingViewMediator, TopBarView);
 			mediatorMap.mapView(MeetingsView, MeetingsViewMediator, TopBarView);
+			mediatorMap.mapView(BBBMeetingView, BBBMeetingViewMediator, TopBarCollaborationView);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);
