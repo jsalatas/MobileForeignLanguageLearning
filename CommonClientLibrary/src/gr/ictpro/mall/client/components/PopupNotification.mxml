@@ -58,8 +58,8 @@
 			<s:HorizontalLayout paddingBottom="8" paddingLeft="5" paddingRight="6" paddingTop="8"/>
 		</s:layout>
 		<s:Group width="100%" height="100%">
-			<fxg:exclamation visible="false" includeIn="error" width="100%" height="100%"/>
-			<fxg:info visible="false" includeIn="info" width="100%" height="100%"/>
+			<fxg:exclamation includeIn="error" width="100%" height="100%"/>
+			<fxg:info includeIn="info" width="100%" height="100%"/>
 		</s:Group>
 	</s:Group>
 	<s:Label left="43" right="48" height="100%" color="{Device.getDefaultColor()}" color.error="#FF0000" text="{message}"
