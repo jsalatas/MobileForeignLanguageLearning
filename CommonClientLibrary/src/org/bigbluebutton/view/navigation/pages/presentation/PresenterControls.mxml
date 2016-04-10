@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="gr.ictpro.mall.client.components.*" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="30" bottom="2" xmlns:signals="org.osflash.signals.*">
+		 xmlns:s="gr.ictpro.mall.client.components.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:signals="org.osflash.signals.*" xmlns:buttons="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.*">
 	
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.SWFLoader;
 			import mx.events.PropertyChangeEvent;
+			
+			import assets.fxg.butons.fitopage;
+			import assets.fxg.butons.next;
+			import assets.fxg.butons.previous;
+			import assets.fxg.butons.upload;
+			
+			import gr.ictpro.mall.client.components.Group;
 			
 			import org.bigbluebutton.view.navigation.pages.whiteboard.WhiteboardCanvas;
 			
@@ -54,12 +61,14 @@
 			
 			protected function uploadPres_clickHandler(event:MouseEvent):void
 			{
+				uploadPres.selected = false;
 				uploadPresSignal.dispatch();
 				
 			}
 			
 			protected function backButton_clickHandler(event:MouseEvent):void
 			{
+				backButton.selected = false;
 				backSignal.dispatch();
 				
 			}
@@ -71,19 +80,34 @@
 			
 			protected function forwardButton_clickHandler(event:MouseEvent):void
 			{
+				forwardButton.selected = false;
 				forwardSignal.dispatch();
 				
 			}
 			
 			protected function fitPageButton_clickHandler(event:MouseEvent):void
 			{
+				fitPageButton.selected = false;
 				fitPageSignal.dispatch();				
 			}
-			
+
+			protected function toggleButtonSelect(event:MouseEvent):void
+			{
+				var selectedButton:ToggleButton = ToggleButton(event.currentTarget);
+				if(selectedButton == undoButton) {
+					undoSignal.dispatch();
+				} else if(selectedButton == clearButton) {
+					clearSignal.dispatch();
+				} 
+				selectedButton.selected = false;
+			}
+
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
+		<signals:Signal id="clearSignal" />
+		<signals:Signal id="undoSignal" />
 		<signals:Signal id="uploadPresSignal" />
 		<signals:Signal id="backSignal" />
 		<signals:Signal id="forwardSignal" />
@@ -94,29 +118,15 @@
 	<s:layout>
 		<s:HorizontalLayout verticalAlign="middle" />
 	</s:layout>
-	<s:Group>
-		<s:layout>
-			<s:HorizontalLayout verticalAlign="middle" />
-		</s:layout>
-		<s:Button id="uploadPres" click="uploadPres_clickHandler(event)"/>
-		<s:Spacer width="{zoomSlider.width}" />
-	</s:Group>
-	<s:Group width="100%">
-		<s:Group horizontalCenter="0">
-			<s:layout>
-				<s:HorizontalLayout verticalAlign="middle"/>
-			</s:layout>
-		
-			<s:Button id="backButton" click="backButton_clickHandler(event)"/>
-			<s:Button id="forwardButton" click="forwardButton_clickHandler(event)"/>
-		</s:Group>
-	</s:Group>
-	<s:Group>
-		<s:layout>
-			<s:HorizontalLayout verticalAlign="middle"/>
-		</s:layout>
-		<s:HSlider id="zoomSlider" minimum="100" maximum="400" skinClass="spark.skins.spark.HSliderSkin" change="zoomSlider_changeHandler(event)" />
-		<s:Button id="fitPageButton"  click="fitPageButton_clickHandler(event)"/>
-	</s:Group>
+	<s:ToggleButton id="uploadPres" width="25" height="25" icon="{assets.fxg.butons.upload}" click="uploadPres_clickHandler(event)"/>
+	<s:Spacer width="3" />
+	<s:ToggleButton id="backButton" width="25" height="25" icon="{assets.fxg.butons.previous}" click="backButton_clickHandler(event)"/>
+	<s:ToggleButton id="forwardButton" width="25" height="25" icon="{assets.fxg.butons.next}" click="forwardButton_clickHandler(event)"/>
+	<s:Spacer width="3" />
+	<s:HSlider id="zoomSlider" width="92" minimum="100" maximum="400" change="zoomSlider_changeHandler(event)" />
+	<s:ToggleButton id="fitPageButton" width="25" height="25" icon="{assets.fxg.butons.fitopage}" click="fitPageButton_clickHandler(event)"/>
+	<s:Spacer width="3" />
+	<buttons:ClearButton id="clearButton" click="toggleButtonSelect(event)" />
+	<buttons:UndoButton id="undoButton" click="toggleButtonSelect(event)" />
 	
 </s:Group>

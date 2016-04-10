@@ -133,5 +133,55 @@ package gr.ictpro.mall.client.components
 		{
 			return Device.getUnScaledSize(super.y);	
 		}
+		
+		[Bindable(event="xFromScaled")]
+		public function get definedxFrom():Number
+		{
+			return Device.getUnScaledSize(super.xFrom);
+		}
+		
+		[Bindable(event="xFromScaled")]
+		override public function set xFrom(value:Number):void
+		{
+			super.xFrom = Device.getScaledSize(value);
+		}
+		
+		[Bindable(event="xToScaled")]
+		public function get definedxTo():Number
+		{
+			return Device.getUnScaledSize(super.xTo);
+		}
+		
+		[Bindable(event="xToScaled")]
+		override public function set xTo(value:Number):void
+		{
+			super.xTo = Device.getScaledSize(value);
+		}
+		
+		[Bindable(event="yFromScaled")]
+		public function get definedyFrom():Number
+		{
+			return Device.getUnScaledSize(super.yFrom);
+		}
+		
+		[Bindable(event="yFromScaled")]
+		override public function set yFrom(value:Number):void
+		{
+			super.yFrom = Device.getScaledSize(value);
+		}
+		
+		[Bindable(event="yToScaled")]
+		public function get definedyTo():Number
+		{
+			return Device.getUnScaledSize(super.yTo);
+		}
+		
+		[Bindable(event="yToScaled")]
+		override public function set yTo(value:Number):void
+		{
+			super.yTo = Device.getScaledSize(value);
+		}
+		
+		
 	}
 }

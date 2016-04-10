@@ -105,6 +105,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.UsersViewMediator;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponent;
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
+	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
+	import gr.ictpro.mall.client.view.components.bbb.WhiteboardViewMediator;
 	
 	import org.bigbluebutton.Context;
 	
@@ -179,6 +181,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(MeetingView, MeetingViewMediator, TopBarView);
 			mediatorMap.mapView(MeetingsView, MeetingsViewMediator, TopBarView);
 			mediatorMap.mapView(BBBMeetingView, BBBMeetingViewMediator, TopBarCollaborationView);
+			mediatorMap.mapView(WhiteboardView, WhiteboardViewMediator);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);

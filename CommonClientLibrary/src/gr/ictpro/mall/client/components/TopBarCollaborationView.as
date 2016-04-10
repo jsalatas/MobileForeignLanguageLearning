@@ -7,10 +7,12 @@ package gr.ictpro.mall.client.components
 	import mx.core.IVisualElementContainer;
 	import mx.core.mx_internal;
 	
+	import spark.layouts.supportClasses.LayoutBase;
+	
 	import assets.fxg.back;
-	import assets.fxg.cancel;
 	import assets.fxg.settings;
 	import assets.fxg.textchat;
+	import assets.fxg.users;
 	import assets.fxg.videochat;
 	import assets.fxg.whiteboard;
 	
@@ -26,14 +28,18 @@ package gr.ictpro.mall.client.components
 	[Event(name="whiteboardClicked", type="flash.events.MouseEvent")]
 	[Event(name="videoClicked", type="flash.events.MouseEvent")]
 	[Event(name="chatClicked", type="flash.events.MouseEvent")]
+	[Event(name="usersClicked", type="flash.events.MouseEvent")]
 	[Event(name="settingsClicked", type="flash.events.MouseEvent")]
 
 	public class TopBarCollaborationView extends Group implements IDetailView, IParameterizedView
 	{
-		public var whiteboardButton:Boolean = false;
-		public  var videoButton:Boolean = false;
-		public var okButton:Boolean = false;
-		public var settingsButton:Boolean = false;
+		protected var mxmlContentGroup:Group; 
+
+		public var whiteboardButton:Boolean = true;
+		public  var videoButton:Boolean = true;
+		public var chatButton:Boolean = true;
+		public var usersButton:Boolean = true;
+		public var settingsButton:Boolean = true;
 		protected var _title:String;
 		private var _titleLabel:Label; 
 //		protected var mxmlContentGroup:Group; 
@@ -42,17 +48,23 @@ package gr.ictpro.mall.client.components
 		private var _groupVideo:Group;
 		private var _groupWhiteboard:Group;
 		private var _groupChat:Group;
+		private var _groupUsers:Group;
 		private var _groupSettings:Group;
 		private var _disableVideo:Boolean = false; 
 		private var _disableWhiteboard:Boolean = false; 
 		private var _disableChat:Boolean = false; 
+		private var _disableUsers:Boolean = false; 
 		private var _disableSettings:Boolean = false; 
 
 		public function TopBarCollaborationView()
 		{
 			super();
+			
+			mxmlContentGroup = new Group();
+			
 		}
 		
+	
 		[Bindable]
 		public function set title(title:String):void
 		{
@@ -105,6 +117,9 @@ package gr.ictpro.mall.client.components
 			}
 			if(_disableWhiteboard) {
 				disableWhiteboard();
+			}
+			if(_disableUsers) {
+				disableUsers();
 			}
 			if(_disableChat) {
 				disableChat();
@@ -217,16 +232,16 @@ package gr.ictpro.mall.client.components
 			
 			if(videoButton) {
 				var fxgVideo:videochat = new videochat();
-				fxgVideo.width = Device.getScaledSize(27);
-				fxgVideo.height = Device.getScaledSize(15);
+				fxgVideo.width = Device.getScaledSize(22);
+				fxgVideo.height = Device.getScaledSize(12);
 				_groupVideo = new Group();
 				
-				_groupVideo.width = 37;
+				_groupVideo.width = 32;
 				_groupVideo.height = 30;
 				var layout3:HorizontalLayout =  new HorizontalLayout();
-				layout3.paddingTop = 7;
+				layout3.paddingTop = 9;
 				layout3.paddingLeft = 7; 
-				layout3.paddingBottom = 8;
+				layout3.paddingBottom = 9;
 				layout3.paddingRight = 3; 
 				_groupVideo.layout = layout3;
 
@@ -238,7 +253,7 @@ package gr.ictpro.mall.client.components
 				ocgroup.addElement(_groupVideo);
 			}
 			
-			if(okButton) {
+			if(chatButton) {
 				var fxgChat:textchat = new textchat();
 				fxgChat.width = Device.getScaledSize(16);
 				fxgChat.height = Device.getScaledSize(15);
@@ -260,7 +275,30 @@ package gr.ictpro.mall.client.components
 				
 				ocgroup.addElement(_groupChat);
 			}
-			
+
+			if(usersButton) {
+				var fxgUsers:users = new users();
+				fxgUsers.width = Device.getScaledSize(19);
+				fxgUsers.height = Device.getScaledSize(12);
+				//fxgOk.left = 10;
+				_groupUsers = new Group();
+				
+				_groupUsers.width = 29;
+				_groupUsers.height = 30;
+				var layout5:HorizontalLayout =  new HorizontalLayout();
+				layout5.paddingTop = 9;
+				layout5.paddingLeft = 7; 
+				layout5.paddingBottom = 9;
+				layout5.paddingRight = 3; 
+				_groupUsers.layout = layout5;
+				
+				_groupUsers.addElement(fxgUsers);
+				
+				_groupUsers.addEventListener(MouseEvent.CLICK, usersClickedHandler);
+				
+				ocgroup.addElement(_groupUsers);
+			}
+
 			if(settingsButton) {
 				var fxgSettings:settings= new settings();
 				fxgSettings.width = Device.getScaledSize(14);
@@ -270,12 +308,12 @@ package gr.ictpro.mall.client.components
 				
 				_groupSettings.width = 29;
 				_groupSettings.height = 30;
-				var layout5:HorizontalLayout =  new HorizontalLayout();
-				layout5.paddingTop = 7;
-				layout5.paddingLeft = 7; 
-				layout5.paddingBottom = 8;
-				layout5.paddingRight = 8; 
-				_groupSettings.layout = layout5;
+				var layout6:HorizontalLayout =  new HorizontalLayout();
+				layout6.paddingTop = 7;
+				layout6.paddingLeft = 7; 
+				layout6.paddingBottom = 8;
+				layout6.paddingRight = 8; 
+				_groupSettings.layout = layout6;
 				
 				_groupSettings.addElement(fxgSettings);
 				_groupSettings.addEventListener(MouseEvent.CLICK, settingsClickedHandler);
@@ -283,8 +321,19 @@ package gr.ictpro.mall.client.components
 			}
 			
 			topBarGroup.addElement(ocgroup);
-			//addElement(mxmlContentGroup);
+			addElement(mxmlContentGroup);
 
+		}
+
+		override public function set layout(value:LayoutBase):void
+		{
+			mxmlContentGroup.layout = layout;
+		}
+		
+		override public function set mxmlContent(value:Array):void
+		{
+			mxmlContentGroup.mxmlContent = value;
+			invalidateDisplayList();
 		}
 
 		private function backClickedHandler(event:Event):void
@@ -302,6 +351,12 @@ package gr.ictpro.mall.client.components
 		private function whiteboardClickedHandler(event:Event):void
 		{
 			var e:MouseEvent = new MouseEvent("whiteboardClicked");
+			dispatchEvent(e);
+		}
+
+		private function usersClickedHandler(event:Event):void
+		{
+			var e:MouseEvent = new MouseEvent("usersClicked");
 			dispatchEvent(e);
 		}
 		
@@ -349,6 +404,21 @@ package gr.ictpro.mall.client.components
 			}
 		}
 		
+		public function disableUsers():void {
+			_disableUsers = true;
+			if(_groupUsers != null) {
+				_groupUsers.getChildAt(0).alpha = 0;
+				_groupUsers.removeEventListener(MouseEvent.CLICK, usersClickedHandler);
+			}
+		}
+		
+		public function enableUsers():void {
+			_disableUsers = false;
+			if(_groupUsers != null) {
+				_groupUsers.getChildAt(0).alpha = 1.0;
+				_groupUsers.addEventListener(MouseEvent.CLICK, usersClickedHandler);
+			}
+		}
 
 		public function disableSettings():void {
 			_disableSettings = true;

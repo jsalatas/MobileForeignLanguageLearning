@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ToggleButton xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		  xmlns:s="gr.ictpro.mall.client.components.*" 
+		  xmlns:s="gr.ictpro.mall.client.components.*" icon="{assets.fxg.butons.line}"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
-		  width="30" height="30" 
+		  width="25" height="25" 
 		  implements="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.IDrawingButton">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import assets.fxg.butons.line;
+			
 			import org.bigbluebutton.model.whiteboard.AnnotationType;
 			public function get tool():String 
 			{

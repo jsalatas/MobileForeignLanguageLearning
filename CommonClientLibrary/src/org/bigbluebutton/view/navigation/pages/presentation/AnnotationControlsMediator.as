@@ -53,8 +53,6 @@ package org.bigbluebutton.view.navigation.pages.presentation
 		private var slideNum:int;
 		
 		override public function onRegister():void {
-			addToSignal(view.undoSignal, undoHandler);	
-			addToSignal(view.clearSignal, clearHandler);
 			addToSignal(userSession.presentationList.currentPresentation.slideChangeSignal, presentationChangeHandler);
 			addToSignal(userSession.presentationList.viewedRegionChangeSignal, viewedRegionChangeHandler);
 
@@ -89,13 +87,13 @@ package org.bigbluebutton.view.navigation.pages.presentation
 			if(isDrawing) {
 				view.viewport.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 				view.viewport.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
-				view.viewport.removeEventListener(MouseEvent.MOUSE_OUT, mouseUp);
+				view.viewport.removeEventListener(MouseEvent.ROLL_OUT, mouseUp);
 				isDrawing = false;	
 			}
 			if(isMoving) {
 				view.viewport.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 				view.viewport.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
-				view.viewport.removeEventListener(MouseEvent.MOUSE_OUT, mouseUp);
+				view.viewport.removeEventListener(MouseEvent.ROLL_OUT, mouseUp);
 				isMoving = false;	
 			}
 		}
@@ -112,18 +110,17 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				
 				currentAnnotation.points.push(xPercent);
 				currentAnnotation.points.push(yPercent);
-				whiteboardService.sendShape(currentAnnotation);
+				if(currentAnnotation.points.length>=20) {
+					whiteboardService.sendShape(currentAnnotation);
+				}
 			} else if(isMoving && moveCompleted) {
 				var xoffset:Number = view.slide.x*100/(view.slide.width*2);
 				var yoffset:Number = view.slide.y*100/(view.slide.height*2);
 
-				trace(">>>>>>> before: " + xoffset + " " + yoffset);
 				var moveEndingPoint:Point = new Point(view.slide.mouseX, view.slide.mouseY);
 				var diffX:Number=(moveEndingPoint.x - movePreviousPoint.x)*100/(view.slide.width*2);
 				var diffY:Number=(moveEndingPoint.y - movePreviousPoint.y)*100/(view.slide.height*2);
 				
-				trace(">>>>>>> diff: " + diffX + " " + diffY);
-
 				movePreviousPoint.x = moveEndingPoint.x;
 				movePreviousPoint.y = moveEndingPoint.y;
 					
@@ -152,7 +149,6 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				} 
 				
 
-				trace(">>>>>>> after: " + xoffset + " " + yoffset);
 				moveCompleted = false;
 				presentationService.move(xoffset, yoffset, 100/view.whiteboard.zoom, 100/view.whiteboard.zoom);
 			}
@@ -165,7 +161,7 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				isDrawing = true;
 				view.viewport.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);			
 				view.viewport.addEventListener(MouseEvent.MOUSE_UP, mouseUp);			
-				view.viewport.addEventListener(MouseEvent.MOUSE_OUT, mouseUp);
+				view.viewport.addEventListener(MouseEvent.ROLL_OUT, mouseUp);
 				
 				var points:Array = new Array();
 				var xPercent:Number = view.slide.mouseX / view.slide.width *100;
@@ -180,7 +176,7 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				movePreviousPoint = new Point(view.slide.mouseX, view.slide.mouseY);
 				view.viewport.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);			
 				view.viewport.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
-				view.viewport.addEventListener(MouseEvent.MOUSE_OUT, mouseUp);
+				view.viewport.addEventListener(MouseEvent.ROLL_OUT, mouseUp);
 
 			}
 		}
@@ -191,27 +187,27 @@ package org.bigbluebutton.view.navigation.pages.presentation
 			{
 				case AnnotationType.RECTANGLE:
 				{
-					an = new RectangleAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.color, view.thickness, false, points, false);	
+					an = new RectangleAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.colorPicker.color, view.thickness, false, points, false);	
 					break;
 				}
 				case AnnotationType.ELLIPSE:
 				{
-					an = new EllipseAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.color, view.thickness, false, points, false);	
+					an = new EllipseAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.colorPicker.color, view.thickness, false, points, false);	
 					break;
 				}
 				case AnnotationType.TRIANGLE:
 				{
-					an = new TriangleAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.color, view.thickness, false, points);	
+					an = new TriangleAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.colorPicker.color, view.thickness, false, points);	
 					break;
 				}
 				case AnnotationType.LINE:
 				{
-					an = new LineAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.color, view.thickness, false, points);	
+					an = new LineAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.colorPicker.color, view.thickness, false, points);	
 					break;
 				}
 				case AnnotationType.PENCIL:
 				{
-					an = new PencilAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.color, view.thickness, false, points);	
+					an = new PencilAnnotation(type, annotationIDGenerator.generateID(), getWhiteboardId(), AnnotationStatus.DRAW_START, view.colorPicker.color, view.thickness, false, points);	
 					break;
 				}
 			}
@@ -239,18 +235,7 @@ package org.bigbluebutton.view.navigation.pages.presentation
 		
 		private function getWhiteboardId():String
 		{
-			trace(">>>>>>>>>>>> whiteboard id: " + whiteboardID + "/" + slideNum);
 			return whiteboardID + "/" + slideNum;
-		}
-
-		private function undoHandler():void
-		{
-			whiteboardService.undoGraphic(whiteboardID, slideNum);
-		}
-		
-		private function clearHandler():void
-		{
-			whiteboardService.clearBoard(whiteboardID, slideNum);
 		}
 
 		

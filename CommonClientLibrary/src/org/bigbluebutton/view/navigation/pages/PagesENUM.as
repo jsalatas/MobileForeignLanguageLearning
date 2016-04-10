@@ -14,7 +14,6 @@ package org.bigbluebutton.view.navigation.pages {
 	import org.bigbluebutton.view.navigation.pages.login.openroom.OpenRoomView;
 	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RecentRoomsView;
 	import org.bigbluebutton.view.navigation.pages.participants.ParticipantsView;
-	import org.bigbluebutton.view.navigation.pages.presentation.PresentationView;
 	import org.bigbluebutton.view.navigation.pages.profile.ProfileView;
 	import org.bigbluebutton.view.navigation.pages.selectparticipant.SelectParticipantView;
 	import org.bigbluebutton.view.navigation.pages.status.StatusView;
@@ -73,7 +72,6 @@ package org.bigbluebutton.view.navigation.pages {
 		
 		protected static function init():void {
 			if (!dicInitiated) {
-				dic[PRESENTATION] = PresentationView;
 				dic[LOGIN] = LoginPageView;
 				dic[PROFILE] = ProfileView;
 				dic[STATUS] = StatusView;

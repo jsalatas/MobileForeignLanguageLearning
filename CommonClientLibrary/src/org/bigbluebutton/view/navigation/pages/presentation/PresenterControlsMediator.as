@@ -5,6 +5,7 @@ package org.bigbluebutton.view.navigation.pages.presentation
 	
 	import org.bigbluebutton.core.FileUploadService;
 	import org.bigbluebutton.core.PresentationService;
+	import org.bigbluebutton.core.WhiteboardService;
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.presentation.Presentation;
@@ -14,6 +15,9 @@ package org.bigbluebutton.view.navigation.pages.presentation
 	{
 		[Inject]
 		public var presentationService:PresentationService;
+
+		[Inject]
+		public var whiteboardService:WhiteboardService;
 		
 		[Inject]
 		public var view:PresenterControls;
@@ -23,22 +27,29 @@ package org.bigbluebutton.view.navigation.pages.presentation
 		
 		[Inject]
 		public var conferenceParameters:ConferenceParameters;
-		
+
+		private var whiteboardID:String; 
+		private var slideNum:int;
+
 		override public function onRegister():void {
 			addToSignal(userSession.presentationList.presentationChangeSignal, presentationChangeHandler);
-			
 			addToSignal(userSession.presentationList.currentPresentation.slideChangeSignal, presentationChangeHandler);
+			
 			addToSignal(view.uploadPresSignal, uploadPresHandler);
 			addToSignal(view.backSignal, backHandler);
 			addToSignal(view.forwardSignal, forwardHandler);
 			addToSignal(view.zoomSignal, zoomHandler);
 			addToSignal(view.fitPageSignal, fitPageHandler);
-
+			addToSignal(view.undoSignal, undoHandler);	
+			addToSignal(view.clearSignal, clearHandler);
 
 			presentationChangeHandler();
 		}
 		
 		private function presentationChangeHandler():void {
+			whiteboardID= userSession.presentationList.currentPresentation.id;
+			slideNum = userSession.presentationList.currentPresentation.currentSlideNum+1;
+
 			setPresentation(userSession.presentationList.currentPresentation);
 		}
 		
@@ -109,5 +120,19 @@ package org.bigbluebutton.view.navigation.pages.presentation
 		{
 			presentationService.move(0, 0, 100, 100);
 		}
+
+		private function undoHandler():void
+		{
+			whiteboardService.undoGraphic(whiteboardID, slideNum);
+		}
+		
+		private function clearHandler():void
+		{
+			whiteboardService.clearBoard(whiteboardID, slideNum);
+		}
+
+		
+
+
 	}
 }

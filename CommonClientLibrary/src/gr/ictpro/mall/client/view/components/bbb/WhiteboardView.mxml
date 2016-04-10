@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="gr.ictpro.mall.client.components.*" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:whiteboard="org.bigbluebutton.view.navigation.pages.whiteboard.*"
+		 xmlns:presentation="org.bigbluebutton.view.navigation.pages.presentation.*"
+		 >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<mx:State name="viewer" />
+		<mx:State name="presenter" />
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import org.bigbluebutton.view.navigation.pages.presentation.SlideModel;
+			import org.bigbluebutton.model.presentation.Slide;
+			import gr.ictpro.mall.client.runtime.Device;		
+			
+			[Bindable]
+			public var slideModel:SlideModel = new SlideModel();
+			
+			public function get content():Group {
+				return content0;
+			}
+			
+			public function get viewport():Group {
+				return viewport0;
+			}
+			
+			public function get slide():SWFLoader {
+				return slide0;
+			}
+			
+			public function get presenterControls():Group {
+				return presenterControls0;
+			}
+			
+			public function get annotationControls():Group {
+				return annotationControls0;
+			}
+			
+			
+			public function get whiteboardCanvas():WhiteboardCanvas {
+				return whiteboardCanvas0;
+			}
+			
+			public function setPresentationName(name:String):void {
+				// FlexGlobals.topLevelApplication.pageName.text = name;
+			}
+			
+			public function setSlide(s:Slide):void {
+				if (s != null) {
+					var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, null);
+					context.allowCodeImport = true;
+					slide.loaderContext = context;
+					slide.source = s.SWFFile.source;
+				} else {
+					slide.source = null;
+				}
+			}
+			
+			public function securityError(e:Event):void {
+				trace("PresentationView.as Security error : " + e.toString());
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Group top="0" left="0" right="0" bottom="0" >
+		<s:layout>
+			<s:VerticalLayout gap="0"  />
+		</s:layout>
+		
+		<s:Group id="content0"
+				 width="100%" height="100%">
+			<s:layout>
+				<s:BasicLayout />
+			</s:layout>
+			<s:Group id="viewport0"
+					 clipAndEnableScrolling="true"
+					 width="100%"
+					 height="100%">
+				<s:layout>
+					<s:BasicLayout />
+				</s:layout>
+				<mx:SWFLoader id="slide0"
+							  scaleContent="true"
+							  width="100%" height="100%" />
+				<whiteboard:WhiteboardCanvas id="whiteboardCanvas0" />
+			</s:Group>
+		</s:Group>
+		<s:Group  width="100%" id="presenterContainer" includeIn="presenter"  >
+			<s:layout>
+				<s:VerticalLayout paddingTop="2" paddingBottom="2" paddingLeft="2" paddingRight="2"  />
+			</s:layout>
+			<presentation:PresenterControls id="presenterControls0" content="{content0}" viewport="{viewport0}" slideLoader="{slide0}" whiteBoard="{whiteboardCanvas0}" slideModel="{slideModel}" width="100%" />
+			<presentation:AnnotationControls id="annotationControls0" slide="{slide0}" whiteboard="{whiteboardCanvas0}" slideModel="{slideModel}" viewport="{viewport0}" width="100%" />
+		</s:Group>
+	</s:Group>
+</s:Group>

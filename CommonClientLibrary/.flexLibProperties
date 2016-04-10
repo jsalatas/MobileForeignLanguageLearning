@@ -229,6 +229,11 @@
     <classEntry path="gr.ictpro.mall.client.components.VideoDisplay"/>
     <classEntry path="gr.ictpro.mall.client.view.BBBMeetingView"/>
     <classEntry path="gr.ictpro.mall.client.view.BBBMeetingViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.WhiteboardViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.WhiteboardView"/>
+    <classEntry path="gr.ictpro.mall.client.components.BasicLayout"/>
+    <classEntry path="gr.ictpro.mall.client.runtime.IFileDialog"/>
+    <classEntry path="gr.ictpro.mall.client.runtime.FileSelectEvent"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

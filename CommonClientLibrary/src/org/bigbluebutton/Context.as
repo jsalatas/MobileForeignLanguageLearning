@@ -77,8 +77,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.pages.participants.ParticipantsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.presentation.AnnotationControls;
 	import org.bigbluebutton.view.navigation.pages.presentation.AnnotationControlsMediator;
-	import org.bigbluebutton.view.navigation.pages.presentation.PresentationView;
-	import org.bigbluebutton.view.navigation.pages.presentation.PresentationViewMediator;
 	import org.bigbluebutton.view.navigation.pages.presentation.PresenterControls;
 	import org.bigbluebutton.view.navigation.pages.presentation.PresenterControlsMediator;
 	import org.bigbluebutton.view.navigation.pages.profile.ProfileView;
@@ -160,11 +158,6 @@ package org.bigbluebutton
 			signalCommandMap.mapSignalClass(JoinMeetingSignal, JoinMeetingCommand);
 
 
-			////////////////////
-			// 4 PresentationConfig
-			////////////////////
-			mediatorMap.mapView(PresentationView, PresentationViewMediator);
-			
 			////////////////////
 			// 5 LoginPageConfig
 			////////////////////

@@ -3,7 +3,9 @@ package org.bigbluebutton.view.navigation.pages.whiteboard
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
 	
-	import spark.components.Group;
+	import mx.core.FlexGlobals;
+	
+	import gr.ictpro.mall.client.components.Group;
 	
 	[Bindable]
 	public class WhiteboardCanvas extends Group 
