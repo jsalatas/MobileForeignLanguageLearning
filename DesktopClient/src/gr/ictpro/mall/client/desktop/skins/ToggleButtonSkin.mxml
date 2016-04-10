@@ -80,7 +80,7 @@
 									paddingTop.up="5"/>
 			</s:layout>
 			
-			<s:BitmapImage id="iconDisplay" height="16" width="16" 
+			<s:BitmapImage id="iconDisplay" height="16" width="16" alpha.disabledStates="0.5"
 						   includeInLayout="{iconDisplay.source}" scaleMode="letterbox" ready="initializeHandler(event)" />			
 			
 			<!-- layer 8: text -->
