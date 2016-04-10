@@ -25,6 +25,7 @@ package gr.ictpro.mall.client.runtime
 	public class Device
 	{
 		public static var _device:IDevice;
+		public static var fileDialog:IFileDialog;
 		public static var _scale:Number;
 		private static var _curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
 		private static var _curAppDPI:Number = 160; 

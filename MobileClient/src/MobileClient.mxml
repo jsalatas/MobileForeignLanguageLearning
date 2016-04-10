@@ -17,14 +17,16 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
-			import mx.events.ResizeEvent;
 			
 			import gr.ictpro.mall.client.mobile.MobileDevice;
+			import gr.ictpro.mall.client.mobile.components.MobileFileDialog;
 			import gr.ictpro.mall.client.runtime.Device;
 			
 			protected function application1_initializeHandler(event:FlexEvent):void
 			{
 				Device.device = new MobileDevice();
+				Device.fileDialog = new MobileFileDialog();
+
 			}
 		]]>
 	</fx:Script>

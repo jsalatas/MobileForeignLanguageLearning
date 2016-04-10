@@ -6,12 +6,14 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.core.FlexGlobals;
+			import mx.events.FileEvent;
 			
 			import spark.events.PopUpEvent;
 			
 			import gr.ictpro.mall.client.Icons;
 			import gr.ictpro.mall.client.components.menu.MenuItemCommand;
 			import gr.ictpro.mall.client.runtime.Device;
+			import gr.ictpro.mall.client.runtime.FileSelectEvent;
 			import gr.ictpro.mall.client.utils.image.ImageTransform;
 			import gr.ictpro.mall.client.view.ImageCropperView;
 			
@@ -93,18 +95,19 @@
 			private function chooseFile():void
 			{
 				var file:File = File.documentsDirectory;
-				file.addEventListener(Event.SELECT, fileSelectHandler); 
+				Device.fileDialog.addEventListener(FileSelectEvent.FILE_SELECT, fileSelectHandler); 
 				var imgFilter:FileFilter = new FileFilter("Image", "*.jpg;*.png");
-				file.browseForOpen("Choose photo", [imgFilter]);
+				Device.fileDialog.browseForOpen("Choose photo", [imgFilter]);
 			}
 			
-			private function fileSelectHandler(event:Event):void
+			private function fileSelectHandler(event:FileSelectEvent):void
 			{
+				Device.fileDialog.removeEventListener(FileSelectEvent.FILE_SELECT, fileSelectHandler);
 				var loader:Loader = new Loader();
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onImageLoaded);
 				loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onError);
-				photoUrl = (event.target as File).nativePath;
-				loader.load(new URLRequest((event.target as File).nativePath));
+				photoUrl = event.file.url;
+				loader.load(new URLRequest(photoUrl));
 			}
 			
 			private function onImageLoaded(event:Event):void {

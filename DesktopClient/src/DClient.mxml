@@ -20,11 +20,13 @@
 			import mx.events.FlexEvent;
 			
 			import gr.ictpro.mall.client.desktop.DesktopDevice;
+			import gr.ictpro.mall.client.desktop.components.DesktopFileDialog;
 			import gr.ictpro.mall.client.runtime.Device;
 			
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
 				Device.device = new DesktopDevice();
+				Device.fileDialog = new DesktopFileDialog();
 				systemManager.addEventListener(MouseEvent.MOUSE_WHEEL, bumpDelta, true);
 			}
 			

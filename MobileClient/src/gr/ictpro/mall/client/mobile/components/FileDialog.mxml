@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+									xmlns:s="gr.ictpro.mall.client.components.*"
+									xmlns:mx="library://ns.adobe.com/flex/mx"
+									xmlns:fxg="assets.fxg.*"  
+									show="skinnablepopupcontainer1_showHandler(event)"
+									creationComplete="skinnablepopupcontainer1_creationCompleteHandler(event)"
+									resize="skinnablepopupcontainer1_resizeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import flash.globalization.NumberFormatter;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import spark.events.IndexChangeEvent;
+			import spark.events.PopUpEvent;
+			
+			import gr.ictpro.jsalatas.ane.directorylisting.DirectoryListing;
+			import gr.ictpro.mall.client.runtime.Device;
+			import gr.ictpro.mall.client.utils.ui.UI;
+			
+			[Bindable]
+			public var title:String;
+			
+			private var _currentDir:File;
+			
+			public function get currentDir():File
+			{
+				return _currentDir;
+			}
+			
+			[Bindable]
+			public var currentFile:String;
+			
+			[Bindable]
+			public function set currentDir(currentDir:File):void
+			{
+				this._currentDir = currentDir;
+				changeDir(_currentDir);
+			}
+
+			private function changeDir(file:File):void{  
+				if(file == null) {
+					file=File.documentsDirectory;
+				}
+				if(file.isDirectory){  
+					_currentDir = file;  
+					var directoryListing:DirectoryListing = new DirectoryListing();
+					files= new ArrayCollection(directoryListing.getDirectoryListing(currentDir.nativePath).sort(fileSort));
+					files.filterFunction = filterFiles;
+					files.refresh();
+				}  
+			}  
+
+			private function filterFiles(file:File):Boolean {
+				if(file.isDirectory) {
+					return true;
+				}
+				if(extensions.length == 0) {
+					return true;
+				}
+				
+				return extensions.indexOf(file.extension) !=-1;
+			}
+				
+			private function fileSort(file1:File, file2:File):int{  
+				if(file1.isDirectory && !file2.isDirectory)  
+					return -1;  
+				else if(!file1.isDirectory && file2.isDirectory)  
+					return 1;   
+				else  
+					return file1.name.localeCompare( file2.name );  
+			}  
+
+			private var fileSizes:Array = ["B", "KB", "MB"];			
+			
+			private function listLabel(item:File):String
+			{
+				var size:String = "";
+				if(!item.isDirectory && item.exists) {
+					var s:Number = item.size;
+					var i:int=0;
+					while(s>1024) {
+						i++;
+						s= s%1024;
+					}
+					
+					var nf:NumberFormatter = new NumberFormatter(Device.locale); 
+					nf.negativeNumberFormat = 0; 
+					nf.fractionalDigits = 2; 
+					
+					size = size + " ("+nf.formatNumber((item.size/(i==0?1:1024*i)))+ " " + fileSizes[i]+")";
+				}
+				
+				
+				return item.name + size; 
+			}
+			
+			private var extensions:Array = new Array();
+			public function set typeFilter(typeFilter:Array):void
+			{
+				for each(var ff:FileFilter in typeFilter) {
+					var tmpArray:Array = ff.extension.split(";");
+					for each(var ext:String in tmpArray) {
+						var currentExt:String = ext.replace("*.", "");
+						if(extensions.indexOf(currentExt) == -1) {
+							extensions.push(currentExt);
+						}
+					}
+					
+				}
+				
+				trace("hjgh");
+			}
+			
+			[Bindable]
+			private var files:ArrayCollection;
+			
+			
+			protected function skinnablepopupcontainer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				fxgback.transform.colorTransform = Device.getDefaultColorTransform();
+				
+			}
+			
+			private function resize():void
+			{
+				x=0;
+				y=0;
+				this.width=Device.getUnScaledSize(stage.stageWidth);
+				this.height=Device.getUnScaledSize(stage.stageHeight - stage.softKeyboardRect.height);
+			}
+			
+			override public function close(commit:Boolean=false, data:*=null):void
+			{
+				stage.removeEventListener(Event.RESIZE, stageChange);
+				super.close(commit, data);
+			}
+			
+			private function stageChange(e:Event):void
+			{
+				resize();
+			}
+			
+			
+			
+			protected function btnCancel_clickHandler(event:MouseEvent):void
+			{
+				close();
+			}
+			
+			protected function skinnablepopupcontainer1_showHandler(event:FlexEvent):void
+			{
+				resize();
+				stage.addEventListener(Event.RESIZE, stageChange);
+			}
+
+			protected function skinnablepopupcontainer1_resizeHandler(event:ResizeEvent):void
+			{
+				if(stage.stageWidth < this.width) {
+					this.width = Device.getUnScaledSize(stage.stageWidth);
+				}
+				if(stage.stageHeight - stage.softKeyboardRect.height< this.height) {
+					this.height = Device.getUnScaledSize(stage.stageHeight - stage.softKeyboardRect.height);
+				}
+			}
+			
+			private var newDirPopup:NewDirectoryPopup; 
+			protected function btnNew_clickHandler(event:MouseEvent):void
+			{
+				newDirPopup = new NewDirectoryPopup();
+				newDirPopup.open(this.owner, true);
+				newDirPopup.addEventListener(PopUpEvent.CLOSE, closeHandler);
+				newDirPopup.btnOk.addEventListener(MouseEvent.CLICK, newDirHandler);
+			}
+			
+			private function newDirHandler(e:MouseEvent):void {
+				var dirName:String = newDirPopup.txtDirName.text;
+				newDirPopup.close();
+				var newDirectory:File = currentDir.resolvePath(dirName);
+				if(!newDirectory.exists) {
+					try
+					{
+						newDirectory.createDirectory();
+						currentDir = newDirectory;
+					} 
+					catch(error:Error) 
+					{
+						UI.showError(Device.translations.getTranslation("Cannot Create Directory."));						
+					}
+				} else {
+					UI.showError(Device.translations.getTranslation("File Already Exists."));
+				}
+			}
+			
+			private function closeHandler(e:PopUpEvent):void {
+				newDirPopup.removeEventListener(PopUpEvent.CLOSE, closeHandler);
+				newDirPopup.btnOk.removeEventListener(MouseEvent.CLICK, newDirHandler);
+				newDirPopup = null;				
+			}
+
+			
+			protected function upDir_clickHandler(event:MouseEvent):void
+			{
+				currentDir = currentDir.parent;
+				
+			}
+			
+			protected function fileList_changeHandler(event:IndexChangeEvent):void
+			{
+				if(File(fileList.selectedItem).isDirectory) {
+					currentDir = File(fileList.selectedItem);
+				} else if(currentState == "save") {
+					txtFilename.text = File(fileList.selectedItem).name;
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:states>
+		<mx:State name="open" />
+		<mx:State name="save" />
+	</s:states>
+	<s:Rect left="0" top="0" bottom="0" right="0" >
+		<s:fill>
+			<s:SolidColor color="0xffffff" />
+		</s:fill>
+	</s:Rect>
+	<s:Group width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10" gap="10"/>
+		</s:layout>
+
+		<!-- title -->
+		<s:Group height="30" width="100%" >
+			<s:Label left="0" top="0" bottom="0" right="0" text="{title}" fontSize="{11}" fontWeight="bold" verticalAlign="middle" textAlign="center" />
+		</s:Group>
+		<!-- nav -->
+		<s:Group width="100%" height="30" >
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle" gap="10" />
+			</s:layout>
+			<s:Group id="upDir" width="20" height="20" enabled="{currentDir.parent!=null}" click="upDir_clickHandler(event)">
+				<fxg:back id="fxgback" width="{Device.getScaledSize(20)}" height="{Device.getScaledSize(20)}" />
+			</s:Group>
+			<s:Label width="100%" verticalAlign="middle" textAlign="left" text="{currentDir.nativePath}"  />
+			<s:Button id="btnNew" label="{Device.translations.getTranslation('New')}" width="30" click="btnNew_clickHandler(event)" includeIn="save" />			
+		</s:Group>
+		<!-- list -->
+		<s:List id="fileList" width="100%" height="100%" color="0xffffff" borderVisible="true" 
+				borderColor="{Device.getDefaultColor()}" dataProvider="{files}" labelFunction="listLabel" 
+				itemRenderer="gr.ictpro.mall.client.components.renderers.IconItemRenderer"
+				change="fileList_changeHandler(event)"/>
+		<!-- filename -->
+		<s:Group width="100%" height="15" includeIn="save">
+			<s:TextInput id="txtFilename" left="0" top="0" bottom="0" right="0" text="{currentFile}" />
+		</s:Group>
+		<!-- buttons -->
+		<s:Group width="100%" height="30"  >
+			<s:layout>
+				<s:HorizontalLayout horizontalAlign="center" />
+			</s:layout>
+			<s:Button id="btnCancel" label="{Device.translations.getTranslation('Cancel')}" click="btnCancel_clickHandler(event)" />			
+			<s:Button id="btnOk" label="{Device.translations.getTranslation('OK')}" enabled="{(currentState == 'open' &amp;&amp; fileList.selectedItem!=null &amp;&amp; !File(fileList.selectedItem).isDirectory) || (currentState == 'save' &amp;&amp; txtFilename.text!='')}" />
+		</s:Group>
+	</s:Group>
+</s:SkinnablePopUpContainer>

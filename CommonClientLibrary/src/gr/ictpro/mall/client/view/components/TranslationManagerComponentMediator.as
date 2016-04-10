@@ -14,6 +14,7 @@ package gr.ictpro.mall.client.view.components
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.runtime.FileSelectEvent;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
@@ -80,16 +81,17 @@ package gr.ictpro.mall.client.view.components
 				}
 					
 				
-				var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + filename +".xml");
-				xmlFile.browseForSave(Device.translations.getTranslation("Save Transalations"));
-				xmlFile.addEventListener(Event.SELECT, saveTranslationsXML);
+				//var xmlFile:File = new File(File.documentsDirectory.nativePath + File.separator + filename +".xml");
+				Device.fileDialog.addEventListener(FileSelectEvent.FILE_SELECT, saveTranslationsXML);				
+				Device.fileDialog.browseForSave(Device.translations.getTranslation("Save Transalations"), filename +".xml", File.documentsDirectory.nativePath);
 			} else if (type == UPDATE_TRANSLATIONS) {
 				UI.showInfo(Device.translations.getTranslation("Translations Successfully Uploaded"));
 			}
 		}
 
-		private function saveTranslationsXML(event:Event):void {
-			var file:File = File(event.target);
+		private function saveTranslationsXML(event:FileSelectEvent):void {
+			Device.fileDialog.removeEventListener(FileSelectEvent.FILE_SELECT, saveTranslationsXML);
+			var file:File = event.file;
 			var stream:FileStream = new FileStream();
 			stream.open(file, FileMode.WRITE);
 			stream.writeUTFBytes(translationsXml);
@@ -109,16 +111,16 @@ package gr.ictpro.mall.client.view.components
 
 		private function uploadTranslationsHandler():void 
 		{
-			var xmlFile:File = new File();
-			xmlFile.browseForOpen(Device.translations.getTranslation("Select Transalations"), [new FileFilter(Device.translations.getTranslation("Translation XML Files"), "*.xml")]);
-			xmlFile.addEventListener(Event.SELECT, openTranslationsXML);
+			Device.fileDialog.addEventListener(FileSelectEvent.FILE_SELECT, openTranslationsXML);
+			Device.fileDialog.browseForOpen(Device.translations.getTranslation("Select Transalations"), [new FileFilter(Device.translations.getTranslation("Translation XML Files"), "*.xml")]);
 		}
 
-		private function openTranslationsXML(event:Event):void {
-			var file:File = File(event.target);
+		private function openTranslationsXML(event:FileSelectEvent):void {
+			Device.fileDialog.removeEventListener(FileSelectEvent.FILE_SELECT, openTranslationsXML);
+			var file:File = event.file;
 			var textLoader:URLLoader = new URLLoader();
 			textLoader.addEventListener(Event.COMPLETE, loadedTranslationsXML);
-			textLoader.load(new URLRequest(file.nativePath));
+			textLoader.load(new URLRequest(file.url));
 		}
 		
 		private function loadedTranslationsXML(event:Event):void {
