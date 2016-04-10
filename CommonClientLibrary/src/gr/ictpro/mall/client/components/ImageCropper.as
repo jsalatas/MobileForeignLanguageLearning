@@ -182,7 +182,7 @@ package gr.ictpro.mall.client.components {
 		private var cropMaskChanged:Boolean = false;
 		
 		// Crop sizing variables
-		private var cropHandleSize:Number = 10;
+		private var cropHandleSize:Number = Device.getScaledSize(10);
 		private var cropRectMinimumWidth:Number;
 		private var cropRectMinimumHeigth:Number;
 		
@@ -637,7 +637,7 @@ package gr.ictpro.mall.client.components {
 
 		public function set handleSize(value:Number):void {
 			if (componentEnabled) {
-				cropHandleSize = value<3?3:value;
+				cropHandleSize = Device.getScaledSize(value<3?3:value);
 				
 				cropMaskChanged = true;
 				invalidateProperties();
