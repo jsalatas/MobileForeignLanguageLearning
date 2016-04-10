@@ -200,6 +200,13 @@ package gr.ictpro.mall.client.mobile.skins
 				layoutCornerEllipseSize, layoutCornerEllipseSize);
 			
 			graphics.endFill();
+			if(labelDisplay != null) {
+				if(currentState=="disabled" ) {
+					labelDisplay.alpha = 0.5;
+				} else {
+					labelDisplay.alpha = 1;
+				}
+			}
 		}
 		
 		
@@ -425,6 +432,10 @@ package gr.ictpro.mall.client.mobile.skins
 			if (iconDisplay)
 			{
 				iconDisplay.transform.colorTransform = Device.getDefaultColorTransform();
+				if(currentState=="disabled") {
+					iconDisplay.alpha = 0.5;
+				}
+
 				// scale icon based on height
 				setElementSize(iconDisplay, iconViewWidth, iconViewHeight);
 				setElementPosition(iconDisplay, iconX, iconY);
