@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				autoDrawBackground="false" xmlns:fxg="assets.fxg.*"
+				width="100%">
+	<fx:Metadata>
+		[Event(name="muteClicked",type="event.MouseEvent")]
+		[Event(name="makePresenterClicked",type="event.MouseEvent")]
+		[Event(name="raiseHandClicked",type="event.MouseEvent")]
+		[Event(name="viewCameraClicked",type="event.MouseEvent")]
+	</fx:Metadata>
+
+	<fx:Script>
+		<![CDATA[
+			import gr.ictpro.mall.client.runtime.Device;
+			
+			import org.bigbluebutton.model.User;
+			
+			override public function set data(obj:Object):void {
+				super.data = obj;
+				if (obj) {
+					presenter_icon.visible = presenter_icon.includeInLayout = obj.presenter || ParticipantsList(owner).iAmPresenter;
+					camera_icon.visible = camera_icon.includeInLayout = obj.hasStream;
+					hand_icon.visible = hand_icon.includeInLayout = !obj.presenter && obj.me;
+					microphone_icon.visible = microphone_icon.includeInLayout = (obj.voiceJoined && !obj.muted); 
+					mute.visible = mute.includeInLayout = mute_icon.visible = mute_icon.includeInLayout = obj.muted;
+					talking.visible = talking.includeInLayout = talking_icon.visible = talking_icon.includeInLayout = obj.talking;
+					microphone.visible = microphone.includeInLayout = (!mute.visible && !talking.visible);
+					if (obj.me) {
+						labelDisplay.text = obj.name + " " + Device.translations.getTranslation('(you)');
+					} else {
+						labelDisplay.text = obj.name;
+					}
+					
+					presenter_icon.transform.colorTransform = Device.getDefaultColorTransform(obj.presenter?1:0.3);
+					hand_icon.transform.colorTransform = Device.getDefaultColorTransform(obj.status == User.RAISE_HAND?1:0.3);
+					camera_icon.transform.colorTransform = Device.getDefaultColorTransform();
+					headset_icon.transform.colorTransform = Device.getDefaultColorTransform();
+					microphone_icon.transform.colorTransform = Device.getDefaultColorTransform();
+					mute_icon.transform.colorTransform = Device.getDefaultColorTransform();
+					talking_icon.transform.colorTransform = Device.getDefaultColorTransform();
+				}
+			}
+			
+			protected function makePresenterHandler(event:MouseEvent):void
+			{
+				trace("make presenter");
+			}
+
+			protected function raiseHandHandler(event:MouseEvent):void
+			{
+				trace("raise hand");
+			}
+			
+			protected function viewCameraHandler(event:MouseEvent):void
+			{
+				trace("share camera");
+			}
+			
+			protected function muteHandler(event:MouseEvent):void
+			{
+				trace("mute");
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Group width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout gap="1"/>
+		</s:layout>
+	
+		<s:Group width="100%" height="100%">
+			<s:layout>
+				<s:HorizontalLayout verticalAlign="middle" paddingLeft="10" paddingTop="10" paddingBottom="10" paddingRight="10" />
+			</s:layout>
+			<s:Group id="presenter" width="{Device.getScaledSize(19)}" height="{Device.getScaledSize(20)}" click="makePresenterHandler(event)">
+				<fxg:whiteboard id="presenter_icon" width="{Device.getScaledSize(19)}" height="{Device.getScaledSize(20)}" />
+			</s:Group>
+			<s:Group id="hand" width="{Device.getScaledSize(15)}" height="{Device.getScaledSize(20)}" click="raiseHandHandler(event)">
+				<fxg:hand id="hand_icon" width="{Device.getScaledSize(15)}" height="{Device.getScaledSize(20)}" horizontalCenter="0" />
+			</s:Group>
+			<s:Label id="labelDisplay" width="100%" height="100%" color="{Device.getDefaultColor()}" verticalAlign="middle" textAlign="left" />
+			<s:Group id="camera" width="{Device.getScaledSize(28)}" height="{Device.getScaledSize(16)}" click="viewCameraHandler(event)">
+				<fxg:videochat id="camera_icon" width="{Device.getScaledSize(24)}" height="{Device.getScaledSize(14)}" />
+			</s:Group>
+			<s:Group id="headset" width="{Device.getScaledSize(18)}" height="{Device.getScaledSize(20)}">
+				<fxg:headset id="headset_icon" width="{Device.getScaledSize(18)}" height="{Device.getScaledSize(20)}" />
+			</s:Group>
+			<s:Group id="microphone" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" click="muteHandler(event)">
+				<fxg:microphone id="microphone_icon" width="{Device.getScaledSize(14)}" height="{Device.getScaledSize(20)}" horizontalCenter="0" />
+			</s:Group>
+			<s:Group id="mute" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" click="muteHandler(event)">
+				<fxg:mute id="mute_icon" width="{Device.getScaledSize(14)}" height="{Device.getScaledSize(20)}"  horizontalCenter="0" />
+			</s:Group>
+			<s:Group id="talking" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" click="muteHandler(event)">
+				<fxg:talking id="talking_icon" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" />
+			</s:Group>
+			
+		</s:Group>
+		<s:Group width="100%" height="{Device.getScaledSize(1)}" >
+			<s:Rect top="0" bottom="0" left="0" right="0">
+				<s:fill>
+					<s:SolidColor color="{Device.getDefaultColor(0.1)}" />
+				</s:fill>
+			</s:Rect>
+		</s:Group>
+	</s:Group>
+</s:ItemRenderer>

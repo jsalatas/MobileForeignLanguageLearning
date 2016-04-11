@@ -6,6 +6,5 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:Group id="container" width="100%" height="100%">
-		<bbb:WhiteboardView width="100%" height="100%"/>
 	</s:Group>
 </s:TopBarCollaborationView>

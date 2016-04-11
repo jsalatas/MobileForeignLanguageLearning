@@ -20,22 +20,6 @@ package org.bigbluebutton.view.navigation.pages.participants {
 			return participantslist;
 		}
 		
-		public function get guestsList():List {
-			return guestslist;
-		}
-		
-		public function get allGuests():SkinnableComponent {
-			return allguests;
-		}
-		
-		public function get allowAllButton():Button {
-			return allowAllButton0;
-		}
-		
-		public function get denyAllButton():Button {
-			return denyAllButton0;
-		}
-		
 		/*
 		   public function onClick(e:MouseEvent):void
 		   {

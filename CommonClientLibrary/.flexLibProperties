@@ -234,6 +234,10 @@
     <classEntry path="gr.ictpro.mall.client.components.BasicLayout"/>
     <classEntry path="gr.ictpro.mall.client.runtime.IFileDialog"/>
     <classEntry path="gr.ictpro.mall.client.runtime.FileSelectEvent"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantsView"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantItemRenderer"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantsList"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

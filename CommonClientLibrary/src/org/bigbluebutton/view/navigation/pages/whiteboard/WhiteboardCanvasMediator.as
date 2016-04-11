@@ -46,7 +46,6 @@ package org.bigbluebutton.view.navigation.pages.whiteboard {
 		}
 		
 		private function onWhiteboardResize(zoom:Number):void {
-			trace("whiteboard zoom = " + zoom);
 			_zoom = zoom;
 			view.zoom = zoom;
 			drawAllAnnotations();

@@ -44,7 +44,7 @@ package gr.ictpro.mall.client.authentication.standard
 			addToSignal(view.registerClicked, handleRegistration);
 
 			// uncomment for testing purposes (fast login) 
-			//login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", "admin", "12345", false));
+			login.dispatch(new AuthenticationDetails("standardAuthenticationProvider", "admin", "12345", false));
 		}
 
 		private function handleAuthentication():void

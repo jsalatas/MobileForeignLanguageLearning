@@ -2,6 +2,10 @@ package gr.ictpro.mall.client.view
 {
 	import flash.events.MouseEvent;
 	
+	import gr.ictpro.mall.client.components.Group;
+	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
+	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
+	
 	import org.bigbluebutton.command.JoinMeetingSignal;
 
 	public class BBBMeetingViewMediator extends TopBarCollaborationViewMediator
@@ -9,11 +13,15 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var joinMeetingSignal:JoinMeetingSignal;
 		
+		private var currentModule:Group;
+		
+		
 		override public function onRegister():void
 		{
 			super.onRegister();
 			
 			trace("joining meeting: " + view.parameters.vo.id);
+			showView(new WhiteboardView());
 			test();
 		}
 		
@@ -22,12 +30,33 @@ package gr.ictpro.mall.client.view
 			joinMeetingSignal.dispatch(url);
 		}
 		
-		override protected function whiteboardClicked(event:MouseEvent):void
+		private function showView(currentModule:Group):void
 		{
-			//BBBMeetingView(view).container.removeAllElements();
-			//BBBMeetingView(view).container.addElement(new Whi
+			BBBMeetingView(view).container.removeAllElements();
+//			currentModule.percentWidth=100;
+//			currentModule.percentHeight=100;
+			BBBMeetingView(view).container.addElement(currentModule);
+			this.currentModule = currentModule;
+			
 		}
 		
+		override protected function whiteboardClicked(event:MouseEvent):void
+		{
+			if(currentModule == null || !(currentModule is WhiteboardView)) {
+				showView(new WhiteboardView());
+			} else {
+				trace("already showing whiteboard");
+			}
+		}
+		
+		override protected function participantsClicked(event:MouseEvent):void
+		{
+			if(currentModule == null || !(currentModule is ParticipantsView)) {
+				showView(new ParticipantsView());
+			} else {
+				trace("already showing participants");
+			}
+		}
 		
 	}
 }

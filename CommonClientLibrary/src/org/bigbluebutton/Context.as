@@ -73,8 +73,8 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.pages.login.openroom.OpenRoomViewMediator;
 	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RecentRoomsView;
 	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RecentRoomsViewMediator;
-	import org.bigbluebutton.view.navigation.pages.participants.ParticipantsView;
-	import org.bigbluebutton.view.navigation.pages.participants.ParticipantsViewMediator;
+//salatas		import org.bigbluebutton.view.navigation.pages.participants.ParticipantsView;
+//salatas		import org.bigbluebutton.view.navigation.pages.participants.ParticipantsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.presentation.AnnotationControls;
 	import org.bigbluebutton.view.navigation.pages.presentation.AnnotationControlsMediator;
 	import org.bigbluebutton.view.navigation.pages.presentation.PresenterControls;
@@ -232,7 +232,7 @@ package org.bigbluebutton
 			////////////////////
 			// 18 ParticipantsConfig
 			////////////////////
-			mediatorMap.mapView(ParticipantsView, ParticipantsViewMediator);
+//			mediatorMap.mapView(ParticipantsView, ParticipantsViewMediator);
 			
 			////////////////////
 			// 19 SelectParticipantConfig

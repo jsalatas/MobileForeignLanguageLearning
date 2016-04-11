@@ -28,7 +28,7 @@ package gr.ictpro.mall.client.components
 	[Event(name="whiteboardClicked", type="flash.events.MouseEvent")]
 	[Event(name="videoClicked", type="flash.events.MouseEvent")]
 	[Event(name="chatClicked", type="flash.events.MouseEvent")]
-	[Event(name="usersClicked", type="flash.events.MouseEvent")]
+	[Event(name="participantsClicked", type="flash.events.MouseEvent")]
 	[Event(name="settingsClicked", type="flash.events.MouseEvent")]
 
 	public class TopBarCollaborationView extends Group implements IDetailView, IParameterizedView
@@ -38,7 +38,7 @@ package gr.ictpro.mall.client.components
 		public var whiteboardButton:Boolean = true;
 		public  var videoButton:Boolean = true;
 		public var chatButton:Boolean = true;
-		public var usersButton:Boolean = true;
+		public var participantsButton:Boolean = true;
 		public var settingsButton:Boolean = true;
 		protected var _title:String;
 		private var _titleLabel:Label; 
@@ -48,12 +48,12 @@ package gr.ictpro.mall.client.components
 		private var _groupVideo:Group;
 		private var _groupWhiteboard:Group;
 		private var _groupChat:Group;
-		private var _groupUsers:Group;
+		private var _groupParticipants:Group;
 		private var _groupSettings:Group;
 		private var _disableVideo:Boolean = false; 
 		private var _disableWhiteboard:Boolean = false; 
 		private var _disableChat:Boolean = false; 
-		private var _disableUsers:Boolean = false; 
+		private var _disableParticipants:Boolean = false; 
 		private var _disableSettings:Boolean = false; 
 
 		public function TopBarCollaborationView()
@@ -118,8 +118,8 @@ package gr.ictpro.mall.client.components
 			if(_disableWhiteboard) {
 				disableWhiteboard();
 			}
-			if(_disableUsers) {
-				disableUsers();
+			if(_disableParticipants) {
+				disableParticipants();
 			}
 			if(_disableChat) {
 				disableChat();
@@ -276,27 +276,27 @@ package gr.ictpro.mall.client.components
 				ocgroup.addElement(_groupChat);
 			}
 
-			if(usersButton) {
-				var fxgUsers:users = new users();
-				fxgUsers.width = Device.getScaledSize(19);
-				fxgUsers.height = Device.getScaledSize(12);
+			if(participantsButton) {
+				var fxgParticipants:users = new users();
+				fxgParticipants.width = Device.getScaledSize(19);
+				fxgParticipants.height = Device.getScaledSize(12);
 				//fxgOk.left = 10;
-				_groupUsers = new Group();
+				_groupParticipants = new Group();
 				
-				_groupUsers.width = 29;
-				_groupUsers.height = 30;
+				_groupParticipants.width = 29;
+				_groupParticipants.height = 30;
 				var layout5:HorizontalLayout =  new HorizontalLayout();
 				layout5.paddingTop = 9;
 				layout5.paddingLeft = 7; 
 				layout5.paddingBottom = 9;
 				layout5.paddingRight = 3; 
-				_groupUsers.layout = layout5;
+				_groupParticipants.layout = layout5;
 				
-				_groupUsers.addElement(fxgUsers);
+				_groupParticipants.addElement(fxgParticipants);
 				
-				_groupUsers.addEventListener(MouseEvent.CLICK, usersClickedHandler);
+				_groupParticipants.addEventListener(MouseEvent.CLICK, participantsClickedHandler);
 				
-				ocgroup.addElement(_groupUsers);
+				ocgroup.addElement(_groupParticipants);
 			}
 
 			if(settingsButton) {
@@ -321,6 +321,8 @@ package gr.ictpro.mall.client.components
 			}
 			
 			topBarGroup.addElement(ocgroup);
+			mxmlContentGroup.percentHeight = 100;
+			mxmlContentGroup.percentWidth = 100;
 			addElement(mxmlContentGroup);
 
 		}
@@ -354,9 +356,9 @@ package gr.ictpro.mall.client.components
 			dispatchEvent(e);
 		}
 
-		private function usersClickedHandler(event:Event):void
+		private function participantsClickedHandler(event:Event):void
 		{
-			var e:MouseEvent = new MouseEvent("usersClicked");
+			var e:MouseEvent = new MouseEvent("participantsClicked");
 			dispatchEvent(e);
 		}
 		
@@ -404,19 +406,19 @@ package gr.ictpro.mall.client.components
 			}
 		}
 		
-		public function disableUsers():void {
-			_disableUsers = true;
-			if(_groupUsers != null) {
-				_groupUsers.getChildAt(0).alpha = 0;
-				_groupUsers.removeEventListener(MouseEvent.CLICK, usersClickedHandler);
+		public function disableParticipants():void {
+			_disableParticipants = true;
+			if(_groupParticipants != null) {
+				_groupParticipants.getChildAt(0).alpha = 0;
+				_groupParticipants.removeEventListener(MouseEvent.CLICK, participantsClickedHandler);
 			}
 		}
 		
-		public function enableUsers():void {
-			_disableUsers = false;
-			if(_groupUsers != null) {
-				_groupUsers.getChildAt(0).alpha = 1.0;
-				_groupUsers.addEventListener(MouseEvent.CLICK, usersClickedHandler);
+		public function enableParticipants():void {
+			_disableParticipants = false;
+			if(_groupParticipants != null) {
+				_groupParticipants.getChildAt(0).alpha = 1.0;
+				_groupParticipants.addEventListener(MouseEvent.CLICK, participantsClickedHandler);
 			}
 		}
 

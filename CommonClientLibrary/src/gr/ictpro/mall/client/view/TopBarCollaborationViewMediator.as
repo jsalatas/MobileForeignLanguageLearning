@@ -29,7 +29,7 @@ package gr.ictpro.mall.client.view
 			eventMap.mapListener(view, "whiteboardClicked", whiteboardClicked);
 			eventMap.mapListener(view, "videoClicked", videoClicked);
 			eventMap.mapListener(view, "chatClicked", chatClicked);
-			eventMap.mapListener(view, "usersClicked", usersClicked);
+			eventMap.mapListener(view, "participantsClicked", participantsClicked);
 			eventMap.mapListener(view, "settingsClicked", settingsClicked);
 		}
 		
@@ -65,25 +65,25 @@ package gr.ictpro.mall.client.view
 			trace("whiteboardClicked");
 		}
 
-		private function videoClicked(event:MouseEvent):void
+		protected function videoClicked(event:MouseEvent):void
 		{
 			//TODO
 			trace("videoClicked");
 		}
 
-		private function chatClicked(event:MouseEvent):void
+		protected function chatClicked(event:MouseEvent):void
 		{
 			//TODO
 			trace("chatClicked");
 		}
 
-		private function usersClicked(event:MouseEvent):void
+		protected function participantsClicked(event:MouseEvent):void
 		{
 			//TODO
-			trace("usersClicked");
+			trace("participantsClicked");
 		}
 
-		private function settingsClicked(event:MouseEvent):void
+		protected function settingsClicked(event:MouseEvent):void
 		{
 			//TODO
 			trace("settingsClicked");
