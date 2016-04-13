@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
-				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:s="gr.ictpro.mall.client.components.*" 
 				autoDrawBackground="false" xmlns:fxg="assets.fxg.*"
 				width="100%">
 	<fx:Metadata>
-		[Event(name="muteClicked",type="event.MouseEvent")]
-		[Event(name="makePresenterClicked",type="event.MouseEvent")]
-		[Event(name="raiseHandClicked",type="event.MouseEvent")]
-		[Event(name="viewCameraClicked",type="event.MouseEvent")]
+		[Event(name="muteClicked",type="events.MouseEvent")]
+		[Event(name="makePresenterClicked",type="events.MouseEvent")]
+		[Event(name="raiseHandClicked",type="events.MouseEvent")]
+		[Event(name="viewCameraClicked",type="events.MouseEvent")]
 	</fx:Metadata>
 
 	<fx:Script>
@@ -21,7 +21,7 @@
 				if (obj) {
 					presenter_icon.visible = presenter_icon.includeInLayout = obj.presenter || ParticipantsList(owner).iAmPresenter;
 					camera_icon.visible = camera_icon.includeInLayout = obj.hasStream;
-					hand_icon.visible = hand_icon.includeInLayout = !obj.presenter && obj.me;
+					hand_icon.visible = hand_icon.includeInLayout = (!ParticipantsList(owner).iAmPresenter && obj.me) || (ParticipantsList(owner).iAmPresenter && !obj.me) || (obj.status == User.RAISE_HAND);
 					microphone_icon.visible = microphone_icon.includeInLayout = (obj.voiceJoined && !obj.muted); 
 					mute.visible = mute.includeInLayout = mute_icon.visible = mute_icon.includeInLayout = obj.muted;
 					talking.visible = talking.includeInLayout = talking_icon.visible = talking_icon.includeInLayout = obj.talking;
@@ -44,22 +44,26 @@
 			
 			protected function makePresenterHandler(event:MouseEvent):void
 			{
-				trace("make presenter");
+				event.stopPropagation();
+				dispatchEvent(new MouseEvent("makePresenterClicked"));
 			}
 
 			protected function raiseHandHandler(event:MouseEvent):void
 			{
-				trace("raise hand");
+				event.stopPropagation();
+				dispatchEvent(new MouseEvent("raiseHandClicked"));
 			}
 			
 			protected function viewCameraHandler(event:MouseEvent):void
 			{
-				trace("share camera");
+				event.stopPropagation();
+				dispatchEvent(new MouseEvent("viewCameraClicked"));
 			}
 			
 			protected function muteHandler(event:MouseEvent):void
 			{
-				trace("mute");
+				event.stopPropagation();
+				dispatchEvent(new MouseEvent("muteClicked"));
 			}
 			
 		]]>

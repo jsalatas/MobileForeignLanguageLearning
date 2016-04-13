@@ -2,10 +2,67 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				  xmlns:s="gr.ictpro.mall.client.components.*" 
 				  xmlns:mx="library://ns.adobe.com/flex/mx"
-				  width="100%" height="100%" xmlns:bbb="gr.ictpro.mall.client.view.components.bbb.*">
+				  width="100%" height="100%" xmlns:bbb="gr.ictpro.mall.client.view.components.bbb.*"
+				  creationComplete="group1_creationCompleteHandler(event)" xmlns:signals="org.osflash.signals.*">
+<fx:Declarations>
+	<signals:Signal id="muteSignal" valueClasses="{[User]}" />
+	<signals:Signal id="makePresenterSignal" valueClasses="{[User]}" />
+	<signals:Signal id="raiseHandSignal"  valueClasses="{[User]}" />
+	<signals:Signal id="viewCameraSignal" valueClasses="{[User]}" />
+	<signals:Signal id="muteAllSignal" />
+	<signals:Signal id="muteAllExPresenterSignal" />
+	<signals:Signal id="lowerHandsSignal" />
+</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
+			
 			import gr.ictpro.mall.client.runtime.Device;
+			
+			import org.bigbluebutton.model.User;
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				participantsList.addEventListener("makePresenterClicked", makePresenterHandler);
+				participantsList.addEventListener("muteClicked", muteHandler);
+				participantsList.addEventListener("raiseHandClicked", raiseHandHandler);
+				participantsList.addEventListener("viewCameraClicked", viewCameraHandler);
+			}
+			
+			private function muteHandler(e:MouseEvent):void
+			{
+				muteSignal.dispatch(participantsList.selectedItem);
+			}
+
+			private function makePresenterHandler(e:MouseEvent):void
+			{
+				makePresenterSignal.dispatch(participantsList.selectedItem);
+			}
+
+			private function raiseHandHandler(e:MouseEvent):void
+			{
+				raiseHandSignal.dispatch(participantsList.selectedItem);
+			}
+
+			private function viewCameraHandler(e:MouseEvent):void
+			{
+				viewCameraSignal.dispatch(participantsList.selectedItem);
+			}
+			
+			protected function muteAllHandler(event:MouseEvent):void
+			{
+				muteAllSignal.dispatch();
+			}
+			
+			protected function muteAllExPresenterHandler(event:MouseEvent):void
+			{
+				muteAllExPresenterSignal.dispatch();
+			}
+			
+			protected function lowerHandsHandler(event:MouseEvent):void
+			{
+				lowerHandsSignal.dispatch();
+			}
 			
 		]]>
 	</fx:Script>
@@ -18,9 +75,9 @@
 			<s:layout>
 				<s:VerticalLayout horizontalAlign="center" />
 			</s:layout>
-			<s:Button id="muteAll" label="{Device.translations.getTranslation('Mute all')}" width="100%" />
-			<s:Button id="muteAllExPreseter" label="{Device.translations.getTranslation('Mute all others')}" width="100%" />
-			<s:Button id="lowerHands" label="{Device.translations.getTranslation('Lower Hands')}" width="100%" />
+			<s:Button id="muteAll" label="{Device.translations.getTranslation('Mute all')}" width="100%" click="muteAllHandler(event)"/>
+			<s:Button id="muteAllExPresenter" label="{Device.translations.getTranslation('Mute all others')}" width="100%" click="muteAllExPresenterHandler(event)" />
+			<s:Button id="lowerHands" label="{Device.translations.getTranslation('Lower Hands')}" width="100%" click="lowerHandsHandler(event)" />
 		</s:Group>
 		
 	</s:Group>
