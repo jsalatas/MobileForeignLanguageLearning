@@ -78,31 +78,31 @@
 			<s:layout>
 				<s:HorizontalLayout verticalAlign="middle" paddingLeft="10" paddingTop="10" paddingBottom="10" paddingRight="10" />
 			</s:layout>
-			<s:Group id="presenter" width="{Device.getScaledSize(19)}" height="{Device.getScaledSize(20)}" click="makePresenterHandler(event)">
+			<s:Group id="presenter" width="19" height="20" click="makePresenterHandler(event)">
 				<fxg:whiteboard id="presenter_icon" width="{Device.getScaledSize(19)}" height="{Device.getScaledSize(20)}" />
 			</s:Group>
-			<s:Group id="hand" width="{Device.getScaledSize(15)}" height="{Device.getScaledSize(20)}" click="raiseHandHandler(event)">
+			<s:Group id="hand" width="15" height="20" click="raiseHandHandler(event)">
 				<fxg:hand id="hand_icon" width="{Device.getScaledSize(15)}" height="{Device.getScaledSize(20)}" horizontalCenter="0" />
 			</s:Group>
 			<s:Label id="labelDisplay" width="100%" height="100%" color="{Device.getDefaultColor()}" verticalAlign="middle" textAlign="left" />
-			<s:Group id="camera" width="{Device.getScaledSize(28)}" height="{Device.getScaledSize(16)}" click="viewCameraHandler(event)">
+			<s:Group id="camera" width="28" height="16" click="viewCameraHandler(event)">
 				<fxg:videochat id="camera_icon" width="{Device.getScaledSize(24)}" height="{Device.getScaledSize(14)}" />
 			</s:Group>
-			<s:Group id="headset" width="{Device.getScaledSize(18)}" height="{Device.getScaledSize(20)}">
+			<s:Group id="headset" width="18" height="20">
 				<fxg:headset id="headset_icon" width="{Device.getScaledSize(18)}" height="{Device.getScaledSize(20)}" />
 			</s:Group>
-			<s:Group id="microphone" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" click="muteHandler(event)">
+			<s:Group id="microphone" width="22" height="20" click="muteHandler(event)">
 				<fxg:microphone id="microphone_icon" width="{Device.getScaledSize(14)}" height="{Device.getScaledSize(20)}" horizontalCenter="0" />
 			</s:Group>
-			<s:Group id="mute" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" click="muteHandler(event)">
+			<s:Group id="mute" width="22" height="20" click="muteHandler(event)">
 				<fxg:mute id="mute_icon" width="{Device.getScaledSize(14)}" height="{Device.getScaledSize(20)}"  horizontalCenter="0" />
 			</s:Group>
-			<s:Group id="talking" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" click="muteHandler(event)">
+			<s:Group id="talking" width="22" height="20" click="muteHandler(event)">
 				<fxg:talking id="talking_icon" width="{Device.getScaledSize(22)}" height="{Device.getScaledSize(20)}" />
 			</s:Group>
 			
 		</s:Group>
-		<s:Group width="100%" height="{Device.getScaledSize(1)}" >
+		<s:Group width="100%" height="1" >
 			<s:Rect top="0" bottom="0" left="0" right="0">
 				<s:fill>
 					<s:SolidColor color="{Device.getDefaultColor(0.1)}" />
