@@ -6,7 +6,8 @@
 	
 	<fx:Script>
 		<![CDATA[
-			public var iAmPresenter:Boolean = false;
+			import org.bigbluebutton.model.User;
+			public var me:User; 
 		]]>
 	</fx:Script>
 </s:List>

@@ -65,7 +65,7 @@ package gr.ictpro.mall.client.view.components.bbb
 				addUser(user);
 				if (user.me) {
 					_userMe = user;
-					view.participantsList.iAmPresenter = _userMe.presenter;
+					view.participantsList.me = _userMe;
 					view.presenterControls.visible = view.presenterControls.includeInLayout = _userMe!= null && _userMe.presenter;
 				}
 			}
@@ -119,7 +119,7 @@ package gr.ictpro.mall.client.view.components.bbb
 		
 		private function makePresenterHandler(user:User):void
 		{
-			if(_userMe.presenter) {
+			if(_userMe.presenter || _userMe.role == User.MODERATOR) {
 				presenterSignal.dispatch(user, _userMe.userID);
 			}
 
@@ -181,7 +181,6 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 		
 		private function userChanged(user:User, property:String = null):void {
-			view.participantsList.iAmPresenter = _userMe!= null && _userMe.presenter;
 			view.presenterControls.visible = view.presenterControls.includeInLayout = _userMe!= null && _userMe.presenter;
 			dataProvider.refresh();
 			setMuteButtonLabel();

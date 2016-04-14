@@ -19,9 +19,9 @@
 			override public function set data(obj:Object):void {
 				super.data = obj;
 				if (obj) {
-					presenter_icon.visible = presenter_icon.includeInLayout = obj.presenter || ParticipantsList(owner).iAmPresenter;
+					presenter_icon.visible = presenter_icon.includeInLayout = obj.presenter || ParticipantsList(owner).me.presenter || ParticipantsList(owner).me.role == User.MODERATOR;
 					camera_icon.visible = camera_icon.includeInLayout = obj.hasStream;
-					hand_icon.visible = hand_icon.includeInLayout = (!ParticipantsList(owner).iAmPresenter && obj.me) || (ParticipantsList(owner).iAmPresenter && !obj.me) || (obj.status == User.RAISE_HAND);
+					hand_icon.visible = hand_icon.includeInLayout = (!ParticipantsList(owner).me.presenter && obj.me) || (ParticipantsList(owner).me.presenter && !obj.me) || (obj.status == User.RAISE_HAND);
 					microphone_icon.visible = microphone_icon.includeInLayout = (obj.voiceJoined && !obj.muted); 
 					mute.visible = mute.includeInLayout = mute_icon.visible = mute_icon.includeInLayout = obj.muted;
 					talking.visible = talking.includeInLayout = talking_icon.visible = talking_icon.includeInLayout = obj.talking;
