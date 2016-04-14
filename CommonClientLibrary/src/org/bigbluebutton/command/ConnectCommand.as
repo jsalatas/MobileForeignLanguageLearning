@@ -18,7 +18,6 @@ package org.bigbluebutton.command {
 	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.bigbluebutton.view.navigation.pages.disconnect.enum.DisconnectEnum;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.Room;
 	import org.robotlegs.mvcs.SignalCommand;
 	
 	public class ConnectCommand extends SignalCommand {
@@ -198,13 +197,6 @@ package org.bigbluebutton.command {
 						rooms.addItem(rooms.removeItemAt(i));
 						roomExists = true;
 						break;
-					}
-				}
-				if (!roomExists) {
-					var room:Room = new Room(new Date(), roomUrl, roomName);
-					rooms.addItem(room);
-					if (rooms.length > 5) {
-						rooms.removeItemAt(0);
 					}
 				}
 				saveData.save("rooms", rooms);

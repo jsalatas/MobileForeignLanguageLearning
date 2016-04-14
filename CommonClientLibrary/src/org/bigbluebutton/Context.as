@@ -67,14 +67,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.pages.guest.GuestPageViewMediator;
 	import org.bigbluebutton.view.navigation.pages.locksettings.LockSettingsView;
 	import org.bigbluebutton.view.navigation.pages.locksettings.LockSettingsViewMediator;
-	import org.bigbluebutton.view.navigation.pages.login.LoginPageView;
-	import org.bigbluebutton.view.navigation.pages.login.LoginPageViewMediator;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.OpenRoomView;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.OpenRoomViewMediator;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RecentRoomsView;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RecentRoomsViewMediator;
-//salatas		import org.bigbluebutton.view.navigation.pages.participants.ParticipantsView;
-//salatas		import org.bigbluebutton.view.navigation.pages.participants.ParticipantsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.presentation.AnnotationControls;
 	import org.bigbluebutton.view.navigation.pages.presentation.AnnotationControlsMediator;
 	import org.bigbluebutton.view.navigation.pages.presentation.PresenterControls;
@@ -83,12 +75,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.pages.profile.ProfileViewMediator;
 	import org.bigbluebutton.view.navigation.pages.selectparticipant.SelectParticipantView;
 	import org.bigbluebutton.view.navigation.pages.selectparticipant.SelectParticipantViewMediator;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitchat.SplitChatView;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitchat.SplitChatViewMediator;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitparticipants.SplitParticipantsView;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitparticipants.SplitParticipantsViewMediator;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitsettings.SplitSettingsView;
-//salatas	import org.bigbluebutton.view.navigation.pages.splitsettings.SplitSettingsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.status.StatusView;
 	import org.bigbluebutton.view.navigation.pages.status.StatusViewMediator;
 	import org.bigbluebutton.view.navigation.pages.userdetails.UserDetaisView;
@@ -159,11 +145,6 @@ package org.bigbluebutton
 
 
 			////////////////////
-			// 5 LoginPageConfig
-			////////////////////
-			mediatorMap.mapView(LoginPageView, LoginPageViewMediator);
-			
-			////////////////////
 			// 6 LockSettingsConfig
 			////////////////////
 			mediatorMap.mapView(LockSettingsView, LockSettingsViewMediator);
@@ -190,36 +171,11 @@ package org.bigbluebutton
 			signalCommandMap.mapSignalClass(MoodSignal, MoodCommand);
 
 			////////////////////
-			// 11 SplitSettingsConfig
-			////////////////////
-//salatas			mediatorMap.mapView(SplitSettingsView, SplitSettingsViewMediator);
-			
-			////////////////////
-			// 12 SplitParticipantsConfig
-			////////////////////
-//salatas			mediatorMap.mapView(SplitParticipantsView, SplitParticipantsViewMediator);
-			
-			////////////////////
-			// 13 SplitChatConfig
-			////////////////////
-//salatas			mediatorMap.mapView(SplitChatView, SplitChatViewMediator);
-			
-			////////////////////
 			// 14 StatusConfig
 			////////////////////
 			mediatorMap.mapView(StatusView, StatusViewMediator);
 			signalCommandMap.mapSignalClass(MoodSignal, MoodCommand);
 
-			////////////////////
-			// 15 RecentRoomsConfig
-			////////////////////
-			mediatorMap.mapView(RecentRoomsView, RecentRoomsViewMediator);
-			
-			////////////////////
-			// 16 OpenRoomConfig
-			////////////////////
-			mediatorMap.mapView(OpenRoomView, OpenRoomViewMediator);
-			
 			////////////////////
 			// 17 UserDetaisConfig
 			////////////////////

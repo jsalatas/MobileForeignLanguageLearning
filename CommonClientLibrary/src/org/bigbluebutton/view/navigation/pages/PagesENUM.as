@@ -10,10 +10,6 @@ package org.bigbluebutton.view.navigation.pages {
 	import org.bigbluebutton.view.navigation.pages.exit.ExitPageView;
 	import org.bigbluebutton.view.navigation.pages.guest.GuestPageView;
 	import org.bigbluebutton.view.navigation.pages.locksettings.LockSettingsView;
-	import org.bigbluebutton.view.navigation.pages.login.LoginPageView;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.OpenRoomView;
-	import org.bigbluebutton.view.navigation.pages.login.openroom.recentrooms.RecentRoomsView;
-	import org.bigbluebutton.view.navigation.pages.participants.ParticipantsView;
 	import org.bigbluebutton.view.navigation.pages.profile.ProfileView;
 	import org.bigbluebutton.view.navigation.pages.selectparticipant.SelectParticipantView;
 	import org.bigbluebutton.view.navigation.pages.status.StatusView;
@@ -72,14 +68,12 @@ package org.bigbluebutton.view.navigation.pages {
 		
 		protected static function init():void {
 			if (!dicInitiated) {
-				dic[LOGIN] = LoginPageView;
 				dic[PROFILE] = ProfileView;
 				dic[STATUS] = StatusView;
 				dic[USER_DETAIS] = UserDetaisView;
 				dic[VIDEO_CHAT] = VideoChatView;
 				dic[CHATROOMS] = ChatRoomsView;
 				dic[CHAT] = ChatView;
-				dic[PARTICIPANTS] = ParticipantsView;
 				dic[SELECT_PARTICIPANT] = SelectParticipantView;
 				dic[DISCONNECT] = DisconnectPageView;
 				dic[GUEST] = GuestPageView;
@@ -87,8 +81,6 @@ package org.bigbluebutton.view.navigation.pages {
 				dic[CAMERASETTINGS] = CameraSettingsView;
 				dic[AUDIOSETTINGS] = AudioSettingsView;
 				dic[EXIT] = ExitPageView;
-				dic[OPENROOM] = OpenRoomView;
-				dic[RECENTROOMS] = RecentRoomsView;
 				dic[LOCKSETTINGS] = LockSettingsView;
 				dicInitiated = true;
 			}
