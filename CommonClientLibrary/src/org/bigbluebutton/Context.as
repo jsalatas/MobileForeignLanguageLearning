@@ -51,10 +51,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.camerasettings.CameraSettingsView;
 	import org.bigbluebutton.view.navigation.pages.camerasettings.CameraSettingsViewMediator;
-	import org.bigbluebutton.view.navigation.pages.chat.ChatView;
-	import org.bigbluebutton.view.navigation.pages.chat.ChatViewMediator;
-	import org.bigbluebutton.view.navigation.pages.chatrooms.ChatRoomsView;
-	import org.bigbluebutton.view.navigation.pages.chatrooms.ChatRoomsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsView;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.deskshare.DeskshareView;
@@ -148,16 +144,6 @@ package org.bigbluebutton
 			// 6 LockSettingsConfig
 			////////////////////
 			mediatorMap.mapView(LockSettingsView, LockSettingsViewMediator);
-			
-			////////////////////
-			// 7 ChatConfig
-			////////////////////
-			mediatorMap.mapView(ChatView, ChatViewMediator);
-			
-			////////////////////
-			// 8 ChatRoomsConfig
-			////////////////////
-			mediatorMap.mapView(ChatRoomsView, ChatRoomsViewMediator);
 			
 			////////////////////
 			// 9 VideoChatConfig

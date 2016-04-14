@@ -3,8 +3,6 @@ package org.bigbluebutton.view.navigation.pages {
 	import flash.utils.Dictionary;
 	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsView;
 	import org.bigbluebutton.view.navigation.pages.camerasettings.CameraSettingsView;
-	import org.bigbluebutton.view.navigation.pages.chat.ChatView;
-	import org.bigbluebutton.view.navigation.pages.chatrooms.ChatRoomsView;
 	import org.bigbluebutton.view.navigation.pages.deskshare.DeskshareView;
 	import org.bigbluebutton.view.navigation.pages.disconnect.DisconnectPageView;
 	import org.bigbluebutton.view.navigation.pages.exit.ExitPageView;
@@ -72,8 +70,6 @@ package org.bigbluebutton.view.navigation.pages {
 				dic[STATUS] = StatusView;
 				dic[USER_DETAIS] = UserDetaisView;
 				dic[VIDEO_CHAT] = VideoChatView;
-				dic[CHATROOMS] = ChatRoomsView;
-				dic[CHAT] = ChatView;
 				dic[SELECT_PARTICIPANT] = SelectParticipantView;
 				dic[DISCONNECT] = DisconnectPageView;
 				dic[GUEST] = GuestPageView;

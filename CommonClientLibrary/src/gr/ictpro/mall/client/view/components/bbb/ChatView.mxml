@@ -11,8 +11,6 @@
 			
 			import gr.ictpro.mall.client.runtime.Device;
 			
-			import org.bigbluebutton.view.navigation.pages.chat.ChatItemRenderer;
-			
 			
 			protected function group1_resizeHandler(event:ResizeEvent):void
 			{
