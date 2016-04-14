@@ -238,6 +238,8 @@
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantItemRenderer"/>
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.ParticipantsList"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.ChatView"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.bbb.ChatViewMediator"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

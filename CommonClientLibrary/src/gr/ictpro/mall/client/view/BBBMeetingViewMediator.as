@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.view
 	import flash.events.MouseEvent;
 	
 	import gr.ictpro.mall.client.components.Group;
+	import gr.ictpro.mall.client.view.components.bbb.ChatView;
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
 	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
 	
@@ -57,6 +58,16 @@ package gr.ictpro.mall.client.view
 				trace("already showing participants");
 			}
 		}
+
+		override protected function chatClicked(event:MouseEvent):void
+		{
+			if(currentModule == null || !(currentModule is ChatView)) {
+				showView(new ChatView());
+			} else {
+				trace("already showing chat");
+			}
+		}
 		
+
 	}
 }

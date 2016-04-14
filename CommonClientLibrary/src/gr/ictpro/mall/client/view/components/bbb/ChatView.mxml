@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" 
+				  >
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
+			import org.bigbluebutton.view.navigation.pages.chat.ChatItemRenderer;
+			
+			
+			protected function group1_resizeHandler(event:ResizeEvent):void
+			{
+				forceListRedraw();
+			}
+			
+			public function forceListRedraw():void
+			{
+				var _itemRenderer:IFactory = chatlist.itemRenderer;
+				chatlist.itemRenderer = null;
+				chatlist.itemRenderer = _itemRenderer; 
+			}
+			
+			protected function chatlist_changeHandler(event:IndexChangeEvent):void
+			{
+				forceListRedraw();
+			}
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				chatlist.addEventListener("dataProviderChanged", dataChanged);
+			}
+			
+			private function dataChanged(e:Event):void
+			{
+				forceListRedraw();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Group width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout paddingLeft="5" paddingTop="5" paddingBottom="5" paddingRight="5" />
+		</s:layout>
+				<s:List id="chatlist" width="100%" height="100%" contentBackgroundColor="0xffffff" borderAlpha="0" resize="group1_resizeHandler(event)"
+						itemRenderer="gr.ictpro.mall.client.view.components.bbb.ChatItemRenderer" change="chatlist_changeHandler(event)"/>
+		
+		<s:Group width="100%">
+			<s:layout>
+				<s:HorizontalLayout />
+			</s:layout>
+			<s:TextInput id="inputMessage" width="100%" />
+			<s:Button id="sendButton"
+					  label="{Device.translations.getTranslation('Send')}"
+					  width="60"
+					  enabled="{inputMessage.text!=''}"
+					  />
+		</s:Group>
+	</s:Group>
+
+</s:Group>
