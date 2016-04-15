@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx" >
+	<s:states>
+		<mx:State name="me" />
+		<mx:State name="video" />
+		<mx:State name="novideo" />
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.events.ResizeEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
+			import org.bigbluebutton.model.User;
+			import org.bigbluebutton.view.navigation.pages.videochat.VideoChatVideoView;
+			
+			public var currentUser:User = null;
+			private var webcam:VideoChatVideoView;
+
+			public function stopStream():void {
+				currentState = "novideo";
+				if (webcam) {
+					webcam.close();
+					if (this.videoGroup.containsElement(webcam)) {
+						this.videoGroup.removeElement(webcam);
+					}
+					webcam = null;
+				}
+			}
+			
+			public function get video():Video {
+				if (webcam) {
+					return webcam.videoViewVideo;
+				} else {
+					return null;
+				}
+			}
+
+			public function startStream(connection:NetConnection, name:String, streamName:String, userID:String, height:Number, width:Number, me:Boolean):void {
+				currentState = me?"me":"video";
+				if (webcam)
+					stopStream();
+				webcam = new VideoChatVideoView();
+				webcam.percentWidth = 100;
+				webcam.percentHeight = 100;
+				videostream.addChild(webcam.videoViewVideo);
+				this.videoGroup.addElement(webcam);
+				webcam.startStream(connection, name, streamName, userID, height, width);
+				webcam.setVideoPosition(name);
+				resizeVideo();
+			}
+			
+			private function resizeVideo():void {
+				if(video != null) { 
+					// if we have device where screen width less than screen height e.g. phone
+					if (videoGroup.width < videoGroup.height)
+					{
+						// make the video width full width of the screen 
+						video.width=videoGroup.width;
+						// calculate height based on a video width, it order to keep the same aspect ratio
+						video.height=(video.width / webcam.originalVideoWidth) * webcam.originalVideoHeight;
+						// if calculated height appeared to be bigger than screen height, recalculuate the video size based on width
+						if (videoGroup.height < video.height)
+						{
+							// make the video height full height of the screen
+							video.height=videoGroup.height;
+							// calculate width based on a video height, it order to keep the same aspect ratio
+							video.width=((webcam.originalVideoWidth * video.height) / webcam.originalVideoHeight);
+						}
+					} // if we have device where screen height less than screen width e.g. tablet
+					else
+					{
+						// make the video height full height of the screen
+						video.height=videoGroup.height;
+						// calculate width based on a video height, it order to keep the same aspect ratio
+						video.width=((webcam.originalVideoWidth * video.height) / webcam.originalVideoHeight);
+						// if calculated width appeared to be bigger than screen width, recalculuate the video size based on height
+						if (videoGroup.width < video.width)
+						{
+							// make the video width full width of the screen 
+							video.width=videoGroup.width;
+							// calculate height based on a video width, it order to keep the same aspect ratio
+							video.height=(video.width / webcam.originalVideoWidth) * webcam.originalVideoHeight;
+						}
+					}
+					
+					video.x = (videoGroup.width - video.width)/2;
+					video.y = (videoGroup.height - video.height)/2;
+				}
+				
+				
+			}
+
+			protected function group1_resizeHandler(event:ResizeEvent):void
+			{
+				resizeVideo();
+			}
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="5" />		
+	</s:layout>
+		<s:Label width="100%" height="100%" text="{Device.translations.getTranslation('No video to display.')}" includeIn="novideo"/>
+		<s:Group id="videoGroup" height="100%"
+				 width="100%" resize="group1_resizeHandler(event)" includeIn="me, video">
+			<s:VideoDisplay id="videostream"
+							width="100%" height="100%" />
+		</s:Group>
+	
+		<s:Group height="100" id="mycamera"
+				 width="100%" resize="group1_resizeHandler(event)" includeIn="me">
+			<s:Rect left="0" top="0" bottom="0" right="0">
+				<s:fill>
+					<s:SolidColor color="0xff0000" />
+				</s:fill>
+				
+			</s:Rect>
+		</s:Group>
+
+
+</s:Group>

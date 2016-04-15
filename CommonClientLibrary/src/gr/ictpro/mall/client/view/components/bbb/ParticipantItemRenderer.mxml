@@ -20,7 +20,7 @@
 				super.data = obj;
 				if (obj) {
 					presenter_icon.visible = presenter_icon.includeInLayout = obj.presenter || ParticipantsList(owner).me.presenter || ParticipantsList(owner).me.role == User.MODERATOR;
-					camera_icon.visible = camera_icon.includeInLayout = obj.hasStream;
+					camera_icon.visible = camera_icon.includeInLayout = obj.hasStream || obj.me;
 					hand_icon.visible = hand_icon.includeInLayout = (!ParticipantsList(owner).me.presenter && obj.me) || (ParticipantsList(owner).me.presenter && !obj.me) || (obj.status == User.RAISE_HAND);
 					microphone_icon.visible = microphone_icon.includeInLayout = (obj.voiceJoined && !obj.muted); 
 					mute.visible = mute.includeInLayout = mute_icon.visible = mute_icon.includeInLayout = obj.muted;
@@ -34,7 +34,7 @@
 					
 					presenter_icon.transform.colorTransform = Device.getDefaultColorTransform(obj.presenter?1:0.3);
 					hand_icon.transform.colorTransform = Device.getDefaultColorTransform(obj.status == User.RAISE_HAND?1:0.3);
-					camera_icon.transform.colorTransform = Device.getDefaultColorTransform();
+					camera_icon.transform.colorTransform = Device.getDefaultColorTransform(obj.me && !obj.hasStream?0.3:1);
 					headset_icon.transform.colorTransform = Device.getDefaultColorTransform();
 					microphone_icon.transform.colorTransform = Device.getDefaultColorTransform();
 					mute_icon.transform.colorTransform = Device.getDefaultColorTransform();

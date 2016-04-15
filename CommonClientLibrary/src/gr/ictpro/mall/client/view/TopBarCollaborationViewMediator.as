@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
+	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
 	
 	import org.robotlegs.mvcs.SignalMediator;
 	
@@ -65,7 +66,7 @@ package gr.ictpro.mall.client.view
 			trace("whiteboardClicked");
 		}
 
-		protected function videoClicked(event:MouseEvent):void
+		protected function videoClicked(event:ShowVideoEvent):void
 		{
 			//TODO
 			trace("videoClicked");

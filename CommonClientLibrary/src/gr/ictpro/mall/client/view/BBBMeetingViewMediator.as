@@ -5,6 +5,8 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.Group;
 	import gr.ictpro.mall.client.view.components.bbb.ChatView;
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
+	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
+	import gr.ictpro.mall.client.view.components.bbb.VideoView;
 	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
 	
 	import org.bigbluebutton.command.JoinMeetingSignal;
@@ -67,7 +69,18 @@ package gr.ictpro.mall.client.view
 				trace("already showing chat");
 			}
 		}
-		
+
+		override protected function videoClicked(event:ShowVideoEvent):void
+		{
+			if(currentModule == null || !(currentModule is VideoView)) {
+				var v:VideoView = new VideoView();
+				v.currentUser = event.user;
+				showView(v);
+			} else {
+				trace("already showing video");
+			}
+		}
+
 
 	}
 }

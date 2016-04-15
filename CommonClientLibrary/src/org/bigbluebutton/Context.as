@@ -53,8 +53,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.pages.camerasettings.CameraSettingsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsView;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsViewMediator;
-	import org.bigbluebutton.view.navigation.pages.deskshare.DeskshareView;
-	import org.bigbluebutton.view.navigation.pages.deskshare.DeskshareViewMediator;
 	import org.bigbluebutton.view.navigation.pages.disconnect.DisconnectPageView;
 	import org.bigbluebutton.view.navigation.pages.disconnect.DisconnectPageViewMediator;
 	import org.bigbluebutton.view.navigation.pages.exit.ExitPageView;
@@ -218,11 +216,6 @@ package org.bigbluebutton
 			// 26 GuestPageConfig
 			////////////////////
 			mediatorMap.mapView(GuestPageView, GuestPageViewMediator);
-			
-			////////////////////
-			// 27 DeskshareConfig
-			////////////////////
-			mediatorMap.mapView(DeskshareView, DeskshareViewMediator);
 			
 			////////////////////
 			// 28 RecordingStatusConfig

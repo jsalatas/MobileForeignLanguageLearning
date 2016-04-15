@@ -24,9 +24,7 @@ package org.bigbluebutton.view.navigation.pages.videochat {
 			webcam.percentHeight = 100;
 			videoStream.addChild(webcam.videoViewVideo);
 			this.videoGroup.addElement(webcam);
-			var topActionBarHeight:Number = FlexGlobals.topLevelApplication.topActionBar.height;
-			var bottomMenuHeight:Number = FlexGlobals.topLevelApplication.bottomMenu.height;
-			webcam.startStream(connection, name, streamName, userID, width, height, screenHeight, screenWidth, topActionBarHeight, bottomMenuHeight);
+			webcam.startStream(connection, name, streamName, userID, width, height);
 			webcam.setVideoPosition(name);
 		}
 		

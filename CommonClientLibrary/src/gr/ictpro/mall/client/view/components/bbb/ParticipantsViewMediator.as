@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.view.components.bbb
 	import spark.collections.Sort;
 	
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.view.BBBMeetingView;
 	
 	import org.bigbluebutton.command.ClearUserStatusSignal;
 	import org.bigbluebutton.command.MicrophoneMuteSignal;
@@ -143,7 +144,8 @@ package gr.ictpro.mall.client.view.components.bbb
 
 		private function viewCameraHandler(user:User):void
 		{
-			//TODO:			
+			// This is ugly hack :(
+			BBBMeetingView(view.parent.parent.parent).showVideo(user);
 		}
 
 		private function muteAllHandler():void

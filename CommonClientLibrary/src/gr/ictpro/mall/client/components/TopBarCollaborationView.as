@@ -20,13 +20,16 @@ package gr.ictpro.mall.client.components
 	
 	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
+	
+	import org.bigbluebutton.model.User;
 
 
 	use namespace mx_internal;	
 
 	[Event(name="backClicked", type="flash.events.MouseEvent")]
 	[Event(name="whiteboardClicked", type="flash.events.MouseEvent")]
-	[Event(name="videoClicked", type="flash.events.MouseEvent")]
+	[Event(name="videoClicked", type="gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent")]
 	[Event(name="chatClicked", type="flash.events.MouseEvent")]
 	[Event(name="participantsClicked", type="flash.events.MouseEvent")]
 	[Event(name="settingsClicked", type="flash.events.MouseEvent")]
@@ -364,9 +367,17 @@ package gr.ictpro.mall.client.components
 		
 		private function videoClickedHandler(event:Event):void
 		{
-			var e:MouseEvent = new MouseEvent("videoClicked");
+			var e:ShowVideoEvent = new ShowVideoEvent(ShowVideoEvent.SHOW_VIDEO,null);
 			dispatchEvent(e);
 		}
+		
+		public function showVideo(user:User):void
+		{
+			var e:ShowVideoEvent = new ShowVideoEvent(ShowVideoEvent.SHOW_VIDEO, user);
+			dispatchEvent(e);
+		}
+		
+		
 		
 		private function settingsClickedHandler(event:Event):void
 		{
