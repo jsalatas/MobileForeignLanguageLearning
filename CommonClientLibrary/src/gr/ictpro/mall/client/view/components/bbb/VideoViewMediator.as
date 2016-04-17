@@ -179,13 +179,15 @@ package gr.ictpro.mall.client.view.components.bbb
 			var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
 			var cameraProperties:Object = new Object();
 			cameraProperties.position = userSession.videoConnection.cameraPosition;
-			cameraProperties.orientation= orientation;
+			cameraProperties.orientation= Device.calcCameraRotation(userSession.videoConnection.cameraPosition, orientation);
 			shareCameraSignal.dispatch(!userSession.userList.me.hasStream, cameraProperties);
 		}
 		
 		private function switchCameraHandler():void
 		{
 			if (!userSession.userList.me.hasStream) {
+				var a = Camera.getCamera("0");
+				var b = Camera.getCamera("1");
 				if (String(userSession.videoConnection.cameraPosition) == CameraPosition.FRONT) {
 					userSession.videoConnection.cameraPosition = CameraPosition.BACK;
 				} else {
@@ -197,13 +199,13 @@ package gr.ictpro.mall.client.view.components.bbb
 					var cameraProperties:Object = new Object();
 					cameraProperties.beforePosition = userSession.videoConnection.cameraPosition;
 					cameraProperties.position = CameraPosition.BACK;
-					cameraProperties.orientation= orientation;
+					cameraProperties.orientation = Device.calcCameraRotation(CameraPosition.BACK, orientation);
 					shareCameraSignal.dispatch(true, cameraProperties);
 				} else {
 					var cameraProperties:Object = new Object();
 					cameraProperties.beforePosition = userSession.videoConnection.cameraPosition;
 					cameraProperties.position = CameraPosition.FRONT;
-					cameraProperties.orientation= orientation;
+					cameraProperties.orientation= Device.calcCameraRotation(CameraPosition.FRONT, orientation);
 					shareCameraSignal.dispatch(true, cameraProperties);
 				}
 			}

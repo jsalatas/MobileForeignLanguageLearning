@@ -189,7 +189,6 @@ package org.bigbluebutton.core {
 					streamName = "rotate_left/" + streamName;
 					break;
 			}
-			trace(streamName)
 			_ns.publish(streamName);
 		}
 		

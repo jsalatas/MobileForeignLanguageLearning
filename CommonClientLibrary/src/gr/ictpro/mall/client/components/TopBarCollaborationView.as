@@ -1,7 +1,9 @@
 package gr.ictpro.mall.client.components
 {
+	import flash.display.StageOrientation;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.CameraPosition;
 	
 	import mx.core.IVisualElement;
 	import mx.core.IVisualElementContainer;

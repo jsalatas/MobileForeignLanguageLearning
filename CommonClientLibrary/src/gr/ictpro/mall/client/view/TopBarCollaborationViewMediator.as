@@ -1,7 +1,6 @@
 package gr.ictpro.mall.client.view
 {
-	import flash.display.Stage;
-	import flash.events.Event;
+	import flash.display.StageOrientation;
 	import flash.events.MouseEvent;
 	import flash.events.StageOrientationEvent;
 	import flash.media.CameraPosition;
@@ -10,7 +9,6 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.components.TopBarCollaborationView;
-	import gr.ictpro.mall.client.components.TopBarView;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
@@ -39,8 +37,6 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var shareCameraSignal:ShareCameraSignal;
 
-		private var oldOrientation:String;
-		
 		override public function onRegister():void
 		{
 			eventMap.mapListener(view, "backClicked", backClicked);
@@ -55,9 +51,6 @@ package gr.ictpro.mall.client.view
 			FlexGlobals.topLevelApplication.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler); 
 		}
 
-		protected function saveOrientation():void {
-			oldOrientation = FlexGlobals.topLevelApplication.stage.orientation;			
-		}
 		override public function onRemove():void
 		{
 			super.onRemove();
@@ -69,16 +62,14 @@ package gr.ictpro.mall.client.view
 			trace("@@@@@@@@@@@@@@@@@@@@@@@@" + e.beforeOrientation + " ---> " +e.afterOrientation);
 			if(Device.isAndroid && userSession.userList.me.hasStream) {
 				var cameraProperties:Object = new Object();
-				cameraProperties.beforeOrientation = e.beforeOrientation;
+				cameraProperties.beforeOrientation = Device.calcCameraRotation(userSession.videoConnection.cameraPosition, e.beforeOrientation);
 				cameraProperties.position = userSession.videoConnection.cameraPosition;
-				cameraProperties.orientation= e.afterOrientation;
+				cameraProperties.orientation = Device.calcCameraRotation(userSession.videoConnection.cameraPosition, e.afterOrientation);
 				shareCameraSignal.dispatch(true, cameraProperties);
 			}
 
 		}
-		
-		
-		
+	
 		protected final function back():void
 		{
 			backHandler();

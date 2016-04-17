@@ -1,6 +1,8 @@
 package gr.ictpro.mall.client.runtime
 {
+	import flash.display.StageOrientation;
 	import flash.geom.ColorTransform;
+	import flash.media.CameraPosition;
 	import flash.text.ReturnKeyLabel;
 	
 	import mx.core.FlexGlobals;
@@ -44,6 +46,21 @@ package gr.ictpro.mall.client.runtime
 		public static function set device(device:IDevice):void
 		{
 			_device = device;
+		}
+		
+		public static function calcCameraRotation(cameraPosition:String, stageOrientation:String):Number {
+			var res:Number = 0;
+			if(Device.isAndroid) {
+				if(stageOrientation == StageOrientation.DEFAULT || stageOrientation == StageOrientation.UPSIDE_DOWN) {
+					if(cameraPosition == CameraPosition.FRONT) {
+						res = 270;
+					} else if(cameraPosition == CameraPosition.BACK) {
+						res = 90;
+					}
+				}
+			}
+			
+			return res;
 		}
 		
 		public function Device()

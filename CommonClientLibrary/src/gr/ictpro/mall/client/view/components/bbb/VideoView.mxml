@@ -26,7 +26,7 @@
 			public var currentUser:User = null;
 			private var webcam:VideoChatVideoView;
 
-			private var videoRotation:Boolean;
+			private var videoRotation:Number;
 			
 			public function stopStream():void {
 				currentState = "novideo";
@@ -59,7 +59,13 @@
 				videostream.addChild(webcam.videoViewVideo);
 				this.videoGroup.addElement(webcam);
 				webcam.startPreview(camera, height, width);
-				videoRotation =false;
+				if(camera.position == CameraPosition.FRONT) {
+					videoRotation = -90;
+				} else if(camera.position == CameraPosition.BACK) {
+					videoRotation = 90;
+				} else {
+					videoRotation =0;
+				}
 				resizeVideo();
 			}
 			
@@ -77,11 +83,14 @@
 				webcam.startStream(connection, name, streamName, userID, height, width);
 				if(streamName.indexOf("(") > -1 && streamName.indexOf(")") > -1) {
 					var streamRotation:String = streamName.substr(streamName.indexOf("(")+1, streamName.indexOf(")")-(streamName.indexOf("(")+1));
-					if(streamRotation == StageOrientation.DEFAULT || streamRotation == StageOrientation.UPSIDE_DOWN) {
-						videoRotation = true;
+					if(streamRotation == "270") {
+						videoRotation = -90;
+					} else if (streamRotation == "90") {
+						videoRotation = 90;
 					} else {
-						videoRotation = false;
+						videoRotation = 0;
 					}
+					
 				}
 				webcam.setVideoPosition(name);
 				resizeVideo();
@@ -132,7 +141,7 @@
 					ref.x = (videoGroup.width - ref.width)/2;
 					ref.y = (videoGroup.height - ref.height)/2;
 					
-					if((videoRotation && currentState == "video") || (currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
+					if((videoRotation != 0 && currentState == "video") || (currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
 						video.rotation = 0;
 						
 						if(referenceDimension == "w") {
@@ -151,14 +160,24 @@
 								//               video.height/ webcam.originalVideoWidth * webcam.originalVideoHeight;
 							}
 						}
-						video.rotation = -90;
+						video.rotation = videoRotation;
 						
 						if(referenceDimension == "w") {
-							video.x = (videoGroup.width - video.width)/2;
-							video.y = video.height+ (videoGroup.height - video.height)/2;
+							if(videoRotation == -90) {
+								video.x = (videoGroup.width - video.width)/2;
+								video.y = video.height+ (videoGroup.height - video.height)/2;
+							} else if(videoRotation == 90) {
+								video.x = video.width + (videoGroup.width - video.width)/2;
+								video.y = (videoGroup.height - video.height)/2;
+							}
 						} else if(referenceDimension == "h") {
-							video.x = (videoGroup.width - video.width)/2;
-							video.y = video.height;
+							if(videoRotation == -90) {
+								video.x = (videoGroup.width - video.width)/2;
+								video.y = video.height;
+							} else if(videoRotation == 90) {
+								video.y = (videoGroup.height - video.height)/2;
+								video.x = video.width+ (videoGroup.width - video.width)/2;
+							}
 						}
 					} else {
 						video.rotation = 0;
