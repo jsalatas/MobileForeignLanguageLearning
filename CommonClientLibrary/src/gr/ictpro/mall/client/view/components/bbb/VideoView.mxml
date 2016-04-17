@@ -26,7 +26,7 @@
 			public var currentUser:User = null;
 			private var webcam:VideoChatVideoView;
 
-			private var videoRotation:Number;
+			private var videoRotation:Number = 0;
 			
 			public function stopStream():void {
 				currentState = "novideo";
@@ -59,9 +59,9 @@
 				videostream.addChild(webcam.videoViewVideo);
 				this.videoGroup.addElement(webcam);
 				webcam.startPreview(camera, height, width);
-				if(camera.position == CameraPosition.FRONT) {
+				if(Device.isAndroid && camera.position == CameraPosition.FRONT) {
 					videoRotation = -90;
-				} else if(camera.position == CameraPosition.BACK) {
+				} else if(Device.isAndroid && camera.position == CameraPosition.BACK) {
 					videoRotation = 90;
 				} else {
 					videoRotation =0;
@@ -141,7 +141,7 @@
 					ref.x = (videoGroup.width - ref.width)/2;
 					ref.y = (videoGroup.height - ref.height)/2;
 					
-					if((videoRotation != 0 && currentState == "video") || (currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
+					if((videoRotation != 0 && currentState == "video") || (Device.isAndroid && currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
 						video.rotation = 0;
 						
 						if(referenceDimension == "w") {
@@ -216,7 +216,7 @@
 	<s:layout>
 		<s:VerticalLayout gap="5" />		
 	</s:layout>
-		<s:Label width="100%" height="100%" text="{Device.translations.getTranslation('No video to display.')}" includeIn="novideo"/>
+		<s:Label width="100%" height="100%" verticalAlign="middle" textAlign="center" text="{Device.translations.getTranslation('No video to display.')}" includeIn="novideo"/>
 		<s:Group id="videoGroup" height="100%"
 				 width="100%" resize="group1_resizeHandler(event)" includeIn="me, video">
 			<s:VideoDisplay id="videostream"

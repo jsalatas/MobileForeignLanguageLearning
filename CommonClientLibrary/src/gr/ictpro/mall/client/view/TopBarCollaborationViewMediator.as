@@ -62,9 +62,9 @@ package gr.ictpro.mall.client.view
 			trace("@@@@@@@@@@@@@@@@@@@@@@@@" + e.beforeOrientation + " ---> " +e.afterOrientation);
 			if(Device.isAndroid && userSession.userList.me.hasStream) {
 				var cameraProperties:Object = new Object();
-				cameraProperties.beforeOrientation = Device.calcCameraRotation(userSession.videoConnection.cameraPosition, e.beforeOrientation);
-				cameraProperties.position = userSession.videoConnection.cameraPosition;
-				cameraProperties.orientation = Device.calcCameraRotation(userSession.videoConnection.cameraPosition, e.afterOrientation);
+				cameraProperties.beforeOrientation = Device.calcCameraRotation(userSession.videoConnection.cameraName, e.beforeOrientation);
+				cameraProperties.cameraName = userSession.videoConnection.cameraName;
+				cameraProperties.orientation = Device.calcCameraRotation(userSession.videoConnection.cameraName, e.afterOrientation);
 				shareCameraSignal.dispatch(true, cameraProperties);
 			}
 

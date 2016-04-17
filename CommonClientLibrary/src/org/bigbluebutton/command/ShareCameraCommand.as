@@ -26,12 +26,12 @@ package org.bigbluebutton.command {
 		public var usersService:UsersService;
 		
 		override public function execute():void {
-			if(cameraProperties != null && (cameraProperties.hasOwnProperty("beforeOrientation") || cameraProperties.hasOwnProperty("beforePosition"))) {
+			if(cameraProperties != null && (cameraProperties.hasOwnProperty("beforeOrientation") || cameraProperties.hasOwnProperty("beforeCameraName"))) {
 				disableCamera();
 			}
 			if (enabled) {
-				userSession.videoConnection.cameraPosition = cameraProperties.position;
-				enableCamera(cameraProperties.position);
+				userSession.videoConnection.cameraName = cameraProperties.cameraName;
+				enableCamera(cameraProperties.cameraName);
 			} else {
 				disableCamera();
 			}
@@ -65,7 +65,7 @@ package org.bigbluebutton.command {
 			if (!Camera.isSupported) {
 				return null;
 			}
-			var cam:Camera = this.getCamera(position);
+			var cam:Camera = Camera.getCamera(position);
 			/*
 			   cam.setMode(160, 120, 5, false);
 			   cam.setMotionLevel(0);
@@ -81,17 +81,6 @@ package org.bigbluebutton.command {
 			   this.videoDisplay.addElement(uic);
 			 */
 			return cam;
-		}
-		
-		// Get the requested camera. If it cannot be found,
-		// return the device's default camera.
-		private function getCamera(position:String):Camera {
-			for (var i:uint = 0; i < Camera.names.length; ++i) {
-				var cam:Camera = Camera.getCamera(String(i));
-				if (cam.position == position)
-					return cam;
-			}
-			return Camera.getCamera();
 		}
 		
 		private function enableCamera(position:String):void {

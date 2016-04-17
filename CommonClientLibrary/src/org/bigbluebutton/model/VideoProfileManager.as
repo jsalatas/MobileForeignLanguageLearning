@@ -65,18 +65,24 @@ package org.bigbluebutton.model {
 		}
 		
 		public function getVideoProfileByStreamName(streamName:String):VideoProfile {
-			var pattern:RegExp = new RegExp("(\\w+)-(\\w+)-(\\d+)", "");
-			if (pattern.test(streamName)) {
-				var profileID:String = pattern.exec(streamName)[1]
+//			var pattern:RegExp = new RegExp("(\\w+)-(\\w+)-(\\d+)", "");
+//			if (pattern.test(streamName)) {
+//				var profileID:String = pattern.exec(streamName)[1]
+			var profileID:String = ""; 
+			if (streamName.indexOf("(") > -1 ) {
+				var profileID:String = streamName.substr(0, streamName.indexOf("("));
+			} else {
+				var profileID:String = streamName.substr(0, streamName.indexOf("-"));
+			}
+			
+			if (profileID != "") {
 				for each (var profile:VideoProfile in _profiles) {
 					if (profile.id == profileID) {
 						return profile;
 					}
 				}
-				return defaultVideoProfile;
-			} else {
-				return defaultVideoProfile;
 			}
+			return defaultVideoProfile;
 		}
 		
 		public function get defaultVideoProfile():VideoProfile {

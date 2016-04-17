@@ -2,9 +2,11 @@ package gr.ictpro.mall.client.runtime
 {
 	import flash.display.StageOrientation;
 	import flash.geom.ColorTransform;
+	import flash.media.Camera;
 	import flash.media.CameraPosition;
 	import flash.text.ReturnKeyLabel;
 	
+	import mx.collections.ArrayList;
 	import mx.core.FlexGlobals;
 	
 	import spark.skins.spark.ButtonSkin;
@@ -32,6 +34,9 @@ package gr.ictpro.mall.client.runtime
 		private static var _curDensity:Number = FlexGlobals.topLevelApplication.runtimeDPI; 
 		private static var _curAppDPI:Number = 160; 
 		
+		public static var cameras:ArrayList = new ArrayList();
+		
+		
 		private static var _settings:RuntimeSettings; 
 
 		private static var _translations:Translation = new Translation();
@@ -48,9 +53,11 @@ package gr.ictpro.mall.client.runtime
 			_device = device;
 		}
 		
-		public static function calcCameraRotation(cameraPosition:String, stageOrientation:String):Number {
+		public static function calcCameraRotation(cameraName:String, stageOrientation:String):Number {
 			var res:Number = 0;
 			if(Device.isAndroid) {
+				var camera:Camera = Camera.getCamera(cameraName);
+				var cameraPosition:String = camera!=null?camera.position:"";
 				if(stageOrientation == StageOrientation.DEFAULT || stageOrientation == StageOrientation.UPSIDE_DOWN) {
 					if(cameraPosition == CameraPosition.FRONT) {
 						res = 270;

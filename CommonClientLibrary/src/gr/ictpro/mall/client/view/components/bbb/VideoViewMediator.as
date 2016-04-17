@@ -124,6 +124,9 @@ package gr.ictpro.mall.client.view.components.bbb
 					var profile:VideoProfile = userSession.videoConnection.selectedCameraQuality;
 
 					trace("++ viewing my camera");
+					if(userSession.videoConnection.cameraName== null) {
+						userSession.videoConnection.cameraName= "0";
+					}
 					showPreview(profile);
 					
 				} else {
@@ -138,7 +141,8 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 
 		private function showPreview(profile:VideoProfile):void {
-			var camera:Camera = getCamera(userSession.videoConnection.cameraPosition);
+			var camera:Camera = Camera.getCamera(userSession.videoConnection.cameraName);
+			
 			camera.setMode(profile.width, profile.height, profile.modeFps);
 			
 			//view.startPreview(camera, camera.height, camera.width); 
@@ -146,19 +150,6 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 		
 
-		private function rotateObjectAroundInternalPoint(ob:Object, x:Number, y:Number, angleDegrees:Number):void {
-			var point:Point = new Point(x, y);
-			var m:Matrix = ob.transform.matrix;
-			point = m.transformPoint(point);
-			m.tx -= point.x;
-			m.ty -= point.y;
-			m.rotate(angleDegrees * (Math.PI / 180));
-			m.tx += point.x;
-			m.ty += point.y;
-			ob.transform.matrix = m;
-		}
-
-		
 		private function resolutionChangeHandler():void
 		{
 			var profile:VideoProfile = VideoProfile(view.resolution.selected);
@@ -178,36 +169,39 @@ package gr.ictpro.mall.client.view.components.bbb
 			}
 			var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
 			var cameraProperties:Object = new Object();
-			cameraProperties.position = userSession.videoConnection.cameraPosition;
-			cameraProperties.orientation= Device.calcCameraRotation(userSession.videoConnection.cameraPosition, orientation);
+			cameraProperties.cameraName = userSession.videoConnection.cameraName;
+			cameraProperties.orientation= Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
 			shareCameraSignal.dispatch(!userSession.userList.me.hasStream, cameraProperties);
 		}
 		
 		private function switchCameraHandler():void
 		{
 			if (!userSession.userList.me.hasStream) {
-				var a = Camera.getCamera("0");
-				var b = Camera.getCamera("1");
-				if (String(userSession.videoConnection.cameraPosition) == CameraPosition.FRONT) {
-					userSession.videoConnection.cameraPosition = CameraPosition.BACK;
+				if(userSession.videoConnection.cameraName == "0") {
+					userSession.videoConnection.cameraName = "1";
 				} else {
-					userSession.videoConnection.cameraPosition = CameraPosition.FRONT;
+					userSession.videoConnection.cameraName = "0";
 				}
+				
+//				if (String(userSession.videoConnection.cameraPosition) == CameraPosition.FRONT) {
+//					userSession.videoConnection.cameraPosition = CameraPosition.BACK;
+//				} else {
+//					userSession.videoConnection.cameraPosition = CameraPosition.FRONT;
+//				}
 			} else {
 				var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
-				if (String(userSession.videoConnection.cameraPosition) == CameraPosition.FRONT) {
-					var cameraProperties:Object = new Object();
-					cameraProperties.beforePosition = userSession.videoConnection.cameraPosition;
-					cameraProperties.position = CameraPosition.BACK;
-					cameraProperties.orientation = Device.calcCameraRotation(CameraPosition.BACK, orientation);
-					shareCameraSignal.dispatch(true, cameraProperties);
+				var newCameraName:String;
+				if(userSession.videoConnection.cameraName == "0") {
+					newCameraName = "1";
 				} else {
-					var cameraProperties:Object = new Object();
-					cameraProperties.beforePosition = userSession.videoConnection.cameraPosition;
-					cameraProperties.position = CameraPosition.FRONT;
-					cameraProperties.orientation= Device.calcCameraRotation(CameraPosition.FRONT, orientation);
-					shareCameraSignal.dispatch(true, cameraProperties);
+					newCameraName = "0";
 				}
+				
+				var cameraProperties:Object = new Object();
+				cameraProperties.beforeCameraName = userSession.videoConnection.cameraName;
+				cameraProperties.cameraName = newCameraName;
+				cameraProperties.orientation = Device.calcCameraRotation(newCameraName, orientation);
+				shareCameraSignal.dispatch(true, cameraProperties);
 			}
 
 			var profile:VideoProfile = userSession.videoConnection.selectedCameraQuality;
@@ -223,15 +217,6 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 
 
-		private function getCamera(position:String):Camera {
-			for (var i:uint = 0; i < Camera.names.length; ++i) {
-				var cam:Camera = Camera.getCamera(String(i));
-				if (cam.position == position)
-					return cam;
-			}
-			return Camera.getCamera();
-		}
-		
 
 		
 	}

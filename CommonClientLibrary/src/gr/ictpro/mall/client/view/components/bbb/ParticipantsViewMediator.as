@@ -176,7 +176,15 @@ package gr.ictpro.mall.client.view.components.bbb
 		
 		private function userRemoved(userID:String):void {
 			var user:User = dicUserIdtoUser[userID] as User;
-			var index:uint = dataProvider.getItemIndex(user);
+			var index:int = -1; //dataProvider.getItemIndex(user);
+			var counter:int = 0;
+			for each(var u:User in dataProvider) {
+				if (u.userID == userID) { 
+					index = counter;
+					break;
+				} 
+				counter++;
+			}
 			dataProvider.removeItemAt(index);
 			dataProvider.refresh();
 			dicUserIdtoUser[user.userID] = null;

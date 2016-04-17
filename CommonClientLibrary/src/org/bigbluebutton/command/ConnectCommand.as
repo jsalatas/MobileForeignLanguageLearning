@@ -3,6 +3,8 @@ package org.bigbluebutton.command {
 	import mx.collections.ArrayCollection;
 	import mx.core.FlexGlobals;
 	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.DisconnectUserSignal;
 	import org.bigbluebutton.core.BigBlueButtonConnection;
 	import org.bigbluebutton.core.ChatMessageService;
@@ -258,8 +260,11 @@ package org.bigbluebutton.command {
 			trace(LOG + "successVideoConnected()");
 			if (userSession.videoAutoStart && userSession.skipCamSettingsCheck) {
 				var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
-				
-				shareCameraSignal.dispatch(!userSession.userList.me.hasStream, userSession.videoConnection.cameraPosition, orientation);
+
+				var cameraProperties:Object = new Object();
+				cameraProperties.cameraName = userSession.videoConnection.cameraName;
+				cameraProperties.orientation= Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
+				shareCameraSignal.dispatch(!userSession.userList.me.hasStream, cameraProperties);
 			}
 			videoConnection.successConnected.remove(successVideoConnected);
 			videoConnection.unsuccessConnected.remove(unsuccessVideoConnected);

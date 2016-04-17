@@ -49,8 +49,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.navigation.PagesNavigatorViewMediator;
 	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsView;
 	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsViewMediator;
-	import org.bigbluebutton.view.navigation.pages.camerasettings.CameraSettingsView;
-	import org.bigbluebutton.view.navigation.pages.camerasettings.CameraSettingsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsView;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.disconnect.DisconnectPageView;
@@ -82,8 +80,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.view.ui.NavigationButtonMediator;
 	import org.bigbluebutton.view.ui.RecordingStatus;
 	import org.bigbluebutton.view.ui.RecordingStatusMediator;
-	import org.bigbluebutton.view.ui.SwapCameraButton;
-	import org.bigbluebutton.view.ui.SwapCameraMediator;
 	import org.bigbluebutton.view.ui.micbutton.MicButton;
 	import org.bigbluebutton.view.ui.micbutton.MicButtonMediator;
 	import org.bigbluebutton.view.ui.videobutton.VideoButton;
@@ -198,11 +194,6 @@ package org.bigbluebutton
 			signalCommandMap.mapSignalClass(NavigateToSignal, NavigateToCommand);
 
 			////////////////////
-			// 23 SwapCameraConfig
-			////////////////////
-			mediatorMap.mapView(SwapCameraButton, SwapCameraMediator);
-			
-			////////////////////
 			// 24 ExitPageConfig
 			////////////////////
 			mediatorMap.mapView(ExitPageView, ExitPageViewMediator);
@@ -222,10 +213,6 @@ package org.bigbluebutton
 			////////////////////
 			mediatorMap.mapView(RecordingStatus, RecordingStatusMediator);
 			
-			////////////////////
-			// 29 CameraSettingsConfig
-			////////////////////
-			mediatorMap.mapView(CameraSettingsView, CameraSettingsViewMediator);
 			
 			////////////////////
 			// 30 AudioSettingsConfig

@@ -65,7 +65,7 @@ package org.bigbluebutton.core {
 		
 		public function removeStream(userID:String, streamName:String):void {
 			trace("UsersMessageSender::removeStream() -- Sending [participants.unshareWebcam] message to server");
-			userSession.mainConnection.sendMessage("participants.unshareWebcam", defaultSuccessResponse, defaultFailureResponse, streamName);
+			userSession.mainConnection.sendMessage("participants.unshareWebcam", defaultSuccessResponse, defaultFailureResponse);
 		}
 		
 		public function queryForRecordingStatus():void {

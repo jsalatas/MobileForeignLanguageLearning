@@ -38,7 +38,7 @@ package org.bigbluebutton.core {
 		
 		private var _ns:NetStream;
 		
-		private var _cameraPosition:String;
+		private var _cameraName:String;
 		
 		protected var _successConnected:ISignal = new Signal();
 		
@@ -83,9 +83,9 @@ package org.bigbluebutton.core {
 				_selectedCameraRotation = 0;
 			}
 			if (saveData.read("cameraPosition") != null) {
-				_cameraPosition = saveData.read("cameraPosition") as String;
+				_cameraName = saveData.read("cameraPosition") as String;
 			} else {
-				_cameraPosition = CameraPosition.FRONT;
+				_cameraName = "0";
 			}
 		}
 		
@@ -126,12 +126,12 @@ package org.bigbluebutton.core {
 			baseConnection.disconnect(onUserCommand);
 		}
 		
-		public function get cameraPosition():String {
-			return _cameraPosition;
+		public function get cameraName():String {
+			return _cameraName;
 		}
 		
-		public function set cameraPosition(position:String):void {
-			_cameraPosition = position;
+		public function set cameraName(cameraName:String):void {
+			_cameraName = cameraName;
 		}
 		
 		public function get camera():Camera {
