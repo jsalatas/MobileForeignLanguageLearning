@@ -318,25 +318,26 @@ package org.bigbluebutton.model {
 				var user:User = p.participant as User;
 				if (share) {
 					user.hasStream = true;
-					if (user.streamName == "") {
+//					if (user.streamName == "") {
 						user.streamName = streamName;
-					} else {
-						user.streamName += "|" + streamName;
-					}
+//					} else {
+//						user.streamName += "|" + streamName;
+//					}
 				} else {
 					var newStreamName:String = "";
-					var streamNames:Array = user.streamName.split("|");
-					if (streamName) {
-						for each (var sN:String in streamNames) {
-							if (streamName != sN) {
-								if (newStreamName == "") {
-									newStreamName += sN;
-								} else {
-									newStreamName += "|" + sN;
-								}
-							}
-						}
-					}
+//					var streamNames:Array = user.streamName.split("|");
+//					if (streamName) {
+//						for each (var sN:String in streamNames) {
+//							if (streamName != sN) {
+//								if (newStreamName == "") {
+//									newStreamName += sN;
+//								} else {
+//									newStreamName += "|" + sN;
+//								}
+//							}
+//						}
+//					}
+					
 					user.streamName = newStreamName;
 					if (newStreamName != "") {
 						user.hasStream = true;

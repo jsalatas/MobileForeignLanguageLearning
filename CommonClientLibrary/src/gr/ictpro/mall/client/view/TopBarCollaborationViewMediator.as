@@ -1,14 +1,23 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.display.Stage;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.StageOrientationEvent;
+	import flash.media.CameraPosition;
+	
+	import mx.core.FlexGlobals;
 	
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.components.TopBarCollaborationView;
 	import gr.ictpro.mall.client.components.TopBarView;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
 	
+	import org.bigbluebutton.command.ShareCameraSignal;
+	import org.bigbluebutton.model.UserSession;
 	import org.robotlegs.mvcs.SignalMediator;
 	
 	public class TopBarCollaborationViewMediator extends SignalMediator
@@ -23,6 +32,14 @@ package gr.ictpro.mall.client.view
 		public var addView:AddViewSignal;
 
 		public var cancelBack:Boolean = false;
+
+		[Inject]
+		public var userSession:UserSession;
+
+		[Inject]
+		public var shareCameraSignal:ShareCameraSignal;
+
+		private var oldOrientation:String;
 		
 		override public function onRegister():void
 		{
@@ -32,7 +49,35 @@ package gr.ictpro.mall.client.view
 			eventMap.mapListener(view, "chatClicked", chatClicked);
 			eventMap.mapListener(view, "participantsClicked", participantsClicked);
 			eventMap.mapListener(view, "settingsClicked", settingsClicked);
+			
+			//Device.shellView.addEventListener(Event.RESIZE, orientationChangeHandler);
+
+			FlexGlobals.topLevelApplication.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler); 
 		}
+
+		protected function saveOrientation():void {
+			oldOrientation = FlexGlobals.topLevelApplication.stage.orientation;			
+		}
+		override public function onRemove():void
+		{
+			super.onRemove();
+			//Device.shellView.removeEventListener(Event.RESIZE, orientationChangeHandler);
+			FlexGlobals.topLevelApplication.stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler); 
+		}
+		
+		private function orientationChangeHandler(e:StageOrientationEvent):void {
+			trace("@@@@@@@@@@@@@@@@@@@@@@@@" + e.beforeOrientation + " ---> " +e.afterOrientation);
+			if(Device.isAndroid && userSession.userList.me.hasStream) {
+				var cameraProperties:Object = new Object();
+				cameraProperties.beforeOrientation = e.beforeOrientation;
+				cameraProperties.position = userSession.videoConnection.cameraPosition;
+				cameraProperties.orientation= e.afterOrientation;
+				shareCameraSignal.dispatch(true, cameraProperties);
+			}
+
+		}
+		
+		
 		
 		protected final function back():void
 		{

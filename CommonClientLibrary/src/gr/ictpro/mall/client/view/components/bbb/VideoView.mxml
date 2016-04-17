@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx" >
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%" xmlns:mx="library://ns.adobe.com/flex/mx" 
+				  xmlns:signals="org.osflash.signals.*" >
+<fx:Declarations>
+	<signals:Signal id="resolutionChangeSignal" />
+	<signals:Signal id="switchCameraSignal" />
+	<signals:Signal id="shareMyCameraSignal" />
+</fx:Declarations>
 	<s:states>
-		<mx:State name="me" />
 		<mx:State name="video" />
+		<mx:State name="me" />
 		<mx:State name="novideo" />
 	</s:states>
 	<fx:Script>
 		<![CDATA[
 			import mx.core.FlexGlobals;
+			import mx.core.UIComponent;
 			import mx.events.ResizeEvent;
 			
 			import gr.ictpro.mall.client.runtime.Device;
@@ -19,6 +26,8 @@
 			public var currentUser:User = null;
 			private var webcam:VideoChatVideoView;
 
+			private var videoRotation:Boolean;
+			
 			public function stopStream():void {
 				currentState = "novideo";
 				if (webcam) {
@@ -38,64 +47,149 @@
 				}
 			}
 
-			public function startStream(connection:NetConnection, name:String, streamName:String, userID:String, height:Number, width:Number, me:Boolean):void {
-				currentState = me?"me":"video";
+			public function startPreview(camera:Camera, height:Number, width:Number):void {
 				if (webcam)
 					stopStream();
+
+
+				currentState = "me";
+				webcam = new VideoChatVideoView();
+				webcam.percentWidth = 100;
+				webcam.percentHeight = 100;
+				videostream.addChild(webcam.videoViewVideo);
+				this.videoGroup.addElement(webcam);
+				webcam.startPreview(camera, height, width);
+				videoRotation =false;
+				resizeVideo();
+			}
+			
+			
+			public function startStream(connection:NetConnection, name:String, streamName:String, userID:String, height:Number, width:Number, me:Boolean):void {
+				if (webcam)
+					stopStream();
+
+				currentState = "video";
 				webcam = new VideoChatVideoView();
 				webcam.percentWidth = 100;
 				webcam.percentHeight = 100;
 				videostream.addChild(webcam.videoViewVideo);
 				this.videoGroup.addElement(webcam);
 				webcam.startStream(connection, name, streamName, userID, height, width);
+				if(streamName.indexOf("(") > -1 && streamName.indexOf(")") > -1) {
+					var streamRotation:String = streamName.substr(streamName.indexOf("(")+1, streamName.indexOf(")")-(streamName.indexOf("(")+1));
+					if(streamRotation == StageOrientation.DEFAULT || streamRotation == StageOrientation.UPSIDE_DOWN) {
+						videoRotation = true;
+					} else {
+						videoRotation = false;
+					}
+				}
 				webcam.setVideoPosition(name);
 				resizeVideo();
 			}
 			
 			private function resizeVideo():void {
+				var referenceDimension:String;
+				var ref:UIComponent = new UIComponent();
 				if(video != null) { 
+					ref.width = webcam.originalVideoWidth;
+					ref.height = webcam.originalVideoHeight;
 					// if we have device where screen width less than screen height e.g. phone
 					if (videoGroup.width < videoGroup.height)
 					{
 						// make the video width full width of the screen 
-						video.width=videoGroup.width;
+						ref.width=videoGroup.width;
+						referenceDimension = "w";
 						// calculate height based on a video width, it order to keep the same aspect ratio
-						video.height=(video.width / webcam.originalVideoWidth) * webcam.originalVideoHeight;
+						ref.height=(ref.width / webcam.originalVideoWidth) * webcam.originalVideoHeight;
 						// if calculated height appeared to be bigger than screen height, recalculuate the video size based on width
-						if (videoGroup.height < video.height)
+						if (videoGroup.height < ref.height)
 						{
 							// make the video height full height of the screen
-							video.height=videoGroup.height;
+							ref.height=videoGroup.height;
+							referenceDimension = "h";
 							// calculate width based on a video height, it order to keep the same aspect ratio
-							video.width=((webcam.originalVideoWidth * video.height) / webcam.originalVideoHeight);
+							ref.width=((webcam.originalVideoWidth * ref.height) / webcam.originalVideoHeight);
 						}
 					} // if we have device where screen height less than screen width e.g. tablet
 					else
 					{
 						// make the video height full height of the screen
-						video.height=videoGroup.height;
+						ref.height=videoGroup.height;
+						referenceDimension = "h";
 						// calculate width based on a video height, it order to keep the same aspect ratio
-						video.width=((webcam.originalVideoWidth * video.height) / webcam.originalVideoHeight);
+						ref.width=((webcam.originalVideoWidth * ref.height) / webcam.originalVideoHeight);
 						// if calculated width appeared to be bigger than screen width, recalculuate the video size based on height
-						if (videoGroup.width < video.width)
+						if (videoGroup.width < ref.width)
 						{
 							// make the video width full width of the screen 
-							video.width=videoGroup.width;
+							ref.width=videoGroup.width;
+							referenceDimension = "w";
 							// calculate height based on a video width, it order to keep the same aspect ratio
-							video.height=(video.width / webcam.originalVideoWidth) * webcam.originalVideoHeight;
+							ref.height=(ref.width / webcam.originalVideoWidth) * webcam.originalVideoHeight;
 						}
 					}
 					
-					video.x = (videoGroup.width - video.width)/2;
-					video.y = (videoGroup.height - video.height)/2;
+					ref.x = (videoGroup.width - ref.width)/2;
+					ref.y = (videoGroup.height - ref.height)/2;
+					
+					if((videoRotation && currentState == "video") || (currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
+						video.rotation = 0;
+						
+						if(referenceDimension == "w") {
+							video.height = ref.width;
+							video.width = webcam.originalVideoWidth *Math.min(video.height, videoGroup.height)/webcam.originalVideoHeight;
+							if(video.width> videoGroup.height) {
+								video.width = videoGroup.height; 
+								video.height=webcam.originalVideoHeight * video.width / webcam.originalVideoWidth;
+							}
+						} else if(referenceDimension == "h") {
+							video.width = ref.height;
+							video.height = webcam.originalVideoHeight *Math.min(video.width, videoGroup.width) /webcam.originalVideoWidth;
+							if(video.height>videoGroup.width) {
+								video.height = videoGroup.width; 
+								video.width=webcam.originalVideoWidth * video.height / webcam.originalVideoHeight;
+								//               video.height/ webcam.originalVideoWidth * webcam.originalVideoHeight;
+							}
+						}
+						video.rotation = -90;
+						
+						if(referenceDimension == "w") {
+							video.x = (videoGroup.width - video.width)/2;
+							video.y = video.height+ (videoGroup.height - video.height)/2;
+						} else if(referenceDimension == "h") {
+							video.x = (videoGroup.width - video.width)/2;
+							video.y = video.height;
+						}
+					} else {
+						video.rotation = 0;
+						video.width = ref.width;
+						video.height = ref.height;
+						video.x = ref.x;
+						video.y = ref.y;
+					}
 				}
-				
-				
 			}
 
 			protected function group1_resizeHandler(event:ResizeEvent):void
 			{
 				resizeVideo();
+			}
+			
+			protected function resolution_changeHandler(event:Event):void
+			{
+				resolutionChangeSignal.dispatch();
+				
+			}
+			
+			protected function switchCamera_clickHandler(event:MouseEvent):void
+			{
+				switchCameraSignal.dispatch();
+			}
+			
+			protected function shareCamera_clickHandler(event:MouseEvent):void
+			{
+				shareMyCameraSignal.dispatch();
+				
 			}
 			
 		]]>
@@ -107,17 +201,17 @@
 		<s:Group id="videoGroup" height="100%"
 				 width="100%" resize="group1_resizeHandler(event)" includeIn="me, video">
 			<s:VideoDisplay id="videostream"
-							width="100%" height="100%" />
+							width="100%" height="100%"  />
 		</s:Group>
 	
-		<s:Group height="100" id="mycamera"
+		<s:Group id="mycamera"
 				 width="100%" resize="group1_resizeHandler(event)" includeIn="me">
-			<s:Rect left="0" top="0" bottom="0" right="0">
-				<s:fill>
-					<s:SolidColor color="0xff0000" />
-				</s:fill>
-				
-			</s:Rect>
+			<s:layout>
+				<s:VerticalLayout paddingLeft="5" paddingRight="5" paddingBottom="5" />
+			</s:layout>
+			<s:PopUpList id="resolution" change="resolution_changeHandler(event)" />
+			<s:Button id="shareCamera" click="shareCamera_clickHandler(event)" />
+			<s:Button id="switchCamera" click="switchCamera_clickHandler(event)" label="{Device.translations.getTranslation('Switch Camera')}" />
 		</s:Group>
 
 

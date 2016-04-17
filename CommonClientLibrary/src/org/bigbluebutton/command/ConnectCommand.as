@@ -257,7 +257,9 @@ package org.bigbluebutton.command {
 		private function successVideoConnected():void {
 			trace(LOG + "successVideoConnected()");
 			if (userSession.videoAutoStart && userSession.skipCamSettingsCheck) {
-				shareCameraSignal.dispatch(!userSession.userList.me.hasStream, userSession.videoConnection.cameraPosition);
+				var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
+				
+				shareCameraSignal.dispatch(!userSession.userList.me.hasStream, userSession.videoConnection.cameraPosition, orientation);
 			}
 			videoConnection.successConnected.remove(successVideoConnected);
 			videoConnection.unsuccessConnected.remove(unsuccessVideoConnected);

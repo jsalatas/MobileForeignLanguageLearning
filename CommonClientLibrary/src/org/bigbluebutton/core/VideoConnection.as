@@ -7,6 +7,11 @@ package org.bigbluebutton.core {
 	import flash.media.CameraPosition;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
+	
+	import mx.core.FlexGlobals;
+	
+	import gr.ictpro.mall.client.runtime.Device;
+	
 	import org.bigbluebutton.command.ShareCameraSignal;
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.UserSession;
@@ -56,7 +61,7 @@ package org.bigbluebutton.core {
 			userSession.lockSettings.disableCamSignal.add(disableCam);
 		}
 		
-		private function disableCam(disable:Boolean) {
+		private function disableCam(disable:Boolean):void {
 			if (disable && userSession.userList.me.locked && !userSession.userList.me.presenter) {
 				shareCameraSignal.dispatch(false, null);
 			}

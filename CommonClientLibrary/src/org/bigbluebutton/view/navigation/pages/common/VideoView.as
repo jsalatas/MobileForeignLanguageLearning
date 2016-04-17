@@ -2,11 +2,15 @@ package org.bigbluebutton.view.navigation.pages.common {
 	
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
+	import flash.events.StatusEvent;
+	import flash.media.Camera;
 	import flash.media.Video;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
 	import flash.system.Capabilities;
+	
 	import mx.utils.ObjectUtil;
+	
 	import spark.components.Group;
 	
 	public class VideoView extends Group {
@@ -53,6 +57,11 @@ package org.bigbluebutton.view.navigation.pages.common {
 			} else {
 				ns.play(streamName);
 			}
+		}
+
+		public function startPreview(camera:Camera, height:Number, width:Number):void {
+			initializeScreenSizeValues(width, height);
+			video.attachCamera(camera);
 		}
 		
 		public function initializeScreenSizeValues(originalVideoWidth0:Number, originalVideoHeight0:Number):void {

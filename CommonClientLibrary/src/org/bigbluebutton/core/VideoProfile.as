@@ -79,19 +79,20 @@ package org.bigbluebutton.core {
 		}
 		
 		public function toString():String {
-			return "VideoProfile [ "
-				+ "id: " + this.id + ", "
-				+ "default: " + this.defaultProfile + ", "
-				+ "name: " + this.name + ", "
-				+ "width: " + this.width + ", "
-				+ "height: " + this.height + ", "
-				+ "keyFrameInterval: " + this.keyFrameInterval + ", "
-				+ "modeFps: " + this.modeFps + ", "
-				+ "qualityBandwidth: " + this.qualityBandwidth + ", "
-				+ "qualityPicture: " + this.qualityPicture + ", "
-				+ "enableH264: " + this.enableH264 + ", "
-				+ "h264Level: " + this.h264Level + ", "
-				+ "h264Profile: " + this.h264Profile + " ]";
+			return this.width +"x"+this.height;
+//			return "VideoProfile [ "
+//				+ "id: " + this.id + ", "
+//				+ "default: " + this.defaultProfile + ", "
+//				+ "name: " + this.name + ", "
+//				+ "width: " + this.width + ", "
+//				+ "height: " + this.height + ", "
+//				+ "keyFrameInterval: " + this.keyFrameInterval + ", "
+//				+ "modeFps: " + this.modeFps + ", "
+//				+ "qualityBandwidth: " + this.qualityBandwidth + ", "
+//				+ "qualityPicture: " + this.qualityPicture + ", "
+//				+ "enableH264: " + this.enableH264 + ", "
+//				+ "h264Level: " + this.h264Level + ", "
+//				+ "h264Profile: " + this.h264Profile + " ]";
 		}
 		
 		private static function nextId():int {

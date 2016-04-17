@@ -1,6 +1,10 @@
 package org.bigbluebutton.command {
 	
+	import flash.display.Stage;
+	import flash.events.StageOrientationEvent;
 	import flash.media.Camera;
+	
+	import mx.core.FlexGlobals;
 	
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.core.VideoProfile;
@@ -16,15 +20,18 @@ package org.bigbluebutton.command {
 		public var enabled:Boolean;
 		
 		[Inject]
-		public var position:String;
-		
+		public var cameraProperties:Object;
+
 		[Inject]
 		public var usersService:UsersService;
 		
 		override public function execute():void {
+			if(cameraProperties != null && (cameraProperties.hasOwnProperty("beforeOrientation") || cameraProperties.hasOwnProperty("beforePosition"))) {
+				disableCamera();
+			}
 			if (enabled) {
-				userSession.videoConnection.cameraPosition = position;
-				enableCamera(position);
+				userSession.videoConnection.cameraPosition = cameraProperties.position;
+				enableCamera(cameraProperties.position);
 			} else {
 				disableCamera();
 			}
@@ -37,7 +44,7 @@ package org.bigbluebutton.command {
 			if (userSession.videoProfileManager == null)
 				trace("null video profile manager");
 			var videoProfile:VideoProfile = userSession.videoConnection.selectedCameraQuality;
-			var res:String = videoProfile.id;
+			var res:String = videoProfile.id +"("+ cameraProperties.orientation + ")";
 			// streamName format is 'low-userid-timestamp'
 			return res.concat("-" + uid) + "-" + curTime;
 		}
