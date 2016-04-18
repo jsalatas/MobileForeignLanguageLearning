@@ -14,8 +14,10 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
 	
+	import org.bigbluebutton.command.DisconnectUserSignal;
 	import org.bigbluebutton.command.ShareCameraSignal;
 	import org.bigbluebutton.model.UserSession;
+	import org.bigbluebutton.view.navigation.pages.disconnect.enum.DisconnectEnum;
 	import org.robotlegs.mvcs.SignalMediator;
 	
 	public class TopBarCollaborationViewMediator extends SignalMediator
@@ -36,6 +38,9 @@ package gr.ictpro.mall.client.view
 
 		[Inject]
 		public var shareCameraSignal:ShareCameraSignal;
+		
+		[Inject]
+		public var disconnectUserSignal:DisconnectUserSignal;
 
 		override public function onRegister():void
 		{
@@ -71,6 +76,9 @@ package gr.ictpro.mall.client.view
 	
 		protected final function back():void
 		{
+			userSession.logoutSignal.dispatch();
+			disconnectUserSignal.dispatch(DisconnectEnum.CONNECTION_STATUS_USER_LOGGED_OUT);
+
 			backHandler();
 
 			if(cancelBack)
