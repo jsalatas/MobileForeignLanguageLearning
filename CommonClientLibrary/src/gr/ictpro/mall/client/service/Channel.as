@@ -43,8 +43,8 @@ package gr.ictpro.mall.client.service
 				channel = new AMFChannel("my-amf", endPoint);
 				_channelSet.addChannel(channel);
 					
-				pollingEndPoint = serverURL + applicationPath+"/messagebroker/amfsecurepolling";
-				pollingChannel = new AMFChannel("my-secure-polling-amf", pollingEndPoint);
+				pollingEndPoint = serverURL + applicationPath+"/messagebroker/amfpolling";
+				pollingChannel = new AMFChannel("my-polling-amf", pollingEndPoint);
 				pollingChannel.pollingEnabled = true;
 				pollingChannel.pollingInterval = 1000;
 					
