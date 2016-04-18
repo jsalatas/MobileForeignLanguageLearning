@@ -263,7 +263,7 @@ package org.bigbluebutton.command {
 
 				var cameraProperties:Object = new Object();
 				cameraProperties.cameraName = userSession.videoConnection.cameraName;
-				cameraProperties.orientation= Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
+				cameraProperties.orientation= 0; //Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
 				shareCameraSignal.dispatch(!userSession.userList.me.hasStream, cameraProperties);
 			}
 			videoConnection.successConnected.remove(successVideoConnected);

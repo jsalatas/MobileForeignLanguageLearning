@@ -44,7 +44,7 @@ package org.bigbluebutton.command {
 			if (userSession.videoProfileManager == null)
 				trace("null video profile manager");
 			var videoProfile:VideoProfile = userSession.videoConnection.selectedCameraQuality;
-			var res:String = videoProfile.id +"("+ cameraProperties.orientation + ")";
+			var res:String = videoProfile.id ;// +"("+ cameraProperties.orientation + ")";
 			// streamName format is 'low-userid-timestamp'
 			return res.concat("-" + uid) + "-" + curTime;
 		}

@@ -53,22 +53,22 @@ package gr.ictpro.mall.client.runtime
 			_device = device;
 		}
 		
-		public static function calcCameraRotation(cameraName:String, stageOrientation:String):Number {
-			var res:Number = 0;
-			if(Device.isAndroid) {
-				var camera:Camera = Camera.getCamera(cameraName);
-				var cameraPosition:String = camera!=null?camera.position:"";
-				if(stageOrientation == StageOrientation.DEFAULT || stageOrientation == StageOrientation.UPSIDE_DOWN) {
-					if(cameraPosition == CameraPosition.FRONT) {
-						res = 270;
-					} else if(cameraPosition == CameraPosition.BACK) {
-						res = 90;
-					}
-				}
-			}
-			
-			return res;
-		}
+//		public static function calcCameraRotation(cameraName:String, stageOrientation:String):Number {
+//			var res:Number = 0;
+//			if(Device.isAndroid) {
+//				var camera:Camera = Camera.getCamera(cameraName);
+//				var cameraPosition:String = camera!=null?camera.position:"";
+//				if(stageOrientation == StageOrientation.DEFAULT || stageOrientation == StageOrientation.UPSIDE_DOWN) {
+//					if(cameraPosition == CameraPosition.FRONT) {
+//						res = 270;
+//					} else if(cameraPosition == CameraPosition.BACK) {
+//						res = 90;
+//					}
+//				}
+//			}
+//			
+//			return res;
+//		}
 		
 		public function Device()
 		{

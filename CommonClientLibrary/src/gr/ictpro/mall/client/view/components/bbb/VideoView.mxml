@@ -59,13 +59,13 @@
 				videostream.addChild(webcam.videoViewVideo);
 				this.videoGroup.addElement(webcam);
 				webcam.startPreview(camera, height, width);
-				if(Device.isAndroid && camera.position == CameraPosition.FRONT) {
-					videoRotation = -90;
-				} else if(Device.isAndroid && camera.position == CameraPosition.BACK) {
-					videoRotation = 90;
-				} else {
-					videoRotation =0;
-				}
+//				if(Device.isAndroid && camera.position == CameraPosition.FRONT) {
+//					videoRotation = -90;
+//				} else if(Device.isAndroid && camera.position == CameraPosition.BACK) {
+//					videoRotation = 90;
+//				} else {
+//					videoRotation =0;
+//				}
 				resizeVideo();
 			}
 			
@@ -81,17 +81,17 @@
 				videostream.addChild(webcam.videoViewVideo);
 				this.videoGroup.addElement(webcam);
 				webcam.startStream(connection, name, streamName, userID, height, width);
-				if(streamName.indexOf("(") > -1 && streamName.indexOf(")") > -1) {
-					var streamRotation:String = streamName.substr(streamName.indexOf("(")+1, streamName.indexOf(")")-(streamName.indexOf("(")+1));
-					if(streamRotation == "270") {
-						videoRotation = -90;
-					} else if (streamRotation == "90") {
-						videoRotation = 90;
-					} else {
-						videoRotation = 0;
-					}
-					
-				}
+//				if(streamName.indexOf("(") > -1 && streamName.indexOf(")") > -1) {
+//					var streamRotation:String = streamName.substr(streamName.indexOf("(")+1, streamName.indexOf(")")-(streamName.indexOf("(")+1));
+//					if(streamRotation == "270") {
+//						videoRotation = -90;
+//					} else if (streamRotation == "90") {
+//						videoRotation = 90;
+//					} else {
+//						videoRotation = 0;
+//					}
+//					
+//				}
 				webcam.setVideoPosition(name);
 				resizeVideo();
 			}
@@ -141,51 +141,51 @@
 					ref.x = (videoGroup.width - ref.width)/2;
 					ref.y = (videoGroup.height - ref.height)/2;
 					
-					if((videoRotation != 0 && currentState == "video") || (Device.isAndroid && currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
-						video.rotation = 0;
-						
-						if(referenceDimension == "w") {
-							video.height = ref.width;
-							video.width = webcam.originalVideoWidth *Math.min(video.height, videoGroup.height)/webcam.originalVideoHeight;
-							if(video.width> videoGroup.height) {
-								video.width = videoGroup.height; 
-								video.height=webcam.originalVideoHeight * video.width / webcam.originalVideoWidth;
-							}
-						} else if(referenceDimension == "h") {
-							video.width = ref.height;
-							video.height = webcam.originalVideoHeight *Math.min(video.width, videoGroup.width) /webcam.originalVideoWidth;
-							if(video.height>videoGroup.width) {
-								video.height = videoGroup.width; 
-								video.width=webcam.originalVideoWidth * video.height / webcam.originalVideoHeight;
-								//               video.height/ webcam.originalVideoWidth * webcam.originalVideoHeight;
-							}
-						}
-						video.rotation = videoRotation;
-						
-						if(referenceDimension == "w") {
-							if(videoRotation == -90) {
-								video.x = (videoGroup.width - video.width)/2;
-								video.y = video.height+ (videoGroup.height - video.height)/2;
-							} else if(videoRotation == 90) {
-								video.x = video.width + (videoGroup.width - video.width)/2;
-								video.y = (videoGroup.height - video.height)/2;
-							}
-						} else if(referenceDimension == "h") {
-							if(videoRotation == -90) {
-								video.x = (videoGroup.width - video.width)/2;
-								video.y = video.height;
-							} else if(videoRotation == 90) {
-								video.y = (videoGroup.height - video.height)/2;
-								video.x = video.width+ (videoGroup.width - video.width)/2;
-							}
-						}
-					} else {
+//					if((videoRotation != 0 && currentState == "video") || (Device.isAndroid && currentState=="me" && (stage.orientation == StageOrientation.DEFAULT || stage.orientation == StageOrientation.UPSIDE_DOWN))) {
+//						video.rotation = 0;
+//						
+//						if(referenceDimension == "w") {
+//							video.height = ref.width;
+//							video.width = webcam.originalVideoWidth *Math.min(video.height, videoGroup.height)/webcam.originalVideoHeight;
+//							if(video.width> videoGroup.height) {
+//								video.width = videoGroup.height; 
+//								video.height=webcam.originalVideoHeight * video.width / webcam.originalVideoWidth;
+//							}
+//						} else if(referenceDimension == "h") {
+//							video.width = ref.height;
+//							video.height = webcam.originalVideoHeight *Math.min(video.width, videoGroup.width) /webcam.originalVideoWidth;
+//							if(video.height>videoGroup.width) {
+//								video.height = videoGroup.width; 
+//								video.width=webcam.originalVideoWidth * video.height / webcam.originalVideoHeight;
+//								//               video.height/ webcam.originalVideoWidth * webcam.originalVideoHeight;
+//							}
+//						}
+//						video.rotation = videoRotation;
+//						
+//						if(referenceDimension == "w") {
+//							if(videoRotation == -90) {
+//								video.x = (videoGroup.width - video.width)/2;
+//								video.y = video.height+ (videoGroup.height - video.height)/2;
+//							} else if(videoRotation == 90) {
+//								video.x = video.width + (videoGroup.width - video.width)/2;
+//								video.y = (videoGroup.height - video.height)/2;
+//							}
+//						} else if(referenceDimension == "h") {
+//							if(videoRotation == -90) {
+//								video.x = (videoGroup.width - video.width)/2;
+//								video.y = video.height;
+//							} else if(videoRotation == 90) {
+//								video.y = (videoGroup.height - video.height)/2;
+//								video.x = video.width+ (videoGroup.width - video.width)/2;
+//							}
+//						}
+//					} else {
 						video.rotation = 0;
 						video.width = ref.width;
 						video.height = ref.height;
 						video.x = ref.x;
 						video.y = ref.y;
-					}
+//					}
 				}
 			}
 

@@ -170,7 +170,7 @@ package gr.ictpro.mall.client.view.components.bbb
 			var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
 			var cameraProperties:Object = new Object();
 			cameraProperties.cameraName = userSession.videoConnection.cameraName;
-			cameraProperties.orientation= Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
+			cameraProperties.orientation= 0; //Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
 			shareCameraSignal.dispatch(!userSession.userList.me.hasStream, cameraProperties);
 		}
 		
@@ -200,7 +200,7 @@ package gr.ictpro.mall.client.view.components.bbb
 				var cameraProperties:Object = new Object();
 				cameraProperties.beforeCameraName = userSession.videoConnection.cameraName;
 				cameraProperties.cameraName = newCameraName;
-				cameraProperties.orientation = Device.calcCameraRotation(newCameraName, orientation);
+				cameraProperties.orientation =0; //Device.calcCameraRotation(newCameraName, orientation);
 				shareCameraSignal.dispatch(true, cameraProperties);
 			}
 
