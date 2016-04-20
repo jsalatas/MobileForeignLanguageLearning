@@ -107,6 +107,8 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.view.components.TranslationManagerComponentMediator;
 	import gr.ictpro.mall.client.view.components.bbb.ChatView;
 	import gr.ictpro.mall.client.view.components.bbb.ChatViewMediator;
+	import gr.ictpro.mall.client.view.components.bbb.MeetingSettingsView;
+	import gr.ictpro.mall.client.view.components.bbb.MeetingSettingsViewMediator;
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsViewMediator;
 	import gr.ictpro.mall.client.view.components.bbb.VideoView;
@@ -191,6 +193,7 @@ package gr.ictpro.mall.client
 			mediatorMap.mapView(ParticipantsView, ParticipantsViewMediator);
 			mediatorMap.mapView(ChatView, ChatViewMediator);
 			mediatorMap.mapView(VideoView, VideoViewMediator);
+			mediatorMap.mapView(MeetingSettingsView, MeetingSettingsViewMediator);
 			
 			mediatorMap.mapView(TranslationManagerComponent, TranslationManagerComponentMediator);
 			mediatorMap.mapView(DetailTab, DetailTabMediator);

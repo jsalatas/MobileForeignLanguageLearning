@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+									xmlns:s="gr.ictpro.mall.client.components.*" 
+									show="skinnablepopupcontainer1_showHandler(event)"
+									resize="ownerResizeHandler(event)"
+									width="200" height="80">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			protected function skinnablepopupcontainer1_showHandler(event:FlexEvent):void
+			{
+				resize();
+				stage.addEventListener(Event.RESIZE, stageChange);
+			}
+
+			protected function ownerResizeHandler(event:ResizeEvent):void
+			{
+				width = 200;
+				height = 80;
+				
+			}
+
+			private function stageChange(e:Event):void
+			{
+				resize();
+			}
+			
+			private function resize():void
+			{
+				width = 200;
+				height = 80;
+				x=(stage.stageWidth-this.width)/2;
+				y=(stage.stageHeight-this.height - stage.softKeyboardRect.height)/2;
+			}
+			
+			protected function btnCancel_clickHandler(event:MouseEvent):void
+			{
+				close();
+			}
+
+			override public function close(commit:Boolean=false, data:*=null):void
+			{
+				stage.removeEventListener(Event.RESIZE, stageChange);
+				super.close(commit, data);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Rect left="0" top="0" bottom="0" right="0" >
+		<s:fill>
+			<s:SolidColor color="0xffffff" />
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke color="{Device.getDefaultColor()}" weight="{Device.getScaledSize(1)}" />
+		</s:stroke>
+	</s:Rect>
+	<s:Group width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10" gap="10"/>
+		</s:layout>
+		<s:Group width="100%" height="30" >
+			<s:Label top="0" left="0" bottom="0" right="0" text="{Device.translations.getTranslation('Please use a headset before enabling microphone.')}" />
+		</s:Group>
+		<!-- buttons -->
+		<s:Group width="100%" height="30"  >
+			<s:layout>
+				<s:HorizontalLayout horizontalAlign="center" />
+			</s:layout>
+			<s:Button id="btnCancel" label="{Device.translations.getTranslation('Cancel')}" click="btnCancel_clickHandler(event)" />			
+			<s:Button id="btnOk" label="{Device.translations.getTranslation('OK')}" />
+		</s:Group>
+
+			
+	</s:Group>
+</s:SkinnablePopUpContainer>

@@ -367,6 +367,12 @@ package gr.ictpro.mall.client.components
 			dispatchEvent(e);
 		}
 		
+		public function showVideoSettings(user:User):void
+		{
+			var e:ShowVideoEvent = new ShowVideoEvent(ShowVideoEvent.SHOW_VIDEO,user);
+			dispatchEvent(e);
+		}
+		
 		private function videoClickedHandler(event:Event):void
 		{
 			var e:ShowVideoEvent = new ShowVideoEvent(ShowVideoEvent.SHOW_VIDEO,null);

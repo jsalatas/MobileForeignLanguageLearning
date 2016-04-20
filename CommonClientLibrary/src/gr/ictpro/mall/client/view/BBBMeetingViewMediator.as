@@ -4,6 +4,7 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.components.Group;
 	import gr.ictpro.mall.client.view.components.bbb.ChatView;
+	import gr.ictpro.mall.client.view.components.bbb.MeetingSettingsView;
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
 	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
 	import gr.ictpro.mall.client.view.components.bbb.VideoView;
@@ -16,7 +17,7 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var joinMeetingSignal:JoinMeetingSignal;
 		
-		private var currentModule:Group;
+		protected var currentModule:Group;
 		
 		
 		override public function onRegister():void
@@ -78,6 +79,16 @@ package gr.ictpro.mall.client.view
 				showView(v);
 			} else {
 				trace("already showing video");
+			}
+		}
+
+		override protected function settingsClicked(event:MouseEvent):void
+		{
+			if(currentModule == null || !(currentModule is MeetingSettingsView)) {
+				var v:MeetingSettingsView = new MeetingSettingsView();
+				showView(v);
+			} else {
+				trace("already showing settings");
 			}
 		}
 
