@@ -125,8 +125,6 @@ package gr.ictpro.mall.client.view.components.bbb
 				view.enableAudio.selected = true;
 				
 				var mic:Microphone = Microphone.getEnhancedMicrophone();
-				// debug
-				mic = null;
 				if(mic == null) {
 					microphoneWarningPopup = new MicrophoneWarningPopup();
 					microphoneWarningPopup.open(this.view, true);
