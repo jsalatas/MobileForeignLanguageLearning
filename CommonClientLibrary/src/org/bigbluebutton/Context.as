@@ -47,8 +47,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.model.chat.ChatMessagesSession;
 	import org.bigbluebutton.view.navigation.PagesNavigatorView;
 	import org.bigbluebutton.view.navigation.PagesNavigatorViewMediator;
-	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsView;
-	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsView;
 	import org.bigbluebutton.view.navigation.pages.common.MenuButtonsViewMediator;
 	import org.bigbluebutton.view.navigation.pages.disconnect.DisconnectPageView;
@@ -213,11 +211,6 @@ package org.bigbluebutton
 			////////////////////
 			mediatorMap.mapView(RecordingStatus, RecordingStatusMediator);
 			
-			
-			////////////////////
-			// 30 AudioSettingsConfig
-			////////////////////
-			mediatorMap.mapView(AudioSettingsView, AudioSettingsViewMediator);
 			
 			////////////////////
 			// 31 MenuButtonsConfig

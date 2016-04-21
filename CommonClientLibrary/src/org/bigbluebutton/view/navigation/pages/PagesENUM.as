@@ -1,7 +1,6 @@
 package org.bigbluebutton.view.navigation.pages {
 	
 	import flash.utils.Dictionary;
-	import org.bigbluebutton.view.navigation.pages.audiosettings.AudioSettingsView;
 	import org.bigbluebutton.view.navigation.pages.disconnect.DisconnectPageView;
 	import org.bigbluebutton.view.navigation.pages.exit.ExitPageView;
 	import org.bigbluebutton.view.navigation.pages.guest.GuestPageView;
@@ -71,7 +70,6 @@ package org.bigbluebutton.view.navigation.pages {
 				dic[SELECT_PARTICIPANT] = SelectParticipantView;
 				dic[DISCONNECT] = DisconnectPageView;
 				dic[GUEST] = GuestPageView;
-				dic[AUDIOSETTINGS] = AudioSettingsView;
 				dic[EXIT] = ExitPageView;
 				dic[LOCKSETTINGS] = LockSettingsView;
 				dicInitiated = true;
