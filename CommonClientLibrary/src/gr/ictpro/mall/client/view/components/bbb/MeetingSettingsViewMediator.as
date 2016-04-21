@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.view.components.bbb
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.components.TopBarCollaborationView;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.view.BBBMeetingView;
 	
 	import org.bigbluebutton.command.ShareMicrophoneSignal;
@@ -63,14 +64,14 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 
 		private function gainChange(e:Event) {
-			var gain:Number = e.target.value * 10
+			var gain:Number = e.target.value * 10;
 			setMicGain(gain);
 		}
 
 		private function setMicGain(gain:Number) {
 			if (userSession.voiceStreamManager) {
 				userSession.voiceStreamManager.setDefaultMicGain(gain);
-				if (!userSession.pushToTalk && userSession.voiceStreamManager.mic) {
+				if (userSession.voiceStreamManager.mic) {
 					userSession.voiceStreamManager.mic.gain = gain;
 				}
 			}
@@ -107,6 +108,7 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 
 		private function enableMicrophone():void {
+			userSession.pushToTalk = false;
 			var audioOptions:Object = new Object();
 			audioOptions.shareMic = userSession.userList.me.voiceJoined = view.enableMic.selected && view.enableAudio.selected;
 			audioOptions.listenOnly = userSession.userList.me.listenOnly = !view.enableMic.selected && view.enableAudio.selected;
@@ -115,8 +117,8 @@ package gr.ictpro.mall.client.view.components.bbb
 		
 		private function micActivity(e:TimerEvent):void {
 			if (userSession.voiceStreamManager && userSession.voiceStreamManager.mic) {
-				view.micActivityMask.width = view.gainSlider.width - (view.gainSlider.width * userSession.voiceStreamManager.mic.activityLevel / 100);
-				view.micActivityMask.x = view.micActivity.x + view.micActivity.width - view.micActivityMask.width;
+				view.micActivityMask.width = Device.getUnScaledSize(view.gainSlider.width - (view.gainSlider.width * userSession.voiceStreamManager.mic.activityLevel / 100));
+				view.micActivityMask.x = Device.getUnScaledSize(view.micActivity.x + view.micActivity.width - view.micActivityMask.width);
 			}
 		}
 
