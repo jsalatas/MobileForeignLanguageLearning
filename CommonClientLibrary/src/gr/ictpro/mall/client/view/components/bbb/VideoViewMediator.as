@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.view.components.bbb
 	import mx.collections.ArrayCollection;
 	import mx.core.FlexGlobals;
 	
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.runtime.Device;
 	
 	import org.bigbluebutton.command.CameraQualitySignal;
@@ -32,6 +33,9 @@ package gr.ictpro.mall.client.view.components.bbb
 
 		[Inject]
 		public var shareCameraSignal:ShareCameraSignal;
+
+		[Inject]
+		public var clientSettingsModel:ClientSettingsModel;
 		
 		private var followSpeaker:Boolean = true;
 
@@ -154,6 +158,10 @@ package gr.ictpro.mall.client.view.components.bbb
 		{
 			var profile:VideoProfile = VideoProfile(view.resolution.selected);
 			if (userSession.userList.me.hasStream) {
+				var obj:Object = new Object();
+				obj.name = "camera_resolution";
+				obj.value = profile.id;
+				clientSettingsModel.saveObject(obj);
 				changeQualitySignal.dispatch(profile);
 			}
 			
@@ -162,9 +170,11 @@ package gr.ictpro.mall.client.view.components.bbb
 
 		private function shareCameraHandler():void
 		{
+			var enableCamera:Boolean = false;
 			if(view.currentUser.hasStream) {
 				view.shareCamera.label = Device.translations.getTranslation("Start Sharing");
 			} else {
+				enableCamera=true;
 				view.shareCamera.label = Device.translations.getTranslation("Stop Sharing");
 			}
 			var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
@@ -172,6 +182,15 @@ package gr.ictpro.mall.client.view.components.bbb
 			cameraProperties.cameraName = userSession.videoConnection.cameraName;
 			cameraProperties.orientation= 0; //Device.calcCameraRotation(userSession.videoConnection.cameraName, orientation);
 			shareCameraSignal.dispatch(!userSession.userList.me.hasStream, cameraProperties);
+			var obj:Object = new Object();
+			obj.name = "enable_camera";
+			obj.value = enableCamera;
+			clientSettingsModel.saveObject(obj);
+			var obj1:Object = new Object();
+			obj1.name = "camera_name";
+			obj1.value = userSession.videoConnection.cameraName;
+			clientSettingsModel.saveObject(obj1);
+
 		}
 		
 		private function switchCameraHandler():void
@@ -202,6 +221,11 @@ package gr.ictpro.mall.client.view.components.bbb
 				cameraProperties.cameraName = newCameraName;
 				cameraProperties.orientation =0; //Device.calcCameraRotation(newCameraName, orientation);
 				shareCameraSignal.dispatch(true, cameraProperties);
+				var obj:Object = new Object();
+				obj.name = "camera_name";
+				obj.value = newCameraName;
+				clientSettingsModel.saveObject(obj);
+
 			}
 
 			var profile:VideoProfile = userSession.videoConnection.selectedCameraQuality;

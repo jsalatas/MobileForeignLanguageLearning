@@ -4,8 +4,9 @@ package org.bigbluebutton.command {
 	
 	import mx.utils.ObjectUtil;
 	
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
+	
 	import org.bigbluebutton.core.BigBlueButtonConnection;
-	import org.bigbluebutton.core.SaveData;
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.core.VoiceConnection;
 	import org.bigbluebutton.core.VoiceStreamManager;
@@ -24,7 +25,7 @@ package org.bigbluebutton.command {
 		public var conferenceParameters:ConferenceParameters;
 		
 		[Inject]
-		public var saveData:SaveData;
+		public var clientSettingsModel:ClientSettingsModel;
 		
 		[Inject]
 		public var audioOptions:Object;
@@ -81,7 +82,7 @@ package org.bigbluebutton.command {
 			trace(LOG + "mediaSuccessConnected()");
 			if (!manager) {
 				var manager:VoiceStreamManager = new VoiceStreamManager();
-				var savedGain = saveData.read("micGain");
+				var savedGain = clientSettingsModel.getItemById("mic_gain") != null?int(clientSettingsModel.getItemById("mic_gain").value):5;
 				if (savedGain) {
 					manager.setDefaultMicGain(savedGain);
 				}

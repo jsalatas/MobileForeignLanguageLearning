@@ -1,8 +1,11 @@
 package org.bigbluebutton.command {
 	
+	import flash.media.Microphone;
+	
 	import mx.collections.ArrayCollection;
 	import mx.core.FlexGlobals;
 	
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.runtime.Device;
 	
 	import org.bigbluebutton.command.DisconnectUserSignal;
@@ -10,7 +13,6 @@ package org.bigbluebutton.command {
 	import org.bigbluebutton.core.ChatMessageService;
 	import org.bigbluebutton.core.DeskshareConnection;
 	import org.bigbluebutton.core.PresentationService;
-	import org.bigbluebutton.core.SaveData;
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.core.VideoConnection;
 	import org.bigbluebutton.core.VoiceConnection;
@@ -71,7 +73,7 @@ package org.bigbluebutton.command {
 		public var shareCameraSignal:ShareCameraSignal;
 		
 		[Inject]
-		public var saveData:SaveData;
+		public var clientSettingsModel:ClientSettingsModel;
 		
 		override public function execute():void {
 			loadConfigOptions();
@@ -164,8 +166,17 @@ package org.bigbluebutton.command {
 				shareMicrophoneSignal.dispatch(audioOptions);
 			} else {
 				audioOptions = new Object();
-				audioOptions.shareMic = userSession.userList.me.voiceJoined = false;
-				audioOptions.listenOnly = userSession.userList.me.listenOnly = true;
+				
+				var enableMic:Boolean = false;
+				
+				var mic:Microphone = Microphone.getEnhancedMicrophone(); 
+				if(mic != null) {
+					enableMic = clientSettingsModel.getItemById("enable_mic") != null? Boolean(clientSettingsModel.getItemById("enable_mic").value):false;
+				}
+
+				var enableAudio:Boolean = clientSettingsModel.getItemById("enable_audio") != null? Boolean(clientSettingsModel.getItemById("enable_audio").value):true;
+				audioOptions.shareMic = userSession.userList.me.voiceJoined = enableMic;
+				audioOptions.listenOnly = userSession.userList.me.listenOnly = enableAudio && !enableMic;
 				shareMicrophoneSignal.dispatch(audioOptions);
 			}
 			deskshareConnection.applicationURI = userSession.config.getConfigFor("DeskShareModule").@uri;
@@ -185,7 +196,7 @@ package org.bigbluebutton.command {
 		}
 		
 		private function updateRooms():void {
-			var rooms:ArrayCollection = saveData.read("rooms") as ArrayCollection;
+			var rooms:ArrayCollection = null; //saveData.read("rooms") as ArrayCollection;
 			if (!rooms) {
 				rooms = new ArrayCollection();
 			}
@@ -201,7 +212,7 @@ package org.bigbluebutton.command {
 						break;
 					}
 				}
-				saveData.save("rooms", rooms);
+				//saveData.save("rooms", rooms);
 			}
 		}
 		
@@ -258,7 +269,9 @@ package org.bigbluebutton.command {
 		
 		private function successVideoConnected():void {
 			trace(LOG + "successVideoConnected()");
-			if (userSession.videoAutoStart && userSession.skipCamSettingsCheck) {
+			var enableCamera:Boolean = clientSettingsModel.getItemById("enable_camera") != null? Boolean(clientSettingsModel.getItemById("enable_camera").value):false;
+//			if (userSession.videoAutoStart && userSession.skipCamSettingsCheck) {
+			if (enableCamera) {
 				var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
 
 				var cameraProperties:Object = new Object();

@@ -36,7 +36,6 @@ package org.bigbluebutton
 	import org.bigbluebutton.core.DeskshareConnection;
 	import org.bigbluebutton.core.LoginService;
 	import org.bigbluebutton.core.PresentationService;
-	import org.bigbluebutton.core.SaveData;
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.core.VideoConnection;
 	import org.bigbluebutton.core.VoiceConnection;
@@ -107,7 +106,6 @@ package org.bigbluebutton
 			injector.mapSingleton(WhiteboardService);
 			injector.mapSingleton(ChatMessagesSession);
 			injector.mapSingleton(DeskshareConnection);
-			injector.mapSingleton(SaveData);
 
 			// Type mapping
 			injector.mapClass(BaseConnection, BaseConnection);

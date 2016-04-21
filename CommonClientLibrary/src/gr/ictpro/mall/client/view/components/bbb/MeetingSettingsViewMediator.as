@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.view.components.bbb
 	import spark.events.PopUpEvent;
 	
 	import gr.ictpro.mall.client.components.TopBarCollaborationView;
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.view.BBBMeetingView;
 	
@@ -29,6 +30,9 @@ package gr.ictpro.mall.client.view.components.bbb
 		[Inject]
 		public var shareMicrophoneSignal:ShareMicrophoneSignal;
 
+		[Inject]
+		public var clientSettingsModel:ClientSettingsModel;
+		
 		private var micActivityTimer:Timer = null;
 
 		private var microphoneWarningPopup:MicrophoneWarningPopup; 
@@ -37,6 +41,8 @@ package gr.ictpro.mall.client.view.components.bbb
 		{
 			super.onRegister();
 			
+			
+			
 			addToSignal(view.cameraSettingsClicked, cameraSettingsHandler);
 			addToSignal(userSession.userList.userChangeSignal, userChangeHandler);
 
@@ -44,6 +50,10 @@ package gr.ictpro.mall.client.view.components.bbb
 			view.enableMic.addEventListener(Event.CHANGE, onEnableMicClick);
 			view.gainSlider.addEventListener(Event.CHANGE, gainChange);
 
+			view.enableAudio.selected = clientSettingsModel.getItemById("enable_audio") != null? Boolean(clientSettingsModel.getItemById("enable_audio").value):true; 
+			view.enableMic.selected = clientSettingsModel.getItemById("enable_mic") != null? Boolean(clientSettingsModel.getItemById("enable_mic").value):false;
+			view.gainSlider.value = clientSettingsModel.getItemById("mic_gain") != null? Number(clientSettingsModel.getItemById("mic_gain").value) / 10:5;
+			
 			micActivityTimer = new Timer(100);
 			micActivityTimer.addEventListener(TimerEvent.TIMER, micActivity);
 			micActivityTimer.start();
@@ -66,6 +76,10 @@ package gr.ictpro.mall.client.view.components.bbb
 		private function gainChange(e:Event) {
 			var gain:Number = e.target.value * 10;
 			setMicGain(gain);
+			var obj:Object = new Object();
+			obj.name = "mic_gain";
+			obj.value = gain;
+			clientSettingsModel.saveObject(obj);
 		}
 
 		private function setMicGain(gain:Number) {
@@ -86,6 +100,10 @@ package gr.ictpro.mall.client.view.components.bbb
 			audioOptions.shareMic = userSession.userList.me.voiceJoined = view.enableMic.selected && view.enableAudio.selected;
 			audioOptions.listenOnly = userSession.userList.me.listenOnly = !view.enableMic.selected && view.enableAudio.selected;
 			shareMicrophoneSignal.dispatch(audioOptions);
+			var obj:Object = new Object();
+			obj.name = "enable_audio";
+			obj.value = view.enableAudio.selected;
+			clientSettingsModel.saveObject(obj);
 		}
 		
 		private function microphoneWarningCloseHandler(e:PopUpEvent):void
@@ -94,6 +112,7 @@ package gr.ictpro.mall.client.view.components.bbb
 			microphoneWarningPopup.removeEventListener(PopUpEvent.CLOSE, microphoneWarningCloseHandler);
 			microphoneWarningPopup = null;
 			view.enableMic.selected = false;
+			enableMicrophone();
 		}
 
 		private function microphoneWarningOKHandler(e:MouseEvent):void
@@ -113,6 +132,10 @@ package gr.ictpro.mall.client.view.components.bbb
 			audioOptions.shareMic = userSession.userList.me.voiceJoined = view.enableMic.selected && view.enableAudio.selected;
 			audioOptions.listenOnly = userSession.userList.me.listenOnly = !view.enableMic.selected && view.enableAudio.selected;
 			shareMicrophoneSignal.dispatch(audioOptions);
+			var obj:Object = new Object();
+			obj.name = "enable_mic";
+			obj.value = view.enableMic.selected;
+			clientSettingsModel.saveObject(obj);
 		}
 		
 		private function micActivity(e:TimerEvent):void {

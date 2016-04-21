@@ -10,6 +10,7 @@ package org.bigbluebutton.core {
 	
 	import mx.core.FlexGlobals;
 	
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.runtime.Device;
 	
 	import org.bigbluebutton.command.ShareCameraSignal;
@@ -31,7 +32,7 @@ package org.bigbluebutton.core {
 		public var userSession:UserSession;
 		
 		[Inject]
-		public var saveData:SaveData;
+		public var clientSettingsModel:ClientSettingsModel;
 		
 		[Inject]
 		public var shareCameraSignal:ShareCameraSignal;
@@ -68,8 +69,8 @@ package org.bigbluebutton.core {
 		}
 		
 		private function loadCameraSettings():void {
-			if (saveData.read("cameraQuality") != null) {
-				_selectedCameraQuality = userSession.videoProfileManager.getVideoProfileById(saveData.read("cameraQuality") as String);
+			if (clientSettingsModel.getItemById("camera_resolution") != null) {
+				_selectedCameraQuality = userSession.videoProfileManager.getVideoProfileById(String(clientSettingsModel.getItemById("camera_resolution").value));
 				if (!_selectedCameraQuality) {
 					_selectedCameraQuality = userSession.videoProfileManager.defaultVideoProfile;
 					trace("selected camera quality " + _selectedCameraQuality)
@@ -77,13 +78,13 @@ package org.bigbluebutton.core {
 			} else {
 				_selectedCameraQuality = userSession.videoProfileManager.defaultVideoProfile;
 			}
-			if (saveData.read("cameraRotation") != null) {
-				_selectedCameraRotation = saveData.read("cameraRotation") as int;
+			if (clientSettingsModel.getItemById("camera_rotation") != null) {
+				_selectedCameraRotation = int(clientSettingsModel.getItemById("camera_rotation").value);
 			} else {
 				_selectedCameraRotation = 0;
 			}
-			if (saveData.read("cameraPosition") != null) {
-				_cameraName = saveData.read("cameraPosition") as String;
+			if (clientSettingsModel.getItemById("camera_name") != null) {
+				_cameraName = String(clientSettingsModel.getItemById("camera_name").value);
 			} else {
 				_cameraName = "0";
 			}
