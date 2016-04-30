@@ -67,7 +67,7 @@ package gr.ictpro.mall.client.controller
 		
 		private function error(type:String, event:FaultEvent):void
 		{
-			if(type == "getTranslations") {
+			if(type == "getTranslations" && !Device.isInitializing) {
 				UI.showError("Cannot Connect to Server.");
 			}
 		}

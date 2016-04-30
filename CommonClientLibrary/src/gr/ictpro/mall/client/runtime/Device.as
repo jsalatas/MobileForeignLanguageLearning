@@ -36,6 +36,7 @@ package gr.ictpro.mall.client.runtime
 		
 		public static var cameras:ArrayList = new ArrayList();
 		
+		public static var isInitializing:Boolean = true;
 		
 		private static var _settings:RuntimeSettings; 
 

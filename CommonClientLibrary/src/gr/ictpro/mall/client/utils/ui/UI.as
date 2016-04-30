@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.utils.ui
 
 	public class UI
 	{
+		private static var sho
 		public function UI()
 		{
 		}

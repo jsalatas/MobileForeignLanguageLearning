@@ -2,8 +2,6 @@ package gr.ictpro.mall.client.service
 {
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.messaging.channels.SecureAMFChannel;
-	import mx.messaging.channels.SecureStreamingAMFChannel;
 	import mx.messaging.channels.StreamingAMFChannel;
 
 	public class Channel
@@ -22,39 +20,21 @@ package gr.ictpro.mall.client.service
 			var channel;
 			var pollingEndPoint:String;
 			var pollingChannel;
-			if(serverURL.indexOf("https://")>-1) {
-				endPoint = serverURL + applicationPath+"/messagebroker/amfsecure";
-				channel = new SecureAMFChannel("my-secure-amf", endPoint);
-				_channelSet.addChannel(channel);
-				
-				pollingEndPoint = serverURL + applicationPath+"/messagebroker/amfsecurepolling";
-				pollingChannel = new SecureAMFChannel("my-secure-polling-amf", pollingEndPoint);
-				pollingChannel.pollingEnabled = true;
-				pollingChannel.pollingInterval = 1000;
-			
-//				var streamingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurestreaming";
-//				var streamingChannel:SecureStreamingAMFChannel = new SecureStreamingAMFChannel("my-secure-streaming-amf", streamingEndPoint);
-
-//				_messagingChannelSet.addChannel(streamingChannel);
-				_messagingChannelSet.addChannel(pollingChannel);
-				_messagingChannelSet.heartbeatInterval = 5000;
-			} else {
-				endPoint = serverURL + applicationPath+"/messagebroker/amf";
-				channel = new AMFChannel("my-amf", endPoint);
-				_channelSet.addChannel(channel);
+			endPoint = serverURL + applicationPath+"/messagebroker/amf";
+			channel = new AMFChannel("my-amf", endPoint);
+			_channelSet.addChannel(channel);
 					
-				pollingEndPoint = serverURL + applicationPath+"/messagebroker/amfpolling";
-				pollingChannel = new AMFChannel("my-polling-amf", pollingEndPoint);
-				pollingChannel.pollingEnabled = true;
-				pollingChannel.pollingInterval = 1000;
+			pollingEndPoint = serverURL + applicationPath+"/messagebroker/amfpolling";
+			pollingChannel = new AMFChannel("my-polling-amf", pollingEndPoint);
+			pollingChannel.pollingEnabled = true;
+			pollingChannel.pollingInterval = 1000;
 					
-//				var streamingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfsecurestreaming";
-//				var streamingChannel:SecureStreamingAMFChannel = new SecureStreamingAMFChannel("my-secure-streaming-amf", streamingEndPoint);
+//			var streamingEndPoint:String = serverURL + applicationPath+"/messagebroker/amfstreaming";
+//			var streamingChannel:StreamingAMFChannel = new StreamingAMFChannel("my-streaming-amf", streamingEndPoint);
 				
-//				_messagingChannelSet.addChannel(streamingChannel);
-				_messagingChannelSet.addChannel(pollingChannel);
-				_messagingChannelSet.heartbeatInterval = 5000;
-			}
+//			_messagingChannelSet.addChannel(streamingChannel);
+			_messagingChannelSet.addChannel(pollingChannel);
+			_messagingChannelSet.heartbeatInterval = 5000;
 		}
 		
 		public function getChannelSet():ChannelSet

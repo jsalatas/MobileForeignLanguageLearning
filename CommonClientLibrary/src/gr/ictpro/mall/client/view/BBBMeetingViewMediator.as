@@ -30,7 +30,8 @@ package gr.ictpro.mall.client.view
 		}
 		
 		private function test():void {
-			var url:String = "http://192.168.0.20/bigbluebutton/api/join?meetingID=Demo+Meeting&fullName=test&password=mp&checksum=1f3a9cc3530a12f9e9cc83f9dde5e56a6dcb79e2";
+			//var url:String = "http://192.168.0.20/bigbluebutton/api/join?meetingID=Demo+Meeting&fullName=test&password=mp&checksum=1f3a9cc3530a12f9e9cc83f9dde5e56a6dcb79e2";
+			var url:String = "https://ns528669.ip-158-69-243.net/bigbluebutton/api/join?meetingID=Demo+Meeting&fullName=Test&password=mp&checksum=13670b557bb3ae8b5309a6d0a58ea9d116d66be7"; 
 			joinMeetingSignal.dispatch(url);
 		}
 		

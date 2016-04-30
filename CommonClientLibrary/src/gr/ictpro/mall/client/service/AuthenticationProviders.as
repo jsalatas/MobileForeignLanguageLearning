@@ -6,6 +6,7 @@ package gr.ictpro.mall.client.service
 	import mx.rpc.events.ResultEvent;
 	
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
@@ -91,6 +92,7 @@ package gr.ictpro.mall.client.service
 			if(type == GET_AUTHENTICATION_PROVIDERS) {
 				removeSignals();
 				_isInitialized = true;
+				Device.isInitializing = false;
 				_authenticationProviders = ArrayCollection(result);
 				showAuthentication.dispatch(new AuthenticationProvider(null, null));
 			}
