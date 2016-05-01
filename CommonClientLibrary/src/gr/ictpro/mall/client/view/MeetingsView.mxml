@@ -11,7 +11,7 @@
 			import gr.ictpro.mall.client.utils.date.DateUtils;
 			private function getLabel(item:Meeting):String
 			{
-				var label:String = item.name.substr(0, item.name.indexOf("---"));
+				var label:String = item.name;
 				var yesterday:Date = new Date();
 				yesterday.date -= 1;
 				

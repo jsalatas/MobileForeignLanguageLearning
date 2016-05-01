@@ -148,7 +148,6 @@ public class MeetingRemoteService {
 	    meeting.setTime(new Date());
 	}
 	User currentUser = userContext.getCurrentUser();
-	String nameSalt = UUID.randomUUID().toString().replace("-", "");
 	Set<User> pendingUsers = new HashSet<User>(meeting.getUsers());
 
 	if (meeting.getId() == null && (currentUser.hasRole("Teacher") || currentUser.hasRole("Student"))) {
@@ -160,7 +159,6 @@ public class MeetingRemoteService {
 		}
 	    }
 	    meeting.setCreatedBy(currentUser);
-	    meeting.setName(meeting.getName() + "---" + nameSalt);
 	    meeting.setModeratorPassword(UUID.randomUUID().toString().replace("-", ""));
 	    meeting.setUserPassword(UUID.randomUUID().toString().replace("-", ""));
 	    meetingService.create(meeting);
@@ -180,10 +178,7 @@ public class MeetingRemoteService {
 		}
 	    }
 
-	    if (!persistentMeeting.getName().substring(0, persistentMeeting.getName().indexOf("---"))
-		    .equals(meeting.getName())) {
-		persistentMeeting.setName(meeting.getName() + "---" + nameSalt);
-	    }
+	    persistentMeeting.setName(meeting.getName());
 	    persistentMeeting.setApprovedBy(meeting.getApprovedBy());
 	    persistentMeeting.setTime(meeting.getTime());
 

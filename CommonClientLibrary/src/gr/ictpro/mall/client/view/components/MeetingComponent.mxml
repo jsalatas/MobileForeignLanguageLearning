@@ -73,7 +73,7 @@
 		<s:FormLayout/>
 	</s:layout>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
-		<s:TextInput id="txtName" width="100%" text="{vo.name.substr(0, vo.name.indexOf('---'))}" textAlign="left" enabled="{!isParent}"/>
+		<s:TextInput id="txtName" width="100%" text="{vo.name}" textAlign="left" enabled="{!isParent}"/>
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Meeting Type')}" >
 		<s:PopUpList id="meetingTypePopup" width="100%" dataList="{_meetingTypes}" textAlign="left" initialize="meetingTypePopup_initializeHandler(event)"  enabled="{!isParent}"/>
