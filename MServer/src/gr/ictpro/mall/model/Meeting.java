@@ -110,20 +110,24 @@ public class Meeting implements java.io.Serializable {
 	this.name = name;
     }
 
+    @AmfIgnore
     @Column(name = "moderator_password", nullable = false, length = 45)
     public String getModeratorPassword() {
 	return this.moderatorPassword;
     }
 
+    @AmfIgnore
     public void setModeratorPassword(String moderatorPassword) {
 	this.moderatorPassword = moderatorPassword;
     }
 
+    @AmfIgnore
     @Column(name = "user_password", nullable = false, length = 45)
     public String getUserPassword() {
 	return this.userPassword;
     }
 
+    @AmfIgnore
     public void setUserPassword(String userPassword) {
 	this.userPassword = userPassword;
     }

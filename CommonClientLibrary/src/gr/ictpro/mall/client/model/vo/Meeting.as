@@ -12,8 +12,6 @@ package gr.ictpro.mall.client.model.vo
 		public var approve:Boolean;
 		public var meetingType:MeetingType;
 		public var name:String;
-		public var moderatorPassword:String;
-		public var usePassword:String;
 		public var time:Date;
 		public var users:ArrayCollection;
 		
