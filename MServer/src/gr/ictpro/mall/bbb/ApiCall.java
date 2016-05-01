@@ -64,13 +64,13 @@ public class ApiCall {
 	}
     }
 
-    public String createMeeting(String meetingID, String welcome, String moderatorPassword, String moderatorWelcomeMsg, String viewerPassword, Integer voiceBridge, String logoutURL) {
+    public String createMeeting(String meetingID, String meetingName, String record, String welcome, String moderatorPassword, String moderatorWelcomeMsg, String viewerPassword, Integer voiceBridge, String logoutURL) {
 	String base_url_create = BigBlueButtonURL + "api/create?";
 
 	String welcome_param = "";
 	String checksum = "";
 
-	String attendee_password_param = "&attendeePW=ap";
+	String attendee_password_param = "&attendeePW=vp";
 	String moderator_password_param = "&moderatorPW=mp";
 	String voice_bridge_param = "";
 	String logoutURL_param = "";
@@ -110,9 +110,9 @@ public class ApiCall {
 	// Now create the URL
 	//
 
-	String create_parameters = "name=" + urlEncode(meetingID)
+	String create_parameters = "name=" + urlEncode(meetingName)
 		+ "&meetingID=" + urlEncode(meetingID) + welcome_param
-		+ attendee_password_param + moderator_password_param
+		+ attendee_password_param + moderator_password_param + "&record=" + record 
 		+ moderatorWelcomeMsg_param + voice_bridge_param + logoutURL_param;
 
 	Document doc = null;
@@ -175,7 +175,7 @@ public class ApiCall {
     //
     // Note this meeting will use username for meetingID
 
-    public String getJoinURL(String username, String meetingID, String record, String welcome,
+    public String getJoinURL(String username, String meetingID, String meetingName, String record,  String moderatorPassword, String viewerPassword,String welcome,
 	    Map<String, String> metadata, String xml) {
 
 	String base_url_create = BigBlueButtonURL + "api/create?";
@@ -215,11 +215,10 @@ public class ApiCall {
 	// (viewer) for purposes of demo.
 	//
 
-	String create_parameters = "name=" + urlEncode(meetingID)
+	String create_parameters = "name=" + urlEncode(meetingName)
 		+ "&meetingID=" + urlEncode(meetingID) + welcome_param + voiceBridge_param
-		+ "&attendeePW=ap&moderatorPW=mp"
+		+ "&attendeePW="+viewerPassword+"&moderatorPW="+moderatorPassword
 		+ "&record=" + record + getMetaData(metadata);
-
 	// Attempt to create a meeting using meetingID
 	Document doc = null;
 	try {

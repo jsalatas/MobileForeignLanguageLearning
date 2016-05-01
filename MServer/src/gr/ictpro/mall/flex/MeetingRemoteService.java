@@ -47,19 +47,29 @@ public class MeetingRemoteService {
 	return meetingTypeService.listAll();
     }
 
-    public String getMeetingURL(Meeting meeting) {
+    public String getMeetingURL(ASObject meetingObject) {
+	int id = (Integer) meetingObject.get("id");
+	Meeting meeting = meetingService.retrieveById(id);
+
 	String url = null;
 	
-	
-	
 	User currentUser = userContext.getCurrentUser();
-	Meeting peristentMeeting = meetingService.retrieveById(meeting.getId());
-	if(peristentMeeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
-	    // get moderator url
+	if(!meeting.isCurrentUserIsApproved()) {
+	    return url;
+	}
+	
+	if(meeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
+	    String record ="false";
+	    String status =bbbApiCall.getMeetingStatus(meeting.getId().toString(), meeting.getModeratorPassword()); 
+	    if(!status.equals("running")) {
+		// create it 
+		bbbApiCall.createMeeting(meeting.getId().toString(), meeting.getName(), record, "", meeting.getModeratorPassword(), "", meeting.getUserPassword(), null, null);
+	    }
+	    url = bbbApiCall.getJoinMeetingURL(currentUser.getProfile().getName(), meeting.getId().toString(), meeting.getModeratorPassword(), null);
 	} else {
-	    for(MeetingUser mu:peristentMeeting.getMeetingUsers()) {
+	    for(MeetingUser mu:meeting.getMeetingUsers()) {
 		if(mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
-		 // get viewer url
+		    url = bbbApiCall.getJoinURLViewer(currentUser.getProfile().getName(), meeting.getId().toString());
 		    break;
 		}
 	    }
@@ -84,8 +94,8 @@ public class MeetingRemoteService {
 	meeting.setStatus(status);
     }
     
-    public Meeting getMeeting(ASObject userObject) {
-	int id = (Integer) userObject.get("id");
+    public Meeting getMeeting(ASObject meetingObject) {
+	int id = (Integer) meetingObject.get("id");
 	Meeting m = meetingService.retrieveById(id);
 
 	fillBBBMeetingInfo(m);

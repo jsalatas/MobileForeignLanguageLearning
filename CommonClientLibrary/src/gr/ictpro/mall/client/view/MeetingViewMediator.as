@@ -67,7 +67,7 @@ package gr.ictpro.mall.client.view
 			}
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
 			if (meetingComponent.vo.status != "future") {
-				TopBarDetailView(view).disableOK();
+				//TopBarDetailView(view).disableOK();
 				TopBarDetailView(view).disableDelete();
 			}
 			if (!UserModel.isAdmin(runtimeSettings.user) && !UserModel.isTeacher(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
@@ -88,15 +88,16 @@ package gr.ictpro.mall.client.view
 				}
 			}
 
-			var minimumStart:Date = new Date();
+			var minimumStart:Date = new Date(meetingComponent.vo.time);
 			// allow a meeting to start 15 minutes earlier
 			minimumStart.minutes -= 15; 
 
-			var maximumStart:Date = new Date();
+			var maximumStart:Date = new Date(meetingComponent.vo.time);
 			// allow a meeting to start up to 1 hour later
 			maximumStart.hours += 1; 
 
-			if(meetingComponent.vo.status == "running" || (meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id && meetingComponent.vo.time>minimumStart && meetingComponent.vo.time<maximumStart)) {
+			var now:Date = new Date();
+			if(meetingComponent.vo.status == "running" || (meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id && now>minimumStart && now<maximumStart)) {
 				if(UserModel.isStudent(runtimeSettings.user)) {
 					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = true;
 					meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = meetingComponent.vo.currentUserIsApproved;
@@ -160,6 +161,20 @@ package gr.ictpro.mall.client.view
 					UI.showError("Cannot get Meeting.");
 					back();
 				}
+			} else if(type == "getMeetingURL") {
+				removeSignals();
+				trace(">>>>>> url = " +result);
+				if(result != null) {
+					var bbbMeetingView:BBBMeetingView = new BBBMeetingView();
+					var parameters:ViewParameters = new ViewParameters();
+					MeetingComponent(TopBarDetailView(view).editor).vo.url = result;
+					parameters.vo = MeetingComponent(TopBarDetailView(view).editor).vo;
+					addView.dispatch(bbbMeetingView, parameters, view);
+					view.dispose();
+				} else {
+					UI.showError("Cannot join Meeting.");
+				}
+				
 			}
 		}
 		
@@ -169,6 +184,9 @@ package gr.ictpro.mall.client.view
 				removeSignals();
 				UI.showError("Cannot get Meeting.");
 				back();
+			} else if(type == "getMeetingURL") {
+				removeSignals();
+				UI.showError("Cannot join Meeting.");
 			}
 		}
 
@@ -206,11 +224,16 @@ package gr.ictpro.mall.client.view
 		
 		private function joinMeetingHandler():void
 		{
-			var bbbMeetingView:BBBMeetingView = new BBBMeetingView();
-			var parameters:ViewParameters = new ViewParameters();
-			parameters.vo = MeetingComponent(TopBarDetailView(view).editor).vo;
-			addView.dispatch(bbbMeetingView, parameters, view);
-			view.dispose();
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.id = TopBarDetailView(view).editor.vo.id;
+			args.destination = "meetingRemoteService";
+			args.method = "getMeetingURL";
+			args.type = "getMeetingURL";
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
+
 		}
 		
 		public function removeUnavailableUsers():void {

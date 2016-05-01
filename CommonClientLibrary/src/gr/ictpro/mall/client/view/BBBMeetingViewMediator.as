@@ -25,8 +25,9 @@ package gr.ictpro.mall.client.view
 			super.onRegister();
 			
 			trace("joining meeting: " + view.parameters.vo.id);
-			showView(new SettingsView());
+			showView(new (MeetingSettingsView));
 			//test();
+			joinMeetingSignal.dispatch(view.parameters.vo.url);
 		}
 		
 		private function test():void {

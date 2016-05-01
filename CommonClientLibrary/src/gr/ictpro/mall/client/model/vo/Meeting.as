@@ -16,6 +16,8 @@ package gr.ictpro.mall.client.model.vo
 		public var time:Date;
 		public var currentUserIsApproved:Boolean;
 		public var users:ArrayCollection;
+		[Transient]
+		public var url:String;
 		
 		public function Meeting()
 		{

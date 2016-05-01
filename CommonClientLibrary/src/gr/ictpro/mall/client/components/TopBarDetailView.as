@@ -66,6 +66,7 @@ package gr.ictpro.mall.client.components
 			addElement(_scroller);
 			
 			if(model != null) {
+				mxmlContentGroup.removeAllElements();
 				var mainGroup:Group = new Group();
 				mainGroup.percentWidth = 100;
 				mainGroup.horizontalCenter = 0;
