@@ -34,6 +34,9 @@ public class MeetingRemoteService {
     private GenericService<MeetingUser, MeetingUserId> meetingUserService;
 
     @Autowired(required = true)
+    private UserService userService;
+
+    @Autowired(required = true)
     private UserContext userContext;
 
     public List<MeetingType> getMeetingTypes() {
@@ -172,6 +175,9 @@ public class MeetingRemoteService {
 	    meetingService.create(meeting);
 	    for (User u : pendingUsers) {
 		MeetingUser mu = new MeetingUser(new MeetingUserId(meeting.getId(), u.getId()), meeting, u);
+		if(u.isAutoApproveUnattendedMeetings()) {
+		    mu.setApprovedBy(userService.listByProperty("username", "admin").get(0));
+		}
 		meetingUserService.create(mu);
 	    }
 	} else {
@@ -239,6 +245,9 @@ public class MeetingRemoteService {
 	    for (User u : usersToAdd) {
 		MeetingUserId muid = new MeetingUserId(persistentMeeting.getId(), u.getId());
 		MeetingUser mu = new MeetingUser(muid, persistentMeeting, u);
+		if(u.isAutoApproveUnattendedMeetings()) {
+		    mu.setApprovedBy(userService.listByProperty("username", "admin").get(0));
+		}
 		meetingUserService.create(mu);
 	    }
 

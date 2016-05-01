@@ -35,6 +35,8 @@ public class UserRemoteService {
     @Autowired(required = true)
     protected GenericService<Profile, Integer> profileService;
     
+    @Autowired(required = true)
+    private GenericService<Classroomgroup, Integer> classroomgroupService;
 
     @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
@@ -150,8 +152,20 @@ public class UserRemoteService {
 	if (currentUser.hasRole("Admin")) {
 	    res = userService.listAll();
 	} else if(currentUser.hasRole("Teacher")){
-	    // Get teacher's students
 	    res = new ArrayList<User>();
+	    res.add(currentUser);
+	    // Get teachers in classrooms that share a group 
+	    for(Classroom classroom : currentUser.getTeacherClassrooms()) {
+		for (Classroomgroup cg: classroom.getClassroomgroups()) {
+		    for(Classroom otherClassroom : cg.getClassrooms()) {
+			if(otherClassroom.getTeacher().getId().intValue() != currentUser.getId().intValue()) {
+			    res.add(otherClassroom.getTeacher());
+			}
+		    }
+		}
+	    }
+	    
+	    // Get teacher's students
 	    for(Classroom classroom: currentUser.getTeacherClassrooms()) {
 		res.addAll(classroom.getStudents());
 	    }

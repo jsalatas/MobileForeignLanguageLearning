@@ -52,7 +52,7 @@ public class NotificationRemoteService {
 	Date last = new Date(new Date().getTime() + 1000*60*60*24*6); 
 	for(Meeting m:userMeetings) {
 	    if(m.getTime().after(first) && m.getTime().before(last)) {
-		Notification n = new Notification(m.getName().substring(0, m.getName().indexOf("---")), m.getMeetingType().getClientClass(), "An Online Meeting is scheduled", m.getMeetingType().isInternalModule(), false);
+		Notification n = new Notification(m.getName(), m.getMeetingType().getClientClass(), "An Online Meeting is scheduled", m.getMeetingType().isInternalModule(), false);
 		n.setDynamic(true);
 		n.setDate(m.getTime());
 		Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
