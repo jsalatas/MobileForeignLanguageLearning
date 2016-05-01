@@ -7,6 +7,7 @@ package gr.ictpro.mall.client.components
 	import mx.core.UIComponent;
 	
 	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
@@ -90,12 +91,32 @@ package gr.ictpro.mall.client.components
 			var dm:DetailMapper = view.tabs.selectedItem;
 			if(voClass == dm.propertyClass) {
 				var model:AbstractModel = mapper.getModelforVO(voClass);
-				if(dm.addFilter == null) {
-					list.dataProvider = model.list;
-				} else {
-					list.dataProvider = model.getFilteredList(dm.addFilter);
+//				if(dm.addFilter == null) {
+//					list.dataProvider = model.list;
+//				} else {
+//					list.dataProvider = model.getFilteredList(dm.addFilter);
+//				}
+				list.dataProvider = model.getFilteredList(filterAdditions);
+			}
+		}
+		
+		private function filterAdditions(item:Object):Boolean {
+			var dm:DetailMapper = view.tabs.selectedItem;
+			
+			if(view.vo[dm.propertyName] != null) {
+				var listItems:ArrayCollection = ArrayCollection(view.vo[dm.propertyName]);
+				var idField:String = IPersistent(mapper.getModelforVO(dm.propertyClass)).idField;
+				for each (var o:Object in listItems) {
+					if(item[idField] == o[idField]) {
+						return false;
+					}
 				}
 			}
+			if(dm.addFilter == null) {
+				return true;
+			}
+			return dm.addFilter(item);
+			
 		}
 
 		private function error(voClass:Class, errorMessage:String):void

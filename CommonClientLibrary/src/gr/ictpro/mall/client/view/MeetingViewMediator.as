@@ -158,15 +158,6 @@ package gr.ictpro.mall.client.view
 				return false;
 			}
 			
-			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
-			if(meetingComponent.vo.users != null) {
-				for each (var u:User in meetingComponent.vo.users) {
-					if(u.id == item.id) {
-						return false;
-					}
-				}
-			}
-			
 			if(UserModel.isStudent(runtimeSettings.user)) {
 				if(item.disallowUnattendedMeetings) {
 					return false;
@@ -180,6 +171,7 @@ package gr.ictpro.mall.client.view
 				return false;
 			}
 			
+			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
 			if(meetingComponent.time.date == null) {
 				//now 
 				return item.available && item.online;
