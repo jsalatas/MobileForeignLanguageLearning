@@ -74,8 +74,10 @@ package gr.ictpro.mall.client.view
 			}
 			if (!UserModel.isAdmin(runtimeSettings.user) && !UserModel.isTeacher(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
 				meetingComponent.enabled = false;
-				view.disableDelete();
 				view.disableOK();
+				if(UserModel.isTeacher(meetingComponent.vo.createdBy) || UserModel.isParent(runtimeSettings.user)) {
+					view.disableDelete();
+				}
 			}
 			
 			

@@ -31,7 +31,7 @@ import org.springframework.flex.core.io.AmfIgnore;
  */
 @Entity
 @Table(name = "meeting")
-@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.Meeting")
+@ClientReferenceClass(className= {"gr.ictpro.mall.client.model.vo.Meeting", "gr.ictpro.mall.client.model.vo.Notification"})
 public class Meeting implements java.io.Serializable {
 
     private Integer id;

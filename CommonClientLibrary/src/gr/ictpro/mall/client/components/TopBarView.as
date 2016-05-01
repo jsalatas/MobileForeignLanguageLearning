@@ -322,6 +322,7 @@ package gr.ictpro.mall.client.components
 		public function disableDelete():void {
 			_disableDelete = true;
 			if(_groupDelete != null) {
+				_groupDelete.width = 0;
 				_groupDelete.getChildAt(0).alpha = 0;
 				_groupDelete.removeEventListener(MouseEvent.CLICK, deleteClickedHandler);
 			}
@@ -330,6 +331,7 @@ package gr.ictpro.mall.client.components
 		public function enableDelete():void {
 			_disableDelete = false;
 			if(_groupDelete != null) {
+				_groupDelete.width = 21;
 				_groupDelete.getChildAt(0).alpha = 1.0;
 				_groupDelete.addEventListener(MouseEvent.CLICK, deleteClickedHandler);
 			}
@@ -338,6 +340,7 @@ package gr.ictpro.mall.client.components
 		public function disableAdd():void {
 			_disableAdd = true;
 			if(_groupAdd != null) {
+				_groupAdd.width = 0;
 				_groupAdd.getChildAt(0).alpha = 0;
 				_groupAdd.removeEventListener(MouseEvent.CLICK, addClickedHandler);
 			}
@@ -346,6 +349,7 @@ package gr.ictpro.mall.client.components
 		public function enableAdd():void {
 			_disableAdd = false;
 			if(_groupAdd != null) {
+				_groupAdd.width = 30;
 				_groupAdd.getChildAt(0).alpha = 1.0;
 				_groupAdd.addEventListener(MouseEvent.CLICK, addClickedHandler);
 			}
@@ -355,6 +359,7 @@ package gr.ictpro.mall.client.components
 		public function disableCancel():void {
 			_disableCancel = true;
 			if(_groupCancel != null) {
+				_groupCancel.width = 0;
 				_groupCancel.getChildAt(0).alpha = 0;
 				_groupCancel.removeEventListener(MouseEvent.CLICK, cancelClickedHandler);
 			}
@@ -363,6 +368,7 @@ package gr.ictpro.mall.client.components
 		public function enableCancel():void {
 			_disableCancel = false;
 			if(_groupCancel != null) {
+				_groupCancel.width = 30;
 				_groupCancel.getChildAt(0).alpha = 1.0;
 				_groupCancel.addEventListener(MouseEvent.CLICK, cancelClickedHandler);
 			}
@@ -372,6 +378,7 @@ package gr.ictpro.mall.client.components
 		public function disableOK():void {
 			_disableOK = true;
 			if(_groupOK != null) {
+				_groupOK.width = 0;
 				_groupOK.getChildAt(0).alpha = 0;
 				_groupOK.removeEventListener(MouseEvent.CLICK, okClickedHandler);
 			}
@@ -380,6 +387,7 @@ package gr.ictpro.mall.client.components
 		public function enableOK():void {
 			_disableOK = false;
 			if(_groupOK != null) {
+				_groupOK.width = 31;
 				_groupOK.getChildAt(0).alpha = 1.0;
 				_groupOK.addEventListener(MouseEvent.CLICK, okClickedHandler);
 			}

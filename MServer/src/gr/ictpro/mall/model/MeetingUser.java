@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "meeting_user")
-@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.Notification")
+@ClientReferenceClass(className= {"gr.ictpro.mall.client.model.vo.Meeting", "gr.ictpro.mall.client.model.vo.Notification"})
 public class MeetingUser implements java.io.Serializable {
 
     private MeetingUserId id;

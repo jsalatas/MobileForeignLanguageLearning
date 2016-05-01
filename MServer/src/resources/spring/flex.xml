@@ -95,7 +95,7 @@
 			<security:protect access="Admin, Teacher, Student, Parent" method="getMeetings" />
 			<security:protect access="Admin, Teacher, Student, Parent" method="getMeetingTypes" />
 			<security:protect access="Admin, Teacher, Student, Parent" method="updateMeeting" />
-			<security:protect access="Admin" method="deleteMeeting" />
+			<security:protect access="Admin, Teacher, Student" method="deleteMeeting" />
 			<security:protect access="Admin, Teacher, Student, Parent" method="getMeeting" />
 		</security:intercept-methods>
 	</bean>

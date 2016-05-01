@@ -19,6 +19,11 @@ package gr.ictpro.mall.client.view
 	{
 		[Inject]
 		public var mapper:VOMapper;
+		
+		[Inject]
+		public var notificationModel:NotificationModel;
+		
+		
 
 		[Inject]
 		public var saveSignal:SaveSignal;
@@ -100,7 +105,7 @@ package gr.ictpro.mall.client.view
 		private function saveSuccess(classType:Class):void
 		{
 			if(classType == model.getVOClass()) {
-				if(view.parameters != null && view.parameters.notification != null && !NotificationModel(model).idIsNull(view.parameters.notification)) {
+				if(view.parameters != null && view.parameters.notification != null && !notificationModel.idIsNull(view.parameters.notification)) {
 					saveSignal.dispatch(view.parameters.notification);
 				}
 				back();

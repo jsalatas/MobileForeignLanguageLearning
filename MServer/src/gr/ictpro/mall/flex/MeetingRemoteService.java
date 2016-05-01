@@ -77,12 +77,12 @@ public class MeetingRemoteService {
 	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
 		    + StringUtils.join(userIds, ", ") + ")";
 	    res = meetingService.listByCustomSQL(hql);
-	    
-	    for(Meeting meeting:res) {
-		if(!meeting.isApprove()) {
+
+	    for (Meeting meeting : res) {
+		if (!meeting.isApprove()) {
 		    // check if parent has approved his own children
-		    for(MeetingUser mu: meeting.getMeetingUsers()) {
-			if(currentUser.getChildren().contains(mu.getUser())) {
+		    for (MeetingUser mu : meeting.getMeetingUsers()) {
+			if (currentUser.getChildren().contains(mu.getUser())) {
 			    meeting.setApprove(mu.getApprovedBy() != null);
 			    break;
 			}
@@ -98,9 +98,47 @@ public class MeetingRemoteService {
 
     public void deleteMeeting(Meeting meeting) {
 	User currentUser = userContext.getCurrentUser();
-
+	Meeting persistentMeeting = meetingService.retrieveById(meeting.getId());
 	if (currentUser.hasRole("Admin")) {
-	    meetingService.delete(meetingService.retrieveById(meeting.getId()));
+	    meetingService.delete(persistentMeeting);
+	} else if (currentUser.hasRole("Teacher")) {
+	    if (persistentMeeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
+		// if meeting is created by the teachr then delete it
+		meetingService.delete(persistentMeeting);
+	    } else {
+		// Delete all teacher's students that are participating in the
+		// meeting
+		ArrayList<MeetingUser> meetingUsersToDelete = new ArrayList<MeetingUser>();
+		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+		    boolean isInTeeachersClassroom = false;
+		    for(Classroom classroom: mu.getUser().getClassrooms()) {
+			if(currentUser.getTeacherClassrooms().contains(classroom)) {
+			    isInTeeachersClassroom = true;
+			    break;
+			}
+		    }
+		    if(isInTeeachersClassroom ) {
+			meetingUsersToDelete.add(mu);
+		    }
+		}
+		for(MeetingUser mu: meetingUsersToDelete) {
+		    meetingUserService.delete(mu);
+		    persistentMeeting.getMeetingUsers().remove(mu);
+		}
+		
+		if(meetingUsersToDelete.size()>0) {
+		    if(persistentMeeting.getMeetingUsers().size() == 0) {
+			meetingService.delete(persistentMeeting);
+		    }
+		}
+	    }
+	} else if (currentUser.hasRole("Student")) {
+	    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+		if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+		    meetingUserService.delete(mu);
+		    break;
+		}
+	    }
 	}
     }
 
@@ -202,15 +240,15 @@ public class MeetingRemoteService {
 	    }
 
 	    if (currentUser.hasRole("Parent")) {
-//		if (persistentMeeting.isApprove() != meeting.isApprove()) {
-		    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
-			if(currentUser.getChildren().contains(mu.getUser())) {
-			    mu.setApprovedBy(meeting.isApprove()?currentUser:null);
-			    meetingUserService.update(mu);
-			}
+		// if (persistentMeeting.isApprove() != meeting.isApprove()) {
+		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+		    if (currentUser.getChildren().contains(mu.getUser())) {
+			mu.setApprovedBy(meeting.isApprove() ? currentUser : null);
+			meetingUserService.update(mu);
 		    }
 		}
-//	    }
+	    }
+	    // }
 
 	}
     }

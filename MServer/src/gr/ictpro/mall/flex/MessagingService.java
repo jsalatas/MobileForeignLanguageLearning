@@ -6,6 +6,7 @@ package gr.ictpro.mall.flex;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,13 +21,13 @@ import flex.messaging.messages.AsyncMessage;
 public class MessagingService {
 
     public static void objectsChanged(Object object) {
-	String className = null;
+	String[] classNames = null;
 	for (Annotation annotation : object.getClass().getDeclaredAnnotations()) {
 	    Class<? extends Annotation> type = annotation.annotationType();
 	    if (type.getName().equals("gr.ictpro.mall.interceptors.ClientReferenceClass")) {
 		for (Method method : type.getDeclaredMethods()) {
 		    try {
-			className = (String) method.invoke(annotation, (Object[]) null);
+			classNames = (String[]) method.invoke(annotation, (Object[]) null);
 		    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		    }
@@ -34,10 +35,12 @@ public class MessagingService {
 		break;
 	    }
 	}
-	if (className != null) {
-	    Map<String, Object> params = new LinkedHashMap<String, Object>();
-	    params.put("className", className);
-	    sendMessageToClients("Refresh Data", params);
+	if (classNames != null) {
+	    for(String className:classNames) {
+		Map<String, Object> params = new LinkedHashMap<String, Object>();
+		params.put("className", className);
+		sendMessageToClients("Refresh Data", params);
+	    }
 	}
     }
 

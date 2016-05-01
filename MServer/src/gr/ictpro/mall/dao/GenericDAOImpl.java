@@ -70,6 +70,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
     public void delete(T item) {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.delete(item);
+	session.flush();
     }
 
     /* (non-Javadoc)
