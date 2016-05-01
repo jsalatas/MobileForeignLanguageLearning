@@ -75,6 +75,9 @@
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
 		<s:TextInput id="txtName" width="100%" text="{vo.name}" textAlign="left" enabled="{!isParent}"/>
 	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Created By')}">
+		<s:Label id="lblCreatedBy" width="100%" text="{vo.createdBy}" textAlign="left" />
+	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Meeting Type')}" >
 		<s:PopUpList id="meetingTypePopup" width="100%" dataList="{_meetingTypes}" textAlign="left" initialize="meetingTypePopup_initializeHandler(event)"  enabled="{!isParent}"/>
 	</s:FormItem>

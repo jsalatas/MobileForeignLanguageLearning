@@ -100,10 +100,16 @@ public class MeetingRemoteService {
 	User currentUser = userContext.getCurrentUser();
 	Meeting persistentMeeting = meetingService.retrieveById(meeting.getId());
 	if (currentUser.hasRole("Admin")) {
+	    for(MeetingUser mu:persistentMeeting.getMeetingUsers()) {
+		meetingUserService.delete(mu);
+	    }
 	    meetingService.delete(persistentMeeting);
 	} else if (currentUser.hasRole("Teacher")) {
 	    if (persistentMeeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
-		// if meeting is created by the teachr then delete it
+		// if meeting is created by the teacher then delete it
+		for(MeetingUser mu:persistentMeeting.getMeetingUsers()) {
+		    meetingUserService.delete(mu);
+		}
 		meetingService.delete(persistentMeeting);
 	    } else {
 		// Delete all teacher's students that are participating in the
