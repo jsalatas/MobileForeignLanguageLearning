@@ -4,6 +4,7 @@ package gr.ictpro.mall.client.view
 	
 	import gr.ictpro.mall.client.model.AbstractModel;
 	import gr.ictpro.mall.client.model.IPersistent;
+	import gr.ictpro.mall.client.model.NotificationModel;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.signal.DeleteErrorSignal;
@@ -74,7 +75,7 @@ package gr.ictpro.mall.client.view
 		private function okClicked(event:MouseEvent):void
 		{
 			for each(var dm:DetailMapper in model.detailMapper) {
-				if(dm.propertyName != null && !dm.readOnly() && dm.initialized) {
+				if(dm.propertyName != null && !dm.readOnly(null) && dm.initialized) {
 					view.parameters.vo[dm.propertyName] = dm.list;
 				}
 			}
@@ -99,7 +100,7 @@ package gr.ictpro.mall.client.view
 		private function saveSuccess(classType:Class):void
 		{
 			if(classType == model.getVOClass()) {
-				if(view.parameters != null && view.parameters.notification != null) {
+				if(view.parameters != null && view.parameters.notification != null && !NotificationModel(model).idIsNull(view.parameters.notification)) {
 					saveSignal.dispatch(view.parameters.notification);
 				}
 				back();

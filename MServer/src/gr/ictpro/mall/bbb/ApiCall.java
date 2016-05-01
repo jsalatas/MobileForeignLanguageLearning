@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -647,7 +648,8 @@ public class ApiCall {
     // getMeetingInfo for each meeting
     // and concatenates the result.
     //
-    public String getMeetings() {
+    public ArrayList<String> getMeetings() {
+	ArrayList<String> res = new ArrayList<String>();
 	try {
 	    Document doc = parseXml(getURL(getMeetingsURL()));
 
@@ -661,7 +663,7 @@ public class ApiCall {
 	    // meeting and insert it into the document
 	    NodeList meetingsList = doc.getElementsByTagName("meeting");
 
-	    String newXMldocument = startTag;
+	    
 	    for (int i = 0; i < meetingsList.getLength(); i++) {
 		Element meeting = (Element) meetingsList.item(i);
 		String meetingID = meeting.getElementsByTagName("meetingID").item(0).getTextContent();
@@ -670,14 +672,17 @@ public class ApiCall {
 		String data = getURL(getMeetingInfoURL(meetingID, password));
 
 		if (data.indexOf("<response>") != -1) {
-		    int startIndex = data.indexOf(startResponse) + startTag.length();
-		    int endIndex = data.indexOf(endResponse);
-		    newXMldocument += "<meeting>" + data.substring(startIndex, endIndex) + "</meeting>";
+		        Document meetingDoc = parseXml( data);
+		        Boolean running = Boolean.parseBoolean(meetingDoc.getElementsByTagName("running").item(0).getFirstChild().getNodeValue()); 
+		        if(running) {
+		          String meetingId = meetingDoc.getElementsByTagName("meetingID").item(0).getFirstChild().getNodeValue(); 
+		          //String meetingName = meetingDoc.getElementsByTagName("meetingName").item(0).getFirstChild().getNodeValue(); 
+			  res.add(meetingId);
+		        }
 		}
 	    }
-	    newXMldocument += endTag;
 
-	    return newXMldocument;
+	    return res;
 	} catch (Exception e) {
 	    e.printStackTrace(System.out);
 	    return null;

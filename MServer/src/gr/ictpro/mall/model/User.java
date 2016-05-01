@@ -54,6 +54,7 @@ public class User implements java.io.Serializable, UserDetails {
     private boolean available;
     private Set<Classroom> classrooms = new HashSet<Classroom>(0);
     private Set<Meeting> approvedMeetings = new HashSet<Meeting>(0);
+    private Set<MeetingUser> approvedMeetingUsers = new HashSet<MeetingUser>(0);
     private Set<Meeting> createdMeetings = new HashSet<Meeting>(0);
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
@@ -83,7 +84,7 @@ public class User implements java.io.Serializable, UserDetails {
     }
 
     public User(String username, String password, String email, boolean enabled, Profile profile,
-	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> approvedMeetings, 
+	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> approvedMeetings, Set<MeetingUser> approvedMeetingUsers, 
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
 	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents, Set<Meeting> createdMeetings) {
@@ -103,6 +104,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
 	this.available = available;
 	this.approvedMeetings = approvedMeetings;
+	this.approvedMeetingUsers = approvedMeetingUsers;
 	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
 	this.meetingUsers = meetingUsers;
 	this.parents = parents;
@@ -383,6 +385,17 @@ public class User implements java.io.Serializable, UserDetails {
     @AmfIgnore
     public void setApprovedMeetings(Set<Meeting> approvedMeetings) {
 	this.approvedMeetings = approvedMeetings;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "approvedBy")
+    @AmfIgnore
+    public Set<MeetingUser> getApprovedMeetingUsers() {
+	return this.approvedMeetingUsers;
+    }
+
+    @AmfIgnore
+    public void setApprovedMeetingUsers(Set<MeetingUser> approvedMeetingUsers) {
+	this.approvedMeetingUsers = approvedMeetingUsers;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

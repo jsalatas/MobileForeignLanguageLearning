@@ -14,10 +14,20 @@ package gr.ictpro.mall.client.model
 		public function LanguageModel()
 		{
 			super(Language, LanguageView, LanguageComponent);
-			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, Answer.falseValue, null, null, null));
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, Answer.trueValue, null, null, null));
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, answerFalse, null, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, answerTrue, null, null, null));
 		}
-		
+
+		public function answerFalse(o:Object):Boolean
+		{
+			return false;
+		}
+
+		public function answerTrue(o:Object):Boolean
+		{
+			return true;
+		}
+
 		public function get saveErrorMessage():String
 		{
 			return Device.translations.getTranslation("Cannot Save Language.");

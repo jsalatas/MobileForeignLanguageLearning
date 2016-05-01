@@ -10,6 +10,7 @@ import gr.ictpro.mall.model.MeetingUser;
 import gr.ictpro.mall.model.MeetingUserId;
 import gr.ictpro.mall.model.User;
 import gr.ictpro.mall.service.GenericService;
+import gr.ictpro.mall.service.UserService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,82 +50,107 @@ public class MeetingRemoteService {
     public List<Meeting> getMeetings() {
 	User currentUser = userContext.getCurrentUser();
 	List<Meeting> res = new ArrayList<Meeting>();
-	
-	if(currentUser.hasRole("Admin")) {
+
+	if (currentUser.hasRole("Admin")) {
 	    res = meetingService.listAll();
-	    
-	} else if(currentUser.hasRole("Student")) {
-	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id = " + currentUser.getId();
+	} else if (currentUser.hasRole("Student")) {
+	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id = "
+		    + currentUser.getId();
 	    res = meetingService.listByCustomSQL(hql);
-	}else if(currentUser.hasRole("Teacher")) {
+	} else if (currentUser.hasRole("Teacher")) {
 	    List<Integer> userIds = new ArrayList<Integer>();
-	    for(Classroom classroom: currentUser.getTeacherClassrooms()) {
-		for(User u:classroom.getStudents()) {
+	    for (Classroom classroom : currentUser.getTeacherClassrooms()) {
+		for (User u : classroom.getStudents()) {
 		    userIds.add(u.getId());
 		}
 	    }
-	    
-	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("+StringUtils.join(userIds, ", ")+")";
+
+	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
+		    + StringUtils.join(userIds, ", ") + ")";
 	    res = meetingService.listByCustomSQL(hql);
-	} else if(currentUser.hasRole("Parent")) {
+	} else if (currentUser.hasRole("Parent")) {
 	    List<Integer> userIds = new ArrayList<Integer>();
-	    for(User u: currentUser.getChildren()) {
+	    for (User u : currentUser.getChildren()) {
 		userIds.add(u.getId());
 	    }
-	    
-	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("+StringUtils.join(userIds, ", ")+")";
+
+	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
+		    + StringUtils.join(userIds, ", ") + ")";
 	    res = meetingService.listByCustomSQL(hql);
 	    
+	    for(Meeting meeting:res) {
+		if(!meeting.isApprove()) {
+		    // check if parent has approved his own children
+		    for(MeetingUser mu: meeting.getMeetingUsers()) {
+			if(currentUser.getChildren().contains(mu.getUser())) {
+			    meeting.setApprove(mu.getApprovedBy() != null);
+			    break;
+			}
+		    }
+		}
+	    }
+
 	}
-	
-	//TODO: 
+
+	// TODO:
 	return res;
     }
-    
+
     public void deleteMeeting(Meeting meeting) {
 	User currentUser = userContext.getCurrentUser();
-	
-	if(currentUser.hasRole("Admin")) {
+
+	if (currentUser.hasRole("Admin")) {
 	    meetingService.delete(meetingService.retrieveById(meeting.getId()));
 	}
     }
-    
+
     public void updateMeeting(Meeting meeting) {
 	boolean now = meeting.getTime() == null;
-	if(now) {
+	if (now) {
 	    meeting.setTime(new Date());
 	}
 	User currentUser = userContext.getCurrentUser();
-	if(currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
-	    if(meeting.isApprove()) {
-		meeting.setApprovedBy(currentUser);
-	    } else {
-		meeting.setApprovedBy(null);
-	    }
-	}
 	String nameSalt = UUID.randomUUID().toString().replace("-", "");
 	Set<User> pendingUsers = new HashSet<User>(meeting.getUsers());
-	
-	if(meeting.getId() == null) {
+
+	if (meeting.getId() == null && (currentUser.hasRole("Teacher") || currentUser.hasRole("Student"))) {
+	    if (currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
+		if (meeting.isApprove()) {
+		    meeting.setApprovedBy(currentUser);
+		} else {
+		    meeting.setApprovedBy(null);
+		}
+	    }
 	    meeting.setCreatedBy(currentUser);
-	    String password = UUID.randomUUID().toString().replace("-", "");
-	    meeting.setName(meeting.getName()+ "---"+nameSalt);
-	    meeting.setPassword(password);
+	    meeting.setName(meeting.getName() + "---" + nameSalt);
+	    meeting.setModeratorPassword(UUID.randomUUID().toString().replace("-", ""));
+	    meeting.setUserPassword(UUID.randomUUID().toString().replace("-", ""));
 	    meetingService.create(meeting);
-	    for(User u:pendingUsers) {
+	    for (User u : pendingUsers) {
 		MeetingUser mu = new MeetingUser(new MeetingUserId(meeting.getId(), u.getId()), meeting, u);
 		meetingUserService.create(mu);
 	    }
 	} else {
 	    Meeting persistentMeeting = meetingService.retrieveById(meeting.getId());
-	    if(!persistentMeeting.getName().substring(0, persistentMeeting.getName().indexOf("---")).equals(meeting.getName())) {
-		persistentMeeting.setName(meeting.getName()+ "---"+nameSalt);
+	    if (persistentMeeting.isApprove() && !meeting.isApprove()) {
+		if (currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
+		    meeting.setApprovedBy(null);
+		}
+	    } else if (!persistentMeeting.isApprove() && meeting.isApprove()) {
+		if (currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
+		    meeting.setApprovedBy(currentUser);
+		}
+	    }
+
+	    if (!persistentMeeting.getName().substring(0, persistentMeeting.getName().indexOf("---"))
+		    .equals(meeting.getName())) {
+		persistentMeeting.setName(meeting.getName() + "---" + nameSalt);
 	    }
 	    persistentMeeting.setApprovedBy(meeting.getApprovedBy());
 	    persistentMeeting.setTime(meeting.getTime());
-	    
+
 	    meetingService.update(persistentMeeting);
-	    
+
 	    // modify users
 
 	    Set<User> usersToRemove = new HashSet<User>();
@@ -174,8 +200,19 @@ public class MeetingRemoteService {
 		MeetingUser mu = new MeetingUser(muid, persistentMeeting, u);
 		meetingUserService.create(mu);
 	    }
-	    
+
+	    if (currentUser.hasRole("Parent")) {
+//		if (persistentMeeting.isApprove() != meeting.isApprove()) {
+		    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+			if(currentUser.getChildren().contains(mu.getUser())) {
+			    mu.setApprovedBy(meeting.isApprove()?currentUser:null);
+			    meetingUserService.update(mu);
+			}
+		    }
+		}
+//	    }
+
 	}
     }
-    
+
 }

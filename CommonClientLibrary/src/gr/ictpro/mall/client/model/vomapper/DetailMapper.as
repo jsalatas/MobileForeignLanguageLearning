@@ -46,6 +46,8 @@ package gr.ictpro.mall.client.model.vomapper
 			this.showCondition = showCondition; 
 		}
 		
+		
+		
 		[Bindable]
 		public function get list():ArrayCollection
 		{

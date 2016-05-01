@@ -18,7 +18,7 @@ package gr.ictpro.mall.client.model
 		public function MeetingModel()
 		{
 			super(Meeting, MeetingView, MeetingComponent);
-			addDetail(new DetailMapper("Users", "users", User, null, null, addFilterFunction, isReadOnly, beforeDelete, null, null));
+			addDetail(new DetailMapper("Users", "users", User, null, null, addFilterFunction, isReadOnly, beforeDeleteFunction, null, null));
 		}
 		
 		public function addFilterFunction(item:User):Boolean {
@@ -27,22 +27,23 @@ package gr.ictpro.mall.client.model
 			}
 			return true;
 		}
-		
-		public function isReadOnly():Boolean {
-			return UserModel.isParent(runtimeSettings.user);		
+
+		public function beforeDeleteFunction(user:User, meeting:Meeting):Boolean {
+			return meeting.createdBy== null || user.id != meeting.createdBy.id;
 		}
 		
-		public function beforeDelete(selectedUser:User, meeting:Meeting):Boolean {
-			if(UserModel.isParent(runtimeSettings.user)) {
-				return false;
-			} else if(UserModel.isStudent(runtimeSettings.user)) {
-				if(meeting.createdBy.id == runtimeSettings.user.id) {
-					return true;
-				} else {
-					return selectedUser.id == runtimeSettings.user.id;
-				}
+		public function isReadOnly(meeting:Meeting):Boolean {
+			if(meeting == null || meeting.createdBy == null) {
+				return false; 
 			}
-			return true;
+			
+			if(UserModel.isStudent(runtimeSettings.user) && runtimeSettings.user.id != meeting.createdBy.id) {
+				return true;
+			}
+			if (UserModel.isTeacher(runtimeSettings.user) && UserModel.isTeacher(meeting.createdBy) && runtimeSettings.user.id != meeting.createdBy.id) {
+				return true;
+			}
+			return UserModel.isParent(runtimeSettings.user);		
 		}
 		
 		public function get destination():String

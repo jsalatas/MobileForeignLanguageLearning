@@ -55,7 +55,7 @@ public class MeetingUser implements java.io.Serializable {
 	this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "meeting_id", nullable = false, insertable = false, updatable = false)
     public Meeting getMeeting() {
 	return this.meeting;
@@ -65,7 +65,7 @@ public class MeetingUser implements java.io.Serializable {
 	this.meeting = meeting;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
 	return this.user;
@@ -75,9 +75,9 @@ public class MeetingUser implements java.io.Serializable {
 	this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "approved_by")
-    public User ApprovedBy() {
+    public User getApprovedBy() {
 	return this.approvedBy;
     }
 

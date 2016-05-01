@@ -39,7 +39,8 @@ public class Meeting implements java.io.Serializable {
     private User createdBy;
     private MeetingType meetingType;
     private String name;
-    private String password;
+    private String moderatorPassword;
+    private String userPassword;
     private Date time;
     private boolean approve;
     private Set<MeetingUser> meetingUsers = new HashSet<MeetingUser>(0);
@@ -48,20 +49,22 @@ public class Meeting implements java.io.Serializable {
     public Meeting() {
     }
 
-    public Meeting(MeetingType meetingType, String name, String password, Date time, User createdBy) {
+    public Meeting(MeetingType meetingType, String name, String moderatorPassword, String userPassword, Date time, User createdBy) {
 	this.meetingType = meetingType;
 	this.name = name;
-	this.password = password;
+	this.moderatorPassword = moderatorPassword;
+	this.userPassword = userPassword;
 	this.time = time;
 	this.createdBy = createdBy;
     }
 
-    public Meeting(User approvedBy, MeetingType meetingType, String name, String password, Date time,
+    public Meeting(User approvedBy, MeetingType meetingType, String name, String moderatorPassword, String userPassword, Date time,
 	    Set<MeetingUser> meetingUsers, User createdBy) {
 	this.approvedBy = approvedBy;
 	this.meetingType = meetingType;
 	this.name = name;
-	this.password = password;
+	this.moderatorPassword = moderatorPassword;
+	this.userPassword = userPassword;
 	this.time = time;
 	this.meetingUsers = meetingUsers;
 	this.createdBy = createdBy;
@@ -98,7 +101,7 @@ public class Meeting implements java.io.Serializable {
 	this.meetingType = meetingType;
     }
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, length = 255)
     public String getName() {
 	return this.name;
     }
@@ -107,13 +110,22 @@ public class Meeting implements java.io.Serializable {
 	this.name = name;
     }
 
-    @Column(name = "password", nullable = false, length = 45)
-    public String getPassword() {
-	return this.password;
+    @Column(name = "moderator_password", nullable = false, length = 45)
+    public String getModeratorPassword() {
+	return this.moderatorPassword;
     }
 
-    public void setPassword(String password) {
-	this.password = password;
+    public void setModeratorPassword(String moderatorPassword) {
+	this.moderatorPassword = moderatorPassword;
+    }
+
+    @Column(name = "user_password", nullable = false, length = 45)
+    public String getUserPassword() {
+	return this.userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+	this.userPassword = userPassword;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

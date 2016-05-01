@@ -16,12 +16,23 @@ package gr.ictpro.mall.client.model
 		public function ClassroomModel()
 		{
 			super(Classroom, ClassroomView, ClassroomComponent);
-			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, Answer.falseValue, null, null, null));
-			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, Answer.falseValue, null, null, null));
-			addDetail(new DetailMapper("Students", "students", User, null, null, UserModel.isStudent, Answer.falseValue, null, null, null));
-			addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, Answer.trueValue, null, null, null));
+			addDetail(new DetailMapper("Translations", null, null, TranslationManagerComponent, null, null, answerFalse, null, null, null));
+			addDetail(new DetailMapper("Groups", "classroomgroups", Classroomgroup, null, null, null, answerFalse, null, null, null));
+			addDetail(new DetailMapper("Students", "students", User, null, null, UserModel.isStudent, answerFalse, null, null, null));
+			addDetail(new DetailMapper("Schedule and Calendar", "calendars", Calendar, null, null, null, answerTrue, null, null, null));
 
 		}
+
+		public function answerFalse(o:Object):Boolean
+		{
+			return false;
+		}
+		
+		public function answerTrue(o:Object):Boolean
+		{
+			return true;
+		}
+		
 
 		public function get saveErrorMessage():String
 		{

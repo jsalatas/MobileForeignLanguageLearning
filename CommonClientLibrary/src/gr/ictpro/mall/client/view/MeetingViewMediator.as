@@ -62,7 +62,6 @@ package gr.ictpro.mall.client.view
 		}
 		
 		private function init():void {
-			TopBarDetailView(view).editor["currentUserIsStudent"] = UserModel.isStudent(runtimeSettings.user);
 			if(view.currentState == "new") {
 				TopBarDetailView(view).editor.vo.approve = UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
 			}
@@ -76,12 +75,38 @@ package gr.ictpro.mall.client.view
 			if (!UserModel.isAdmin(runtimeSettings.user) && !UserModel.isTeacher(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
 				meetingComponent.enabled = false;
 				view.disableDelete();
+				view.disableOK();
 			}
+			
+			
+			if(UserModel.isParent(runtimeSettings.user)) {
+				meetingComponent.isParent = true;
+				if(meetingComponent.vo.approvedBy != null) {
+					meetingComponent.enabled = false;
+				} else {
+					meetingComponent.enabled = true;
+					view.enableOK();
+				}
+			}
+
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnJoinClickedSignal, joinMeetingHandler);
 			listSignal.dispatch(MeetingType);
+			meetingComponent.approveVisible = showApproveCheckBox();
 		}
+		
+		private function showApproveCheckBox():Boolean
+		{
+			var res:Boolean = false;
+			
+			if(view.currentState == "edit" && !UserModel.isStudent(runtimeSettings.user)) {
+				res = true;
+			}
+			
+			return res;
+		}
+		
 		private function getMeeting(id:int):void
 		{
 			var args:GenericServiceArguments = new GenericServiceArguments();
@@ -100,6 +125,7 @@ package gr.ictpro.mall.client.view
 			if(type == "get_meeting") {
 				removeSignals();
 				if(result != null) {
+					view.currentState = "edit";
 					view.parameters.vo = result;
 					view.invalidateChildren();
 					init();
@@ -126,6 +152,19 @@ package gr.ictpro.mall.client.view
 		}
 
 		public function filterAvailableUsers(item:User):Boolean {
+			if(UserModel.isParent(item)) {
+				return false;
+			}
+			
+			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
+			if(meetingComponent.vo.users != null) {
+				for each (var u:User in meetingComponent.vo.users) {
+					if(u.id == item.id) {
+						return false;
+					}
+				}
+			}
+			
 			if(UserModel.isStudent(runtimeSettings.user)) {
 				if(item.disallowUnattendedMeetings) {
 					return false;
@@ -138,7 +177,7 @@ package gr.ictpro.mall.client.view
 			if(item.id == runtimeSettings.user.id) {
 				return false;
 			}
-			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
+			
 			if(meetingComponent.time.date == null) {
 				//now 
 				return item.available && item.online;
@@ -201,7 +240,7 @@ package gr.ictpro.mall.client.view
 		
 		override protected function beforeSaveHandler():void {
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
-			if(meetingComponent.chkNow.selected) {
+			if(meetingComponent.chkNow != null && meetingComponent.chkNow.selected) {
 				meetingComponent.vo.time = null;
 			} else {
 				meetingComponent.vo.time =meetingComponent.time.date;
@@ -211,7 +250,11 @@ package gr.ictpro.mall.client.view
 			if(view.currentState == "new") {
 				meetingComponent.vo.users.addItem(runtimeSettings.user);
 			}
+			
 			meetingComponent.vo.meetingType = meetingComponent.meetingTypePopup.selected;
+			if(!meetingComponent.vo.approve) {
+				meetingComponent.vo.approvedBy = null;
+			}
 			
 		}
 		

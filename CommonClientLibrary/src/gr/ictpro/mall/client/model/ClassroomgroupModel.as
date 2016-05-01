@@ -14,9 +14,15 @@ package gr.ictpro.mall.client.model
 		public function ClassroomgroupModel()
 		{
 			super(Classroomgroup, ClassroomgroupView, ClassroomgroupComponent);
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, excludeGlobal, Answer.falseValue, null, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, excludeGlobal, answerFalse, null, null, null));
 		}
 		
+		public function answerFalse(o:Object):Boolean
+		{
+			return false;
+		}
+		
+
 		public function excludeGlobal(item:Classroom):Boolean
 		{
 			return item.id != 0;

@@ -3,6 +3,7 @@
  */
 package gr.ictpro.mall.flex;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
@@ -44,7 +45,9 @@ public class NotificationRemoteService {
 	List<Notification> res = notificationService.retrieveByUser(currentUser);
 	
 	// TODO: Create dynamic notifications from meetings and schedules
-	List<Meeting> userMeetings = meetingRemoteService.getMeetings();
+	List<Meeting> userMeetings = currentUser.hasRole("Admin")?new ArrayList<Meeting>():meetingRemoteService.getMeetings();
+	
+	
 	// five hours in the past
 	Date first = new Date(new Date().getTime() - 1000*60*60*5); 
 	// six days in the future
