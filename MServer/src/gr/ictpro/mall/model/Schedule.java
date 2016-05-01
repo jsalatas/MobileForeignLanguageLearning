@@ -27,7 +27,7 @@ import org.springframework.flex.core.io.AmfIgnore;
  */
 @Entity
 @Table(name = "schedule")
-@ClientReferenceClass(className="gr.ictpro.mall.client.model.vo.Calendar")
+@ClientReferenceClass(className= {"gr.ictpro.mall.client.model.vo.Calendar", "gr.ictpro.mall.client.model.vo.Notification"})
 public class Schedule implements java.io.Serializable {
     /**
      * 

@@ -44,9 +44,7 @@ public class NotificationRemoteService {
 	User currentUser = userContext.getCurrentUser();
 	List<Notification> res = notificationService.retrieveByUser(currentUser);
 	
-	// TODO: Create dynamic notifications from meetings and schedules
 	List<Meeting> userMeetings = currentUser.hasRole("Admin")?new ArrayList<Meeting>():meetingRemoteService.getMeetings();
-	
 	
 	// five hours in the past
 	Date first = new Date(new Date().getTime() - 1000*60*60*5); 
