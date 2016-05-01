@@ -75,7 +75,7 @@
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
 		<s:TextInput id="txtName" width="100%" text="{vo.name}" textAlign="left" enabled="{!isParent}"/>
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Device.translations.getTranslation('Created By')}">
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Created By')}" includeIn="edit">
 		<s:Label id="lblCreatedBy" width="100%" text="{vo.createdBy}" textAlign="left" />
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Meeting Type')}" >
@@ -90,9 +90,12 @@
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Approve')}" includeIn="edit" visible="{approveVisible}">
 		<s:CheckBox id="chkApprove" selected="@{vo.approve}" />
 	</s:FormItem>
+	<s:FormItem width="100%" >
+		<s:Label id="lblUserIsApproved" width="100%" text="{vo.currentUserIsApproved?Device.translations.getTranslation('You are approved to join this meeting'):Device.translations.getTranslation('You are not approved to join this meeting')}" textAlign="left" />
+	</s:FormItem>
 
 	<s:FormItem width="100%" >
-		<s:Button label="{Device.translations.getTranslation('Join Meeting')}" click="button1_clickHandler(event)" />
+		<s:Button id="btnJoinMeeting" label="{Device.translations.getTranslation('Join Meeting')}" click="button1_clickHandler(event)" />
 	</s:FormItem>
 
 </s:VOEditor>

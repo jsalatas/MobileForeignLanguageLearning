@@ -12,7 +12,9 @@ package gr.ictpro.mall.client.model.vo
 		public var approve:Boolean;
 		public var meetingType:MeetingType;
 		public var name:String;
+		public var status:String;
 		public var time:Date;
+		public var currentUserIsApproved:Boolean;
 		public var users:ArrayCollection;
 		
 		public function Meeting()

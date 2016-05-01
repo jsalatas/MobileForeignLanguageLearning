@@ -1,6 +1,7 @@
 package gr.ictpro.mall.flex;
 
 import flex.messaging.io.amf.ASObject;
+import gr.ictpro.mall.bbb.ApiCall;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Language;
@@ -39,14 +40,56 @@ public class MeetingRemoteService {
     @Autowired(required = true)
     private UserContext userContext;
 
+    @Autowired(required = true)
+    private ApiCall bbbApiCall;
+
     public List<MeetingType> getMeetingTypes() {
 	return meetingTypeService.listAll();
     }
 
+    public String getMeetingURL(Meeting meeting) {
+	String url = null;
+	
+	
+	
+	User currentUser = userContext.getCurrentUser();
+	Meeting peristentMeeting = meetingService.retrieveById(meeting.getId());
+	if(peristentMeeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
+	    // get moderator url
+	} else {
+	    for(MeetingUser mu:peristentMeeting.getMeetingUsers()) {
+		if(mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+		 // get viewer url
+		    break;
+		}
+	    }
+	}
+	
+	return url;
+    }
+    
+    private void fillBBBMeetingInfo(Meeting meeting) {
+	System.err.println("meeting " + meeting.getId());
+	System.err.println("running " +bbbApiCall.isMeetingRunning(meeting.getId().toString()));
+	System.err.println("info " +bbbApiCall.getMeetingInfo(meeting.getId().toString(), meeting.getModeratorPassword()));
+	String status = bbbApiCall.getMeetingStatus(meeting.getId().toString(), meeting.getModeratorPassword());
+	if(status.equals("unknown")) {
+	    Date now = new Date();
+	    if(meeting.getTime().compareTo(now)>=0) {
+		status = "future";
+	    } else {
+		status = "completed";
+	    }
+	}
+	meeting.setStatus(status);
+    }
+    
     public Meeting getMeeting(ASObject userObject) {
 	int id = (Integer) userObject.get("id");
 	Meeting m = meetingService.retrieveById(id);
 
+	fillBBBMeetingInfo(m);
+	
 	return m;
     }
 
@@ -97,7 +140,9 @@ public class MeetingRemoteService {
 
 	}
 
-	// TODO:
+	for(Meeting meeting: res) {
+	    fillBBBMeetingInfo(meeting);
+	}
 	return res;
     }
 

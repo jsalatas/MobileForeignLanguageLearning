@@ -65,10 +65,8 @@ package gr.ictpro.mall.client.view
 			if(view.currentState == "new") {
 				TopBarDetailView(view).editor.vo.approve = UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
 			}
-			var yesterday:Date = new Date(); 
-			yesterday.date -= 1;
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
-			if (meetingComponent.vo.time != null && meetingComponent.vo.time<yesterday) {
+			if (meetingComponent.vo.status != "future") {
 				TopBarDetailView(view).disableOK();
 				TopBarDetailView(view).disableDelete();
 			}
@@ -80,7 +78,6 @@ package gr.ictpro.mall.client.view
 				}
 			}
 			
-			
 			if(UserModel.isParent(runtimeSettings.user)) {
 				meetingComponent.isParent = true;
 				if(meetingComponent.vo.approvedBy != null) {
@@ -91,6 +88,34 @@ package gr.ictpro.mall.client.view
 				}
 			}
 
+			var minimumStart:Date = new Date();
+			// allow a meeting to start 15 minutes earlier
+			minimumStart.minutes -= 15; 
+
+			var maximumStart:Date = new Date();
+			// allow a meeting to start up to 1 hour later
+			maximumStart.hours += 1; 
+
+			if(meetingComponent.vo.status == "running" || (meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id && meetingComponent.vo.time>minimumStart && meetingComponent.vo.time<maximumStart)) {
+				if(UserModel.isStudent(runtimeSettings.user)) {
+					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = true;
+					meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = meetingComponent.vo.currentUserIsApproved;
+				} else {
+					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = false;
+					if(!UserModel.isParent(runtimeSettings.user)) {
+						meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = true;
+					}
+				}
+				 
+			} else {
+				if(UserModel.isStudent(runtimeSettings.user)) {
+					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = true;
+				} else {
+					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = false;
+				}
+				meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = false;
+			}
+			
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnJoinClickedSignal, joinMeetingHandler);
@@ -186,8 +211,6 @@ package gr.ictpro.mall.client.view
 			parameters.vo = MeetingComponent(TopBarDetailView(view).editor).vo;
 			addView.dispatch(bbbMeetingView, parameters, view);
 			view.dispose();
-
-			
 		}
 		
 		public function removeUnavailableUsers():void {

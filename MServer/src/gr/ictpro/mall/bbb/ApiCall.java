@@ -1101,4 +1101,28 @@ public class ApiCall {
 	return null;
     }
 
+    
+    public String getMeetingStatus(String meetingID, String password) {
+	String status = "unknown";
+	try {
+	    String data = getURL(getMeetingInfoURL(meetingID, password));
+	    if (data.indexOf("<response>") != -1) {
+		Document meetingDoc = parseXml( data);
+		String code = meetingDoc.getElementsByTagName("returncode").item(0).getFirstChild().getNodeValue();
+		if(code.equals("SUCCESS")) {
+		    Boolean running = Boolean.parseBoolean(meetingDoc.getElementsByTagName("running").item(0).getFirstChild().getNodeValue()); 
+		    if(running) {
+			status = "running";
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace(System.out);
+	}
+	
+	return status;
+    }
+
+
+
 }
