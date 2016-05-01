@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.model
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.utils.boolean.Answer;
 	import gr.ictpro.mall.client.utils.collections.ArrayUtils;
 	import gr.ictpro.mall.client.view.UserView;
@@ -13,17 +14,25 @@ package gr.ictpro.mall.client.model
 		[Inject]
 		public var roleModel:RoleModel; 
 		
+		[Inject]
+		public var runtimeSettings:RuntimeSettings;
+		
 		public function UserModel()
 		{
 			super(User, UserView, UserComponent);
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, answerFalse, null, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, null, answerFalse, beforeDeleteFunction, null, null));
 			addDetail(new DetailMapper("Children", "children", User, null, null, UserModel.isStudent, answerFalse, null, null, UserModel.isParent));
 			addDetail(new DetailMapper("Parents", "parents", User, null, null, UserModel.isParent, answerFalse, null, null, UserModel.isStudent));
 		}
 		
 		public function answerFalse(o:Object):Boolean
 		{
-			return true;
+			return false;
+		}
+
+		
+		public function beforeDeleteFunction(classroom:Classroom, user:User):Boolean {
+			return classroom.teacher.id == runtimeSettings.user.id && UserModel.isTeacher(runtimeSettings.user);
 		}
 		
 		public function get saveErrorMessage():String

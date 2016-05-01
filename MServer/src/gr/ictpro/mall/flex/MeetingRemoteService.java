@@ -64,20 +64,22 @@ public class MeetingRemoteService {
 		    userIds.add(u.getId());
 		}
 	    }
-
-	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
-		    + StringUtils.join(userIds, ", ") + ")";
-	    res = meetingService.listByCustomSQL(hql);
+	    if (userIds.size() > 0) {
+		String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
+			+ StringUtils.join(userIds, ", ") + ")";
+		res = meetingService.listByCustomSQL(hql);
+	    }
 	} else if (currentUser.hasRole("Parent")) {
 	    List<Integer> userIds = new ArrayList<Integer>();
 	    for (User u : currentUser.getChildren()) {
 		userIds.add(u.getId());
 	    }
 
-	    String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
-		    + StringUtils.join(userIds, ", ") + ")";
-	    res = meetingService.listByCustomSQL(hql);
-
+	    if (userIds.size() > 0) {
+		String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
+			+ StringUtils.join(userIds, ", ") + ")";
+		res = meetingService.listByCustomSQL(hql);
+	    }
 	    for (Meeting meeting : res) {
 		if (!meeting.isApprove()) {
 		    // check if parent has approved his own children
@@ -100,14 +102,14 @@ public class MeetingRemoteService {
 	User currentUser = userContext.getCurrentUser();
 	Meeting persistentMeeting = meetingService.retrieveById(meeting.getId());
 	if (currentUser.hasRole("Admin")) {
-	    for(MeetingUser mu:persistentMeeting.getMeetingUsers()) {
+	    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
 		meetingUserService.delete(mu);
 	    }
 	    meetingService.delete(persistentMeeting);
 	} else if (currentUser.hasRole("Teacher")) {
 	    if (persistentMeeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
 		// if meeting is created by the teacher then delete it
-		for(MeetingUser mu:persistentMeeting.getMeetingUsers()) {
+		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
 		    meetingUserService.delete(mu);
 		}
 		meetingService.delete(persistentMeeting);
@@ -117,23 +119,23 @@ public class MeetingRemoteService {
 		ArrayList<MeetingUser> meetingUsersToDelete = new ArrayList<MeetingUser>();
 		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
 		    boolean isInTeeachersClassroom = false;
-		    for(Classroom classroom: mu.getUser().getClassrooms()) {
-			if(currentUser.getTeacherClassrooms().contains(classroom)) {
+		    for (Classroom classroom : mu.getUser().getClassrooms()) {
+			if (currentUser.getTeacherClassrooms().contains(classroom)) {
 			    isInTeeachersClassroom = true;
 			    break;
 			}
 		    }
-		    if(isInTeeachersClassroom ) {
+		    if (isInTeeachersClassroom) {
 			meetingUsersToDelete.add(mu);
 		    }
 		}
-		for(MeetingUser mu: meetingUsersToDelete) {
+		for (MeetingUser mu : meetingUsersToDelete) {
 		    meetingUserService.delete(mu);
 		    persistentMeeting.getMeetingUsers().remove(mu);
 		}
-		
-		if(meetingUsersToDelete.size()>0) {
-		    if(persistentMeeting.getMeetingUsers().size() == 0) {
+
+		if (meetingUsersToDelete.size() > 0) {
+		    if (persistentMeeting.getMeetingUsers().size() == 0) {
 			meetingService.delete(persistentMeeting);
 		    }
 		}
