@@ -94,7 +94,7 @@ public class MeetingRemoteService {
 	return url;
     }
     
-    private void fillBBBMeetingInfo(Meeting meeting) {
+    public void fillBBBMeetingInfo(Meeting meeting) {
 	System.err.println(">>>>> meeting " + meeting.getId());
 	System.err.println(">>>>> running " +bbbApiCall.isMeetingRunning(meeting.getId().toString()));
 	System.err.println(">>>>> info " +bbbApiCall.getMeetingInfo(meeting.getId().toString(), meeting.getModeratorPassword()));

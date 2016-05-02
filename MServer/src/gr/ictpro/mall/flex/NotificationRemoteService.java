@@ -51,8 +51,9 @@ public class NotificationRemoteService {
 	// six days in the future
 	Date last = new Date(new Date().getTime() + 1000*60*60*24*6); 
 	for(Meeting m:userMeetings) {
-	    if(m.getTime().after(first) && m.getTime().before(last)) {
-		Notification n = new Notification(m.getName(), m.getMeetingType().getClientClass(), "An Online Meeting is scheduled", m.getMeetingType().isInternalModule(), false);
+	    meetingRemoteService.fillBBBMeetingInfo(m);
+	    if((m.getTime().after(first) && m.getTime().before(last)) || m.getStatus().equals("running")) {
+		Notification n = new Notification(m.getName(), m.getMeetingType().getClientClass(), "An Online Meeting is " +(m.getStatus().equals("running")?"in progress":"scheduled"), m.getMeetingType().isInternalModule(), false);
 		n.setDynamic(true);
 		n.setDate(m.getTime());
 		Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
