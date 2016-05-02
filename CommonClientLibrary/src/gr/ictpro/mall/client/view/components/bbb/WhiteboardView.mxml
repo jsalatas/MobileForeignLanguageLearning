@@ -3,11 +3,8 @@
 		 xmlns:s="gr.ictpro.mall.client.components.*" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:whiteboard="org.bigbluebutton.view.navigation.pages.whiteboard.*"
-		 xmlns:presentation="org.bigbluebutton.view.navigation.pages.presentation.*"
+		 xmlns:presentation="org.bigbluebutton.view.navigation.pages.presentation.*" xmlns:signals="org.osflash.signals.*"
 		 >
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
 	<s:states>
 		<mx:State name="viewer" />
 		<mx:State name="presenter" />
@@ -90,7 +87,7 @@
 				<whiteboard:WhiteboardCanvas id="whiteboardCanvas0" />
 			</s:Group>
 		</s:Group>
-		<s:Group  width="100%" id="presenterContainer" includeIn="presenter"  >
+		<s:Group  width="100%" id="presenterContainer" includeIn="presenter" >
 			<s:layout>
 				<s:VerticalLayout paddingTop="2" paddingBottom="2" paddingLeft="2" paddingRight="2"  />
 			</s:layout>

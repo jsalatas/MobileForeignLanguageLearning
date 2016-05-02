@@ -2,6 +2,7 @@ package gr.ictpro.mall.client.view.components.bbb
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.net.drm.AddToDeviceGroupSetting;
 	
 	import mx.core.FlexGlobals;
 	import mx.events.ResizeEvent;
@@ -18,8 +19,9 @@ package gr.ictpro.mall.client.view.components.bbb
 	import org.bigbluebutton.model.presentation.Slide;
 	import org.bigbluebutton.util.CursorIndicator;
 	import org.robotlegs.mvcs.Mediator;
+	import org.robotlegs.mvcs.SignalMediator;
 	
-	public class WhiteboardViewMediator extends Mediator
+	public class WhiteboardViewMediator extends SignalMediator
 	{
 		[Inject]
 		public var view:WhiteboardView;
@@ -153,7 +155,7 @@ package gr.ictpro.mall.client.view.components.bbb
 		private function stageOrientationChangingHandler(e:Event):void {
 //			if (userUISession.currentPage == PagesENUM.PRESENTATION) { //apply rotation only if user didn´t change view at the same time
 				var newWidth:Number = Device.getUnScaledSize(FlexGlobals.topLevelApplication.stage.stageWidth);
-				var presenterControlsH:Number = Device.getUnScaledSize(view.presenterContainer != null? view.presenterContainer.height:0);
+				var presenterControlsH:Number = Device.getUnScaledSize(view.presenterContainer != null && userSession.userList.me.presenter? view.presenterContainer.height:0);
 				var newHeight:Number = Device.getUnScaledSize(FlexGlobals.topLevelApplication.stage.stageHeight) - 30 - presenterControlsH;
 				view.slideModel.parentChange(newWidth, newHeight);
 				view.slideModel.adjustSlideAfterParentResized();
