@@ -25,7 +25,7 @@ CREATE PROCEDURE initialize()
 BEGIN
 	IF NOT EXISTS (SELECT `value` FROM `status` WHERE `name`='initialized') 
 	THEN
-		INSERT IGNORE INTO `config` VALUES (1,'server.url','https://server_url:8443');
+		INSERT IGNORE INTO `config` VALUES (1,'server.url','http://server_url:port/');
 		INSERT IGNORE INTO `config` VALUES (2,'mail.smtp_hostname','smtp.example.com');
 		INSERT IGNORE INTO `config` VALUES (3,'mail.smtp_port','000');
 		INSERT IGNORE INTO `config` VALUES (4,'mail.smtp_username','user@example.com');
@@ -35,7 +35,7 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (8,'mail.debug','false');
 		INSERT IGNORE INTO `config` VALUES (9,'allow_unattended_meetings','true');
 		INSERT IGNORE INTO `config` VALUES (10,'bigbluebutton.secret','secret');
-		INSERT IGNORE INTO `config` VALUES (11,'bigbluebutton.servername','servername');
+		INSERT IGNORE INTO `config` VALUES (11,'bigbluebutton.url','http://bigbluebutton.url:port/');
 		INSERT IGNORE INTO `config` VALUES (12,'auto_record_unattended_meetings','true');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
@@ -198,6 +198,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Whiteboard');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Wrong User Name or Password.');
 		INSERT IGNORE INTO `translation` (`english_text_id`, `language_code`, `translated_text`, `classroom_id`) SELECT `id` AS `english_text_id`, 'en' AS `language_code`, `english_text` AS `translated_text`, 0 AS `classroom_id` FROM english_text;
+		INSERT IGNORE INTO `meeting_type` (`id`, `client_class`, `internalModule`, `name`) VALUES (1,'gr.ictpro.mall.client.view.MeetingView', true, 'Online Collaboration');
 		INSERT INTO `status` (`name`, `value`) VALUES('initialized', '1');
 	END IF;
 END$$

@@ -110,7 +110,7 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				
 				currentAnnotation.points.push(xPercent);
 				currentAnnotation.points.push(yPercent);
-				if(currentAnnotation.points.length>=20) {
+				if((currentAnnotation.type == AnnotationType.PENCIL && currentAnnotation.points.length>=1) || currentAnnotation.points.length>=20) {
 					whiteboardService.sendShape(currentAnnotation);
 				}
 			} else if(isMoving && moveCompleted) {

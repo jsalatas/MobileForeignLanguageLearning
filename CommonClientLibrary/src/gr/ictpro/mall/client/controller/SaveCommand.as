@@ -79,6 +79,7 @@ package gr.ictpro.mall.client.controller
 				saveError.dispatch(Class(getDefinitionByName(getQualifiedClassName(vo))), model.saveErrorMessage);
 				return; 
 			}
+			listSignal.dispatch(AbstractModel(model).getVOClass());
 			saveSuccess.dispatch(AbstractModel(model).getVOClass());
 		}
 		

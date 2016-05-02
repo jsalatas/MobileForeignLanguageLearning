@@ -93,7 +93,7 @@ package gr.ictpro.mall.client.view
 		{
 			if(classType == Notification) {
 				view.notifications = notificationsModel.list;
-			}
+			} 
 		}
 
 		private function listErrorHandler(classType:Class, errorMessage:String):void

@@ -1,4 +1,6 @@
 package org.bigbluebutton.core.util {
+	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.utils.ui.UI;
 	
 	public class URLParser {
 		protected const reg:RegExp = /(?P<protocol>[a-zA-Z]+) : \/\/  (?P<host>[^:\/]*) (:(?P<port>\d+))?  ((?P<path>[^?]*))? ((?P<parameters>.*))? /x;
@@ -19,6 +21,10 @@ package org.bigbluebutton.core.util {
 		
 		public function parse(url:String):void {
 			var results:Array = reg.exec(url);
+			if(results == null) {
+				UI.showError(Device.translations.getTranslation("Cannot join meeting. Please try again."));
+				return; 
+			}
 			_protocol = results.protocol;
 			_host = results.host;
 			_port = results.port;

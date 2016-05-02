@@ -56,7 +56,7 @@
 			<s:HorizontalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" verticalAlign="middle"/>
 		</s:layout>
 		<!-- Date -->
-		<s:Group includeIn="hasdate" width="100">
+		<s:Group includeIn="hasdate" width="{Device.getUnScaledSize(Device.isAndroid?200:100)}">
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="center"/>
 			</s:layout>

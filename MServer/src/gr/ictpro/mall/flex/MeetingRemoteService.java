@@ -138,6 +138,7 @@ public class MeetingRemoteService {
 		    userIds.add(u.getId());
 		}
 	    }
+	    userIds.add(currentUser.getId());
 	    if (userIds.size() > 0) {
 		String hql = "Select DISTINCT m FROM Meeting m JOIN m.meetingUsers mu WHERE mu.user.id IN ("
 			+ StringUtils.join(userIds, ", ") + ")";

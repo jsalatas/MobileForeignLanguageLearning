@@ -3,20 +3,31 @@ package gr.ictpro.mall.client.model
 	
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
+	import gr.ictpro.mall.client.model.vo.Meeting;
+	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.utils.boolean.Answer;
 	import gr.ictpro.mall.client.view.ClassroomgroupView;
 	import gr.ictpro.mall.client.view.components.ClassroomgroupComponent;
 
 	public class ClassroomgroupModel extends AbstractModel  implements IServerPersistent
 	{
+		[Inject] 
+		public var runtimeSettings:RuntimeSettings;
+		
+
 		public function ClassroomgroupModel()
 		{
 			super(Classroomgroup, ClassroomgroupView, ClassroomgroupComponent);
-			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, excludeGlobal, answerFalse, null, null, null));
+			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, excludeGlobal, answerFalse, beforeDeleteFunction, null, null));
 		}
 		
+		public function beforeDeleteFunction(classroom:Classroom, classroomgroup:Classroomgroup):Boolean {
+			return classroom.teacher.id == runtimeSettings.user.id;
+		}
+
 		public function answerFalse(o:Object):Boolean
 		{
 			return false;

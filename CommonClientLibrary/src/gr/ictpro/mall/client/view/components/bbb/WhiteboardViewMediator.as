@@ -152,13 +152,7 @@ package gr.ictpro.mall.client.view.components.bbb
 		
 		private function stageOrientationChangingHandler(e:Event):void {
 //			if (userUISession.currentPage == PagesENUM.PRESENTATION) { //apply rotation only if user didn´t change view at the same time
-			trace(">>>>>>>>>>>>> view: " + view.width + " " + view.height);
 				var newWidth:Number = Device.getUnScaledSize(FlexGlobals.topLevelApplication.stage.stageWidth);
-				if(view.presenterContainer != null) {
-					trace(">>>>>>>>>>>>> container: " + view.presenterContainer.width + " " + view.presenterContainer.height);
-					trace(">>>>>>>>>>>>> annotation: " + view.annotationControls.width + " " + view.annotationControls.height);
-					trace(">>>>>>>>>>>>> presenter: " + view.presenterControls.width + " " + view.presenterControls.height);
-				}
 				var presenterControlsH:Number = Device.getUnScaledSize(view.presenterContainer != null? view.presenterContainer.height:0);
 				var newHeight:Number = Device.getUnScaledSize(FlexGlobals.topLevelApplication.stage.stageHeight) - 30 - presenterControlsH;
 				view.slideModel.parentChange(newWidth, newHeight);

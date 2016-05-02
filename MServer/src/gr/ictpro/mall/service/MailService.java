@@ -107,7 +107,7 @@ public class MailService {
 	EmailTranslationId emailId = new EmailTranslationId(userContext.getUserLang(u).getCode(), 0,
 		EmailType.ACCOUNT_ENABLED);
 	EmailTranslation email = emailTranslationService.retrieveById(emailId);
-	sendMail(admin.getEmail(), admin.getEmail(), email, u);
+	sendMail(admin.getEmail(), u.getEmail(), email, u);
 
     }
 

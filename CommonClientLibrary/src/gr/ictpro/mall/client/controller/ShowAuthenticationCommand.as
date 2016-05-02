@@ -38,7 +38,11 @@ package gr.ictpro.mall.client.controller
 				if(authenticationProvider.provider == null) {
 					showAuthentication.dispatch(authenticationProviders.getNextProvider(null));	
 				} else {
-					loader = new ExternalModuleLoader(ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL)).value+"/" + ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.MODULES_PATH)).value+ "/"+ authenticationProvider.provider, authenticationProvider.className);
+					var serverURL:String = ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL)).value;
+					if(serverURL.charAt(serverURL.length-1) != "/") {
+						serverURL = serverURL + "/";
+					}
+					loader = new ExternalModuleLoader(serverURL+"/" + ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.MODULES_PATH)).value+ "/"+ authenticationProvider.provider, authenticationProvider.className);
 					injector.injectInto(loader);
 					loader.load();
 				}

@@ -56,6 +56,7 @@ package gr.ictpro.mall.client.view
 		
 		protected function handleOK():void
 		{
+			addToSignal(saveSuccessSignal, success);
 			var setting:ClientSetting = new ClientSetting();
 			setting.name = RuntimeSettings.SERVER_URL;
 			setting.value = view.serverName.text;
@@ -69,7 +70,6 @@ package gr.ictpro.mall.client.view
 			setting = new ClientSetting();
 			setting.name = RuntimeSettings.MODULES_PATH;
 			setting.value = view.modulesPath.text;
-			addToSignal(saveSuccessSignal, success);
 
 			allDone = true;
 			saveSignal.dispatch(setting);

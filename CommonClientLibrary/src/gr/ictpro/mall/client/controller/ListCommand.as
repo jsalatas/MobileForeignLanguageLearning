@@ -14,8 +14,10 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.IServerPersistent;
 	import gr.ictpro.mall.client.model.UserModel;
+	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.LocalDBStorage;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
@@ -42,19 +44,23 @@ package gr.ictpro.mall.client.controller
 		
 		[Inject]
 		public var localDBStorage:LocalDBStorage;
+
+		[Inject]
+		public var runtimeSettings:RuntimeSettings;
 		
+
 		override public function execute():void
 		{
 			var model:AbstractModel = mapper.getModelforVO(classType);
-			if(model.list.length == 0) {
-				if(model is IServerPersistent) {
+			if(model is IServerPersistent) {
+				if(model.list.length == 0) {
 					listServerObjects(model as IServerPersistent);
-				} else if (model is IClientPersistent) {
-					listClientObjects(model as IClientPersistent);
+				} else {
+					// We already have data
+					listSuccess.dispatch(classType);
 				}
-			} else {
-				// We already have data
-				listSuccess.dispatch(classType);
+			} else if (model is IClientPersistent) {
+				listClientObjects(model as IClientPersistent);
 			}
 		}
 		
@@ -87,6 +93,9 @@ package gr.ictpro.mall.client.controller
 		{
 			var model:IPersistent = IPersistent(mapper.getModelforVO(classType));
 			model.list = ArrayCollection(event.result);
+			if(classType == Classroom && UserModel.isTeacher(runtimeSettings.user)) {
+				runtimeSettings.user.teacherClassrooms = model.list; 
+			}
 			listSuccess.dispatch(classType);
 		}
 		

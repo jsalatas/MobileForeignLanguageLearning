@@ -55,9 +55,8 @@ public class ApiCall {
 
     public void init() {
 	if (configService != null) {
-	    BigBlueButtonURL = "http://"
-		    + configService.listByProperty("name", "bigbluebutton.servername").get(0).getValue()
-		    + "/bigbluebutton/";
+	    BigBlueButtonURL = configService.listByProperty("name", "bigbluebutton.url").get(0).getValue();
+	    BigBlueButtonURL = BigBlueButtonURL + (BigBlueButtonURL.endsWith("/")?"bigbluebutton/":"/bigbluebutton/");
 	    salt = configService.listByProperty("name", "bigbluebutton.secret").get(0).getValue();
 	    
 	    //System.err.println(createMeeting("lobby", "welcome to lobby", "mp", "welcome to lobby moderator", "vp", null, null));

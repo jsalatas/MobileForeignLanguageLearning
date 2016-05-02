@@ -74,6 +74,9 @@ package gr.ictpro.mall.client.controller
 		private function success(classType:Class):void
 		{
 			if(classType == clientSettingsModel.getVOClass()) {
+				listSuccessSignal.remove(success);
+				listErrorSignal.remove(error);
+
 				if(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL) == null) {
 					addView.dispatch(new ServerNameView());
 				} else {
@@ -87,6 +90,8 @@ package gr.ictpro.mall.client.controller
 		private function error(classType:Class, errorMessage:String):void
 		{
 			if(classType == clientSettingsModel.getVOClass()) {
+				listSuccessSignal.remove(success);
+				listErrorSignal.remove(error);
 				UI.showError(errorMessage, terminateApp);
 			}
 		}

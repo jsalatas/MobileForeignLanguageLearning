@@ -116,7 +116,7 @@ package gr.ictpro.mall.client.view
 			} else {
 				meetingComponent.frmUserIsApproved.includeInLayout = meetingComponent.frmUserIsApproved.visible = false;
 				if(meetingComponent.frmApprove) {
-					meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = status != "completed";
+					meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = (status != "completed");
 				}
 			}
 			
@@ -132,11 +132,11 @@ package gr.ictpro.mall.client.view
 				
 				var now:Date = new Date();
 				
-				if(now>minimumStart && now<maximumStart) {
+				if((now>minimumStart && now<maximumStart) || status == "running" ) {
 					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = false;
 					meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = (status == "running" || meetingComponent.vo.createdBy.id == runtimeSettings.user.id);
 					meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = false;
-					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = !status == "running";
+					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = (status != "running");
 						
 				} else if(status == "completed" && meetingComponent.vo.record){
 					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = true;

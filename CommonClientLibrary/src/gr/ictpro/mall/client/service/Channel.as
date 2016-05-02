@@ -17,9 +17,12 @@ package gr.ictpro.mall.client.service
 		public function setupChannel(serverURL:String, applicationPath:String):void
 		{
 			var endPoint:String;
-			var channel;
+			var channel:AMFChannel;
 			var pollingEndPoint:String;
-			var pollingChannel;
+			var pollingChannel:AMFChannel;
+			if(serverURL.charAt(serverURL.length-1) != "/") {
+				serverURL = serverURL + "/";
+			}
 			endPoint = serverURL + applicationPath+"/messagebroker/amf";
 			channel = new AMFChannel("my-amf", endPoint);
 			_channelSet.addChannel(channel);
