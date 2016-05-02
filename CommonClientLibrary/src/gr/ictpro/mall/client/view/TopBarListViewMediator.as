@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.components.TopBarListView;
 	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.ViewParameters;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
@@ -82,9 +83,29 @@ package gr.ictpro.mall.client.view
 		{
 			var detailViewClass:Class = model.getViewClass();
 			var detailView:TopBarDetailView = new detailViewClass() as TopBarDetailView;
+			if(viewHasState(detailView, "new") && viewHasState(detailView, "edit") && parameters != null && parameters.vo != null) {
+				if(IPersistent(model).idIsNull(parameters.vo)) {
+					detailView.currentState = "new";
+					detailView.disableDelete();
+				} else {
+					detailView.currentState = "edit";
+				}
+			}
+
 //			detailView.model = model;
 			addView.dispatch(detailView, parameters, view);
 			view.dispose();
 		}
+		
+		private function viewHasState(detailView:TopBarDetailView, stateName:String):Boolean {
+			for(var i:int = 0; i < detailView.states.length; i++) {
+				if(detailView.states[i].name == stateName) {
+					return true;
+				}
+				
+			}
+			return false;
+		}
+
 	}
 }
