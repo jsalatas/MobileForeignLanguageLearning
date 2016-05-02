@@ -73,7 +73,7 @@ package gr.ictpro.mall.client.view
 			var status:String = meetingComponent.vo.status;
 
 			// restrict what a user can do with an event  
-			if(status == "running" || (status == "completed" && meetingComponent.vo.record)) {
+			if(status == "running" || status == "completed") {
 				TopBarDetailView(view).disableDelete();
 				TopBarDetailView(view).disableOK();
 				meetingComponent.isReadOnly = true; 
@@ -82,7 +82,7 @@ package gr.ictpro.mall.client.view
 					meetingComponent.isReadOnly = true;
 				} else if(view.currentState == "edit") {
 					// TODO: make clearer what is happening here 
-					if(!(UserModel.isAdmin(runtimeSettings.user) || (UserModel.isTeacher(runtimeSettings.user) && (meetingComponent.vo.createdBy.id == runtimeSettings.user.id || UserModel.isStudent(meetingComponent.vo.createdBy))) || (UserModel.isStudent(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id))) {
+					if(!(UserModel.isAdmin(runtimeSettings.user)|| UserModel.isTeacher(runtimeSettings.user)|| (UserModel.isStudent(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id))) {
 						meetingComponent.enabled = false;
 						view.disableOK();
 					}
@@ -116,7 +116,7 @@ package gr.ictpro.mall.client.view
 			} else {
 				meetingComponent.frmUserIsApproved.includeInLayout = meetingComponent.frmUserIsApproved.visible = false;
 				if(meetingComponent.frmApprove) {
-					meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = true;
+					meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = status != "completed";
 				}
 			}
 			

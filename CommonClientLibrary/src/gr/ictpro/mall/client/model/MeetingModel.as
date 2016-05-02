@@ -37,6 +37,10 @@ package gr.ictpro.mall.client.model
 				return false; 
 			}
 			
+			if(meeting.status == "completed") {
+				return true;
+			}
+			
 			if(UserModel.isStudent(runtimeSettings.user) && runtimeSettings.user.id != meeting.createdBy.id) {
 				return true;
 			}
