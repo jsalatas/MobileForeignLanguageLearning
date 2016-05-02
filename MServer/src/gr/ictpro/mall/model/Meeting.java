@@ -177,7 +177,7 @@ public class Meeting implements java.io.Serializable {
 	this.meetingUsers = meetingUsers;
     }
 
-    @Column(name = "parents_can_see_recording", nullable = false)
+    @Column(name = "parents_can_see_recording", nullable = false, columnDefinition= "BIT(1) DEFAULT 0")
     public boolean isParentsCanSeeRecording() {
 	return this.parentsCanSeeRecording;
     }
@@ -186,7 +186,7 @@ public class Meeting implements java.io.Serializable {
 	this.parentsCanSeeRecording = parentsCanSeeRecording;
     }
 
-    @Column(name = "record")
+    @Column(name = "record", nullable = false, columnDefinition= "BIT(1) DEFAULT 0")
     public boolean isRecord() {
 	return this.record;
     }

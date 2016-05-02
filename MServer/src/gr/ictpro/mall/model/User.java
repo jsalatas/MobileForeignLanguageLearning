@@ -338,7 +338,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.locations = locations;
     }
 
-    @Column(name = "disallow_unattended_meetings", nullable = false)
+    @Column(name = "disallow_unattended_meetings", nullable = false, columnDefinition= "BIT(1) DEFAULT 0")
     public boolean isDisallowUnattendedMeetings() {
 	return this.disallowUnattendedMeetings;
     }
@@ -347,7 +347,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
     }
 
-    @Column(name = "auto_approve_unattended_meetings", nullable = false)
+    @Column(name = "auto_approve_unattended_meetings", nullable = false, columnDefinition= "BIT(1) DEFAULT 1")
     public boolean isAutoApproveUnattendedMeetings() {
 	return this.autoApproveUnattendedMeetings;
     }
@@ -356,7 +356,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
     }
 
-    @Column(name = "available", nullable = false)
+    @Column(name = "available", nullable = false, columnDefinition= "BIT(1) DEFAULT 1")
     public boolean isAvailable() {
 	return this.available;
     }
