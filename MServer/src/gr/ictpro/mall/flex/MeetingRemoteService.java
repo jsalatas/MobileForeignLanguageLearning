@@ -4,6 +4,7 @@ import flex.messaging.io.amf.ASObject;
 import gr.ictpro.mall.bbb.ApiCall;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
+import gr.ictpro.mall.model.Config;
 import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Meeting;
 import gr.ictpro.mall.model.MeetingType;
@@ -35,6 +36,9 @@ public class MeetingRemoteService {
     private GenericService<MeetingUser, MeetingUserId> meetingUserService;
 
     @Autowired(required = true)
+    private GenericService<Config, Integer> configService;
+    
+    @Autowired(required = true)
     private UserService userService;
 
     @Autowired(required = true)
@@ -59,36 +63,50 @@ public class MeetingRemoteService {
 	}
 	
 	if(meeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
-	    String record ="false";
+	    String record = String.valueOf(meeting.isRecord());
+	    if(!meeting.hasTeacher() && record.equals("false")) {
+		record = configService.listByProperty("name", "auto_record_unattended_meetings").get(0).getValue();
+	    }
+	    
 	    String status =bbbApiCall.getMeetingStatus(meeting.getId().toString(), meeting.getModeratorPassword()); 
 	    if(!status.equals("running")) {
 		// create it 
 		bbbApiCall.createMeeting(meeting.getId().toString(), meeting.getName(), record, "", meeting.getModeratorPassword(), "", meeting.getUserPassword(), null, null);
+		meeting.setCreated(new Date());
+		meetingService.update(meeting);
 	    }
 	    url = bbbApiCall.getJoinMeetingURL(currentUser.getProfile().getName(), meeting.getId().toString(), meeting.getModeratorPassword(), null);
 	} else {
-	    for(MeetingUser mu:meeting.getMeetingUsers()) {
-		if(mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
-		    url = bbbApiCall.getJoinURLViewer(currentUser.getProfile().getName(), meeting.getId().toString());
-		    break;
+	    if(currentUser.hasRole("Admin") || currentUser.hasRole("Teacher")) {
+		// An Admin or a Teacher always join as moderators 
+		url = bbbApiCall.getJoinMeetingURL(currentUser.getProfile().getName(), meeting.getId().toString(), meeting.getModeratorPassword(), null);
+	    } else {
+		for (MeetingUser mu : meeting.getMeetingUsers()) {
+		    if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+			url = bbbApiCall.getJoinURLViewer(currentUser.getProfile().getName(), meeting.getId().toString(), meeting.getUserPassword());
+			break;
+		    }
 		}
 	    }
 	}
+	    
 	
 	return url;
     }
     
     private void fillBBBMeetingInfo(Meeting meeting) {
-	System.err.println("meeting " + meeting.getId());
-	System.err.println("running " +bbbApiCall.isMeetingRunning(meeting.getId().toString()));
-	System.err.println("info " +bbbApiCall.getMeetingInfo(meeting.getId().toString(), meeting.getModeratorPassword()));
+	System.err.println(">>>>> meeting " + meeting.getId());
+	System.err.println(">>>>> running " +bbbApiCall.isMeetingRunning(meeting.getId().toString()));
+	System.err.println(">>>>> info " +bbbApiCall.getMeetingInfo(meeting.getId().toString(), meeting.getModeratorPassword()));
 	String status = bbbApiCall.getMeetingStatus(meeting.getId().toString(), meeting.getModeratorPassword());
 	if(status.equals("unknown")) {
 	    Date now = new Date();
 	    if(meeting.getTime().compareTo(now)>=0) {
 		status = "future";
-	    } else {
+	    } else if(meeting.getCreated() != null){
 		status = "completed";
+	    } else {
+		status = "notcompleted";
 	    }
 	}
 	meeting.setStatus(status);
@@ -199,10 +217,38 @@ public class MeetingRemoteService {
 		}
 	    }
 	} else if (currentUser.hasRole("Student")) {
-	    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
-		if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+	    if(persistentMeeting.getCreatedBy().getId().intValue() == currentUser.getId().intValue()) {
+		// delete the whole meeting
+		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
 		    meetingUserService.delete(mu);
+		}
+		meetingService.delete(persistentMeeting);
+	    } else {
+		// remove student from meeting
+		for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+		    if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+			meetingUserService.delete(mu);
+			break;
+		    }
+		}
+	    }
+	} else if (currentUser.hasRole("Parent")) {
+	    for(User child:currentUser.getChildren()) {
+		if (persistentMeeting.getCreatedBy().getId().intValue() == child.getId().intValue()) {
+		    // delete the whole meeting
+		    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+			meetingUserService.delete(mu);
+		    }
+		    meetingService.delete(persistentMeeting);
 		    break;
+		} else {
+		    // remove student from meeting
+		    for (MeetingUser mu : persistentMeeting.getMeetingUsers()) {
+			if (mu.getUser().getId().intValue() == child.getId().intValue()) {
+			    meetingUserService.delete(mu);
+			    break;
+			}
+		    }
 		}
 	    }
 	}
@@ -227,6 +273,10 @@ public class MeetingRemoteService {
 	    meeting.setCreatedBy(currentUser);
 	    meeting.setModeratorPassword(UUID.randomUUID().toString().replace("-", ""));
 	    meeting.setUserPassword(UUID.randomUUID().toString().replace("-", ""));
+	    if(!meeting.hasTeacher() && currentUser.hasRole("Student")) {
+		Boolean record = Boolean.parseBoolean(configService.listByProperty("name", "auto_record_unattended_meetings").get(0).getValue());
+		meeting.setRecord(record);
+	    }
 	    meetingService.create(meeting);
 	    for (User u : pendingUsers) {
 		MeetingUser mu = new MeetingUser(new MeetingUserId(meeting.getId(), u.getId()), meeting, u);
@@ -248,8 +298,10 @@ public class MeetingRemoteService {
 	    }
 
 	    persistentMeeting.setName(meeting.getName());
+	    persistentMeeting.setRecord(meeting.isRecord());
 	    persistentMeeting.setApprovedBy(meeting.getApprovedBy());
 	    persistentMeeting.setTime(meeting.getTime());
+	    persistentMeeting.setParentsCanSeeRecording(meeting.isParentsCanSeeRecording());
 
 	    meetingService.update(persistentMeeting);
 

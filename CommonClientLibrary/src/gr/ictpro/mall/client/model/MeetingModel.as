@@ -40,10 +40,10 @@ package gr.ictpro.mall.client.model
 			if(UserModel.isStudent(runtimeSettings.user) && runtimeSettings.user.id != meeting.createdBy.id) {
 				return true;
 			}
-			if (UserModel.isTeacher(runtimeSettings.user)) {
+			if (UserModel.isTeacher(runtimeSettings.user) || UserModel.isAdmin(runtimeSettings.user)) {
 				return false;
 			}
-			return UserModel.isParent(runtimeSettings.user);		
+			return false;		
 		}
 		
 		public function get destination():String

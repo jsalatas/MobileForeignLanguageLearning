@@ -36,6 +36,7 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (9,'allow_unattended_meetings','true');
 		INSERT IGNORE INTO `config` VALUES (10,'bigbluebutton.secret','secret');
 		INSERT IGNORE INTO `config` VALUES (11,'bigbluebutton.servername','servername');
+		INSERT IGNORE INTO `config` VALUES (12,'auto_record_unattended_meetings','true');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');

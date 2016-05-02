@@ -46,8 +46,8 @@ public class NotificationRemoteService {
 	
 	List<Meeting> userMeetings = currentUser.hasRole("Admin")?new ArrayList<Meeting>():meetingRemoteService.getMeetings();
 	
-	// five hours in the past
-	Date first = new Date(new Date().getTime() - 1000*60*60*5); 
+	// one hour in the past
+	Date first = new Date(new Date().getTime() - 1000*60*60); 
 	// six days in the future
 	Date last = new Date(new Date().getTime() + 1000*60*60*24*6); 
 	for(Meeting m:userMeetings) {

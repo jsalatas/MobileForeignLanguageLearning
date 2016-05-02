@@ -14,6 +14,8 @@ package gr.ictpro.mall.client.model.vo
 		public var name:String;
 		public var status:String;
 		public var time:Date;
+		public var record:Boolean;
+		public var parentCanSeeRecording:Boolean;
 		public var currentUserIsApproved:Boolean;
 		public var users:ArrayCollection;
 		[Transient]

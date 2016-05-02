@@ -9,6 +9,7 @@
 	<fx:Declarations>
 		<signals:Signal id="timeChangedSignal" /> 
 		<signals:Signal id="btnJoinClickedSignal" />
+		<signals:Signal id="btnViewRecordingClickedSignal" />
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
@@ -16,14 +17,12 @@
 			import mx.events.FlexEvent;
 			
 			import gr.ictpro.mall.client.runtime.Device;
+
 			[Bindable]
 			public var _meetingTypes:ArrayCollection;
-
+			
 			[Bindable]
-			public var approveVisible:Boolean; 
-
-			[Bindable]
-			public var isParent:Boolean = false; 
+			public var isReadOnly:Boolean;
 
 			public function set meetingTypes(meetingTypes:ArrayCollection):void
 			{
@@ -66,6 +65,12 @@
 				
 			}
 			
+			protected function btnViewRecording_clickHandler(event:MouseEvent):void
+			{
+				btnViewRecordingClickedSignal.dispatch();
+				
+			}
+			
 		]]>
 	</fx:Script>
 
@@ -73,29 +78,37 @@
 		<s:FormLayout/>
 	</s:layout>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
-		<s:TextInput id="txtName" width="100%" text="{vo.name}" textAlign="left" enabled="{!isParent}"/>
+		<s:TextInput id="txtName" width="100%" text="{vo.name}" textAlign="left" enabled="{!isReadOnly}"/>
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Created By')}" includeIn="edit">
 		<s:Label id="lblCreatedBy" width="100%" text="{vo.createdBy}" textAlign="left" />
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Meeting Type')}" >
-		<s:PopUpList id="meetingTypePopup" width="100%" dataList="{_meetingTypes}" textAlign="left" initialize="meetingTypePopup_initializeHandler(event)"  enabled="{!isParent}"/>
+		<s:PopUpList id="meetingTypePopup" width="100%" dataList="{_meetingTypes}" textAlign="left" initialize="meetingTypePopup_initializeHandler(event)"  enabled="{!isReadOnly}"/>
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Start at')}" >
-		<s:DateTimePicker width="100%" id="time" date="{vo.time}"  enabled="{!isParent}" /> 
+		<s:DateTimePicker width="100%" id="time" date="{vo.time}"  enabled="{!isReadOnly}" /> 
 	</s:FormItem>
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Now')}" includeIn="new" >
-		<s:CheckBox id="chkNow" click="chkNow_clickHandler(event)" enabled="{!isParent}" /> 
+		<s:CheckBox id="chkNow" click="chkNow_clickHandler(event)" enabled="{!isReadOnly}" /> 
 	</s:FormItem>
-	<s:FormItem width="100%" label="{Device.translations.getTranslation('Approve')}" includeIn="edit" visible="{approveVisible}">
+	<s:FormItem id="frmRecord" width="100%" label="{Device.translations.getTranslation('Record')}" >
+		<s:CheckBox id="chkRecord" selected="@{vo.record}" />
+	</s:FormItem>
+	<s:FormItem id="frmApprove" width="100%" label="{Device.translations.getTranslation('Approve')}"  >
 		<s:CheckBox id="chkApprove" selected="@{vo.approve}" />
 	</s:FormItem>
-	<s:FormItem width="100%" >
-		<s:Label id="lblUserIsApproved" width="100%" text="{vo.currentUserIsApproved?Device.translations.getTranslation('You are approved to join this meeting'):Device.translations.getTranslation('You are not approved to join this meeting')}" textAlign="left" />
+	<s:FormItem id="frmParentCanSeeRecording" width="100%" label="{Device.translations.getTranslation('Parent Can See Recording')}" >
+		<s:CheckBox id="chkParentCanSeeRecording" selected="@{vo.parentCanSeeRecording}" />
 	</s:FormItem>
-
+	<s:FormItem id="frmUserIsApproved" width="100%" >
+		<s:Label id="lblUserIsApproved" width="100%" textAlign="left" />
+	</s:FormItem>
 	<s:FormItem width="100%" >
-		<s:Button id="btnJoinMeeting" label="{Device.translations.getTranslation('Join Meeting')}" click="button1_clickHandler(event)" />
+		<s:Button id="btnJoinMeeting" label="{Device.translations.getTranslation('Join Meeting')}" click="button1_clickHandler(event)"  />
+	</s:FormItem>
+	<s:FormItem width="100%" >
+		<s:Button id="btnViewRecording" label="{Device.translations.getTranslation('View Recording')}" click="btnViewRecording_clickHandler(event)" />
 	</s:FormItem>
 
 </s:VOEditor>

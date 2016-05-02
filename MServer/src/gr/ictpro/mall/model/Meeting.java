@@ -6,6 +6,7 @@ package gr.ictpro.mall.model;
 import gr.ictpro.mall.authentication.AuthenticationMethod;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
+import gr.ictpro.mall.service.GenericService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +47,10 @@ public class Meeting implements java.io.Serializable {
     private String moderatorPassword;
     private String userPassword;
     private Date time;
+    private Date created;
     private boolean approve;
+    private boolean record;
+    private boolean parentsCanSeeRecording;
     private Set<MeetingUser> meetingUsers = new HashSet<MeetingUser>(0);
     private Set<User> pendingUsers = new HashSet<User>(0);
     private String status;
@@ -54,17 +58,18 @@ public class Meeting implements java.io.Serializable {
     public Meeting() {
     }
 
-    public Meeting(MeetingType meetingType, String name, String moderatorPassword, String userPassword, Date time, User createdBy) {
+    public Meeting(MeetingType meetingType, String name, String moderatorPassword, String userPassword, Date time, User createdBy, boolean record, boolean parentsCanSeeRecording) {
 	this.meetingType = meetingType;
 	this.name = name;
 	this.moderatorPassword = moderatorPassword;
 	this.userPassword = userPassword;
 	this.time = time;
 	this.createdBy = createdBy;
+	this.record = record;
     }
 
-    public Meeting(User approvedBy, MeetingType meetingType, String name, String moderatorPassword, String userPassword, Date time,
-	    Set<MeetingUser> meetingUsers, User createdBy) {
+    public Meeting(User approvedBy, MeetingType meetingType, String name, String moderatorPassword, String userPassword, Date time, Date created,
+	    Set<MeetingUser> meetingUsers, User createdBy, boolean record, boolean parentsCanSeeRecording) {
 	this.approvedBy = approvedBy;
 	this.meetingType = meetingType;
 	this.name = name;
@@ -73,6 +78,9 @@ public class Meeting implements java.io.Serializable {
 	this.time = time;
 	this.meetingUsers = meetingUsers;
 	this.createdBy = createdBy;
+	this.record = record;
+	this.created = created;
+	this.parentsCanSeeRecording = parentsCanSeeRecording;
     }
 
     @Id
@@ -147,6 +155,17 @@ public class Meeting implements java.io.Serializable {
 	this.time = time;
     }
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", length = 19)
+    public Date getCreated() {
+	return this.created;
+    }
+
+    public void setCreated(Date created) {
+	this.created = created;
+    }
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "meeting")
     @AmfIgnore
     public Set<MeetingUser> getMeetingUsers() {
@@ -157,7 +176,27 @@ public class Meeting implements java.io.Serializable {
     public void setMeetingUsers(Set<MeetingUser> meetingUsers) {
 	this.meetingUsers = meetingUsers;
     }
-    
+
+    @Column(name = "parents_can_see_recording", nullable = false)
+    public boolean isParentsCanSeeRecording() {
+	return this.parentsCanSeeRecording;
+    }
+
+    public void setParentsCanSeeRecording(boolean parentsCanSeeRecording) {
+	this.parentsCanSeeRecording = parentsCanSeeRecording;
+    }
+
+    @Column(name = "record")
+    public boolean isRecord() {
+	return this.record;
+    }
+
+    public void setRecord(boolean record) {
+	this.record = record;
+    }
+
+
+
     @Transient
     public Set<User> getUsers() {
 	if(this.pendingUsers != null && this.pendingUsers.size()>0) {
@@ -215,13 +254,34 @@ public class Meeting implements java.io.Serializable {
     }
 
     @Transient
+    @AmfIgnore
+    public boolean hasTeacher() {
+	boolean res = false;
+	if (createdBy.hasRole("Teacher")) {
+	    res = true;
+	} else {
+	    for (MeetingUser mu : meetingUsers) {
+		if (mu.getUser().hasRole("Teacher")) {
+		    res = true;
+		    break;
+		}
+	    }
+	}
+	
+	return res;
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Transient
     public boolean isCurrentUserIsApproved() {
-	if(approvedBy != null) {
-	    return true;
-	} 
 	ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();  
+	GenericService<Config, Integer> configService = (GenericService<Config, Integer>) ctx.getBean("configService");
+	Boolean globalAllowUnattended = Boolean.parseBoolean(configService.listByProperty("name", "allow_unattended_meetings").get(0).getValue());
+	
 	UserContext userContext = (UserContext) ctx.getBean("userContext");
 	User currentUser = userContext.getCurrentUser();
+	
+	Boolean approvedByTeacherOrAdmin = approvedBy != null; 
 	
 	boolean meetingHasTeacher = false;
 	boolean userIsApproved = false;
@@ -234,14 +294,17 @@ public class Meeting implements java.io.Serializable {
 		    break;
 		} else if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
 		    userIsApproved = !mu.getUser().isDisallowUnattendedMeetings() && mu.getApprovedBy() != null;
-		    if (userIsApproved) {
-			break;
+		} else if(currentUser.hasRole("Parent")) {
+		    for(User child:currentUser.getChildren()) {
+			if (mu.getUser().getId().intValue() == child.getId().intValue()) {
+			    userIsApproved = !mu.getUser().isDisallowUnattendedMeetings() && mu.getApprovedBy() != null;
+			}
 		    }
 		}
 	    }
 	}
 
-	return meetingHasTeacher || userIsApproved;
+	return meetingHasTeacher || approvedByTeacherOrAdmin || (globalAllowUnattended && userIsApproved);
     }
 
     

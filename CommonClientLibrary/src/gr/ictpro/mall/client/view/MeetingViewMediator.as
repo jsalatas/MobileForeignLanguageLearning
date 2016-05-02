@@ -12,6 +12,7 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.MeetingType;
 	import gr.ictpro.mall.client.model.vo.User;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
@@ -62,66 +63,118 @@ package gr.ictpro.mall.client.view
 		}
 		
 		private function init():void {
+			// Auto approve any meeting that is created by an admin or a teacher 
 			if(view.currentState == "new") {
 				TopBarDetailView(view).editor.vo.approve = UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
 			}
+			
+			
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
-			if (meetingComponent.vo.status != "future") {
-				//TopBarDetailView(view).disableOK();
+			var status:String = meetingComponent.vo.status;
+
+			// restrict what a user can do with an event  
+			if(status == "running" || (status == "completed" && meetingComponent.vo.record)) {
 				TopBarDetailView(view).disableDelete();
+				TopBarDetailView(view).disableOK();
+				meetingComponent.isReadOnly = true; 
+			} else {
+				if(UserModel.isParent(runtimeSettings.user)) {
+					meetingComponent.isReadOnly = true;
+				} else if(view.currentState == "edit") {
+					// TODO: make clearer what is happening here 
+					if(!(UserModel.isAdmin(runtimeSettings.user) || (UserModel.isTeacher(runtimeSettings.user) && (meetingComponent.vo.createdBy.id == runtimeSettings.user.id || UserModel.isStudent(meetingComponent.vo.createdBy))) || (UserModel.isStudent(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id))) {
+						meetingComponent.enabled = false;
+						view.disableOK();
+					}
+				}
 			}
-			if (!UserModel.isAdmin(runtimeSettings.user) && !UserModel.isTeacher(runtimeSettings.user) && meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id != runtimeSettings.user.id) {
-				meetingComponent.enabled = false;
-				view.disableOK();
-				if(UserModel.isTeacher(meetingComponent.vo.createdBy) || UserModel.isParent(runtimeSettings.user)) {
-					view.disableDelete();
+
+			
+			if(UserModel.isStudent(runtimeSettings.user)) {
+				meetingComponent.frmUserIsApproved.includeInLayout = meetingComponent.frmUserIsApproved.visible = true;
+				meetingComponent.lblUserIsApproved.text = meetingComponent.vo.currentUserIsApproved?Device.translations.getTranslation('You are approved to join this meeting'):Device.translations.getTranslation('You are not approved to join this meeting');
+				if(meetingComponent.frmApprove) {
+					meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = false;
+				}
+			} else if(UserModel.isParent(runtimeSettings.user)) {
+				if(UserModel.isTeacher(meetingComponent.vo.createdBy) || (meetingComponent.vo.approvedBy != null)) {
+					meetingComponent.frmUserIsApproved.includeInLayout = meetingComponent.frmUserIsApproved.visible = true;
+					meetingComponent.lblUserIsApproved.text = Device.translations.getTranslation('Meeting is approved by a teacher.');
+					if(status != "running" && status != "completed") {
+						meetingComponent.lblUserIsApproved.text += Device.translations.getTranslation('Please delete it if you don\'t want your child(ren) to join.');
+					}
+					view.disableOK();
+					if(meetingComponent.frmApprove) {
+						meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = false;
+					}
+				} else {
+					meetingComponent.frmUserIsApproved.includeInLayout = meetingComponent.frmUserIsApproved.visible = false;
+					if(meetingComponent.frmApprove) {
+						meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = true;
+					}
+				}
+			} else {
+				meetingComponent.frmUserIsApproved.includeInLayout = meetingComponent.frmUserIsApproved.visible = false;
+				if(meetingComponent.frmApprove) {
+					meetingComponent.frmApprove.includeInLayout = meetingComponent.frmApprove.visible = true;
 				}
 			}
 			
-			if(UserModel.isParent(runtimeSettings.user)) {
-				meetingComponent.isParent = true;
-				if(meetingComponent.vo.approvedBy != null) {
-					meetingComponent.enabled = false;
-				} else {
-					meetingComponent.enabled = true;
-					view.enableOK();
-				}
-			}
-
-			var minimumStart:Date = new Date(meetingComponent.vo.time);
-			// allow a meeting to start 15 minutes earlier
-			minimumStart.minutes -= 15; 
-
-			var maximumStart:Date = new Date(meetingComponent.vo.time);
-			// allow a meeting to start up to 1 hour later
-			maximumStart.hours += 1; 
-
-			var now:Date = new Date();
-			if(meetingComponent.vo.status == "running" || (meetingComponent.vo.createdBy != null && meetingComponent.vo.createdBy.id == runtimeSettings.user.id && now>minimumStart && now<maximumStart)) {
-				if(UserModel.isStudent(runtimeSettings.user)) {
-					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = true;
-					meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = meetingComponent.vo.currentUserIsApproved;
-				} else {
-					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = false;
-					if(!UserModel.isParent(runtimeSettings.user)) {
-						meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = true;
+			// Show or hide join meeting button
+			if(!UserModel.isParent(runtimeSettings.user)) {
+				var minimumStart:Date = new Date(meetingComponent.vo.time);
+				// allow a meeting to start 15 minutes earlier
+				minimumStart.minutes -= 15; 
+				
+				var maximumStart:Date = new Date(meetingComponent.vo.time);
+				// allow a meeting to start up to 1 hour later
+				maximumStart.hours += 1; 
+				
+				var now:Date = new Date();
+				
+				if(now>minimumStart && now<maximumStart) {
+					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = false;
+					meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = (status == "running" || meetingComponent.vo.createdBy.id == runtimeSettings.user.id);
+					meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = false;
+					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = !status == "running";
+						
+				} else if(status == "completed" && meetingComponent.vo.record){
+					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = true;
+					meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = false;
+					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = false;
+					if(UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user)) {
+						meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = true;
 					}
-				}
-				 
-			} else {
-				if(UserModel.isStudent(runtimeSettings.user)) {
-					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = true;
 				} else {
-					meetingComponent.lblUserIsApproved.includeInLayout = meetingComponent.lblUserIsApproved.visible = false;
+					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = false;
+					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
+					meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = false;
+					meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = false;
 				}
-				meetingComponent.btnJoinMeeting.includeInLayout =meetingComponent.btnJoinMeeting.visible = false;
+			} else {
+				meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = false;
+				meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = false;
+				meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = false;
+				meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = false;
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnJoinClickedSignal, joinMeetingHandler);
 			listSignal.dispatch(MeetingType);
-			meetingComponent.approveVisible = showApproveCheckBox();
+			//meetingComponent.approveVisible = showApproveCheckBox();
 		}
 		
 		private function showApproveCheckBox():Boolean
@@ -163,7 +216,6 @@ package gr.ictpro.mall.client.view
 				}
 			} else if(type == "getMeetingURL") {
 				removeSignals();
-				trace(">>>>>> url = " +result);
 				if(result != null) {
 					var bbbMeetingView:BBBMeetingView = new BBBMeetingView();
 					var parameters:ViewParameters = new ViewParameters();
@@ -256,7 +308,16 @@ package gr.ictpro.mall.client.view
 		override protected function validateSave():Boolean {
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
 			var now:Date = new Date();
-			if(meetingComponent.vo.time != null && meetingComponent.vo.time < now) {
+			var minimumStart:Date = new Date(meetingComponent.vo.time);
+			// allow a meeting to start 15 minutes earlier
+			minimumStart.minutes -= 15; 
+			
+			var maximumStart:Date = new Date(meetingComponent.vo.time);
+			// allow a meeting to start up to 1 hour later
+			maximumStart.hours += 1; 
+			
+			//if(now<minimumStart || now<maximumStart) {
+			if(meetingComponent.vo.time != null && meetingComponent.vo.time < now && !(now>minimumStart && now<maximumStart)) {
 				UI.showError("Please Select a Valid Date.");
 				return false; 
 			}

@@ -556,10 +556,10 @@ public class ApiCall {
     //
     // getJoinURLViewer() -- Get the URL to join a meeting as viewer
     //
-    public String getJoinURLViewer(String username, String meetingID) {
+    public String getJoinURLViewer(String username, String meetingID, String viewerPassword) {
 	String base_url_join = BigBlueButtonURL + "api/join?";
 	String join_parameters = "meetingID=" + urlEncode(meetingID)
-		+ "&fullName=" + urlEncode(username) + "&password=ap";
+		+ "&fullName=" + urlEncode(username) + "&password=" +viewerPassword;
 
 	return base_url_join + join_parameters + "&checksum="
 		+ checksum("join" + join_parameters + salt);
