@@ -56,6 +56,7 @@ package gr.ictpro.mall.client.view
 			super.onRegister();
 			MeetingModel(model).addFilter = filterAvailableUsers;
 			if(view.parameters != null && view.parameters.initParams != null && view.parameters.initParams.meeting_id != null) {
+				view.currentState = "edit";
 				getMeeting(view.parameters.initParams.meeting_id);
 			} else{
 				init();
@@ -206,7 +207,6 @@ package gr.ictpro.mall.client.view
 			if(type == "get_meeting") {
 				removeSignals();
 				if(result != null) {
-					view.currentState = "edit";
 					view.parameters.vo = result;
 					view.invalidateChildren();
 					init();
