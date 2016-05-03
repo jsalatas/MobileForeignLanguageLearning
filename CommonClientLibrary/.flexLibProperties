@@ -246,6 +246,8 @@
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.MeetingSettingsViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.MeetingSettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.MicrophoneWarningPopup"/>
+    <classEntry path="gr.ictpro.mall.client.signal.SendShapeSignal"/>
+    <classEntry path="gr.ictpro.mall.client.controller.SendShapeCommand"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

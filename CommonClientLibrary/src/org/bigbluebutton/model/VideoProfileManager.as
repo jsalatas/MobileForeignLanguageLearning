@@ -4,9 +4,14 @@ package org.bigbluebutton.model {
 	import flash.events.EventDispatcher;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	
 	import mx.core.FlexGlobals;
 	import mx.utils.ObjectUtil;
 	import mx.utils.URLUtil;
+	
+	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.utils.ui.UI;
+	
 	import org.bigbluebutton.command.JoinMeetingCommand;
 	import org.bigbluebutton.core.VideoProfile;
 	
@@ -27,6 +32,9 @@ package org.bigbluebutton.model {
 		}
 		
 		public function parseConfigXml(configXML:XML):void {
+			if(configXML == null) {
+				UI.showError(Device.translations.getTranslation("Cannot join meeting. Please try again."));
+			}
 			var resolutionsString:String = configXML.@resolutions;
 			var resolutions:Array = resolutionsString.split(",");
 			for (var resolution in resolutions) {

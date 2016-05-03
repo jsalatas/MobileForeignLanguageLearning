@@ -15,6 +15,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.controller.MenuClickedCommand;
 	import gr.ictpro.mall.client.controller.RegisterCommand;
 	import gr.ictpro.mall.client.controller.SaveCommand;
+	import gr.ictpro.mall.client.controller.SendShapeCommand;
 	import gr.ictpro.mall.client.controller.ServerNotificationClickedCommand;
 	import gr.ictpro.mall.client.controller.ShowAuthenticationCommand;
 	import gr.ictpro.mall.client.model.CalendarModel;
@@ -62,6 +63,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.SaveErrorSignal;
 	import gr.ictpro.mall.client.signal.SaveSignal;
 	import gr.ictpro.mall.client.signal.SaveSuccessSignal;
+	import gr.ictpro.mall.client.signal.SendShapeSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;
 	import gr.ictpro.mall.client.signal.ServerMessageReceivedSignal;
 	import gr.ictpro.mall.client.signal.ServerNotificationClickedSignal;
@@ -211,6 +213,7 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(ListSignal, ListCommand);
 			signalCommandMap.mapSignalClass(GenericCallSignal, GenericServiceCommand);
 			signalCommandMap.mapSignalClass(GetTranslationsSignal, GetTranslationsCommand);
+			signalCommandMap.mapSignalClass(SendShapeSignal, SendShapeCommand);
 
 			Device.settings = injector.getInstance(RuntimeSettings);
 			

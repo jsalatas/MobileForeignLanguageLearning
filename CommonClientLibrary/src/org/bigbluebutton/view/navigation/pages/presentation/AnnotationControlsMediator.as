@@ -5,6 +5,8 @@ package org.bigbluebutton.view.navigation.pages.presentation
 	
 	import spark.components.ToggleButton;
 	
+	import gr.ictpro.mall.client.signal.SendShapeSignal;
+	
 	import org.bigbluebutton.core.PresentationService;
 	import org.bigbluebutton.core.WhiteboardService;
 	import org.bigbluebutton.model.UserSession;
@@ -32,14 +34,17 @@ package org.bigbluebutton.view.navigation.pages.presentation
 
 		[Inject]
 		public var presentationService:PresentationService;
-		
-
+	
 		[Inject]
 		public var userSession:UserSession;
 		
 		[Inject]
 		public var annotationIDGenerator:AnnotationIDGenerator;
+
+		[Inject]
+		public var sendShapeSignal:SendShapeSignal;
 		
+
 		private var isDrawing:Boolean = false;
 		private var isMoving:Boolean = false;
 		
@@ -88,7 +93,8 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				view.viewport.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 				view.viewport.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
 				view.viewport.removeEventListener(MouseEvent.ROLL_OUT, mouseUp);
-				isDrawing = false;	
+				isDrawing = false;
+				view.whiteboard.isDrawing = false;
 			}
 			if(isMoving) {
 				view.viewport.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
@@ -105,14 +111,15 @@ package org.bigbluebutton.view.navigation.pages.presentation
 			}
 			if(isDrawing) {
 				currentAnnotation.status = AnnotationStatus.DRAW_UPDATE;
-				var xPercent:Number = view.slide.mouseX / view.slide.width *100;
-				var yPercent:Number = view.slide.mouseY / view.slide.height *100;
-				
-				currentAnnotation.points.push(xPercent);
-				currentAnnotation.points.push(yPercent);
-				if((currentAnnotation.type == AnnotationType.PENCIL && currentAnnotation.points.length>=1) || currentAnnotation.points.length>=20) {
-					whiteboardService.sendShape(currentAnnotation);
-				}
+//				var xPercent:Number = view.slide.mouseX / view.slide.width *100;
+//				var yPercent:Number = view.slide.mouseY / view.slide.height *100;
+//				
+//				currentAnnotation.points.push(xPercent);
+//				currentAnnotation.points.push(yPercent);
+//				if(currentAnnotation.type == AnnotationType.PENCIL || currentAnnotation.points.length>=20) {
+//					whiteboardService.sendShape(currentAnnotation);
+//				}
+				sendShapeSignal.dispatch(view, currentAnnotation);
 			} else if(isMoving && moveCompleted) {
 				var xoffset:Number = view.slide.x*100/(view.slide.width*2);
 				var yoffset:Number = view.slide.y*100/(view.slide.height*2);
@@ -159,6 +166,8 @@ package org.bigbluebutton.view.navigation.pages.presentation
 			if(view.selectedTool != null && view.selectedTool is IDrawingButton) {
 				var type:String = IDrawingButton(view.selectedTool).tool;
 				isDrawing = true;
+				view.whiteboard.isDrawing = true;
+
 				view.viewport.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);			
 				view.viewport.addEventListener(MouseEvent.MOUSE_UP, mouseUp);			
 				view.viewport.addEventListener(MouseEvent.ROLL_OUT, mouseUp);
@@ -169,7 +178,6 @@ package org.bigbluebutton.view.navigation.pages.presentation
 				points.push(xPercent);
 				points.push(yPercent);
 				currentAnnotation = createAnnotation(type, points);
-				
 				whiteboardService.sendShape(currentAnnotation);
 			} else if(view.selectedTool == view.panZoomButton) {
 				isMoving = true;
@@ -223,12 +231,13 @@ package org.bigbluebutton.view.navigation.pages.presentation
 			}
 			if(isDrawing) {
 				currentAnnotation.status = AnnotationStatus.DRAW_END;
-				var xPercent:Number = view.slide.mouseX / view.slide.width *100;
-				var yPercent:Number = view.slide.mouseY / view.slide.height *100;
-	
-				currentAnnotation.points.push(xPercent);
-				currentAnnotation.points.push(yPercent);
-				whiteboardService.sendShape(currentAnnotation);
+//				var xPercent:Number = view.slide.mouseX / view.slide.width *100;
+//				var yPercent:Number = view.slide.mouseY / view.slide.height *100;
+//	
+//				currentAnnotation.points.push(xPercent);
+//				currentAnnotation.points.push(yPercent);
+//				whiteboardService.sendShape(currentAnnotation);
+				sendShapeSignal.dispatch(view, currentAnnotation);
 			}
 			cancelDrawingTool();
 		}

@@ -11,6 +11,8 @@ package org.bigbluebutton.view.navigation.pages.whiteboard
 	public class WhiteboardCanvas extends Group 
 	{
 		private var _resizeCallback:Function;
+
+		public var isDrawing:Boolean = false;
 		
 		private var _zoom:Number = 1.0;
 		

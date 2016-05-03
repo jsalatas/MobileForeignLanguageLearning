@@ -87,9 +87,9 @@
 				<whiteboard:WhiteboardCanvas id="whiteboardCanvas0" />
 			</s:Group>
 		</s:Group>
-		<s:Group  width="100%" id="presenterContainer" includeIn="presenter" >
+		<s:Group  width="100%" id="presenterContainer" height.viewer="0" height="100%" >
 			<s:layout>
-				<s:VerticalLayout paddingTop="2" paddingBottom="2" paddingLeft="2" paddingRight="2"  />
+				<s:VerticalLayout paddingTop="2" paddingBottom="2" paddingLeft="2" paddingRight="2" paddingTop.viewer="0" paddingBottom.viewer="0" />
 			</s:layout>
 			<presentation:PresenterControls id="presenterControls0" content="{content0}" viewport="{viewport0}" slideLoader="{slide0}" whiteBoard="{whiteboardCanvas0}" slideModel="{slideModel}" width="100%" />
 			<presentation:AnnotationControls id="annotationControls0" slide="{slide0}" whiteboard="{whiteboardCanvas0}" slideModel="{slideModel}" viewport="{viewport0}" width="100%" />

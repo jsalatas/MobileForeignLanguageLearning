@@ -59,6 +59,7 @@ package gr.ictpro.mall.client.view.components.bbb
 			userSession.presentationList.viewedRegionChangeSignal.add(viewedRegionChangeHandler);
 			userSession.presentationList.cursorUpdateSignal.add(cursorUpdateHandler);
 			FlexGlobals.topLevelApplication.stage.addEventListener(Event.RESIZE, stageOrientationChangingHandler);
+			view.presenterContainer.addEventListener(Event.RESIZE, stageOrientationChangingHandler);
 			
 			view.slide.addEventListener(Event.COMPLETE, handleLoadingComplete);
 			view.slideModel.parentChange(view.content.width, view.content.height);
@@ -93,6 +94,9 @@ package gr.ictpro.mall.client.view.components.bbb
 			}
 		}
 		private function mouseMoveHandler(e:MouseEvent):void {
+			if(view.whiteboardCanvas.isDrawing) {
+				return;
+			}
 			var cursorXPosition:Number = view.viewport.mouseX;
 			var cursorYPosition:Number = view.viewport.mouseY;
 			if ( (Math.abs(cursorXPosition - _lastMouseXPosition) < 0.1) 
@@ -241,9 +245,7 @@ package gr.ictpro.mall.client.view.components.bbb
 		override public function onRemove():void {
 			view.slide.removeEventListener(Event.COMPLETE, handleLoadingComplete);
 			FlexGlobals.topLevelApplication.stage.removeEventListener(Event.RESIZE, stageOrientationChangingHandler);
-			if(view.presenterContainer != null) {
-				view.presenterContainer.removeEventListener(Event.RESIZE, stageOrientationChangingHandler);
-			}
+			view.presenterContainer.removeEventListener(Event.RESIZE, stageOrientationChangingHandler);
 
 			userSession.presentationList.presentationChangeSignal.remove(presentationChangeHandler);
 			userSession.presentationList.viewedRegionChangeSignal.remove(viewedRegionChangeHandler);
