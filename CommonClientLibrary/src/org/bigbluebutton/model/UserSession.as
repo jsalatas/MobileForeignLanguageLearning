@@ -280,6 +280,10 @@ package org.bigbluebutton.model {
 			return _pushToTalkSignal;
 		}
 		
+		public function get recoding():Boolean {
+			return _recording;
+		}
+		
 		public function get recordingStatusChangedSignal():ISignal {
 			return _recordingStatusChangedSignal;
 		}

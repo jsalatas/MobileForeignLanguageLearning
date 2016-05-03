@@ -51,6 +51,50 @@ public class MeetingRemoteService {
 	return meetingTypeService.listAll();
     }
 
+    public String getRecordingURL(ASObject meetingObject) {
+	int id = (Integer) meetingObject.get("id");
+	Meeting meeting = meetingService.retrieveById(id);
+
+	String url = null;
+	
+	User currentUser = userContext.getCurrentUser();
+
+	Boolean canSeeRecording =currentUser.hasRole("Admin");
+	
+	if(!canSeeRecording) {
+	    Boolean isParent =currentUser.hasRole("Parent") && meeting.isParentsCanSeeRecording();
+		for (MeetingUser mu : meeting.getMeetingUsers()) {
+		    if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+			if(isParent) {
+			    for(User child : currentUser.getChildren()) {
+				if (mu.getUser().getId().intValue() == child.getId().intValue()) {
+				    canSeeRecording = true;
+				    break;
+				}
+			    }
+			    if(canSeeRecording) {
+				break;
+			    }
+			} else {
+			    if (mu.getUser().getId().intValue() == currentUser.getId().intValue()) {
+				canSeeRecording = true;
+				break;
+			    }
+			}
+		    }
+		}
+	}
+	
+	if(!canSeeRecording) {
+	    return null;
+	}
+	
+	url = bbbApiCall.getRecordings(meeting.getId().toString());
+	
+	return url;
+    }
+    
+    
     public String getMeetingURL(ASObject meetingObject) {
 	int id = (Integer) meetingObject.get("id");
 	Meeting meeting = meetingService.retrieveById(id);
@@ -101,10 +145,10 @@ public class MeetingRemoteService {
 	String status = bbbApiCall.getMeetingStatus(meeting.getId().toString(), meeting.getModeratorPassword());
 	if(status.equals("unknown")) {
 	    Date now = new Date();
-	    if(meeting.getTime().compareTo(now)>=0) {
-		status = "future";
-	    } else if(meeting.getCreated() != null){
+	    if(meeting.getCreated() != null){
 		status = "completed";
+	    } else if(meeting.getTime().compareTo(now)>=0) {
+		status = "future";
 	    } else {
 		status = "notcompleted";
 	    }

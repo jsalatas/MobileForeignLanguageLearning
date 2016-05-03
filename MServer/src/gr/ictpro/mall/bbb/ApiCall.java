@@ -731,8 +731,8 @@ public class ApiCall {
 
     public String getRecordings(String meetingID) {
 	// recordID,name,description,starttime,published,playback,length
-	String newXMLdoc = "<recordings>";
-
+//	String newXMLdoc = "<recordings>";
+	String res = null;
 	try {
 	    Document doc = null;
 	    String url = getRecordingsURL(meetingID);
@@ -746,67 +746,18 @@ public class ApiCall {
 		Element recording = (Element) recordingList.item(i);
 
 		if (recording.getElementsByTagName("recordID").getLength() > 0) {
-
-		    String recordID = recording.getElementsByTagName("recordID").item(0).getTextContent();
-		    String name = recording.getElementsByTagName("name").item(0).getTextContent();
-		    String description = "";
-		    NodeList metadata = recording.getElementsByTagName("metadata");
-		    if (metadata.getLength() > 0) {
-			Element metadataElem = (Element) metadata.item(0);
-			if (metadataElem.getElementsByTagName("description").getLength() > 0) {
-			    description = metadataElem.getElementsByTagName("description").item(0).getTextContent();
-			}
-		    }
-
-		    String starttime = recording.getElementsByTagName("startTime").item(0).getTextContent();
-		    try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-			Date resultdate = new Date(Long.parseLong(starttime));
-			starttime = sdf.format(resultdate);
-		    } catch (Exception e) {
-
-		    }
-		    String published = recording.getElementsByTagName("published").item(0).getTextContent();
-		    String playback = "";
-		    String length = "";
 		    NodeList formats = recording.getElementsByTagName("format");
 		    for (int j = 0; j < formats.getLength(); j++) {
 			Element format = (Element) formats.item(j);
-
-			String typeP = format.getElementsByTagName("type").item(0).getTextContent();
-			String urlP = format.getElementsByTagName("url").item(0).getTextContent();
-			String lengthP = format.getElementsByTagName("length").item(0).getTextContent();
-
-			if (j != 0) {
-			    playback += ", ";
-			}
-			playback += StringEscapeUtils.escapeXml("<a href='" + urlP + "' target='_blank'>" + typeP
-				+ "</a>");
-
-			if (typeP.equalsIgnoreCase("slides") || typeP.equalsIgnoreCase("presentation")) {
-			    length = lengthP;
-			}
+			res = format.getElementsByTagName("url").item(0).getTextContent();
 		    }
-
-		    newXMLdoc += "<recording>";
-
-		    newXMLdoc += "<recordID>" + recordID + "</recordID>";
-		    newXMLdoc += "<name><![CDATA[" + name + "]]></name>";
-		    newXMLdoc += "<description><![CDATA[" + description + "]]></description>";
-		    newXMLdoc += "<startTime>" + starttime + "</startTime>";
-		    newXMLdoc += "<published>" + published + "</published>";
-		    newXMLdoc += "<playback>" + playback + "</playback>";
-		    newXMLdoc += "<length>" + length + "</length>";
-
-		    newXMLdoc += "</recording>";
 		}
 	    }
 	} catch (Exception e) {
 	    e.printStackTrace(System.out);
 	    return "error: " + e.getMessage();
 	}
-	newXMLdoc += "</recordings>";
-	return newXMLdoc;
+	return res;
     }
 
     public String getPublishRecordingsURL(boolean publish, String recordID) {

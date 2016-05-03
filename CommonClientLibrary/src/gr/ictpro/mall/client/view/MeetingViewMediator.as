@@ -1,5 +1,8 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	
@@ -133,7 +136,7 @@ package gr.ictpro.mall.client.view
 				
 				var now:Date = new Date();
 				
-				if((now>minimumStart && now<maximumStart) || status == "running" ) {
+				if((now>minimumStart && now<maximumStart && !(status == "completed" && meetingComponent.vo.record)) || status == "running" ) {
 					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = false;
 					meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = (status == "running" || meetingComponent.vo.createdBy.id == runtimeSettings.user.id);
 					meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = false;
@@ -174,6 +177,7 @@ package gr.ictpro.mall.client.view
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnJoinClickedSignal, joinMeetingHandler);
+			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnViewRecordingClickedSignal, viewRecordingHandler);
 			listSignal.dispatch(MeetingType);
 			//meetingComponent.approveVisible = showApproveCheckBox();
 		}
@@ -227,8 +231,16 @@ package gr.ictpro.mall.client.view
 					UI.showError("Cannot join Meeting.");
 				}
 				
+			} else if(type == "getRecordingURL") {
+				removeSignals();
+				if(result != null) {
+					navigateToURL(new URLRequest(String(result)));
+				} else {
+					UI.showError("Cannot get Recording.");
+				}
 			}
 		}
+			
 		
 		private function error(type:String, event:FaultEvent):void
 		{
@@ -239,6 +251,9 @@ package gr.ictpro.mall.client.view
 			} else if(type == "getMeetingURL") {
 				removeSignals();
 				UI.showError("Cannot join Meeting.");
+			} else if(type == "getRecordingURL") {
+				removeSignals();
+				UI.showError("Cannot get Recording.");
 			}
 		}
 
@@ -285,9 +300,22 @@ package gr.ictpro.mall.client.view
 			genericCallSuccess.add(success);
 			genericCallError.add(error);
 			genericCall.dispatch(args);
-
 		}
-		
+
+		private function viewRecordingHandler():void
+		{
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.id = TopBarDetailView(view).editor.vo.id;
+			args.destination = "meetingRemoteService";
+			args.method = "getRecordingURL";
+			args.type = "getRecordingURL";
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
+			
+		}
+
 		public function removeUnavailableUsers():void {
 			var currentUsers:ArrayCollection = TopBarDetailView(view).getDetail("users").list;
 			var toRemove:ArrayCollection = new ArrayCollection();

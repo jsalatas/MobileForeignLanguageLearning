@@ -11,11 +11,15 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
 	
 	import org.bigbluebutton.command.JoinMeetingSignal;
+	import org.bigbluebutton.core.UsersService;
 
 	public class BBBMeetingViewMediator extends TopBarCollaborationViewMediator
 	{
 		[Inject]
 		public var joinMeetingSignal:JoinMeetingSignal;
+		
+		[Inject]
+		public var usersService:UsersService;
 		
 		protected var currentModule:Group;
 		
@@ -24,23 +28,15 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			
-			trace("joining meeting: " + view.parameters.vo.id);
-			showView(new (MeetingSettingsView));
-			//test();
+			if(view.parameters.vo.record) {
+				
+			}
 			joinMeetingSignal.dispatch(view.parameters.vo.url);
-		}
-		
-		private function test():void {
-			//var url:String = "http://192.168.0.20/bigbluebutton/api/join?meetingID=Demo+Meeting&fullName=test&password=mp&checksum=1f3a9cc3530a12f9e9cc83f9dde5e56a6dcb79e2";
-			var url:String = "https://ns528669.ip-158-69-243.net/bigbluebutton/api/join?meetingID=Demo+Meeting&fullName=Test&password=mp&checksum=13670b557bb3ae8b5309a6d0a58ea9d116d66be7"; 
-			joinMeetingSignal.dispatch(url);
 		}
 		
 		private function showView(currentModule:Group):void
 		{
 			BBBMeetingView(view).container.removeAllElements();
-//			currentModule.percentWidth=100;
-//			currentModule.percentHeight=100;
 			BBBMeetingView(view).container.addElement(currentModule);
 			this.currentModule = currentModule;
 			

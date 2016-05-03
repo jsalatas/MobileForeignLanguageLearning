@@ -192,6 +192,10 @@ package org.bigbluebutton.command {
 			usersService.queryForRecordingStatus();
 			userSession.successJoiningMeetingSignal.remove(successJoiningMeeting);
 			userSession.unsuccessJoiningMeetingSignal.remove(unsuccessJoiningMeeting);
+			if(usersService.conferenceParameters.record == true && !userSession.recoding) {
+				usersService.changeRecordingStatus(userSession.userId, true); 
+			}
+			
 			//usersService.getRoomLockState();*/
 		}
 		
