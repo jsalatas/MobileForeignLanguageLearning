@@ -155,7 +155,7 @@ package gr.ictpro.mall.client.view.components.bbb
 
 		private function muteAllExPresenterHandler():void
 		{
-			usersService.muteAllUsersExceptPresenter(!allMuted);
+			usersService.muteAllUsersExceptPresenter(true);
 		}
 
 		private function lowerHandsHandler():void
