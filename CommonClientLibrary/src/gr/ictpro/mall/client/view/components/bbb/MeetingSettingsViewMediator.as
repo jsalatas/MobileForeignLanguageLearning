@@ -10,7 +10,10 @@ package gr.ictpro.mall.client.view.components.bbb
 	
 	import gr.ictpro.mall.client.components.TopBarCollaborationView;
 	import gr.ictpro.mall.client.model.ClientSettingsModel;
+	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.runtime.Device;
+	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.signal.SaveSignal;
 	import gr.ictpro.mall.client.view.BBBMeetingView;
 	
 	import org.bigbluebutton.command.ShareMicrophoneSignal;
@@ -32,6 +35,9 @@ package gr.ictpro.mall.client.view.components.bbb
 
 		[Inject]
 		public var clientSettingsModel:ClientSettingsModel;
+
+		[Inject]
+		public var saveSignal:SaveSignal;
 		
 		private var micActivityTimer:Timer = null;
 
@@ -50,8 +56,8 @@ package gr.ictpro.mall.client.view.components.bbb
 			view.enableMic.addEventListener(Event.CHANGE, onEnableMicClick);
 			view.gainSlider.addEventListener(Event.CHANGE, gainChange);
 
-			view.enableAudio.selected = clientSettingsModel.getItemById("enable_audio") != null? Boolean(clientSettingsModel.getItemById("enable_audio").value):true; 
-			view.enableMic.selected = clientSettingsModel.getItemById("enable_mic") != null? Boolean(clientSettingsModel.getItemById("enable_mic").value):false;
+			view.enableAudio.selected = clientSettingsModel.getItemById("enable_audio") != null? clientSettingsModel.getItemById("enable_audio").value.toLowerCase() == "true":true; 
+			view.enableMic.selected = clientSettingsModel.getItemById("enable_mic") != null? clientSettingsModel.getItemById("enable_mic").value.toLowerCase() == "true":false;
 			view.gainSlider.value = clientSettingsModel.getItemById("mic_gain") != null? Number(clientSettingsModel.getItemById("mic_gain").value) / 10:5;
 			
 			micActivityTimer = new Timer(100);
@@ -73,16 +79,16 @@ package gr.ictpro.mall.client.view.components.bbb
 			}
 		}
 
-		private function gainChange(e:Event) {
+		private function gainChange(e:Event):void {
 			var gain:Number = e.target.value * 10;
 			setMicGain(gain);
-			var obj:Object = new Object();
-			obj.name = "mic_gain";
-			obj.value = gain;
-			clientSettingsModel.saveObject(obj);
+			var setting:ClientSetting = new ClientSetting();
+			setting.name = "mic_gain";
+			setting.value = String(gain);
+			saveSignal.dispatch(setting);
 		}
 
-		private function setMicGain(gain:Number) {
+		private function setMicGain(gain:Number):void {
 			if (userSession.voiceStreamManager) {
 				userSession.voiceStreamManager.setDefaultMicGain(gain);
 				if (userSession.voiceStreamManager.mic) {
@@ -100,10 +106,12 @@ package gr.ictpro.mall.client.view.components.bbb
 			audioOptions.shareMic = userSession.userList.me.voiceJoined = view.enableMic.selected && view.enableAudio.selected;
 			audioOptions.listenOnly = userSession.userList.me.listenOnly = !view.enableMic.selected && view.enableAudio.selected;
 			shareMicrophoneSignal.dispatch(audioOptions);
-			var obj:Object = new Object();
-			obj.name = "enable_audio";
-			obj.value = view.enableAudio.selected;
-			clientSettingsModel.saveObject(obj);
+			
+			var setting:ClientSetting = new ClientSetting();
+			setting.name = "enable_audio";
+			setting.value = String(view.enableAudio.selected);
+			saveSignal.dispatch(setting);
+
 		}
 		
 		private function microphoneWarningCloseHandler(e:PopUpEvent):void
@@ -132,10 +140,11 @@ package gr.ictpro.mall.client.view.components.bbb
 			audioOptions.shareMic = userSession.userList.me.voiceJoined = view.enableMic.selected && view.enableAudio.selected;
 			audioOptions.listenOnly = userSession.userList.me.listenOnly = !view.enableMic.selected && view.enableAudio.selected;
 			shareMicrophoneSignal.dispatch(audioOptions);
-			var obj:Object = new Object();
-			obj.name = "enable_mic";
-			obj.value = view.enableMic.selected;
-			clientSettingsModel.saveObject(obj);
+			
+			var setting:ClientSetting = new ClientSetting();
+			setting.name = "enable_mic";
+			setting.value = String(view.enableMic.selected);
+			saveSignal.dispatch(setting);
 		}
 		
 		private function micActivity(e:TimerEvent):void {

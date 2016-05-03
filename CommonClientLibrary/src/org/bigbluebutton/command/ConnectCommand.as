@@ -171,10 +171,10 @@ package org.bigbluebutton.command {
 				
 				var mic:Microphone = Microphone.getEnhancedMicrophone(); 
 				if(mic != null) {
-					enableMic = clientSettingsModel.getItemById("enable_mic") != null? Boolean(clientSettingsModel.getItemById("enable_mic").value):false;
+					enableMic = clientSettingsModel.getItemById("enable_mic") != null? clientSettingsModel.getItemById("enable_mic").value.toLowerCase() == "true":false;
 				}
 
-				var enableAudio:Boolean = clientSettingsModel.getItemById("enable_audio") != null? Boolean(clientSettingsModel.getItemById("enable_audio").value):true;
+				var enableAudio:Boolean = clientSettingsModel.getItemById("enable_audio") != null? clientSettingsModel.getItemById("enable_audio").value.toLowerCase() == "true":true;
 				audioOptions.shareMic = userSession.userList.me.voiceJoined = enableMic;
 				audioOptions.listenOnly = userSession.userList.me.listenOnly = enableAudio && !enableMic;
 				shareMicrophoneSignal.dispatch(audioOptions);
@@ -269,7 +269,7 @@ package org.bigbluebutton.command {
 		
 		private function successVideoConnected():void {
 			trace(LOG + "successVideoConnected()");
-			var enableCamera:Boolean = clientSettingsModel.getItemById("enable_camera") != null? Boolean(clientSettingsModel.getItemById("enable_camera").value):false;
+			var enableCamera:Boolean = clientSettingsModel.getItemById("enable_camera") != null? clientSettingsModel.getItemById("enable_camera").value.toLowerCase()=="true":false;
 //			if (userSession.videoAutoStart && userSession.skipCamSettingsCheck) {
 			if (enableCamera) {
 				var orientation:String = FlexGlobals.topLevelApplication.stage.orientation;
