@@ -11,9 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -26,10 +24,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import gr.ictpro.mall.model.Config;
 import gr.ictpro.mall.service.GenericService;
-import gr.ictpro.mall.service.GenericServiceImpl;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -58,8 +54,6 @@ public class ApiCall {
 	    BigBlueButtonURL = configService.listByProperty("name", "bigbluebutton.url").get(0).getValue();
 	    BigBlueButtonURL = BigBlueButtonURL + (BigBlueButtonURL.endsWith("/")?"bigbluebutton/":"/bigbluebutton/");
 	    salt = configService.listByProperty("name", "bigbluebutton.secret").get(0).getValue();
-	    
-	    //System.err.println(createMeeting("lobby", "welcome to lobby", "mp", "welcome to lobby moderator", "vp", null, null));
 	}
     }
 
@@ -67,7 +61,6 @@ public class ApiCall {
 	String base_url_create = BigBlueButtonURL + "api/create?";
 
 	String welcome_param = "";
-	String checksum = "";
 
 	String attendee_password_param = "&attendeePW=vp";
 	String moderator_password_param = "&moderatorPW=mp";
@@ -481,7 +474,6 @@ public class ApiCall {
 	SortedSet<String> keys = new TreeSet<String>(params.keySet());
 
 	boolean first = true;
-	String checksum = null;
 	for (String key : keys) {
 	    for (String value : params.get(key)) {
 		if (first) {
@@ -651,12 +643,6 @@ public class ApiCall {
 	try {
 	    Document doc = parseXml(getURL(getMeetingsURL()));
 
-	    // tags needed for parsing xml documents
-	    final String startTag = "<meetings>";
-	    final String endTag = "</meetings>";
-	    final String startResponse = "<response>";
-	    final String endResponse = "</response>";
-
 	    // if the request succeeded, then calculate the checksum of each
 	    // meeting and insert it into the document
 	    NodeList meetingsList = doc.getElementsByTagName("meeting");
@@ -813,10 +799,11 @@ public class ApiCall {
     //
     // checksum() -- Return a checksum based on SHA-1 digest
     //
+    @SuppressWarnings("deprecation")
     public static String checksum(String s) {
 	String checksum = "";
 	try {
-	    checksum = org.apache.commons.codec.digest.DigestUtils.shaHex(s);
+	    checksum = DigestUtils.shaHex(s);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
@@ -876,7 +863,6 @@ public class ApiCall {
     {
 	URL url;
 	HttpURLConnection connection = null;
-	int responseCode = 0;
 	try {
 	    // Create connection
 	    url = new URL(targetURL);

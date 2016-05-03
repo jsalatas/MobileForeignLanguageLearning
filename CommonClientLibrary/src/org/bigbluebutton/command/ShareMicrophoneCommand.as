@@ -1,18 +1,11 @@
 package org.bigbluebutton.command {
 	
-	import flash.utils.setTimeout;
-	
-	import mx.utils.ObjectUtil;
-	
 	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	
-	import org.bigbluebutton.core.BigBlueButtonConnection;
-	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.core.VoiceConnection;
 	import org.bigbluebutton.core.VoiceStreamManager;
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.robotlegs.mvcs.SignalCommand;
 	
 	public class ShareMicrophoneCommand extends SignalCommand {
@@ -78,11 +71,11 @@ package org.bigbluebutton.command {
 			}
 		}
 		
-		private function mediaSuccessConnected(publishName:String, playName:String, codec:String, manager = null):void {
+		private function mediaSuccessConnected(publishName:String, playName:String, codec:String, manager:VoiceStreamManager = null):void {
 			trace(LOG + "mediaSuccessConnected()");
 			if (!manager) {
 				var manager:VoiceStreamManager = new VoiceStreamManager();
-				var savedGain = clientSettingsModel.getItemById("mic_gain") != null?int(clientSettingsModel.getItemById("mic_gain").value):5;
+				var savedGain:Number = clientSettingsModel.getItemById("mic_gain") != null?int(clientSettingsModel.getItemById("mic_gain").value):5;
 				if (savedGain) {
 					manager.setDefaultMicGain(savedGain);
 				}

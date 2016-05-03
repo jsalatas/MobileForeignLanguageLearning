@@ -22,6 +22,11 @@ import javax.persistence.Table;
 @ClientReferenceClass(className= {"gr.ictpro.mall.client.model.vo.Meeting", "gr.ictpro.mall.client.model.vo.Notification"})
 public class MeetingUser implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7134842919800281365L;
+    
     private MeetingUserId id;
     private Meeting meeting;
     private User user;

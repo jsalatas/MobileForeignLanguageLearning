@@ -1,17 +1,11 @@
 package org.bigbluebutton.model {
 	
-	import flash.net.NetConnection;
-	
-	import mx.collections.ArrayCollection;
-	import mx.collections.ArrayList;
-	
 	import org.bigbluebutton.core.BigBlueButtonConnection;
 	import org.bigbluebutton.core.DeskshareConnection;
 	import org.bigbluebutton.core.VideoConnection;
 	import org.bigbluebutton.core.VideoProfile;
 	import org.bigbluebutton.core.VoiceConnection;
 	import org.bigbluebutton.core.VoiceStreamManager;
-	import org.bigbluebutton.model.chat.ChatMessages;
 	import org.bigbluebutton.model.presentation.PresentationList;
 	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;

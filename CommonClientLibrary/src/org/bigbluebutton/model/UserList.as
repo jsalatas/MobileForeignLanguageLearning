@@ -477,7 +477,7 @@ package org.bigbluebutton.model {
 			}
 		}
 		
-		public function removeAllUsers() {
+		public function removeAllUsers():void {
 			_users = new ArrayCollection();
 		}
 	}

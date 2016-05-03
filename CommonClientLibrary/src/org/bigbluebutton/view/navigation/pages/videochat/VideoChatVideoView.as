@@ -1,21 +1,11 @@
 package org.bigbluebutton.view.navigation.pages.videochat {
 	
 	import flash.display.DisplayObjectContainer;
-	import flash.display.GradientType;
-	import flash.display.Graphics;
-	import flash.display.InterpolationMethod;
 	import flash.display.Loader;
 	import flash.display.Shape;
-	import flash.display.SpreadMethod;
-	import flash.events.Event;
-	import flash.geom.Matrix;
 	import flash.media.Video;
-	import flash.net.URLRequest;
 	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
 	
-	import mx.core.FlexGlobals;
 	import mx.utils.ObjectUtil;
 	
 	import org.bigbluebutton.view.navigation.pages.common.VideoView;

@@ -12,9 +12,7 @@ package gr.ictpro.mall.client.view.components.bbb
 	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.runtime.Device;
-	import gr.ictpro.mall.client.runtime.RuntimeSettings;
 	import gr.ictpro.mall.client.signal.SaveSignal;
-	import gr.ictpro.mall.client.view.BBBMeetingView;
 	
 	import org.bigbluebutton.command.ShareMicrophoneSignal;
 	import org.bigbluebutton.model.User;

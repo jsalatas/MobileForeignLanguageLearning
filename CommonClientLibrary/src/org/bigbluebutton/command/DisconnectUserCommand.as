@@ -1,8 +1,6 @@
 package org.bigbluebutton.command {
 	
 	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
-	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.robotlegs.mvcs.SignalCommand;
 	
 	
@@ -14,15 +12,11 @@ package org.bigbluebutton.command {
 		[Inject]
 		public var userSession:UserSession;
 		
-		[Inject]
-		public var userUISession:UserUISession;
-		
 		public function DisconnectUserCommand() {
 			super();
 		}
 		
 		override public function execute():void {
-			userUISession.pushPage(PagesENUM.DISCONNECT, disconnectionStatusCode);
 			if (userSession.mainConnection)
 				userSession.mainConnection.disconnect(true);
 			if (userSession.videoConnection)

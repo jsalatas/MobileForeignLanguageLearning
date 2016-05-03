@@ -16,7 +16,6 @@ package gr.ictpro.mall.client.view.components.bbb
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.robotlegs.mvcs.SignalMediator;
 	
 	public class ParticipantsViewMediator extends SignalMediator
@@ -26,9 +25,6 @@ package gr.ictpro.mall.client.view.components.bbb
 		
 		[Inject]
 		public var userSession:UserSession
-		
-		[Inject]
-		public var userUISession:UserUISession
 		
 		[Inject]
 		public var usersService:UsersService;

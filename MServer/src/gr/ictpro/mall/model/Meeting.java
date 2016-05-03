@@ -3,15 +3,12 @@ package gr.ictpro.mall.model;
 // Generated Mar 10, 2016 8:58:08 PM by Hibernate Tools 4.0.0
 
 
-import gr.ictpro.mall.authentication.AuthenticationMethod;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
 import gr.ictpro.mall.service.GenericService;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +35,10 @@ import org.springframework.web.context.ContextLoader;
 @Table(name = "meeting")
 @ClientReferenceClass(className= {"gr.ictpro.mall.client.model.vo.Meeting", "gr.ictpro.mall.client.model.vo.Notification"})
 public class Meeting implements java.io.Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3711301404743699890L;
 
     private Integer id;
     private User approvedBy;

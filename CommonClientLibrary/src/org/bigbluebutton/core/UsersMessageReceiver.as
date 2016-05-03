@@ -2,7 +2,6 @@ package org.bigbluebutton.core {
 	
 	import mx.utils.ObjectUtil;
 	
-	import org.bigbluebutton.command.AuthenticationSignal;
 	import org.bigbluebutton.command.DisconnectUserSignal;
 	import org.bigbluebutton.model.IMessageListener;
 	import org.bigbluebutton.model.User;
@@ -13,8 +12,6 @@ package org.bigbluebutton.core {
 		private const LOG:String = "UsersMessageReceiver::";
 		
 		public var userSession:UserSession;
-		
-		public var authenticationSignal:AuthenticationSignal;
 		
 		public var disconnectUserSignal:DisconnectUserSignal;
 		
@@ -417,10 +414,10 @@ package org.bigbluebutton.core {
 			var msg:Object = JSON.parse(m.msg);
 			userSession.recordingStatusChanged(msg.recording);
 		}
-		
+
 		private function handleValidateAuthTokenTimedOut(msg:Object):void {
 			trace(LOG + "handleValidateAuthTokenTimedOut() " + msg.msg);
-			authenticationSignal.dispatch("timedOut");
+//			authenticationSignal.dispatch("timedOut");
 		}
 		
 		private function handleValidateAuthTokenReply(msg:Object):void {
@@ -430,7 +427,7 @@ package org.bigbluebutton.core {
 			var userId:String = map.userId as String;
 			trace(LOG + "handleValidateAuthTokenReply() valid=" + tokenValid);
 			if (!tokenValid) {
-				authenticationSignal.dispatch("invalid");
+//				authenticationSignal.dispatch("invalid");
 			} else {
 				// why 2 different signals for authentication??  
 				//userUISession.loading = false; in authentication command can break order of functions

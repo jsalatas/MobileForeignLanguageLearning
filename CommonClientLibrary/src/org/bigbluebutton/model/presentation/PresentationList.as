@@ -98,7 +98,7 @@ package org.bigbluebutton.model.presentation {
 		}
 		
 		public function addAnnotationHistory(whiteboardID:String, annotationArray:Array):void {
-			var whiteboardIDParts = whiteboardID.split("/");
+			var whiteboardIDParts:Array = whiteboardID.split("/");
 			var presentationID:String = whiteboardIDParts[0];
 			var pageNumber:int = parseInt(whiteboardIDParts[1]) - 1;
 			var presentation:Presentation = getPresentationByID(presentationID);

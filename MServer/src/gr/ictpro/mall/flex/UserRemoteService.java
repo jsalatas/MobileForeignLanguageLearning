@@ -36,9 +36,6 @@ public class UserRemoteService {
     protected GenericService<Profile, Integer> profileService;
     
     @Autowired(required = true)
-    private GenericService<Classroomgroup, Integer> classroomgroupService;
-
-    @Autowired(required = true)
     protected PasswordEncoder passwordEncoder;
 
     @Autowired(required = true)

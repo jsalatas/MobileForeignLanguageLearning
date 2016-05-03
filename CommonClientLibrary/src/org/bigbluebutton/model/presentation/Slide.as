@@ -1,13 +1,8 @@
 package org.bigbluebutton.model.presentation {
 	
-	import flash.events.Event;
-	import flash.net.URLLoader;
-	import flash.net.URLLoaderDataFormat;
-	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	
 	import mx.controls.SWFLoader;
-	import mx.utils.ObjectUtil;
 	
 	import org.bigbluebutton.model.whiteboard.Annotation;
 	import org.osflash.signals.ISignal;

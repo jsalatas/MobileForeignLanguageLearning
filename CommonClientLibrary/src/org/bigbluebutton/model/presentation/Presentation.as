@@ -1,12 +1,5 @@
 package org.bigbluebutton.model.presentation {
 	
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
-	
-	import mx.collections.ArrayCollection;
-	
 	import org.bigbluebutton.model.whiteboard.Annotation;
 	import org.bigbluebutton.model.whiteboard.AnnotationStatus;
 	import org.osflash.signals.ISignal;

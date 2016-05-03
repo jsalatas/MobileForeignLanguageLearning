@@ -22,6 +22,12 @@ import org.springframework.flex.core.io.AmfIgnore;
 @Table(name = "meeting_type")
 public class MeetingType implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6558473632622249302L;
+    
+    
     private Integer id;
     private String name;
     private String clientClass;

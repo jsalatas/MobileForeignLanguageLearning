@@ -18,7 +18,9 @@ package gr.ictpro.mall.client.model
 		private var _detailMapper:ArrayCollection = new ArrayCollection();
 		
 		private var _list:ArrayCollection = new ArrayCollection();
-		
+
+		public var forceRefresh:Boolean = false;
+
 		public function AbstractModel(voClass:Class, viewClass:Class, editorClass:Class) 
 		{
 			this._voClass = voClass;

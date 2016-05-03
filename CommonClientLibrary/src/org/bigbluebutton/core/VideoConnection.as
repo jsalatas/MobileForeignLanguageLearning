@@ -4,14 +4,10 @@ package org.bigbluebutton.core {
 	import flash.events.IOErrorEvent;
 	import flash.events.NetStatusEvent;
 	import flash.media.Camera;
-	import flash.media.CameraPosition;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
 	
-	import mx.core.FlexGlobals;
-	
 	import gr.ictpro.mall.client.model.ClientSettingsModel;
-	import gr.ictpro.mall.client.runtime.Device;
 	
 	import org.bigbluebutton.command.ShareCameraSignal;
 	import org.bigbluebutton.model.ConferenceParameters;

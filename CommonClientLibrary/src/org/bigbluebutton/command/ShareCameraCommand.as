@@ -1,10 +1,6 @@
 package org.bigbluebutton.command {
 	
-	import flash.display.Stage;
-	import flash.events.StageOrientationEvent;
 	import flash.media.Camera;
-	
-	import mx.core.FlexGlobals;
 	
 	import org.bigbluebutton.core.UsersService;
 	import org.bigbluebutton.core.VideoProfile;

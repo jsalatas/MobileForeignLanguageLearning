@@ -19,8 +19,6 @@ package org.bigbluebutton.command {
 	import org.bigbluebutton.core.WhiteboardService;
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
-	import org.bigbluebutton.view.navigation.pages.PagesENUM;
 	import org.bigbluebutton.view.navigation.pages.disconnect.enum.DisconnectEnum;
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -29,9 +27,6 @@ package org.bigbluebutton.command {
 		
 		[Inject]
 		public var userSession:UserSession;
-		
-		[Inject]
-		public var userUISession:UserUISession;
 		
 		[Inject]
 		public var conferenceParameters:ConferenceParameters;
@@ -120,7 +115,6 @@ package org.bigbluebutton.command {
 		}
 		
 		private function onGuestDenied():void {
-			userUISession.loading = false;
 			disconnectUserSignal.dispatch(DisconnectEnum.CONNECTION_STATUS_MODERATOR_DENIED);
 		}
 		
@@ -130,8 +124,6 @@ package org.bigbluebutton.command {
 			} else if (policy == UserSession.GUEST_POLICY_ALWAYS_DENY) {
 				onGuestDenied();
 			} else if (policy == UserSession.GUEST_POLICY_ASK_MODERATOR) {
-				userUISession.pushPage(PagesENUM.GUEST);
-				userUISession.loading = false;
 				userSession.guestEntranceSignal.add(onGuestEntranceResponse);
 			}
 		}
@@ -228,21 +220,15 @@ package org.bigbluebutton.command {
 		
 		private function successUsersAdded():void {
 			// remove guest page (if it is there)
-			userUISession.popPage();
 			if (FlexGlobals.topLevelApplication.hasOwnProperty("topActionBar") && FlexGlobals.topLevelApplication.hasOwnProperty("bottomMenu")) {
 				FlexGlobals.topLevelApplication.topActionBar.visible = true;
 				FlexGlobals.topLevelApplication.bottomMenu.visible = true;
 				FlexGlobals.topLevelApplication.bottomMenu.includeInLayout = true;
 			}
-			userUISession.loading = false;
-			userUISession.pushPage(PagesENUM.VIDEO_CHAT);
 			if (conferenceParameters.serverIsMconf && !userSession.lockSettings.loaded) {
 				userSession.lockSettings.disableMicSignal.add(displayAudioSettings);
 			} else {
 				displayAudioSettings();
-			}
-			if (userSession.videoAutoStart && !userSession.skipCamSettingsCheck) {
-				userUISession.pushPage(PagesENUM.CAMERASETTINGS);
 			}
 			userSession.userList.allUsersAddedSignal.remove(successUsersAdded);
 		}
@@ -250,7 +236,6 @@ package org.bigbluebutton.command {
 		private function displayAudioSettings(micLocked:Boolean = false):void {
 			userSession.lockSettings.disableMicSignal.remove(displayAudioSettings);
 			if (userSession.phoneAutoJoin && !userSession.phoneSkipCheck && (userSession.userList.me.isModerator() || !userSession.lockSettings.disableMic)) {
-				userUISession.pushPage(PagesENUM.AUDIOSETTINGS);
 			} else {
 				userSession.phoneAutoJoin = false;
 			}
@@ -265,8 +250,6 @@ package org.bigbluebutton.command {
 		
 		private function unsuccessConnected(reason:String):void {
 			trace(LOG + "unsuccessConnected()");
-			userUISession.loading = false;
-			userUISession.unsuccessJoined.dispatch("connectionFailed");
 			connection.successConnected.remove(successConnected);
 			connection.unsuccessConnected.remove(unsuccessConnected);
 		}

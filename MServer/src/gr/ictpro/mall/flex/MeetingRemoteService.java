@@ -5,7 +5,6 @@ import gr.ictpro.mall.bbb.ApiCall;
 import gr.ictpro.mall.context.UserContext;
 import gr.ictpro.mall.model.Classroom;
 import gr.ictpro.mall.model.Config;
-import gr.ictpro.mall.model.Language;
 import gr.ictpro.mall.model.Meeting;
 import gr.ictpro.mall.model.MeetingType;
 import gr.ictpro.mall.model.MeetingUser;
@@ -115,7 +114,7 @@ public class MeetingRemoteService {
 	    String status =bbbApiCall.getMeetingStatus(meeting.getId().toString(), meeting.getModeratorPassword()); 
 	    if(!status.equals("running")) {
 		// create it 
-		bbbApiCall.createMeeting(meeting.getId().toString(), meeting.getName(), record, "", meeting.getModeratorPassword(), "", meeting.getUserPassword(), null, null);
+		bbbApiCall.createMeeting(meeting.getId().toString(), meeting.getName(), record, " ", meeting.getModeratorPassword(), " ", meeting.getUserPassword(), null, null);
 		meeting.setCreated(new Date());
 		meetingService.update(meeting);
 	    }

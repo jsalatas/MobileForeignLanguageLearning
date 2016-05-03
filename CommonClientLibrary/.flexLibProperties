@@ -248,6 +248,9 @@
     <classEntry path="gr.ictpro.mall.client.view.components.bbb.MicrophoneWarningPopup"/>
     <classEntry path="gr.ictpro.mall.client.signal.SendShapeSignal"/>
     <classEntry path="gr.ictpro.mall.client.controller.SendShapeCommand"/>
+    <classEntry path="org.bigbluebutton.command.MoodCommand"/>
+    <classEntry path="org.bigbluebutton.command.MoodSignal"/>
+    <classEntry path="org.bigbluebutton.model.chat.PrivateChatMessage"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

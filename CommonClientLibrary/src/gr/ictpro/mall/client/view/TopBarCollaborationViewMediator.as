@@ -1,15 +1,9 @@
 package gr.ictpro.mall.client.view
 {
-	import flash.display.StageOrientation;
 	import flash.events.MouseEvent;
-	import flash.events.StageOrientationEvent;
-	import flash.media.CameraPosition;
-	
-	import mx.core.FlexGlobals;
 	
 	import gr.ictpro.mall.client.components.IParameterizedView;
 	import gr.ictpro.mall.client.components.TopBarCollaborationView;
-	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;

@@ -1,24 +1,14 @@
 package gr.ictpro.mall.client.view.components.bbb
 {
-	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
 	
 	import mx.collections.ArrayCollection;
-	import mx.core.FlexGlobals;
-	import mx.events.FlexEvent;
-	import mx.events.ResizeEvent;
-	import mx.resources.ResourceManager;
-	
-	import spark.components.List;
-	import spark.components.View;
-	import spark.events.ViewNavigatorEvent;
 	
 	import org.bigbluebutton.core.ChatMessageService;
 	import org.bigbluebutton.model.User;
 	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
 	import org.bigbluebutton.model.chat.ChatMessageVO;
 	import org.bigbluebutton.model.chat.ChatMessages;
 	import org.bigbluebutton.model.chat.ChatMessagesSession;
@@ -37,9 +27,6 @@ package gr.ictpro.mall.client.view.components.bbb
 
 		[Inject]
 		public var chatMessagesSession:ChatMessagesSession;
-
-		[Inject]
-		public var userUISession:UserUISession;
 
 		protected var dataProvider:ArrayCollection;
 		
@@ -79,7 +66,7 @@ package gr.ictpro.mall.client.view.components.bbb
 			view.callLater(view.forceListRedraw);
 		}
 
-		private function disableChat(disable:Boolean) {
+		private function disableChat(disable:Boolean):void {
 			if (disable) {
 				view.inputMessage.enabled = false;
 				view.sendButton.enabled = false;

@@ -28,9 +28,8 @@ package gr.ictpro.mall.client.view
 		{
 			super.onRegister();
 			
-			if(view.parameters.vo.record) {
-				
-			}
+			showView(new (MeetingSettingsView));
+
 			joinMeetingSignal.dispatch(view.parameters.vo.url);
 		}
 		

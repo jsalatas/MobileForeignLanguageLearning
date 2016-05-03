@@ -38,7 +38,7 @@ package org.bigbluebutton.core {
 		}
 		
 		private function handleChatRequestMessageHistoryReply(message:Object):void {
-			var messages = JSON.parse(message.msg as String);
+			var messages:Object = JSON.parse(message.msg as String);
 			var msgCount:Number = messages.length;
 			chatMessagesSession.publicChat.messages = new ArrayCollection();
 			chatMessagesSession.publicChat.resetNewMessages();

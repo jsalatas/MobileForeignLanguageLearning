@@ -11,6 +11,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class MeetingUserId implements java.io.Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7561504920285482879L;
+    
     private int meetingId;
     private int userId;
 

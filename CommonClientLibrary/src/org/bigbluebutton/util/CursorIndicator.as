@@ -5,7 +5,6 @@ package org.bigbluebutton.util
 	
 	import spark.components.Group;
 	import spark.primitives.Ellipse;
-	import spark.primitives.supportClasses.GraphicElement;
 	
 	public class CursorIndicator
 	{

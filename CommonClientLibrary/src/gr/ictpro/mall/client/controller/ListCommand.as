@@ -53,7 +53,7 @@ package gr.ictpro.mall.client.controller
 		{
 			var model:AbstractModel = mapper.getModelforVO(classType);
 			if(model is IServerPersistent) {
-				if(model.list.length == 0) {
+				if(model.list.length == 0 || model.forceRefresh) {
 					listServerObjects(model as IServerPersistent);
 				} else {
 					// We already have data
@@ -93,6 +93,7 @@ package gr.ictpro.mall.client.controller
 		{
 			var model:IPersistent = IPersistent(mapper.getModelforVO(classType));
 			model.list = ArrayCollection(event.result);
+			AbstractModel(model).forceRefresh = false;
 			if(classType == Classroom && UserModel.isTeacher(runtimeSettings.user)) {
 				runtimeSettings.user.teacherClassrooms = model.list; 
 			}

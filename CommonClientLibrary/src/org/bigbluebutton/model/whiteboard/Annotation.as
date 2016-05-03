@@ -6,7 +6,7 @@ package org.bigbluebutton.model.whiteboard {
 		
 		private var _anID:String = "undefined";
 		
-		private var _whiteboardID = "undefined";
+		private var _whiteboardID:String = "undefined";
 		
 		private var _status:String = AnnotationStatus.DRAW_START;
 		

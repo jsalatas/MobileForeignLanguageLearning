@@ -8,12 +8,10 @@
 		
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import mx.collections.ArrayList;
 			import mx.controls.SWFLoader;
 			
 			import spark.components.Group;
 			import spark.components.ToggleButton;
-			import spark.skins.spark.HSliderSkin;
 			
 			import org.bigbluebutton.view.navigation.pages.whiteboard.WhiteboardCanvas;
 			

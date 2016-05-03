@@ -4,8 +4,6 @@ package org.bigbluebutton.command {
 	import org.bigbluebutton.model.ConferenceParameters;
 	import org.bigbluebutton.model.Config;
 	import org.bigbluebutton.model.UserSession;
-	import org.bigbluebutton.model.UserUISession;
-	import org.bigbluebutton.model.UserSession;
 	import org.bigbluebutton.model.VideoProfileManager;
 	import org.robotlegs.mvcs.SignalCommand;
 	
@@ -14,9 +12,6 @@ package org.bigbluebutton.command {
 		
 		[Inject]
 		public var loginService:LoginService;
-		
-		[Inject]
-		public var userUISession:UserUISession;
 		
 		[Inject]
 		public var userSession:UserSession;
@@ -38,7 +33,6 @@ package org.bigbluebutton.command {
 			//remove users from list in case we reconnect to have a clean user list 
 			userSession.guestList.removeAllUsers();
 			userSession.userList.removeAllUsers();
-			userUISession.loading = true;
 			loginService.load(url);
 		}
 		
@@ -57,8 +51,6 @@ package org.bigbluebutton.command {
 		
 		protected function unsuccessJoined(reason:String):void {
 			trace(LOG + "unsuccessJoined()");
-			userUISession.loading = false;
-			userUISession.unsuccessJoined.dispatch(reason);
 		}
 	}
 }

@@ -37,7 +37,7 @@ package org.bigbluebutton.model {
 			}
 			var resolutionsString:String = configXML.@resolutions;
 			var resolutions:Array = resolutionsString.split(",");
-			for (var resolution in resolutions) {
+			for (var resolution:String in resolutions) {
 				var profileXml:XML = <profile></profile>
 				profileXml.@['id'] = resolutions[resolution];
 				profileXml.locale.en_US = resolutions[resolution];
@@ -78,9 +78,9 @@ package org.bigbluebutton.model {
 //				var profileID:String = pattern.exec(streamName)[1]
 			var profileID:String = ""; 
 			if (streamName.indexOf("(") > -1 ) {
-				var profileID:String = streamName.substr(0, streamName.indexOf("("));
+				profileID = streamName.substr(0, streamName.indexOf("("));
 			} else {
-				var profileID:String = streamName.substr(0, streamName.indexOf("-"));
+				profileID = streamName.substr(0, streamName.indexOf("-"));
 			}
 			
 			if (profileID != "") {

@@ -7,11 +7,13 @@ package org.bigbluebutton.core {
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
 	import flash.net.URLRequestMethod;
+	
 	import mx.utils.ObjectUtil;
+	
+	import org.bigbluebutton.core.util.URLFetcher;
 	import org.bigbluebutton.core.util.URLParser;
 	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
-	import org.bigbluebutton.core.util.URLFetcher;
 	
 	public class ProfilesService {
 		protected var _successSignal:Signal = new Signal();
@@ -34,7 +36,7 @@ package org.bigbluebutton.core {
 			fetcher.fetch(ProfileUrl, urlRequest);
 		}
 		
-		protected function onSuccess(data:Object, responseUrl:String, urlRequest:URLRequest, httpStatusCode):void {
+		protected function onSuccess(data:Object, responseUrl:String, urlRequest:URLRequest, httpStatusCode:Number):void {
 			try {
 				successSignal.dispatch(new XML(data));
 			} catch (e:Error) {

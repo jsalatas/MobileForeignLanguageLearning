@@ -1,7 +1,5 @@
 package gr.ictpro.mall.client.controller
 {
-	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
-	
 	import org.bigbluebutton.core.WhiteboardService;
 	import org.bigbluebutton.model.whiteboard.AnnotationStatus;
 	import org.bigbluebutton.model.whiteboard.AnnotationType;

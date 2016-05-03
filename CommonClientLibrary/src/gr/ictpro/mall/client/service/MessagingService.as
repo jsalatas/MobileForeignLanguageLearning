@@ -63,7 +63,8 @@ package gr.ictpro.mall.client.service
 					var model:AbstractModel = mapper.getModelforVO(classType);
 					// removing all elements from the list will force it to refresh 
 					// from the server when dispatching the listSignal
-					model.list.removeAll();
+					//model.list.removeAll();
+					model.forceRefresh = true;
 					listSignal.dispatch(classType);
 					break;
 				}

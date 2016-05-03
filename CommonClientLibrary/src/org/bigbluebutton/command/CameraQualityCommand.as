@@ -1,9 +1,5 @@
 package org.bigbluebutton.command {
 	
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	
-	import org.bigbluebutton.core.VideoConnection;
 	import org.bigbluebutton.core.VideoProfile;
 	import org.bigbluebutton.model.UserSession;
 	import org.robotlegs.mvcs.SignalCommand;
