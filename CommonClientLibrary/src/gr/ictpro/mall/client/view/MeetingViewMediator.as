@@ -151,7 +151,7 @@ package gr.ictpro.mall.client.view
 					}
 				} else {
 					meetingComponent.btnViewRecording.includeInLayout = meetingComponent.btnViewRecording.visible = false;
-					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user);
+					meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = (UserModel.isAdmin(runtimeSettings.user) || UserModel.isTeacher(runtimeSettings.user)) && status != "completed";
 					meetingComponent.btnJoinMeeting.includeInLayout = meetingComponent.btnJoinMeeting.visible = false;
 					meetingComponent.frmParentCanSeeRecording.includeInLayout = meetingComponent.frmParentCanSeeRecording.visible = false;
 				}
