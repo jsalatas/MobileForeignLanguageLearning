@@ -222,7 +222,13 @@
 			<s:VideoDisplay id="videostream"
 							width="100%" height="100%"  />
 		</s:Group>
-	
+		<s:Group id="followSpeacker" width="100%" resize="group1_resizeHandler(event)" includeIn="video, novideo, me">
+			<s:layout>
+				<s:HorizontalLayout paddingLeft="5" paddingRight="5" paddingBottom="5" />
+			</s:layout>
+			<s:CheckBox id="chkFollowSpeaker"  />
+			<s:Label text="{Device.translations.getTranslation('Follow Speaker')}" />
+		</s:Group>
 		<s:Group id="mycamera"
 				 width="100%" resize="group1_resizeHandler(event)" includeIn="me">
 			<s:layout>

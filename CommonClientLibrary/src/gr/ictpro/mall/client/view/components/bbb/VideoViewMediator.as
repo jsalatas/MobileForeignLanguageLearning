@@ -91,25 +91,24 @@ package gr.ictpro.mall.client.view.components.bbb
 		}
 		
 		private function userChangeHandler(user:User, property:int):void {
-			if(!Device.isAndroid) {
-				trace("hello");
-			}
-			if (property == UserList.HAS_STREAM) {
-				if (user.userID == view.currentUser.userID && userSession.userList.me.userID != user.userID) {
-					if(user.hasStream) {
+			if(view.chkFollowSpeaker && view.chkFollowSpeaker.selected) { 
+				if (property == UserList.HAS_STREAM) {
+					if (user.userID == view.currentUser.userID && userSession.userList.me.userID != user.userID) {
+						if(user.hasStream) {
+							startStream(user, user.streamName);
+						} else {
+							stopStream(user.userID);
+						}
+						
+					}
+				} else if (property == UserList.TALKING) {
+					if ((view.currentUser == null || user.userID != view.currentUser.userID) && user.hasStream && user.talking) {
+						view.currentUser = user;
 						startStream(user, user.streamName);
-					} else {
-						stopStream(user.userID);
+						trace("change user");
 					}
 					
 				}
-			} else if (property == UserList.TALKING) {
-				if ((view.currentUser == null || user.userID != view.currentUser.userID) && user.hasStream && user.talking) {
-					view.currentUser = user;
-					startStream(user, user.streamName);
-					trace("change user");
-				}
-				
 			}
 		}
 		
