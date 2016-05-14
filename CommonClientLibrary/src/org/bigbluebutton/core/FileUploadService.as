@@ -13,18 +13,21 @@ package org.bigbluebutton.core
 	{
 		private var request:URLRequest = new URLRequest();
 		private var sendVars:URLVariables = new URLVariables();
+		private var presentationService:PresentationService;
+		private var presentationName:String;
 		
-		public function FileUploadService(url:String, conference:String, room:String):void {
+		public function FileUploadService(url:String, conference:String, room:String, presentationService:PresentationService):void {
 			sendVars.conference = conference;
 			sendVars.room = room;
 			request.url = url;
 			request.data = sendVars;
+			presentationService = presentationService;
 		}
 		
 		public function upload(presentationName:String, file:FileReference):void {
+			this.presentationName = presentationName;
 			sendVars.presentation_name = presentationName;
-			var fileToUpload : FileReference = new FileReference();
-			fileToUpload = file;
+			var fileToUpload : FileReference = file;
 			
 			fileToUpload.addEventListener(Event.COMPLETE, onUploadComplete);
 			fileToUpload.addEventListener(IOErrorEvent.IO_ERROR, onUploadIoError);
@@ -37,6 +40,7 @@ package org.bigbluebutton.core
 		}
 
 		private function onUploadComplete(event:Event):void {
+			presentationService.sharePresentation(true, presentationName);
 		}
 
 		private function onUploadIoError(event:IOErrorEvent):void {

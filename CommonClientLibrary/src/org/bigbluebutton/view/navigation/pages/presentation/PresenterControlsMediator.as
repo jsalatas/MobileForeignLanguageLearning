@@ -88,7 +88,7 @@ package org.bigbluebutton.view.navigation.pages.presentation
 			var file:File = File(event.target);
 			var fileName:String = file.name;
 			
-			var uploadService:FileUploadService = new FileUploadService(conferenceParameters.host + "/bigbluebutton/presentation/upload", conferenceParameters.conference, conferenceParameters.room);
+			var uploadService:FileUploadService = new FileUploadService(conferenceParameters.host + "/bigbluebutton/presentation/upload", conferenceParameters.conference, conferenceParameters.room, presentationService);
 			uploadService.upload(fileName, file);
 		}
 
