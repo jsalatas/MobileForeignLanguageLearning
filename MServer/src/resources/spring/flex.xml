@@ -89,7 +89,7 @@
 		</security:intercept-methods>
 	</bean>
 
-		<bean id="meetingRemoteService" class="gr.ictpro.mall.flex.MeetingRemoteService">
+	<bean id="meetingRemoteService" class="gr.ictpro.mall.flex.MeetingRemoteService">
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student, Parent" method="getMeetings" />
@@ -102,7 +102,14 @@
 		</security:intercept-methods>
 	</bean>
 			
-			
+
+	<bean id="moodleRemoteService" class="gr.ictpro.mall.flex.MoodleRemoteService">
+		<flex:remoting-destination />
+		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
+			<security:protect access="Teacher, Student" method="generateMoodlePassword" />
+		</security:intercept-methods>
+	</bean>
+				
 	<flex:message-destination id="messages" subscribe-security-constraint="loggedin" allow-subtopics="true" />
 			    
 	

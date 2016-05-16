@@ -68,6 +68,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<User> children = new HashSet<User>(0);
     private Set<User> parents = new HashSet<User>(0);
     private boolean online = false;
+    private String moodlePassword;
 
 
     public User() {
@@ -87,7 +88,7 @@ public class User implements java.io.Serializable, UserDetails {
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> approvedMeetings, Set<MeetingUser> approvedMeetingUsers, 
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
-	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents, Set<Meeting> createdMeetings) {
+	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents, Set<Meeting> createdMeetings, String moodlePassword) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -110,6 +111,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.parents = parents;
 	this.children = children;
 	this.createdMeetings = createdMeetings;
+	this.moodlePassword = moodlePassword;
     }
 
     @Id
@@ -455,6 +457,16 @@ public class User implements java.io.Serializable, UserDetails {
         this.online = online;
     }
 
+    @Column(name = "moodle_password", length = 60)
+    @AmfIgnore
+    public String getMoodlePassword() {
+	return this.moodlePassword;
+    }
+
+    @AmfIgnore
+    public void setMoodlePassword(String moodlePassword) {
+	this.moodlePassword = moodlePassword;
+    }
     
 
 }

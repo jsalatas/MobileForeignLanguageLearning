@@ -2,3 +2,4 @@ src/resources/hibernate/hibernate.properties
 /build
 /target
 .settings
+/moodle/noncelogin/config.php
