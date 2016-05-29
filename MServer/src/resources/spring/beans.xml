@@ -175,6 +175,30 @@
 			<value>gr.ictpro.mall.model.MeetingUserId</value>
         </constructor-arg>
 	</bean>
+	<bean id="courseTemplateDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.CourseTemplate</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
+	<bean id="courseDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Course</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
+	<bean id="projectDAO" class="gr.ictpro.mall.dao.GenericDAOImpl">
+		<constructor-arg>
+        	<value>gr.ictpro.mall.model.Project</value>
+        </constructor-arg>
+		<constructor-arg>
+			<value>java.lang.Integer</value>
+        </constructor-arg>
+	</bean>
 	<bean id="userService" class="gr.ictpro.mall.service.UserServiceImpl">
 		<property name="dao" ref="userDAO"></property>
 	</bean>
@@ -229,7 +253,17 @@
 		<bean id="meetingService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="meetingDAO"></property>
 	</bean>
-		<bean id="meetingUserService" class="gr.ictpro.mall.service.GenericServiceImpl">
+	<bean id="meetingUserService" class="gr.ictpro.mall.service.GenericServiceImpl">
 		<property name="dao" ref="meetingUserDAO"></property>
+	</bean>
+
+	<bean id="courseTemplateService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="courseTemplateDAO"></property>
+	</bean>
+		<bean id="courseService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="courseDAO"></property>
+	</bean>
+		<bean id="projectService" class="gr.ictpro.mall.service.GenericServiceImpl">
+		<property name="dao" ref="projectDAO"></property>
 	</bean>
 </beans>

@@ -1,7 +1,6 @@
 package gr.ictpro.mall.client.model.vo
 {
 	import mx.collections.ArrayCollection;
-	import mx.utils.ObjectProxy;
 
 	[Bindable]
 	[RemoteClass(alias="gr.ictpro.mall.model.Language")]

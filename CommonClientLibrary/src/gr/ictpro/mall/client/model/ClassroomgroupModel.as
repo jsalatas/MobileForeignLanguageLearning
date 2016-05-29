@@ -3,6 +3,7 @@ package gr.ictpro.mall.client.model
 	
 	import gr.ictpro.mall.client.model.vo.Classroom;
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
+	import gr.ictpro.mall.client.model.vo.Course;
 	import gr.ictpro.mall.client.model.vo.Meeting;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.model.vomapper.DetailMapper;
@@ -22,8 +23,14 @@ package gr.ictpro.mall.client.model
 		{
 			super(Classroomgroup, ClassroomgroupView, ClassroomgroupComponent);
 			addDetail(new DetailMapper("Classrooms", "classrooms", Classroom, null, null, excludeGlobal, answerFalse, beforeDeleteFunction, null, null));
+			addDetail(new DetailMapper("Courses", "courses", Course, null, null, null, answerTrue, null, null, null));
 		}
-		
+
+		public function answerTrue(o:Object):Boolean
+		{
+			return true;
+		}
+
 		public function beforeDeleteFunction(classroom:Classroom, classroomgroup:Classroomgroup):Boolean {
 			return classroom.teacher.id == runtimeSettings.user.id;
 		}

@@ -42,6 +42,9 @@
 				<value>gr.ictpro.mall.model.MeetingType</value>
 				<value>gr.ictpro.mall.model.Meeting</value>
 				<value>gr.ictpro.mall.model.MeetingUser</value>
+				<value>gr.ictpro.mall.model.Project</value>
+				<value>gr.ictpro.mall.model.CourseTemplate</value>
+				<value>gr.ictpro.mall.model.Course</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

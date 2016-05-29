@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+          <Group >
+      <Path data="M448 64 448 480 64 480C46.3281 480 32 465.688 32 448 32 430.313 46.3281 416 64 416L416 416 416 0 64 0C28.6558 0 0 28.6563 0 64L0 448C0 483.344 28.6558 512 64 512L480 512 480 64 448 64Z">
+              <fill>
+                <SolidColor color="#ffffff"/>
+              </fill>
+            </Path>
+  </Group>
+</Graphic>

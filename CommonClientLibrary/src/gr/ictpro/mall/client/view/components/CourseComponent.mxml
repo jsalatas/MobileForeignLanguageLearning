@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VOEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					 xmlns:s="gr.ictpro.mall.client.components.*"
+					 xmlns:mx="library://ns.adobe.com/flex/mx"
+					 width="100%" height="100%" >
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import gr.ictpro.mall.client.runtime.Device;
+			
+			[Bindable]
+			private var _courseTemplates:ArrayCollection;
+			
+			[Bindable]
+			private var _classrooms:ArrayCollection;
+
+			[Bindable]
+			private var _classroomgroups:ArrayCollection;
+			
+			[Bindable]
+			private var _projects:ArrayCollection;
+			
+			override public function set vo(vo:Object):void
+			{
+				super.vo = vo;
+				selectCourseTemplate();
+				selectClassroom();
+				selectClassroomgroup();
+				selectProject();
+			}
+
+			public function set courseTemplates(courseTemplates:ArrayCollection):void
+			{
+				this._courseTemplates = courseTemplates;
+			}
+
+			public function set classrooms(classrooms:ArrayCollection):void
+			{
+				this._classrooms = classrooms;
+			}
+
+			public function set classroomgroups(classroomgroups:ArrayCollection):void
+			{
+				this._classroomgroups = classroomgroups;
+			}
+
+			public function set projects(projects:ArrayCollection):void
+			{
+				this._projects = projects;
+			}
+			
+			protected function courseTemplatesPopup_initializeHandler(event:FlexEvent):void
+			{
+				selectCourseTemplate();
+			}
+
+			protected function classroomsPopup_initializeHandler(event:FlexEvent):void
+			{
+				selectClassroom();
+			}
+
+			protected function classroomgroupsPopup_initializeHandler(event:FlexEvent):void
+			{
+				selectClassroomgroup();
+			}
+			
+			protected function projectsPopup_initializeHandler(event:FlexEvent):void
+			{
+				selectProject();
+			}
+
+			// set initial selected course template
+			private function selectCourseTemplate():void {
+				if( vo != null && vo.courseTemplate != null && courseTemplatePopup != null) {
+					courseTemplatePopup.selected = vo.courseTemplate;
+				}
+			}
+
+			// set initial selected classroom
+			private function selectClassroom():void {
+				if( vo != null && vo.classroom != null && classroomPopup != null) {
+					classroomPopup.selected = vo.classroom;
+				}
+			}
+
+			// set initial selected classroom group
+			private function selectClassroomgroup():void {
+				if( vo != null && vo.classroomgroup != null && classroomgroupPopup != null) {
+					classroomgroupPopup.selected = vo.classroomgroup;
+				}
+			}
+
+			// set initial selected classroom group
+			private function selectProject():void {
+				if( vo != null && vo.project != null && projectPopup != null) {
+					projectPopup.selected = vo.project;
+				}
+			}
+
+			protected function classroomPopup_changeHandler(event:Event):void
+			{
+				if(classroomPopup.selected != null) {
+					classroomgroupPopup.selected = null;
+					projectPopup.selected = null;
+				}
+			}
+			
+			protected function classroomgroupPopup_changeHandler(event:Event):void
+			{
+				if(classroomgroupPopup.selected != null) {
+					classroomPopup.selected = null;
+					projectPopup.selected = null;
+				}
+			}
+			
+			protected function projectPopup_changeHandler(event:Event):void
+			{
+				if(projectPopup.selected != null) {
+					classroomPopup.selected = null;
+					classroomgroupPopup.selected = null;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<mx:State name="new" />
+		<mx:State name="edit" />
+		<mx:State name="view" />
+	</s:states>
+	<s:layout>
+		<s:FormLayout/>
+	</s:layout>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Name')}">
+		<s:TextInput id="txtName" width="100%" text="@{vo.name}" textAlign="left" enabled.new="true" enabled.edit="false" />
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Course Template')}">
+		<s:PopUpList id="courseTemplatePopup" width="100%" dataList="{_courseTemplates}" enabled.new="true" enabled.edit="false" textAlign="left" initialize="courseTemplatesPopup_initializeHandler(event)" />
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Classroom')}">
+		<s:PopUpList id="classroomPopup" width="100%" dataList="{_classrooms}" enabled.new="true" enabled.edit="false" textAlign="left" initialize="classroomsPopup_initializeHandler(event)" change="classroomPopup_changeHandler(event)" />
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Classroom Group')}">
+		<s:PopUpList id="classroomgroupPopup" width="100%" dataList="{_classroomgroups}" enabled.new="true" enabled.edit="false" textAlign="left" initialize="classroomgroupsPopup_initializeHandler(event)" change="classroomgroupPopup_changeHandler(event)" />
+	</s:FormItem>
+	<s:FormItem width="100%" label="{Device.translations.getTranslation('Project')}">
+		<s:PopUpList id="projectPopup" width="100%" dataList="{_projects}" textAlign="left" enabled.new="true" enabled.edit="false" initialize="projectsPopup_initializeHandler(event)" change="projectPopup_changeHandler(event)" />
+	</s:FormItem>
+
+</s:VOEditor>

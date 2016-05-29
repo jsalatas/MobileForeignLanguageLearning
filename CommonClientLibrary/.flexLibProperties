@@ -251,6 +251,17 @@
     <classEntry path="org.bigbluebutton.command.MoodCommand"/>
     <classEntry path="org.bigbluebutton.command.MoodSignal"/>
     <classEntry path="org.bigbluebutton.model.chat.PrivateChatMessage"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.Course"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.CourseTemplate"/>
+    <classEntry path="gr.ictpro.mall.client.model.CourseTemplateModel"/>
+    <classEntry path="gr.ictpro.mall.client.model.vo.Project"/>
+    <classEntry path="gr.ictpro.mall.client.view.CourseTemplateView"/>
+    <classEntry path="gr.ictpro.mall.client.view.CourseTemplateViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.components.CourseTemplateComponent"/>
+    <classEntry path="gr.ictpro.mall.client.view.CourseTemplatesView"/>
+    <classEntry path="gr.ictpro.mall.client.view.CourseTemplatesViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.model.CourseModel"/>
+    <classEntry path="gr.ictpro.mall.client.model.ProjectModel"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

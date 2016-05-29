@@ -25,6 +25,7 @@ package gr.ictpro.mall.client.model.vo
 		public var online:Boolean;
 		public var parents:ArrayCollection;
 		public var children:ArrayCollection;
+		public var projects:ArrayCollection;
 		[Transient]
 		public var currentClassroom:Classroom;
 

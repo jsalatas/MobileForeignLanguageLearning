@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TopBarListView xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				  xmlns:s="gr.ictpro.mall.client.components.*" width="100%" height="100%"
+				  labelField="name">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:TopBarListView>

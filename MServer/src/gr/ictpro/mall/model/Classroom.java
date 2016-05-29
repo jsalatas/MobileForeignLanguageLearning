@@ -4,6 +4,7 @@ package gr.ictpro.mall.model;
 
 
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
+import gr.ictpro.mall.model.Course;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -50,6 +51,7 @@ public class Classroom implements java.io.Serializable {
     private User teacher;
     private Set<Calendar> calendars = new HashSet<Calendar>(0);
     private Set<Schedule> schedules = new HashSet<Schedule>(0);
+    private Set<Course> courses = new HashSet<Course>(0);
 
     public Classroom() {
     }
@@ -63,7 +65,8 @@ public class Classroom implements java.io.Serializable {
 
     public Classroom(Language language, String name, String notes, boolean forceUILanguage, Set<Translation> translations,
 	    Set<Classroomgroup> classroomgroups, Set<EmailTranslation> emailTranslations, Set<User> students, User teacher, 
-	    Set<Calendar> calendars, Set<Schedule> schedules, boolean autoApproveUnattendedMeetings, boolean disallowUnattendedMeetings) {
+	    Set<Calendar> calendars, Set<Schedule> schedules, boolean autoApproveUnattendedMeetings, boolean disallowUnattendedMeetings, 
+	    Set<Course> courses) {
 	this.language = language;
 	this.name = name;
 	this.notes = notes;
@@ -76,6 +79,7 @@ public class Classroom implements java.io.Serializable {
 	this.schedules = schedules;
 	this.disallowUnattendedMeetings = disallowUnattendedMeetings;
 	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
+	this.courses = courses;
     }
 
     @Id
@@ -219,4 +223,14 @@ public class Classroom implements java.io.Serializable {
     public void setAutoApproveUnattendedMeetings(boolean autoApproveUnattendedMeetings) {
 	this.autoApproveUnattendedMeetings = autoApproveUnattendedMeetings;
     }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "classroom")
+    public Set<Course> getCourses() {
+	return this.courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+	this.courses = courses;
+    }
+
 }

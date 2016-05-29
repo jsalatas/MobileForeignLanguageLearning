@@ -13,8 +13,6 @@
 		import mx.collections.ArrayCollection;
 		import mx.events.FlexEvent;
 		
-		import gr.ictpro.mall.client.model.UserModel;
-		import gr.ictpro.mall.client.model.vo.User;
 		import gr.ictpro.mall.client.runtime.Device;
 
 		[Bindable]

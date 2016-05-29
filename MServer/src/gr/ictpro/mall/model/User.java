@@ -4,6 +4,7 @@ package gr.ictpro.mall.model;
 
 
 import gr.ictpro.mall.interceptors.ClientReferenceClass;
+import gr.ictpro.mall.model.Project;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -69,6 +70,7 @@ public class User implements java.io.Serializable, UserDetails {
     private Set<User> parents = new HashSet<User>(0);
     private boolean online = false;
     private String moodlePassword;
+    private Set<Project> projects = new HashSet<Project>(0);
 
 
     public User() {
@@ -88,7 +90,8 @@ public class User implements java.io.Serializable, UserDetails {
 	    Set<Classroom> classrooms, Set<UserNotification> userNotifications, Set<Meeting> approvedMeetings, Set<MeetingUser> approvedMeetingUsers, 
 	    Set<RoleNotification> roleNotifications, Set<Role> roles, Set<Calendar> calendars, Set<MeetingUser> meetingUsers, 
 	    Set<Schedule> schedules, Set<Classroom> teacherClassrooms, Set<Location> locations, boolean disallowUnattendedMeetings,
-	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents, Set<Meeting> createdMeetings, String moodlePassword) {
+	    boolean autoApproveUnattendedMeetings, boolean available, Set<User> children, Set<User> parents, Set<Meeting> createdMeetings, 
+	    String moodlePassword, Set<Project> projects) {
 	this.username = username;
 	this.password = password;
 	this.email = email;
@@ -112,6 +115,7 @@ public class User implements java.io.Serializable, UserDetails {
 	this.children = children;
 	this.createdMeetings = createdMeetings;
 	this.moodlePassword = moodlePassword;
+	this.projects = projects;
     }
 
     @Id
@@ -467,6 +471,18 @@ public class User implements java.io.Serializable, UserDetails {
     public void setMoodlePassword(String moodlePassword) {
 	this.moodlePassword = moodlePassword;
     }
-    
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "project_user", joinColumns = {
+	    @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+	    @JoinColumn(name = "project_id", nullable = false, updatable = false) })
+    public Set<Project> getProjects() {
+	return this.projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+	this.projects = projects;
+    }
+
 
 }

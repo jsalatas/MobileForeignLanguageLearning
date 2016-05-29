@@ -3,16 +3,15 @@ package gr.ictpro.mall.client.model.vo
 	import mx.collections.ArrayCollection;
 
 	[Bindable]
-	[RemoteClass(alias="gr.ictpro.mall.model.Classroomgroup")]
-	public class Classroomgroup
+	[RemoteClass(alias="gr.ictpro.mall.model.CourseTemplate")]
+	public class CourseTemplate
 	{
 		public var id:Number;
 		public var name:String;
-		public var notes:String;
-		public var classrooms:ArrayCollection;
+		public var moodleId:String;
 		public var courses:ArrayCollection;
 
-		public function Classroomgroup()
+		public function CourseTemplate()
 		{
 		}
 		
@@ -20,5 +19,6 @@ package gr.ictpro.mall.client.model.vo
 		{
 			return name;
 		}
-}
+
+	}
 }
