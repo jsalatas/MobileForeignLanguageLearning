@@ -101,6 +101,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	Session session = this.sessionFactory.getCurrentSession();
 	Criteria criteria = session.createCriteria(getPersistentClass());
 	criteria.add(Restrictions.eq(propertyName, propertyValue));
+	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 	List<T> l = criteria.list();
 	return l;
     }
@@ -116,6 +117,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T,
 	for(String property: properties.keySet()) {
 	    criteria.add(Restrictions.eq(property, properties.get(property)));
 	}
+	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 	List<T> l = criteria.list();
 	return l;
 	
