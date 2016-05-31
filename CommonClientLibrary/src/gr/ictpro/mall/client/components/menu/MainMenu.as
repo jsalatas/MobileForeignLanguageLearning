@@ -29,8 +29,15 @@ package gr.ictpro.mall.client.components.menu
 		public var menuChangedSignal:MenuChangedSignal;
 		
 		
+		private var _addonMenu:ArrayList = new ArrayList();
+		
 		public function MainMenu()
 		{
+		}
+		
+		public function registerMenuItem(menuItem:MenuItem):void {
+			_addonMenu.addItem(menuItem);
+			runtimeSettings.menu = this.getMenu(runtimeSettings.user);
 		}
 		
 		public function getMenu(user:User):ArrayList
@@ -65,6 +72,11 @@ package gr.ictpro.mall.client.components.menu
 
 			res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Profile"), Icons.icon_profile, UserView)); 
 			
+			// add on menus
+			if(_addonMenu.length > 0) {
+				res.addItem(new MenuItemGroup(""));
+				res.addAll(_addonMenu);
+			}
 			
 			res.addItem(new MenuItemGroup(""));
 			res.addItem(new MenuItemCommand(Device.translations.getTranslation("Exit"), Icons.icon_logout, runtimeSettings.terminate));
