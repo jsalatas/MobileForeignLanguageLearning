@@ -20,6 +20,7 @@ package gr.ictpro.mall.client.authentication.proximity
 		[Inject]
 		public function set injector(injector:IInjector):void {
 			injector.mapSingleton(LocationUpdater);
+			injector.mapSingleton(AddonMenu);
 			//Initialize LocationUpdater
 			injector.getInstance(LocationUpdater);
 		}

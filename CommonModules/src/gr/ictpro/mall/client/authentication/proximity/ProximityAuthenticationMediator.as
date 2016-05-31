@@ -24,7 +24,10 @@ package gr.ictpro.mall.client.authentication.proximity
 		
 		[Inject]
 		public var login:LoginSignal;
-		
+
+		[Inject]
+		public var addonMenu:AddonMenu;
+
 		[Inject]
 		public var addView:AddViewSignal;
 		
@@ -120,6 +123,10 @@ package gr.ictpro.mall.client.authentication.proximity
 				saveSignal.dispatch(setting);
 			}
 
+			var lastUserName:String = clientSettingsModel.getItemById("lastUserName") != null?clientSettingsModel.getItemById("lastUserName").value:null;
+			if(lastUserName != null || (setting.value != null && setting.value != '')) {
+				addonMenu.registerAddonMenu();				
+			}
 			// update current location
 			locationUpdater.updateLocation();
 			
