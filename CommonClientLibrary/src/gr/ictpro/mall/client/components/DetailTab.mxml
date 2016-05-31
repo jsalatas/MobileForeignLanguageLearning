@@ -73,7 +73,11 @@
 		<s:layout>
 			<s:VerticalLayout/>
 		</s:layout> 
-		<s:ButtonBar id="tabs" dataProvider="{_detailMapper}" labelField="label" change="buttonbar1_changeHandler(event)"/>
+		<s:ButtonBar width="100%" id="tabs" dataProvider="{_detailMapper}" labelField="label" change="buttonbar1_changeHandler(event)">
+			<s:layout>
+				<s:TileLayout horizontalGap="0" verticalGap="0" />
+			</s:layout>
+		</s:ButtonBar>
 		<s:Group id="tabView" width="100%"/>
 			
 	</s:Group>

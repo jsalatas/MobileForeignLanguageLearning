@@ -67,12 +67,12 @@
 		
 		
 		<!-- Text -->
-		<s:Group width="100%">
+		<s:Group width="100%" id="container">
 			<s:layout>
 				<s:VerticalLayout gap="5" paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5" horizontalAlign="left" />
 			</s:layout>
-			<s:Label id="subject" text="{Device.translations.getTranslation(data.subject)}" fontWeight="bold" fontSize="{Device.getDefaultUnscaledFontSize()+2}"/>
-			<s:Label id="body" text="{Device.translations.getTranslation(data.message)}" width="{Device.getUnScaledSize(width - Math.max(day.width, date.width, month.width) -ok.width) - 40}" />
+			<s:Label lineBreak="toFit" width="100%" id="subject" text="{Device.translations.getTranslation(data.subject)}" fontWeight="bold" fontSize="{Device.getDefaultUnscaledFontSize()+2}"/>
+			<s:Label lineBreak="toFit" width="100%" id="body" text="{Device.translations.getTranslation(data.message)}"  />
 		</s:Group>
 		
 		<s:Group width="30" id="ok" click="okHandler(event)" visible="{!actionNeeded &amp;&amp; !dynamic}">
