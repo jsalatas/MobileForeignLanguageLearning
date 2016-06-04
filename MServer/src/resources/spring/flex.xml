@@ -104,7 +104,7 @@
 	<bean id="moodleRemoteService" class="gr.ictpro.mall.flex.MoodleRemoteService">
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
-			<security:protect access="Teacher, Student" method="generateMoodlePassword" />
+			<security:protect access="Teacher, Student" method="generateMoodleURL" />
 		</security:intercept-methods>
 	</bean>
 	<bean id="courseRemoteService" class="gr.ictpro.mall.flex.CourseRemoteService">
@@ -114,16 +114,16 @@
 			<security:protect access="Admin" method="updateCourseTemplate" />
 			<security:protect access="Admin" method="deleteCourseTemplate" />
 			<security:protect access="Admin, Teacher, Student" method="getCourses" />
-			<security:protect access="Admin" method="updateCourse" />
-			<security:protect access="Admin" method="deleteCourse" />
+			<security:protect access="Admin, Teacher" method="updateCourse" />
+			<security:protect access="Admin, Teacher" method="deleteCourse" />
 		</security:intercept-methods>
 	</bean>
 	<bean id="projectRemoteService" class="gr.ictpro.mall.flex.ProjectRemoteService">
 		<flex:remoting-destination />
 		<security:intercept-methods access-decision-manager-ref="accessDecisionManager">
 			<security:protect access="Admin, Teacher, Student" method="getProjects" />
-			<security:protect access="Admin" method="updateProject" />
-			<security:protect access="Admin" method="deleteProject" />
+			<security:protect access="Admin, Teacher" method="updateProject" />
+			<security:protect access="Admin, Teacher" method="deleteProject" />
 		</security:intercept-methods>
 	</bean>
 					

@@ -2,7 +2,10 @@
 <s:VOEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					 xmlns:s="gr.ictpro.mall.client.components.*"
 					 xmlns:mx="library://ns.adobe.com/flex/mx"
-					 width="100%" height="100%" >
+					 width="100%" height="100%" xmlns:signals="org.osflash.signals.*" >
+<fx:Declarations>
+	<signals:Signal id="goToCourseSignal" />
+</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -123,6 +126,12 @@
 				}
 			}
 			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				goToCourseSignal.dispatch();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<s:states>
@@ -148,5 +157,7 @@
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Project')}">
 		<s:PopUpList id="projectPopup" width="100%" dataList="{_projects}" textAlign="left" enabled.new="true" enabled.edit="false" initialize="projectsPopup_initializeHandler(event)" change="projectPopup_changeHandler(event)" />
 	</s:FormItem>
-
+	<s:FormItem width="100%" includeIn="edit, view">
+		<s:Button label="{Device.translations.getTranslation('Go to Course')}" click="button1_clickHandler(event)" />
+	</s:FormItem>
 </s:VOEditor>

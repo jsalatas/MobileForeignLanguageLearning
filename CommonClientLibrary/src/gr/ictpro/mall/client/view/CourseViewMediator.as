@@ -1,5 +1,10 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+	
+	import mx.rpc.events.FaultEvent;
+	
 	import spark.collections.SortField;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
@@ -15,13 +20,18 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.model.vo.Classroomgroup;
 	import gr.ictpro.mall.client.model.vo.Course;
 	import gr.ictpro.mall.client.model.vo.CourseTemplate;
+	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
 	import gr.ictpro.mall.client.model.vo.Language;
 	import gr.ictpro.mall.client.model.vo.Project;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSignal;
+	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
+	import gr.ictpro.mall.client.view.components.CourseComponent;
 
 	public class CourseViewMediator extends TopBarDetailViewMediator
 	{
@@ -44,6 +54,15 @@ package gr.ictpro.mall.client.view
 		public var listSuccessSignal:ListSuccessSignal;
 		
 		[Inject]
+		public var genericCall:GenericCallSignal;
+		
+		[Inject]
+		public var genericCallSuccess:GenericCallSuccessSignal;
+		
+		[Inject]
+		public var genericCallError:GenericCallErrorSignal;
+		
+		[Inject]
 		public var runtimeSettings:RuntimeSettings;
 
 		[Inject]
@@ -60,13 +79,57 @@ package gr.ictpro.mall.client.view
 				view.disableOK();
 			}
 			
+			addToSignal(CourseComponent(TopBarDetailView(view).editor).goToCourseSignal, goToCourse);
 			addToSignal(listSuccessSignal, listSuccess);
 			listSignal.dispatch(CourseTemplate);
 			listSignal.dispatch(Classroom);
 			listSignal.dispatch(Classroomgroup);
 			listSignal.dispatch(Project);
+			
+		}
+
+		private function goToCourse():void {
+			var args:GenericServiceArguments = new GenericServiceArguments();
+			args.arguments = new Object();
+			args.arguments.userId = runtimeSettings.user.id;
+			args.arguments.courseId = Course(view.parameters.vo).id;
+			args.destination = "moodleRemoteService";
+			args.method = "generateMoodleURL";
+			args.type = "generateMoodleURL";
+			genericCallSuccess.add(success);
+			genericCallError.add(error);
+			genericCall.dispatch(args);
 
 		}
+		
+		private function removeSignals():void
+		{
+			genericCallSuccess.remove(success);
+			genericCallError.remove(error);
+		}
+		
+
+		private function success(type:String, result:Object):void
+		{
+			if(type == "generateMoodleURL") {
+				removeSignals();
+				if(result != null) {
+					var url:URLRequest = new URLRequest(String(result));
+					navigateToURL(url);
+				} else {
+					UI.showError("Cannot go to Course.");
+				}
+			}
+		}
+		
+		private function error(type:String, event:FaultEvent):void
+		{
+			if(type == "generateMoodleURL") {
+				removeSignals();
+				UI.showError("Cannot go to Course.");
+			}
+		}
+
 		
 		private function listSuccess(classType:Class):void {
 			if(classType == CourseTemplate) {

@@ -37,6 +37,7 @@ BEGIN
 		INSERT IGNORE INTO `config` VALUES (10,'bigbluebutton.secret','secret');
 		INSERT IGNORE INTO `config` VALUES (11,'bigbluebutton.url','http://bigbluebutton.url:port/');
 		INSERT IGNORE INTO `config` VALUES (12,'auto_record_unattended_meetings','true');
+		INSERT IGNORE INTO `config` VALUES (13,'moodle.url','http://moodle.url:port/');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Admin');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Teacher');
 		INSERT IGNORE INTO `role` (`role`) VALUES ('Student');

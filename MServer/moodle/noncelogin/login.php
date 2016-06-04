@@ -7,13 +7,15 @@
 
 	require 'config.php';
 
+	$courseId = urldecode($_GET['courseId']);
+	$login_url = $moodle_url.(!endsWith($moodle_url, "/")?"/":"")."login/index.php";
+	$course_url = $moodle_url.(!endsWith($moodle_url, "/")?"/":"")."course/view.php?idnumber=".$courseId;
+
 	if($mode == "login")  {
 		// attempt automatic login to moodle
 		require 'config.php';
 		$username = urldecode($_GET['username']);
 		$password = urldecode($_GET['password']);
-		
-		$login_url = $moodle_url.(!endsWith($moodle_url, "/")?"/":"")."login/index.php";
 		$invalidate_nonce_url = $moodle_url.(!endsWith($moodle_url, "/")?"/":"")."noncelogin/login.php";
 ?>
 		<html>
@@ -24,6 +26,7 @@
 		<body>
 		<script>
 			var login_failed = false;
+					debugger;
 			$.ajax({
 				url: "<?php echo $login_url?>",
 				type: "POST", 
@@ -31,20 +34,22 @@
 				async: false, 
 				success:  function(result){
 					login_failed = result.indexOf("loginerrormessage") > -1;
+					debugger;
 					if(login_failed) {
 						Cookies.remove('MoodleSession');
 						alert( "Login failed. Please login manually" );
 					}
-					invalidate_nonce(login_failed);
+					invalidate_nonce();
 				}, 
 				error: function(result){
+					debugger;
 					alert( "Login failed. Please login manually" );
-					invalidate_nonce(login_failed);
+					invalidate_nonce();
 				}
 			});
 			
-			function invalidate_nonce(redirect_to_login) {
-				window.location.href = "<?php echo $invalidate_nonce_url?>?username=<?php echo $username?>&mode=invalidate&redirect_to_login="+redirect_to_login;
+			function invalidate_nonce() {
+				window.location.href = "<?php echo $invalidate_nonce_url?>?username=<?php echo $username?>&mode=invalidate&courseId=<?php echo $courseId?>";
 			}
 		</script>
 		</body>
@@ -53,7 +58,6 @@
 	} else if($mode == "invalidate")  {
 		// replace nonce with the user's normal password
 		$username = urldecode($_GET['username']);
-		$redirect_to_login = urldecode($_GET['redirect_to_login']);
 		$conn = new mysqli($db_servername, $db_username, $db_password, $db_database);
 	
 		if ($conn->connect_error) {
@@ -71,7 +75,7 @@
 		$conn->close();
 		
 		// redirect to home page
-		header("Location: ".$moodle_url, true, 302);
+		header("Location: ".$course_url, true, 302);
 	}
 ?>
 
