@@ -8,6 +8,7 @@ package gr.ictpro.mall.client.authentication.standard
 	{
 		public function Initialize() 
 		{
+			super();
 		}
 		
 		[Inject]

@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.authentication.proximity
 	{
 		public function Initialize() 
 		{
+			super();
 		}
 
 		[Inject]
