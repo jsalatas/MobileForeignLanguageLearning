@@ -42,7 +42,7 @@ package gr.ictpro.mall.client.controller
 					if(serverURL.charAt(serverURL.length-1) != "/") {
 						serverURL = serverURL + "/";
 					}
-					loader = new ExternalModuleLoader(serverURL+"/" + ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.MODULES_PATH)).value+ "/"+ authenticationProvider.provider, authenticationProvider.className);
+					loader = new ExternalModuleLoader(serverURL+"/" + ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.MODULES_PATH)).value+ "/"+ authenticationProvider.provider, authenticationProvider.className, true);
 					injector.injectInto(loader);
 					loader.load();
 				}

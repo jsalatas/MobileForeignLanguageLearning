@@ -1,6 +1,13 @@
 package gr.ictpro.mall.client.view
 {
+	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	
+	import mx.core.IVisualElement;
+	import mx.core.UIComponent;
+	
+	import spark.core.SpriteVisualElement;
 	
 	import gr.ictpro.mall.client.components.Group;
 	import gr.ictpro.mall.client.view.components.bbb.ChatView;
@@ -8,7 +15,6 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
 	import gr.ictpro.mall.client.view.components.bbb.ShowVideoEvent;
 	import gr.ictpro.mall.client.view.components.bbb.VideoView;
-	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
 	
 	import org.bigbluebutton.command.JoinMeetingSignal;
 	import org.bigbluebutton.core.UsersService;
@@ -21,7 +27,7 @@ package gr.ictpro.mall.client.view
 		[Inject]
 		public var usersService:UsersService;
 		
-		protected var currentModule:Group;
+		protected var currentModule:*;
 		
 		
 		override public function onRegister():void
@@ -33,18 +39,28 @@ package gr.ictpro.mall.client.view
 			joinMeetingSignal.dispatch(view.parameters.vo.url);
 		}
 		
-		private function showView(currentModule:Group):void
+		private function showView(currentModule:*):void
 		{
 			BBBMeetingView(view).container.removeAllElements();
-			BBBMeetingView(view).container.addElement(currentModule);
+			if(currentModule is Group) {
+				BBBMeetingView(view).container.addElement(currentModule);
+			} else {
+				var container:UIComponent = new UIComponent();
+				BBBMeetingView(view).container.addElement( container );
+//				container.width = 100;
+//				container.height = 100;
+				container.addChild(currentModule);
+//				currentModule.width = 100;
+//				currentModule.height = 100;
+			}
 			this.currentModule = currentModule;
 			
 		}
 		
 		override protected function whiteboardClicked(event:MouseEvent):void
 		{
-			if(currentModule == null || !(currentModule is WhiteboardView)) {
-				showView(new WhiteboardView());
+			if(currentModule == null || !(currentModule is view.parameters['boardClass'])) {
+				showView(new view.parameters['boardClass']());
 			} else {
 				trace("already showing whiteboard");
 			}

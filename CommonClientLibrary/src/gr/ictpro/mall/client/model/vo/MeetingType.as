@@ -9,6 +9,7 @@ package gr.ictpro.mall.client.model.vo
 		public var id:Number;
 		public var name:String;
 		public var clientClass:String;
+		public var url:String;
 		public var internalModule:Boolean;
 
 		public function MeetingType()

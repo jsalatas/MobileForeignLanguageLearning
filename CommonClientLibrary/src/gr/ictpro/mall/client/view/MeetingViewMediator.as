@@ -1,22 +1,32 @@
 package gr.ictpro.mall.client.view
 {
 	import flash.net.URLRequest;
+	import flash.net.getClassByAlias;
 	import flash.net.navigateToURL;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	
 	import gr.ictpro.mall.client.components.TopBarDetailView;
 	import gr.ictpro.mall.client.model.AbstractModel;
+	import gr.ictpro.mall.client.model.ClientSettingsModel;
 	import gr.ictpro.mall.client.model.MeetingModel;
 	import gr.ictpro.mall.client.model.MeetingTypeModel;
 	import gr.ictpro.mall.client.model.UserModel;
 	import gr.ictpro.mall.client.model.ViewParameters;
+	import gr.ictpro.mall.client.model.vo.ClientSetting;
 	import gr.ictpro.mall.client.model.vo.GenericServiceArguments;
+	import gr.ictpro.mall.client.model.vo.Meeting;
 	import gr.ictpro.mall.client.model.vo.MeetingType;
 	import gr.ictpro.mall.client.model.vo.User;
 	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.runtime.RuntimeSettings;
+	import gr.ictpro.mall.client.service.AuthenticationProviders;
+	import gr.ictpro.mall.client.service.ExternalModuleLoader;
+	import gr.ictpro.mall.client.service.ExternalMovieLoader;
+	import gr.ictpro.mall.client.service.MovieLoadedEvent;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
@@ -24,6 +34,9 @@ package gr.ictpro.mall.client.view
 	import gr.ictpro.mall.client.signal.ListSuccessSignal;
 	import gr.ictpro.mall.client.utils.ui.UI;
 	import gr.ictpro.mall.client.view.components.MeetingComponent;
+	import gr.ictpro.mall.client.view.components.bbb.WhiteboardView;
+	
+	import org.robotlegs.core.IInjector;
 
 	public class MeetingViewMediator extends TopBarDetailViewMediator
 	{
@@ -49,10 +62,20 @@ package gr.ictpro.mall.client.view
 		public var genericCallError:GenericCallErrorSignal;
 		
 		[Inject]
+		public var injector:IInjector;
+		
+		[Inject]
+		public var clientSettingsModel:ClientSettingsModel;
+		
+		[Inject]
 		public function set meetingModel(model:MeetingModel):void
 		{
 			super.model = model as AbstractModel;
 		}
+
+		private var loader:ExternalMovieLoader;
+		
+		private var meetingUrl:String;
 		
 		override public function onRegister():void
 		{
@@ -162,18 +185,6 @@ package gr.ictpro.mall.client.view
 				meetingComponent.frmRecord.includeInLayout = meetingComponent.frmRecord.visible = false;
 			}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			addToSignal(listSuccessSignal, listSuccess);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).timeChangedSignal, removeUnavailableUsers);
 			addToSignal(MeetingComponent(TopBarDetailView(view).editor).btnJoinClickedSignal, joinMeetingHandler);
@@ -221,12 +232,25 @@ package gr.ictpro.mall.client.view
 			} else if(type == "getMeetingURL") {
 				removeSignals();
 				if(result != null) {
-					var bbbMeetingView:BBBMeetingView = new BBBMeetingView();
-					var parameters:ViewParameters = new ViewParameters();
-					MeetingComponent(TopBarDetailView(view).editor).vo.url = result;
-					parameters.vo = MeetingComponent(TopBarDetailView(view).editor).vo;
-					addView.dispatch(bbbMeetingView, parameters, view);
-					view.dispose();
+					meetingUrl = result as String;
+					var sharedBoardClass:Class;
+					var meetingType:MeetingType = Meeting(TopBarDetailView(view).editor.vo).meetingType;
+					if(meetingType.internalModule) {
+//						trace(getQualifiedClassName(WhiteboardView));
+						sharedBoardClass = Class(getDefinitionByName(meetingType.clientClass));
+						goToMeeting(sharedBoardClass);
+					} else {
+						var serverURL:String = ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.SERVER_URL)).value;
+						if(serverURL.charAt(serverURL.length-1) != "/") {
+							serverURL = serverURL + "/";
+						}
+						loader = new ExternalMovieLoader(serverURL+"/" + ClientSetting(clientSettingsModel.getItemById(RuntimeSettings.MODULES_PATH)).value+ "/"+ meetingType.url, meetingType.clientClass);
+						injector.injectInto(loader);
+						loader.addEventListener(MovieLoadedEvent.LOADED, loaded);
+						loader.load();
+					}
+					
+					
 				} else {
 					UI.showError("Cannot join Meeting.");
 				}
@@ -241,6 +265,21 @@ package gr.ictpro.mall.client.view
 			}
 		}
 			
+		private function loaded(event:MovieLoadedEvent):void
+		{
+			goToMeeting(event.loadedClass);
+		}
+		
+		private function goToMeeting(sharedBoardClass:Class):void
+		{
+			var bbbMeetingView:BBBMeetingView = new BBBMeetingView();
+			var parameters:ViewParameters = new ViewParameters();
+			MeetingComponent(TopBarDetailView(view).editor).vo.url = meetingUrl;
+			parameters.vo = MeetingComponent(TopBarDetailView(view).editor).vo;
+			parameters['boardClass'] =  sharedBoardClass;
+			addView.dispatch(bbbMeetingView, parameters, view);
+			view.dispose();
+		}
 		
 		private function error(type:String, event:FaultEvent):void
 		{

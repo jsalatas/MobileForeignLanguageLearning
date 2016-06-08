@@ -19,14 +19,10 @@ package gr.ictpro.mall.client.controller
 
 		override public function execute():void
 		{
-			if(selectedNotification.internalModule) {
-				var p: ViewParameters = new ViewParameters();
-				p.initParams = selectedNotification.parameters!= null? JSON.parse(selectedNotification.parameters.toString()): null;
-				p.notification = selectedNotification;
-				addView.dispatch(createInstance(selectedNotification.module), p);
-			} else {
-				//TODO: load external module
-			}
+			var p: ViewParameters = new ViewParameters();
+			p.initParams = selectedNotification.parameters!= null? JSON.parse(selectedNotification.parameters.toString()): null;
+			p.notification = selectedNotification;
+			addView.dispatch(createInstance(selectedNotification.module), p);
 		}
 		
 		public function createInstance(className:String):Object

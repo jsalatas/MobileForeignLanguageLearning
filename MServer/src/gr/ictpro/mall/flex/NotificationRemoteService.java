@@ -53,7 +53,7 @@ public class NotificationRemoteService {
 	for(Meeting m:userMeetings) {
 	    meetingRemoteService.fillBBBMeetingInfo(m);
 	    if((m.getTime().after(first) && m.getTime().before(last) && !(m.getStatus().equals("completed") && m.isRecord())) || m.getStatus().equals("running")) {
-		Notification n = new Notification(m.getName(), m.getMeetingType().getClientClass(), "An Online Meeting is " +(m.getStatus().equals("running")?"in progress":"scheduled"), m.getMeetingType().isInternalModule(), false);
+		Notification n = new Notification(m.getName(), "gr.ictpro.mall.client.view.MeetingView", "An Online Meeting is " +(m.getStatus().equals("running")?"in progress":"scheduled"), m.getMeetingType().isInternalModule(), false);
 		n.setDynamic(true);
 		n.setDate(m.getTime());
 		Map<String, Integer> parameters = new LinkedHashMap<String, Integer>();
