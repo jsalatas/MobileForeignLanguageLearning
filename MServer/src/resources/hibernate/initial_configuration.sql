@@ -199,7 +199,7 @@ BEGIN
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Whiteboard');
 		INSERT IGNORE INTO `english_text` (`english_text`) VALUES('Wrong User Name or Password.');
 		INSERT IGNORE INTO `translation` (`english_text_id`, `language_code`, `translated_text`, `classroom_id`) SELECT `id` AS `english_text_id`, 'en' AS `language_code`, `english_text` AS `translated_text`, 0 AS `classroom_id` FROM english_text;
-		INSERT IGNORE INTO `meeting_type` (`id`, `client_class`, `internalModule`, `name`) VALUES (1,'gr.ictpro.mall.client.view.MeetingView', true, 'Online Collaboration');
+		INSERT IGNORE INTO `meeting_type` (`id`, `client_class`, `internalModule`, `name`) VALUES (1,'gr.ictpro.mall.client.view.components.bbb.WhiteboardView', true, 'Online Collaboration');
 		INSERT INTO `status` (`name`, `value`) VALUES('initialized', '1');
 	END IF;
 END$$
