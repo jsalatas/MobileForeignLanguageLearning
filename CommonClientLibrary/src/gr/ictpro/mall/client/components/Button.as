@@ -3,7 +3,6 @@ package gr.ictpro.mall.client.components
 	import gr.ictpro.mall.client.runtime.Device;
 	
 	import mx.core.InteractionMode;
-	import mx.states.SetStyle;
 	
 	import spark.components.Button;
 	
