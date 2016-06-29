@@ -49,13 +49,12 @@ package gr.ictpro.mall.client.components.menu
 				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Languages"), Icons.icon_languages, LanguagesView)); 
 				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Course Templates"), Icons.icon_template, CourseTemplatesView)); 
 				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Courses"), Icons.icon_course, CoursesView));
-				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Projects"), Icons.icon_project, ProjectsView));
 			}
 
 			if(UserModel.isAdmin(user) || UserModel.isTeacher(user)) {
+				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Projects"), Icons.icon_project, ProjectsView));
 				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Classrooms"), Icons.icon_classrooms, ClassroomsView)); 
 				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Classroom Groups"), Icons.icon_classroomgroup, ClassroomgroupsView)); 
-				res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Projects"), Icons.icon_project, ProjectsView));
 			}
 
 			res.addItem(new MenuItemInternalModule(Device.translations.getTranslation("Meetings"), Icons.icon_meeting, MeetingsView));
