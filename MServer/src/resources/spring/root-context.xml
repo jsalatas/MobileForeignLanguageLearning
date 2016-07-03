@@ -29,5 +29,8 @@
 	
 	<!-- Registration Providers -->
 	<import resource="classpath:/resources/spring/registration-providers.xml"/>
-			
+
+	<!-- External Modules -->
+	<import resource="classpath:/resources/spring/external-modules.xml"/>
+				
 </beans>

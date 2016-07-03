@@ -7,6 +7,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.components.menu.MainMenu;
 	import gr.ictpro.mall.client.controller.DeleteCommand;
 	import gr.ictpro.mall.client.controller.GenericServiceCommand;
+	import gr.ictpro.mall.client.controller.GetExternalModulesCommand;
 	import gr.ictpro.mall.client.controller.GetTranslationsCommand;
 	import gr.ictpro.mall.client.controller.InitializeCommand;
 	import gr.ictpro.mall.client.controller.ListCommand;
@@ -48,6 +49,7 @@ package gr.ictpro.mall.client
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.GetExternalModulesSignal;
 	import gr.ictpro.mall.client.signal.GetTranslationsSignal;
 	import gr.ictpro.mall.client.signal.InitializeSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
@@ -237,6 +239,7 @@ package gr.ictpro.mall.client
 			signalCommandMap.mapSignalClass(ListSignal, ListCommand);
 			signalCommandMap.mapSignalClass(GenericCallSignal, GenericServiceCommand);
 			signalCommandMap.mapSignalClass(GetTranslationsSignal, GetTranslationsCommand);
+			signalCommandMap.mapSignalClass(GetExternalModulesSignal, GetExternalModulesCommand);
 			signalCommandMap.mapSignalClass(SendShapeSignal, SendShapeCommand);
 
 			Device.settings = injector.getInstance(RuntimeSettings);

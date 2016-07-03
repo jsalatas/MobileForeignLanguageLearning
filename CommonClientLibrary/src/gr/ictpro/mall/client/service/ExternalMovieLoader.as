@@ -10,15 +10,12 @@ package gr.ictpro.mall.client.service
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
-	import flash.system.SecurityDomain;
 	import flash.utils.ByteArray;
 	import flash.utils.getDefinitionByName;
 	
 	import mx.collections.ArrayCollection;
 	import mx.core.IVisualElement;
-	import mx.events.ModuleEvent;
 	
-	import spark.modules.ModuleLoader;
 	
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.ServerConnectErrorSignal;

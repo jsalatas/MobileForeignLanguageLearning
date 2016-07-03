@@ -16,6 +16,7 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.signal.AddViewSignal;
 	import gr.ictpro.mall.client.signal.GenericCallErrorSignal;
 	import gr.ictpro.mall.client.signal.GenericCallSuccessSignal;
+	import gr.ictpro.mall.client.signal.GetExternalModulesSignal;
 	import gr.ictpro.mall.client.signal.GetTranslationsSignal;
 	import gr.ictpro.mall.client.signal.ListErrorSignal;
 	import gr.ictpro.mall.client.signal.ListSignal;
@@ -59,6 +60,9 @@ package gr.ictpro.mall.client.controller
 		[Inject]
 		public var messagingService:MessagingService;
 
+		[Inject]
+		public var getExternalModulesSignal:GetExternalModulesSignal;
+		
 		[Inject]
 		public var listSignal:ListSignal;
 		
@@ -108,6 +112,7 @@ package gr.ictpro.mall.client.controller
 				listErrorSignal.add(listError);
 				listSignal.dispatch(Role);
 				listSignal.dispatch(Config);
+				getExternalModulesSignal.dispatch();
 			}
 		}
 		

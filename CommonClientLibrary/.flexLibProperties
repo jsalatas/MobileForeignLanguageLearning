@@ -414,6 +414,8 @@
     <classEntry path="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.UndoButton"/>
     <classEntry path="gr.ictpro.mall.client.service.ExternalMovieLoader"/>
     <classEntry path="gr.ictpro.mall.client.service.MovieLoadedEvent"/>
+    <classEntry path="gr.ictpro.mall.client.controller.GetExternalModulesCommand"/>
+    <classEntry path="gr.ictpro.mall.client.signal.GetExternalModulesSignal"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>
