@@ -2,14 +2,20 @@ package gr.ictpro.mall.client.view
 {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Stage;
+	import flash.display.StageScaleMode;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import mx.core.FlexGlobals;
 	import mx.core.IVisualElement;
 	import mx.core.UIComponent;
+	import mx.events.ResizeEvent;
 	
 	import spark.core.SpriteVisualElement;
 	
 	import gr.ictpro.mall.client.components.Group;
+	import gr.ictpro.mall.client.runtime.Device;
 	import gr.ictpro.mall.client.view.components.bbb.ChatView;
 	import gr.ictpro.mall.client.view.components.bbb.MeetingSettingsView;
 	import gr.ictpro.mall.client.view.components.bbb.ParticipantsView;
@@ -44,17 +50,52 @@ package gr.ictpro.mall.client.view
 			BBBMeetingView(view).container.removeAllElements();
 			if(currentModule is Group) {
 				BBBMeetingView(view).container.addElement(currentModule);
+				view.stage.removeEventListener(ResizeEvent.RESIZE, resizeSharedBoard);
 			} else {
 				var container:UIComponent = new UIComponent();
-				BBBMeetingView(view).container.addElement( container );
-//				container.width = 100;
-//				container.height = 100;
+				BBBMeetingView(view).container.addElement(container);
+				container.width = BBBMeetingView(view).container.width;
+				container.height = BBBMeetingView(view).container.height;
 				container.addChild(currentModule);
-//				currentModule.width = 100;
-//				currentModule.height = 100;
+				var scaleW:Number = container.width / currentModule.width;
+				var scaleH:Number = container.height / currentModule.height;
+				
+				currentModule.width = currentModule.width*Math.min(scaleW, scaleH);
+				currentModule.height = currentModule.height*Math.min(scaleW, scaleH);
+				if(scaleW > scaleH) {
+					currentModule.y = 0;
+					currentModule.x = (FlexGlobals.topLevelApplication.stage.stageWidth - currentModule.width) / 2;   
+				} else {
+					currentModule.x = 0;
+					currentModule.y = (FlexGlobals.topLevelApplication.stage.stageHeight - 30 - currentModule.height) / 2;   
+					
+				}
+
+				view.stage.addEventListener(ResizeEvent.RESIZE, resizeSharedBoard);
+				
 			}
 			this.currentModule = currentModule;
+		}
+		
+		private function resizeSharedBoard(event:Event):void {
+			var scaleW:Number = FlexGlobals.topLevelApplication.stage.stageWidth / currentModule.width;
+			var scaleH:Number = (FlexGlobals.topLevelApplication.stage.stageHeight - Device.getScaledSize(30)) / currentModule.height;
 			
+			currentModule.parent.width = FlexGlobals.topLevelApplication.stage.stageWidth ;
+			currentModule.parent.height = (FlexGlobals.topLevelApplication.stage.stageHeight - Device.getScaledSize(30));
+			
+			currentModule.width = currentModule.width*Math.min(scaleW, scaleH);
+			currentModule.height = currentModule.height*Math.min(scaleW, scaleH);
+			
+			if(scaleW > scaleH) {
+				currentModule.y = 0;
+				currentModule.x = (FlexGlobals.topLevelApplication.stage.stageWidth - currentModule.width) / 2;   
+			} else {
+				currentModule.x = 0;
+				currentModule.y = (FlexGlobals.topLevelApplication.stage.stageHeight - 30 - currentModule.height) / 2;   
+				
+			}
+
 		}
 		
 		override protected function whiteboardClicked(event:MouseEvent):void
