@@ -1,5 +1,8 @@
 package org.bigbluebutton
 {
+	import gr.ictpro.mall.client.components.SharedBoard;
+	import gr.ictpro.mall.client.view.SharedBoardMediator;
+	
 	import org.bigbluebutton.command.CameraQualityCommand;
 	import org.bigbluebutton.command.CameraQualitySignal;
 	import org.bigbluebutton.command.ChangeRoleCommand;
@@ -51,6 +54,10 @@ package org.bigbluebutton
 	
 	public class Context extends ModuleContext
 	{
+		//TODO: For some reason keep unused rsls doesn't seem to work :(
+		public var sbm:SharedBoardMediator; 
+		public var sb:SharedBoard; 
+
 		public function getInjector():IInjector
 		{
 			return injector;
@@ -58,6 +65,7 @@ package org.bigbluebutton
 		
 		override public function startup():void
 		{
+			
 			////////////////////
 			// 1 AppConfig
 			////////////////////

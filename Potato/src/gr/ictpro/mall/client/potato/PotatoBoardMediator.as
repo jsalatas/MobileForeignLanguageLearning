@@ -1,12 +1,12 @@
 ﻿package gr.ictpro.mall.client.potato {
-	import org.robotlegs.mvcs.SignalMediator;
+	import gr.ictpro.mall.client.view.SharedBoardMediator;
 	
-	public class PotatoBoardMediator extends SignalMediator {
+	
+	public class PotatoBoardMediator extends SharedBoardMediator {
 
 		override public function onRegister():void
 		{
 			super.onRegister();
-			trace("@@@@@  Potato Mediator created");
 		}
 
 	}

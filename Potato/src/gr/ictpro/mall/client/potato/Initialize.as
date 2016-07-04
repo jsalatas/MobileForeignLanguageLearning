@@ -3,6 +3,7 @@
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import gr.ictpro.mall.client.components.Module;
+	import gr.ictpro.mall.client.components.SharedBoard;
 	
 	public class Initialize
 	{
@@ -15,7 +16,7 @@
 		[Inject]
 		public function set mediatorMap(mediatorMap:IMediatorMap):void {
 			trace("@@@@@ Injecting PotatoBoard");
-			mediatorMap.mapView(PotatoBoard, PotatoBoardMediator);
+			mediatorMap.mapView(PotatoBoard, PotatoBoardMediator, SharedBoard);
 		}
 		
 	}

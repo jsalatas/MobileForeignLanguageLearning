@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
+    <classEntry path="assets.fxg.add"/>
+    <classEntry path="assets.fxg.adddetail"/>
+    <classEntry path="assets.fxg.back"/>
+    <classEntry path="assets.fxg.book"/>
+    <classEntry path="assets.fxg.butons.circle"/>
+    <classEntry path="assets.fxg.butons.clear"/>
+    <classEntry path="assets.fxg.butons.fitopage"/>
+    <classEntry path="assets.fxg.butons.line"/>
+    <classEntry path="assets.fxg.butons.move"/>
+    <classEntry path="assets.fxg.butons.next"/>
+    <classEntry path="assets.fxg.butons.pencil"/>
+    <classEntry path="assets.fxg.butons.previous"/>
+    <classEntry path="assets.fxg.butons.square"/>
+    <classEntry path="assets.fxg.butons.triangle"/>
+    <classEntry path="assets.fxg.butons.undo"/>
+    <classEntry path="assets.fxg.butons.upload"/>
+    <classEntry path="assets.fxg.calendar"/>
+    <classEntry path="assets.fxg.camera"/>
+    <classEntry path="assets.fxg.cancel"/>
+    <classEntry path="assets.fxg.check"/>
+    <classEntry path="assets.fxg.classroom"/>
+    <classEntry path="assets.fxg.exclamation"/>
+    <classEntry path="assets.fxg.folder"/>
+    <classEntry path="assets.fxg.hand"/>
+    <classEntry path="assets.fxg.headset"/>
+    <classEntry path="assets.fxg.info"/>
+    <classEntry path="assets.fxg.languages"/>
+    <classEntry path="assets.fxg.link"/>
+    <classEntry path="assets.fxg.login"/>
+    <classEntry path="assets.fxg.logout"/>
+    <classEntry path="assets.fxg.meeting"/>
+    <classEntry path="assets.fxg.microphone"/>
+    <classEntry path="assets.fxg.mute"/>
+    <classEntry path="assets.fxg.ok"/>
+    <classEntry path="assets.fxg.profile"/>
+    <classEntry path="assets.fxg.project"/>
+    <classEntry path="assets.fxg.removedetail"/>
+    <classEntry path="assets.fxg.settings"/>
+    <classEntry path="assets.fxg.talking"/>
+    <classEntry path="assets.fxg.template"/>
+    <classEntry path="assets.fxg.textchat"/>
+    <classEntry path="assets.fxg.trashcan"/>
+    <classEntry path="assets.fxg.users"/>
+    <classEntry path="assets.fxg.videochat"/>
+    <classEntry path="assets.fxg.viewdetail"/>
+    <classEntry path="assets.fxg.whiteboard"/>
     <classEntry path="gr.ictpro.mall.client.ClientContext"/>
     <classEntry path="gr.ictpro.mall.client.Icons"/>
     <classEntry path="gr.ictpro.mall.client.components.BasicLayout"/>
@@ -100,6 +146,7 @@
     <classEntry path="gr.ictpro.mall.client.components.skins.ScrollerSkin"/>
     <classEntry path="gr.ictpro.mall.client.controller.DeleteCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.GenericServiceCommand"/>
+    <classEntry path="gr.ictpro.mall.client.controller.GetExternalModulesCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.GetTranslationsCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.InitializeCommand"/>
     <classEntry path="gr.ictpro.mall.client.controller.ListCommand"/>
@@ -165,9 +212,11 @@
     <classEntry path="gr.ictpro.mall.client.service.AuthenticationProviders"/>
     <classEntry path="gr.ictpro.mall.client.service.Channel"/>
     <classEntry path="gr.ictpro.mall.client.service.ExternalModuleLoader"/>
+    <classEntry path="gr.ictpro.mall.client.service.ExternalMovieLoader"/>
     <classEntry path="gr.ictpro.mall.client.service.LoadedSWFs"/>
     <classEntry path="gr.ictpro.mall.client.service.LocalDBStorage"/>
     <classEntry path="gr.ictpro.mall.client.service.MessagingService"/>
+    <classEntry path="gr.ictpro.mall.client.service.MovieLoadedEvent"/>
     <classEntry path="gr.ictpro.mall.client.service.RegistrationProvider"/>
     <classEntry path="gr.ictpro.mall.client.signal.AddViewSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.DeleteErrorSignal"/>
@@ -176,6 +225,7 @@
     <classEntry path="gr.ictpro.mall.client.signal.GenericCallErrorSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.GenericCallSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.GenericCallSuccessSignal"/>
+    <classEntry path="gr.ictpro.mall.client.signal.GetExternalModulesSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.GetTranslationsSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.InitializeSignal"/>
     <classEntry path="gr.ictpro.mall.client.signal.ListErrorSignal"/>
@@ -250,6 +300,7 @@
     <classEntry path="gr.ictpro.mall.client.view.ServerNameViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsView"/>
     <classEntry path="gr.ictpro.mall.client.view.SettingsViewMediator"/>
+    <classEntry path="gr.ictpro.mall.client.view.SharedBoardMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.ShellView"/>
     <classEntry path="gr.ictpro.mall.client.view.ShellViewMediator"/>
     <classEntry path="gr.ictpro.mall.client.view.TopBarCollaborationViewMediator"/>
@@ -412,10 +463,7 @@
     <classEntry path="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.ScribbleButton"/>
     <classEntry path="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.TriangleButton"/>
     <classEntry path="org.bigbluebutton.view.navigation.pages.whiteboard.buttons.UndoButton"/>
-    <classEntry path="gr.ictpro.mall.client.service.ExternalMovieLoader"/>
-    <classEntry path="gr.ictpro.mall.client.service.MovieLoadedEvent"/>
-    <classEntry path="gr.ictpro.mall.client.controller.GetExternalModulesCommand"/>
-    <classEntry path="gr.ictpro.mall.client.signal.GetExternalModulesSignal"/>
+    <classEntry path="gr.ictpro.mall.client.components.SharedBoard"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="assets/fxg/add.fxg" sourcePath="assets/fxg/add.fxg"/>

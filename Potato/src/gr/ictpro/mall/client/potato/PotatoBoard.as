@@ -1,16 +1,17 @@
 ﻿package gr.ictpro.mall.client.potato
 {
-	import flash.display.MovieClip;
-	import gr.ictpro.mall.client.runtime.Device;
-	import flash.geom.Matrix;
+	import gr.ictpro.mall.client.components.SharedBoard;
 	
-	
-	public class PotatoBoard extends MovieClip
+	public class PotatoBoard extends SharedBoard
 	{
 		public function PotatoBoard()
 		{
 			super();
 			trace("@@@@@  Potato View created");
+		}
+		
+		override public function boardUpdated(obj:Object):void {
+			trace("board updated: name = " + obj.name);
 		}
 	}
 }
