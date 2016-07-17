@@ -305,7 +305,7 @@ package org.bigbluebutton.model {
 			_internalUserID = obj.internalUserID;
 			_logoutUrl = obj.logoutUrl;
 			
-			host = _logoutUrl.substr(7);
+			host = _logoutUrl.substr(_logoutUrl.indexOf("https://")!=-1?8:7);
 			if(host.indexOf("/") > -1) {
 				host = host.substr(0,host.indexOf("/")); 
 			}

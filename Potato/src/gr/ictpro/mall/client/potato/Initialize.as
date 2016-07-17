@@ -10,12 +10,10 @@
 		public function Initialize()
 		{
 			super();
-			trace("@@@@@ Initializer Created");
 		}
 		
 		[Inject]
 		public function set mediatorMap(mediatorMap:IMediatorMap):void {
-			trace("@@@@@ Injecting PotatoBoard");
 			mediatorMap.mapView(PotatoBoard, PotatoBoardMediator, SharedBoard);
 		}
 		

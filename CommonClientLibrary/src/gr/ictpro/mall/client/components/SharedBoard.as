@@ -19,7 +19,6 @@ package gr.ictpro.mall.client.components
 		
 		public function boardUpdated(obj:Object):void {
 			// TODO: this needs to be overriden
-			
 		}
 	}
 }
