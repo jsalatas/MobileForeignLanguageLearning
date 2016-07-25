@@ -100,6 +100,7 @@ package gr.ictpro.mall.client.view
 		
 		override protected function whiteboardClicked(event:MouseEvent):void
 		{
+			view.title = Device.translations.getTranslation("Board");
 			if(currentModule == null || !(currentModule is view.parameters['boardClass'])) {
 				showView(new view.parameters['boardClass']());
 			} else {
@@ -109,6 +110,7 @@ package gr.ictpro.mall.client.view
 		
 		override protected function participantsClicked(event:MouseEvent):void
 		{
+			view.title = Device.translations.getTranslation("Participants");
 			if(currentModule == null || !(currentModule is ParticipantsView)) {
 				showView(new ParticipantsView());
 			} else {
@@ -118,6 +120,7 @@ package gr.ictpro.mall.client.view
 
 		override protected function chatClicked(event:MouseEvent):void
 		{
+			view.title = Device.translations.getTranslation("Chat");
 			if(currentModule == null || !(currentModule is ChatView)) {
 				showView(new ChatView());
 			} else {
@@ -127,6 +130,7 @@ package gr.ictpro.mall.client.view
 
 		override protected function videoClicked(event:ShowVideoEvent):void
 		{
+			view.title = Device.translations.getTranslation("Camera");
 			if(currentModule == null || !(currentModule is VideoView)) {
 				var v:VideoView = new VideoView();
 				v.currentUser = event.user;
@@ -138,6 +142,7 @@ package gr.ictpro.mall.client.view
 
 		override protected function settingsClicked(event:MouseEvent):void
 		{
+			view.title = Device.translations.getTranslation("Settings");
 			if(currentModule == null || !(currentModule is MeetingSettingsView)) {
 				var v:MeetingSettingsView = new MeetingSettingsView();
 				showView(v);

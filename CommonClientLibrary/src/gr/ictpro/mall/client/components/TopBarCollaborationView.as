@@ -49,10 +49,12 @@ package gr.ictpro.mall.client.components
 //		protected var mxmlContentGroup:Group; 
 		private var _masterView:IVisualElement;
 		private var _parameters:ViewParameters;
+		private var _groupVideo:Group;
 		private var _groupWhiteboard:Group;
 		private var _groupChat:Group;
 		private var _groupParticipants:Group;
 		private var _groupSettings:Group;
+		private var _disableVideo:Boolean = false; 
 		private var _disableWhiteboard:Boolean = false; 
 		private var _disableChat:Boolean = false; 
 		private var _disableParticipants:Boolean = false; 
@@ -113,6 +115,9 @@ package gr.ictpro.mall.client.components
 			createChildren();
 			if(_disableSettings) {
 				disableSettings();
+			}
+			if(_disableVideo) {
+				disableVideo();
 			}
 			if(_disableWhiteboard) {
 				disableWhiteboard();
@@ -229,6 +234,29 @@ package gr.ictpro.mall.client.components
 				ocgroup.addElement(_groupWhiteboard);
 			}
 			
+			if(videoButton) {
+				var fxgVideo:videochat = new videochat();
+				fxgVideo.width = Device.getScaledSize(22);
+				fxgVideo.height = Device.getScaledSize(12);
+				_groupVideo = new Group();
+				
+				_groupVideo.width = 32;
+				_groupVideo.height = 30;
+				var layout3:HorizontalLayout =  new HorizontalLayout();
+				layout3.paddingTop = 9;
+				layout3.paddingLeft = 7; 
+				layout3.paddingBottom = 9;
+				layout3.paddingRight = 3; 
+				_groupVideo.layout = layout3;
+
+				
+				
+				_groupVideo.addElement(fxgVideo);
+				_groupVideo.addEventListener(MouseEvent.CLICK, videoClickedHandler);
+				
+				ocgroup.addElement(_groupVideo);
+			}
+			
 			if(chatButton) {
 				var fxgChat:textchat = new textchat();
 				fxgChat.width = Device.getScaledSize(16);
@@ -337,7 +365,7 @@ package gr.ictpro.mall.client.components
 			var e:MouseEvent = new MouseEvent("participantsClicked");
 			dispatchEvent(e);
 		}
-		
+
 		public function showVideoSettings(user:User):void
 		{
 			var e:ShowVideoEvent = new ShowVideoEvent(ShowVideoEvent.SHOW_VIDEO,user);
@@ -364,6 +392,21 @@ package gr.ictpro.mall.client.components
 			dispatchEvent(e);
 		}
 		
+		public function disableVideo():void {
+			_disableVideo = true;
+			if(_groupVideo != null) {
+				_groupVideo.getChildAt(0).alpha = 0;
+				_groupVideo.removeEventListener(MouseEvent.CLICK, videoClickedHandler);
+			}
+		}
+		
+		public function enableVideo():void {
+			_disableVideo = false;
+			if(_groupVideo != null) {
+				_groupVideo.getChildAt(0).alpha = 1.0;
+				_groupVideo.addEventListener(MouseEvent.CLICK, videoClickedHandler);
+			}
+		}
 
 		public function disableWhiteboard():void {
 			_disableWhiteboard = true;

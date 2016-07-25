@@ -142,7 +142,7 @@
 				</s:layout>
 				<s:Image width="21" height="25" source="{user.profile.image.source}"/>
 				<s:Label id="username" color="0xFFFFFF" fontSize="{Device.isAndroid?14:16}" fontWeight="normal" text="{user.profile == null?user.username:user.profile.name}" width="100%"/>
-				<s:Group right="5" width="15" height="15" click="switchAvailability(event)">
+				<s:Group right="5" width="15" height="15" click="switchAvailability(event)" visible="false">
 					<s1:Ellipse height="100%" width="100%" >
 						<s1:stroke>
 							<s:SolidColorStroke color="0xffffff" weight="2" alpha="0.7"/>

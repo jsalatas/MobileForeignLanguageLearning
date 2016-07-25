@@ -12,6 +12,8 @@ package gr.ictpro.mall.client.controller
 	import gr.ictpro.mall.client.model.IClientPersistent;
 	import gr.ictpro.mall.client.model.IPersistent;
 	import gr.ictpro.mall.client.model.IServerPersistent;
+	import gr.ictpro.mall.client.model.vo.Calendar;
+	import gr.ictpro.mall.client.model.vo.Schedule;
 	import gr.ictpro.mall.client.model.vomapper.VOMapper;
 	import gr.ictpro.mall.client.service.Channel;
 	import gr.ictpro.mall.client.service.LocalDBStorage;
@@ -86,7 +88,7 @@ package gr.ictpro.mall.client.controller
 		protected function success(event:ResultEvent):void
 		{
 			var model:IPersistent = IPersistent(mapper.getModelforVO(Class(getDefinitionByName(getQualifiedClassName(vo)))));
-			listSignal.dispatch(AbstractModel(model).getVOClass());
+			listSignal.dispatch(AbstractModel(model).getVOClass() == Schedule ? Calendar : AbstractModel(model).getVOClass());
 			saveSuccess.dispatch(Class(getDefinitionByName(getQualifiedClassName(vo))));
 		}
 		

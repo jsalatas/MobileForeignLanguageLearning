@@ -84,6 +84,7 @@ package gr.ictpro.mall.client.view
 			addToSignal(saveErrorSignal, saveError);
 			addToSignal(deleteSuccessSignal, deleteSuccess);
 			addToSignal(deleteErrorSignal, deleteError);
+			listSignal.dispatch(Classroom);
 		}
 		
 		private function getCalendar(id:int):void

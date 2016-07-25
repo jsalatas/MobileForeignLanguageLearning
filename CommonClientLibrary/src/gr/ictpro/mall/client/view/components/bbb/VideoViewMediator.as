@@ -42,8 +42,6 @@ package gr.ictpro.mall.client.view.components.bbb
 		[Inject]
 		public var saveSignal:SaveSignal;
 
-		private var followSpeaker:Boolean = true;
-
 		protected var dataProvider:ArrayCollection;
 
 		override public function onRegister():void {
@@ -52,8 +50,8 @@ package gr.ictpro.mall.client.view.components.bbb
 			addToSignal(view.resolutionChangeSignal, resolutionChangeHandler);
 			addToSignal(view.switchCameraSignal, switchCameraHandler);
 			addToSignal(view.shareMyCameraSignal, shareCameraHandler);
-			followSpeaker = view.currentUser == null;
-			if(followSpeaker) {
+			view.chkFollowSpeaker.selected = view.currentUser == null;
+			if(view.chkFollowSpeaker.selected) {
 				for each (var u:User in userSession.userList.users) {
 					if(u.talking && u.hasStream) {
 						userChangeHandler(u, UserList.TALKING);						
@@ -142,7 +140,7 @@ package gr.ictpro.mall.client.view.components.bbb
 					var videoProfile:VideoProfile = userSession.videoProfileManager.getVideoProfileByStreamName(streamName);
 					trace(videoProfile.width + "x" + videoProfile.height);
 					view.currentUser = user;
-					view.startStream(userSession.videoConnection.connection, user.name, streamName, user.userID, videoProfile.width, videoProfile.height, user.userID == userSession.userList.me.userID && !followSpeaker);
+					view.startStream(userSession.videoConnection.connection, user.name, streamName, user.userID, videoProfile.width, videoProfile.height, user.userID == userSession.userList.me.userID && !view.chkFollowSpeaker.selected);
 					//view.videoGroup.height = view.video.height;
 				}
 			}
