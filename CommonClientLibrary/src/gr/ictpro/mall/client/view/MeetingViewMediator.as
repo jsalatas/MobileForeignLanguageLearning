@@ -359,17 +359,17 @@ package gr.ictpro.mall.client.view
 			var currentUsers:ArrayCollection = TopBarDetailView(view).getDetail("users").list;
 			var toRemove:ArrayCollection = new ArrayCollection();
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
-			if(meetingComponent.chkNow.selected) {
-				for each (var user:User in currentUsers) {
-					if(!filterAvailableUsers(user)) {
-						toRemove.addItem(user);
-					}
-				}
-				
-				for each (var user1:User in toRemove) {
-					currentUsers.removeItemAt(currentUsers.getItemIndex(user1));
-				}
-			}
+//			if(meetingComponent.chkNow.selected) {
+//				for each (var user:User in currentUsers) {
+//					if(!filterAvailableUsers(user)) {
+//						toRemove.addItem(user);
+//					}
+//				}
+//				
+//				for each (var user1:User in toRemove) {
+//					currentUsers.removeItemAt(currentUsers.getItemIndex(user1));
+//				}
+//			}
 		}
 		
 		override protected function validateSave():Boolean {
@@ -408,11 +408,11 @@ package gr.ictpro.mall.client.view
 		
 		override protected function beforeSaveHandler():void {
 			var meetingComponent:MeetingComponent = MeetingComponent(TopBarDetailView(view).editor);
-			if(meetingComponent.chkNow != null && meetingComponent.chkNow.selected) {
-				meetingComponent.vo.time = null;
-			} else {
+//			if(meetingComponent.chkNow != null && meetingComponent.chkNow.selected) {
+//				meetingComponent.vo.time = null;
+//			} else {
 				meetingComponent.vo.time =meetingComponent.time.date;
-			}
+//			}
 			meetingComponent.vo.name = meetingComponent.txtName.text;
 			
 			if(view.currentState == "new") {

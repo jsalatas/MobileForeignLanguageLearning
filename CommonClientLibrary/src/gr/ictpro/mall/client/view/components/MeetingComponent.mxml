@@ -49,14 +49,14 @@
 			
 			protected function chkNow_clickHandler(event:MouseEvent):void
 			{
-				if(chkNow.selected) {
-					time.enabled = false;
-					time.date = null;
-				} else {
-					time.enabled = true;
-					time.date = vo.time;
-				}
-				timeChangedSignal.dispatch();
+//				if(chkNow.selected) {
+//					time.enabled = false;
+//					time.date = null;
+//				} else {
+//					time.enabled = true;
+//					time.date = vo.time;
+//				}
+//				timeChangedSignal.dispatch();
 			}
 			
 			protected function button1_clickHandler(event:MouseEvent):void
@@ -89,9 +89,11 @@
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Start at')}" >
 		<s:DateTimePicker width="100%" id="time" date="{vo.time}"  enabled="{!isReadOnly}" /> 
 	</s:FormItem>
+<!--
 	<s:FormItem width="100%" label="{Device.translations.getTranslation('Now')}" includeIn="new" >
 		<s:CheckBox id="chkNow" click="chkNow_clickHandler(event)" enabled="{!isReadOnly}" /> 
 	</s:FormItem>
+-->	
 	<s:FormItem id="frmRecord" width="100%" label="{Device.translations.getTranslation('Record')}" >
 		<s:CheckBox id="chkRecord" selected="@{vo.record}" />
 	</s:FormItem>
