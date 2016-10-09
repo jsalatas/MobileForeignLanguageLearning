@@ -20,7 +20,7 @@ package org.red5.core;
  */
 
 import org.red5.logging.Red5LoggerFactory;
-import org.red5.server.adapter.MultiThreadedApplicationAdapter;
+import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.scope.IScope;
 //import org.slf4j.Logger;
@@ -30,7 +30,7 @@ import org.red5.server.api.scope.IScope;
  * 
  * @author The Red5 Project (red5@osflash.org)
  */
-public class Application extends MultiThreadedApplicationAdapter {
+public class Application extends ApplicationAdapter {
 	
 	//private static Logger log = Red5LoggerFactory.getLogger(Application.class);
 

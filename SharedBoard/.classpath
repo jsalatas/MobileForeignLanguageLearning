@@ -13,7 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/red5-server/lib/red5-io-1.0.4-RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/red5-server/lib/red5-server-common-1.0.4-RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/red5-server/lib/red5-io-1.0.6-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/red5-server/lib/red5-server-common-1.0.6-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
